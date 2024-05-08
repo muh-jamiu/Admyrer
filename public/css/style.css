@@ -235,7 +235,19 @@ nav li.credit .how_credtss:hover {
 	background: rgb(0 0 0 / 4%);
 }
 nav li.credit .how_credtss svg {
-	margin: -2px 3px 0 0;
+	margin: -12px 3px 0 0;
+}
+
+nav .text_co{
+    background-color: transparent !important;
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 16px;
+    box-shadow: none !important;
+    transform: translateY(-5px);
+}
+
+nav .text_co svg{
+    transform: translateY(-2px);
 }
 nav li.header_user {
 	display: flex;
@@ -6405,3 +6417,6 @@ input#_located:disabled {
 }
 .select-wrapper * { transition: none !important; transform: none !important; }
 ul:not(.browser-default) {transition: none !important;transform: none !important;}
+
+
+.boost-me {margin: 10px 7px;color: #fff;background: linear-gradient(180deg, #FF51EC, #D438DB);height: 32px;width: 32px;display: flex;align-items: center;justify-content: center;border-radius: 50%;padding: 0;box-shadow: 0px 2px 2px rgb(0 0 0 / 6%);}

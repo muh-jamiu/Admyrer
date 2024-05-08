@@ -9,14 +9,14 @@ Login | Admyrer
 
 <div class="dt_login_body">
 	<div class="dt_login_body_inner">
-		<img src="assets/img/login-banner.png" class="login_baner">
-		<img src="assets/img/login-banner-mask.svg" class="login_banner_mask">
-		<img src="assets/img/login-banner-lines.svg" class="login_banner_lines">
+		<img src="/img/login-banner.png" class="login_baner">
+		<img src="/img/login-banner-mask.svg" class="login_banner_mask">
+		<img src="/img/login-banner-lines.svg" class="login_banner_lines">
 		
 		<nav role="navigation">
 			<div class="nav-wrapper">
 				<div class="left header_logo">
-					<a id="logo-container" href="/" class="brand-logo"><img src="assets/img/logo.png" /></a>
+					<a id="logo-container" href="/" class="brand-logo"><img src="/img/logo.png" /></a>
 				</div>
 				<ul class="right not_usr_nav">
 					<li><a href="/login" data-ajax="/login" class="btn p-2 px-4 btn-flat"><?php echo __( 'Login' );?></a></li>

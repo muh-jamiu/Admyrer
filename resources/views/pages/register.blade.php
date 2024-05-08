@@ -20,8 +20,8 @@ Register | Admyrer
 					<a id="logo-container" href="/" class="brand-logo"><img src="assets/img/logo.png" /></a>
 				</div>
 				<ul class="right not_usr_nav">
-					<li><a href="/login" data-ajax="/login" class="btn btn-flat"><?php echo __( 'Login' );?></a></li>
-						<li><a href="/register" data-ajax="/register" class="btn-flat btn white waves-effect"><?php echo __( 'Register' );?></a></li>
+					<li><a href="/login" data-ajax="/login" class="btn p-2 px-4 btn-flat"><?php echo __( 'Login' );?></a></li>
+						<li><a href="/register" data-ajax="/register" class="p-2 px-4 btn-flat btn white waves-effect"><?php echo __( 'Register' );?></a></li>
 				</ul>
 			</div>
 		</nav>
@@ -70,7 +70,7 @@ Register | Admyrer
 								<?php } ?>
 								<label class="terms_check">
 									<input class="filled-in" type="checkbox" onchange="activateButton(this)" />
-									<span><?php echo str_replace(array('{terms}','{privacy}'),array('<a href="/terms" data-ajax="/terms">'.__('terms_of_use').'</a>','<a href="/privacy" data-ajax="/privacy">'.__('privacy_policy').'</a>'),__( 'terms_register_text' )) ;?></span>
+									<span>By Creating your account, you agree to our <a href="/terms">Terms</a> od use & <a href="/privacy">Privacy Policy</a></span>
 								</label>
 								<div class="dt_login_footer valign-wrapper">
 									<button class="btn btn-large waves-effect waves-light bold btn_primary btn_round" id="sign_submit" type="submit" disabled><span><?php echo __( 'Register' );?></span> </button>

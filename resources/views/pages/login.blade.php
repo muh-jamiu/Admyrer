@@ -19,8 +19,8 @@ Login | Admyrer
 					<a id="logo-container" href="/" class="brand-logo"><img src="assets/img/logo.png" /></a>
 				</div>
 				<ul class="right not_usr_nav">
-					<li><a href="/login" data-ajax="/login" class="btn btn-flat"><?php echo __( 'Login' );?></a></li>
-						<li><a href="/register" data-ajax="/register" class="btn-flat btn white waves-effect"><?php echo __( 'Register' );?></a></li>
+					<li><a href="/login" data-ajax="/login" class="btn p-2 px-4 btn-flat"><?php echo __( 'Login' );?></a></li>
+						<li><a href="/register" data-ajax="/register" class="btn-flat p-2 px-4 btn white waves-effect"><?php echo __( 'Register' );?></a></li>
 				</ul>
 			</div>
 		</nav>

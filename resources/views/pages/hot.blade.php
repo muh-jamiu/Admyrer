@@ -261,6 +261,7 @@ Hot Or Not | Admyrer
 	</div>
 </div>
 
+<x-footer></x-footer>
 
 
 @push("javascript")

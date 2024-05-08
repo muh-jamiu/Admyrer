@@ -40,7 +40,7 @@ About | Admyrer
 		
 		<div class="col-sm-9">
 			<div class="dt_settings_bg_wrap">
-				<h2 class="bold terms">
+				<h2 class="bold terms" style="font-size: 22px">
 					<div><?php echo __( 'About us' );?></div>
 				</h2>
 				<div class="dt_terms_content_body terms">
@@ -50,5 +50,8 @@ About | Admyrer
 		</div>
 	</div>
 </div>
+
+
+<x-footer></x-footer>
 <!-- End Terms  -->
 @endsection

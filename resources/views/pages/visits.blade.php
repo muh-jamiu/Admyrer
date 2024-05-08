@@ -261,6 +261,8 @@ Visitors | Admyrer
 	</div>
 </div>
 
+<x-footer></x-footer>
+
 
 
 @push("javascript")

@@ -262,6 +262,7 @@ Gifts | Admyrer
 </div>
 
 
+<x-footer></x-footer>
 
 @push("javascript")
 <script>

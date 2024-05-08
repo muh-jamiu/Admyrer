@@ -47,5 +47,7 @@ Contact Us | Admyrer
 		</div>
 	</div>
 </div>
+
+<x-footer></x-footer>
 <!-- End Contact  -->
 @endsection

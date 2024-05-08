@@ -36,7 +36,7 @@ FAQ | Admyrer
 		
 		<div class="col-sm-9">
 			<div class="dt_settings_bg_wrap">
-				<h2 class="bold terms">
+				<h2 class="bold terms" style="font-size: 22px">
 					<div><?php echo __( 'faqs' );?></div>
 				</h2>
 				<div class="dt_terms_content_body terms dt_faq">
@@ -46,5 +46,7 @@ FAQ | Admyrer
 
 	</div>
 </div>
+
+<x-footer></x-footer>
 
 @endsection

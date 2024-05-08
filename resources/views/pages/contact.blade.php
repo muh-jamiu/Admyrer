@@ -5,6 +5,8 @@ Contact Us | Admyrer
 @endsection
 
 @section("content")
+
+<x-active-navbar></x-active-navbar>
 <div class="container container-fluid container_new">
 	<div class="dt_contact">
 		<div class="dt_settings_bg_wrap">

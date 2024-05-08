@@ -1523,7 +1523,7 @@ color: #433E42;margin: 0 0 30px;}
     background: #86168B;
     font: normal normal normal 20px;
     color: #FFFFFF;
-    height: auto;
+    /* height: auto; */
 }
 .dt_login_footer .btn:hover {
 	background: #6f1273;

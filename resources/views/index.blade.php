@@ -214,7 +214,7 @@ Admyrer | Meet new and interesting people
 			<div class="center-align">
 				<p><?php echo __( 'Anytime & Anywhere' );?></p>
 				<h4>Connect with your perfect Soulmate here, on Admyrer.</h4>
-				<a href="/register" class="waves-effect waves-light bold btn_glossy"><?php echo __( 'Get Started' );?></a>
+				<a href="/register" class="btn waves-effect waves-light bold btn_glossy"><?php echo __( 'Get Started' );?></a>
 			</div>
 		</div>
 	</div>

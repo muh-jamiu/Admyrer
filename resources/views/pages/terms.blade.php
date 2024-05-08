@@ -5,6 +5,9 @@ Terms | Admyrer
 @endsection
 
 @section("content")
+
+<x-active-navbar></x-active-navbar>
+
 <div class="container container-fluid container_new find_matches_cont dt_terms">
 	<div class="row r_margin">
 		<div class="col-sm-3 profile_menu">

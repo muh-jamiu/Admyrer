@@ -26,13 +26,21 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://kit.fontawesome.com/4d349a1f95.js" crossorigin="anonymous"></script>
     <script async src="{{ config('siteConfig.sitewide')['GOOGLE_SCRIPT_URL'] }}"></script>
-    <script src="/js/script.js"></script>
     
     @vite('resources/js/app.js')
 
     <script>
         {!! config('siteConfig.sitewide')['GOOGLE_TAG'] !!}
     </script>
+    
+    <script src="/js/script.js"></script>
+    <script src="/js/materialize.min.js"></script>
+    <script src="/js/chat.js"></script>
+    <script src="/js/functions.js"></script>
+    <script src="/js/agora.js"></script>
+    <script src="/js/plugins.js"></script>
+    <script src="/js/jquery-2.1.1.min.js"></script>
+    <script src="/js/jquery-3.5.1.min.js"></script>
 </head>
 <body>
 

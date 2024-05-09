@@ -22,7 +22,7 @@ Admyrer | Meet new and interesting people
 		</nav>
 	
 		<!-- Top Hero  -->
-		<div class="section header_bg">
+		<div class="section mt-5 header_bg">
 				
 			<div class="home_pz_rel">
 				<h1 class="header">
@@ -35,7 +35,7 @@ Admyrer | Meet new and interesting people
 					</div>
 				<div>
 					<a href="/register" class="btn-large text-white btn waves-effect waves-light btn_primary lighten-1 bold btn_round main-hdr-bttn"><?php echo __( 'Get Started' );?></a>
-					<a href="/about" data-ajax="/about" class="main-know-bttn btn" style="transform: translateX(-20px)"><?php echo __( 'Know More' );?></a>
+					<a href="/about" data-ajax="/about" class="main-know-bttn " style="transform: translateX(-20px);background-color:transparent"><?php echo __( 'Know More' );?></a>
 				</div>
 				
 				<div class="section dt_hdr_filters">
@@ -212,9 +212,9 @@ Admyrer | Meet new and interesting people
 	<div class="container">
 		<div class="dt_get_start">
 			<div class="center-align">
-				<p><?php echo __( 'Anytime & Anywhere' );?></p>
-				<h4>Connect with your perfect Soulmate here, on Admyrer.</h4>
-				<a href="/register" class="waves-effect waves-light bold btn_glossy"><?php echo __( 'Get Started' );?></a>
+				<p class="fs-4 mb-0"><?php echo __( 'Anytime & Anywhere' );?></p>
+				<h2 class="mb-4 fw-semibold">Connect with your perfect Soulmate here, on Admyrer.</h2>
+				<a href="/register" class="btn p-2 waves-effect waves-light bold btn_glossy"><?php echo __( 'Get Started' );?></a>
 			</div>
 		</div>
 	</div>
@@ -226,7 +226,7 @@ Admyrer | Meet new and interesting people
 		<div class="dt_index_footinnr">
 			<div class="top">
 				<div class="row">
-					<div class="col m4">
+					<div class="col-sm-4">
 						<h5><?php echo __( 'Quick Links' );?></h5>
 						<div class="row">
 							<div class="col s6">
@@ -242,7 +242,7 @@ Admyrer | Meet new and interesting people
 							</div>
 						</div>
 					</div>
-					<div class="col m5">
+					<div class="col-sm-5">
 						<h6><?php echo __( 'Always up to date with our latest offers and discounts!' );?></h6>
 						<div class="subscribe_alert"></div>
 						<form class="subscribe">
@@ -250,31 +250,32 @@ Admyrer | Meet new and interesting people
 								<svg xmlns="http://www.w3.org/2000/svg" width="26.183" height="23.803" viewBox="0 0 26.183 23.803"> <path d="M3607.8,1824.306a7.137,7.137,0,0,0-3.963-.238,7.144,7.144,0,0,0-5.392,5.391,7.138,7.138,0,0,0,.239,3.963h-13.5a1.179,1.179,0,0,1-1.19-1.19V1813.19a1.178,1.178,0,0,1,1.19-1.19h21.422a1.179,1.179,0,0,1,1.19,1.19Zm-11.83-1.975-7.629-6.474-1.547,1.809,9.188,7.807,9.021-7.807-1.547-1.809-7.486,6.474Zm10.64,7.522h3.571v2.38h-3.571v3.571h-2.38v-3.571h-3.57v-2.38h3.57v-3.571h2.38Z" transform="translate(-3584 -1812)" fill="currentColor"/> </svg>
 								<input class="browser-default" type="text" placeholder="Enter your email address" id="subscribe_email" />
 							</div>
-							<button type="button" class="subs_btn" onclick="NewsSubscribe()"><?php echo __( 'Sign Up' );?></button>
+							<button type="button" class="subs_btn btn" onclick="NewsSubscribe()"><?php echo __( 'Sign Up' );?></button>
 						</form>
 					</div>
-					<div class="col">
+					<div class="col-sm-3">
 						<h6><?php echo __( 'Follow us!' );?></h6>
 					</div>
 				</div>
 			</div>
+
 			<div class="bottom">
 				<div class="row">
 					<div class="col m8">
 						<div class="row">
-							<div class="col s3">
+							<div class="col-smp3">
 								<div class="dt_foot_langs">
 									<a class="modal-trigger" href="#modal_langs_main">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16.66" height="16.66" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg> <?php echo __( 'Language' );?>
 									</a>
 								</div>
 							</div>
-							<div class="col s3">
+							{{-- <div class="col-sm-3">
 								<a href="/developers" data-ajax="/developers"><?php echo __( 'Developers' );?></a>
-							</div>
+							</div> --}}
 						</div>
 					</div>
-					<div class="col m4">
+					<div class="col-sm-4">
 						<p class="copyright"><?php echo __( 'Copyright' );?> © <?php echo date( "Y" ) ?>. <?php echo __( 'All rights reserved' );?>.</p>
 					</div>
 				</div>

@@ -7,6 +7,8 @@ Matches | Admyrer
 @section("content")
 
 
+<x-main-nav></x-main-nav>
+
 <ul class="collapsible dt_new_home_filter" id="home_filters">
 	<div class="container">
 		<div class="dt_home_filters_head">
@@ -231,7 +233,7 @@ Matches | Admyrer
 	<div class="row r_margin">
 
         {{-- sidiebar --}}
-        <x-dashboard-sidebar></x-dashboard-sidebar>		
+        <x-dashboard-sidebar :matchesactive="true"></x-dashboard-sidebar>		
 
 		<div class="col-sm-9">
 			<!-- Filters  -->
@@ -261,6 +263,8 @@ Matches | Admyrer
 	</div>
 </div>
 
+
+<x-footer></x-footer>
 
 
 @push("javascript")

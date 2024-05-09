@@ -5,6 +5,7 @@ Friends | Admyrer
 @endsection
 
 @section("content")
+<x-main-nav></x-main-nav>
 
 
 <ul class="collapsible dt_new_home_filter" id="home_filters">
@@ -231,7 +232,7 @@ Friends | Admyrer
 	<div class="row r_margin">
 
         {{-- sidiebar --}}
-        <x-dashboard-sidebar></x-dashboard-sidebar>		
+        <x-dashboard-sidebar :friendsactive="true"></x-dashboard-sidebar>		
 
 		<div class="col-sm-9">
 			<!-- Filters  -->
@@ -262,6 +263,7 @@ Friends | Admyrer
 </div>
 
 
+<x-footer></x-footer>
 
 @push("javascript")
 <script>

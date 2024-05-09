@@ -155,7 +155,7 @@ Complete Profile Setup | Admyrer
                         </div>
                         <div class="qd_verfy_pic_wcam row">
                            <div class="col m6">
-                              <img src="/assets/img/img_verification.jpg" id="taken_shot" class="hide">
+                              <img src="/img/img_verification.jpg" id="taken_shot" class="hide">
                            </div>
                            <div class="col m6">
                               <div id="take_snapshot" class="hide">

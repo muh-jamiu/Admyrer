@@ -5,6 +5,9 @@ Terms | Admyrer
 @endsection
 
 @section("content")
+
+<x-active-navbar></x-active-navbar>
+
 <div class="container container-fluid container_new find_matches_cont dt_terms">
 	<div class="row r_margin">
 		<div class="col-sm-3 profile_menu">
@@ -35,7 +38,7 @@ Terms | Admyrer
 		
 		<div class="col-sm-9">
 			<div class="dt_settings_bg_wrap">
-				<h2 class="bold terms">
+				<h2 class="bold terms" style="font-size: 22px">
 					<div><?php echo __( 'Terms of use' );?></div>
 				</h2>
                 <div class="dt_terms_content_body terms">
@@ -45,5 +48,7 @@ Terms | Admyrer
 		</div>
 	</div>
 </div>
+
+<x-footer></x-footer>
 
 @endsection

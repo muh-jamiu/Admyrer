@@ -73,4 +73,6 @@ Blog | Admyrer
 		</div>
     </div>
 </div>
+
+<x-footer></x-footer>
 @endsection

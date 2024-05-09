@@ -235,7 +235,19 @@ nav li.credit .how_credtss:hover {
 	background: rgb(0 0 0 / 4%);
 }
 nav li.credit .how_credtss svg {
-	margin: -2px 3px 0 0;
+	margin: -12px 3px 0 0;
+}
+
+nav .text_co{
+    background-color: transparent !important;
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 16px;
+    box-shadow: none !important;
+    transform: translateY(-5px);
+}
+
+nav .text_co svg{
+    transform: translateY(-2px);
 }
 nav li.header_user {
 	display: flex;
@@ -393,14 +405,15 @@ nav .header_credits_mobi {display:none;}
 nav .show_mobi_login {display:none;}
 nav .header_msg span.badge, nav .header_notifications span.badge {min-width: 18px;
     height: 18px;
-    border-radius: 2em;
-    font: normal normal 500 11px;
+    width: 18px;
+    border-radius: 50%;
+    font-size: 12px;
     position: absolute;
     top: -5px;
-    color: #ffffff;
+    color: red;
     right: -4px;
     margin: 0;
-    padding: 0 5px;background: transparent linear-gradient(180deg, #FF51EC 0%, #D438DB 100%) 0% 0% no-repeat padding-box !important;}
+    padding: 1px;background: transparent !important;}
 nav .not_usr_nav > .black-text {color: #808080 !important;}
 nav .not_usr_nav .btn-flat {text-transform: none;line-height: 33px;}
 .boost-me {margin: 10px 7px;color: #fff;background: linear-gradient(180deg, #FF51EC, #D438DB);height: 32px;width: 32px;display: flex;align-items: center;justify-content: center;border-radius: 50%;padding: 0;box-shadow: 0px 2px 2px rgb(0 0 0 / 6%);}
@@ -1523,7 +1536,7 @@ color: #433E42;margin: 0 0 30px;}
     background: #86168B;
     font: normal normal normal 20px;
     color: #FFFFFF;
-    height: auto;
+    /* height: auto; */
 }
 .dt_login_footer .btn:hover {
 	background: #6f1273;
@@ -6405,3 +6418,6 @@ input#_located:disabled {
 }
 .select-wrapper * { transition: none !important; transform: none !important; }
 ul:not(.browser-default) {transition: none !important;transform: none !important;}
+
+
+.boost-me {margin: 10px 7px;color: #fff;background: linear-gradient(180deg, #FF51EC, #D438DB);height: 32px;width: 32px;display: flex;align-items: center;justify-content: center;border-radius: 50%;padding: 0;box-shadow: 0px 2px 2px rgb(0 0 0 / 6%);}

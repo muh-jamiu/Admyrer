@@ -1,188 +1,189 @@
-@extends("layouts.app")
+@extends("layouts.dashlayout")
 
 @section('title')
-Admin Panel | Admyrer 
+Admin Panel | Admyrer
 @endsection
 
-@section("content")
-<link rel="stylesheet" href="/css/app.css">
+@section("dashboard")
 
-<div class="container-fluid">
-    <div>
-        <h3>DASHBOARD</h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#">Home</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">DASHBOARD</li>
-            </ol>
-        </nav>
-    </div>
-    
-    <div class="row clearfix">
-        <div class="col-md-3">
-          <div class="card">
-              <div class="card-body">
-                  <h6 class="card-title">Online Now</h6>
-                  <div class="d-flex align-items-center mb-3">
-                      <div>
-                          <div class="avatar">
-                              <span class="avatar-title bg-info-bright text-info rounded-pill">
-                                  <i class="material-icons"></i>
-                              </span>
-                          </div>
-                      </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2"></div>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card">
-              <div class="card-body">
-                  <h6 class="card-title">MALE</h6>
-                  <div class="d-flex align-items-center mb-3">
-                      <div>
-                          <div class="avatar">
-                              <span class="avatar-title bg-primary-bright text-primary rounded-pill">
-                                  <i class="material-icons"></i>
-                              </span>
-                          </div>
-                      </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card">
-              <div class="card-body">
-                  <h6 class="card-title">FEMALE</h6>
-                  <div class="d-flex align-items-center mb-3">
-                      <div>
-                          <div class="avatar">
-                              <span class="avatar-title bg-main-bright text-main rounded-pill">
-                                  <i class="material-icons"></i>
-                              </span>
-                          </div>
-                      </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card">
-              <div class="card-body">
-                  <h6 class="card-title">ACTIVE USERS</h6>
-                  <div class="d-flex align-items-center mb-3">
-                      <div>
-                          <div class="avatar">
-                              <span class="avatar-title bg-warning-bright text-warning rounded-pill">
-                                  <i class="material-icons"></i>
-                              </span>
-                          </div>
-                      </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card">
-              <div class="card-body">
-                  <h6 class="card-title">INACTIVE USERS</h6>
-                  <div class="d-flex align-items-center mb-3">
-                      <div>
-                          <div class="avatar">
-                              <span class="avatar-title bg-info-bright text-info rounded-pill">
-                                  <i class="material-icons"></i>
-                              </span>
-                          </div>
-                      </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card">
-              <div class="card-body">
-                  <h6 class="card-title">TOTAL IMAGES</h6>
-                  <div class="d-flex align-items-center mb-3">
-                      <div>
-                          <div class="avatar">
-                              <span class="avatar-title bg-primary-bright text-primary rounded-pill">
-                                  <i class="material-icons"></i>
-                              </span>
-                          </div>
-                      </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card">
-              <div class="card-body">
-                  <h6 class="card-title">Messages</h6>
-                  <div class="d-flex align-items-center mb-3">
-                      <div>
-                          <div class="avatar">
-                              <span class="avatar-title bg-main-bright text-main rounded-pill">
-                                  <i class="material-icons"></i>
-                              </span>
-                          </div>
-                      </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="card">
-              <div class="card-body">
-                  <h6 class="card-title">Reports</h6>
-                  <div class="d-flex align-items-center mb-3">
-                      <div>
-                          <div class="avatar">
-                              <span class="avatar-title bg-warning-bright text-warning rounded-pill">
-                                  <i class="material-icons"></i>
-                              </span>
-                          </div>
-                      </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
-                  </div>
-              </div>
-          </div>
-        </div>
+<x-admin-topbar></x-admin-topbar>
 
-    </div>
-    <!-- #END# Widgets -->
-    <div class="row clearfix">
-        <!-- Bar Chart -->
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="card-body">
-					<div id="dashboard-daterangepicker" class="btn btn-outline-light pull-right">
-                            <?php 
-                            if (!empty($_GET['range']) && in_array($_GET['range'], array('Today','Yesterday','This Week','This Month','Last Month','This Year'))) {
-                                echo $_GET['range'];
-                            }else if (!empty($start) && !empty($end)){
-                                echo $_GET['range'];
-                            }else{
-                                echo 'This Year';
-                            } ?>
+<div class="content-wrapper">
+    <div class="content-body">
+        <div class="content">
+            <div class="container-fluid">
+                <div>
+                    <h3>DASHBOARD</h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">DASHBOARD</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">Online Now</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-info-bright text-info rounded-pill">
+                                                <i class="material-icons"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2"></div>
+                                </div>
+                            </div>
                         </div>
-                    <h6 class="card-title">STATICS</h6>
-                    <div id="admin-chart-container" style="min-width: 100%; height: 400px; margin: 0 auto;"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">MALE</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-primary-bright text-primary rounded-pill">
+                                                <i class="material-icons"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">FEMALE</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-main-bright text-main rounded-pill">
+                                                <i class="material-icons"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">ACTIVE USERS</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-warning-bright text-warning rounded-pill">
+                                                <i class="material-icons"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">INACTIVE USERS</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-info-bright text-info rounded-pill">
+                                                <i class="material-icons"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">TOTAL IMAGES</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-primary-bright text-primary rounded-pill">
+                                                <i class="material-icons"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">Messages</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-main-bright text-main rounded-pill">
+                                                <i class="material-icons"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">Reports</h6>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="avatar">
+                                            <span class="avatar-title bg-warning-bright text-warning rounded-pill">
+                                                <i class="material-icons"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- #END# Widgets -->
+                <div class="row">
+                    <!-- Bar Chart -->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="dashboard-daterangepicker" class="btn btn-outline-light pull-right">
+
+                                </div>
+                                <h6 class="card-title">STATICS</h6>
+                                <div id="admin-chart-container" style="min-width: 100%; height: 400px; margin: 0 auto;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- #END# Bar Chart -->
                 </div>
             </div>
         </div>
-        <!-- #END# Bar Chart -->
     </div>
-    <?php //}?>
 </div>
 
 @push("javascript")
@@ -406,8 +407,7 @@ Admin Panel | Admyrer
         }
     }
     
-    users();
-    </script>
+</script>
 @endpush
 
 @endsection

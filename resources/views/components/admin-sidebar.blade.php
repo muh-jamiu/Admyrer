@@ -1,125 +1,5 @@
 @php
-$pages = array('manage-stickers',
-    'manage-gifts',
-    'add-new-gift',
-    'add-new-sticker',
-    'manage-photos',
-    'general-settings',
-    'dashboard',
-    'site-settings',
-    'dashboard',
-    'site-features',
-    'amazon-settings',
-    'email-settings',
-    'social-login',
-    'chat-settings',
-    'manage-languages',
-    'add-language',
-    'edit-lang',
-    'manage-users',
-    'manage-payments',
-    'manage-profile-fields',
-    'add-new-profile-field',
-    'edit-profile-field',
-    'manage-verification-reqeusts',
-    'payment-reqeuests',
-    'affiliates-settings',
-    'referrals-list',
-    'pro-memebers',
-    'pro-settings',
-    'payments',
-    'payment-settings',
-    'manage-pages',
-    'manage-groups',
-    'manage-posts',
-    'manage-articles',
-    'manage-events',
-    'manage-forum-sections',
-    'manage-forum-forums',
-    'manage-forum-threads',
-    'manage-forum-messages',
-    'create-new-section',
-    'create-new-forum',
-    'manage-movies',
-    'add-new-movies',
-    'manage-games',
-    'add-new-game',
-    'ads-settings',
-    'manage-site-ads',
-    'manage-user-ads',
-    'manage-site-design',
-    'manage-announcements',
-    'mailing-list',
-    'mass-notifications',
-    'ban-users',
-    'generate-sitemap',
-    'manage-invitation-keys',
-    'backups',
-    'manage-custom-pages',
-    'add-new-custom-page',
-    'edit-custom-page',
-    'edit-terms-pages',
-    'manage-reports',
-    'push-notifications-system',
-    'manage-api-access-keys',
-    'verfiy-applications',
-    'manage-updates',
-    'changelog',
-    'online-users',
-    'custom-code',
-    'manage-third-psites',
-    'edit-movie',
-    'auto-delete',
-    'manage-themes',
-    'change-site-desgin',
-    'custom-design',
-    'fake-users',
-    'manage-announcements',
-    'manage-genders',
-    'add-genders',
-    'edit-genders',
-    'bank-receipts',
-    'video-settings',
-    'manage-website-ads',
-
-    'manage-success-stories',
-    'add-success-stories',
-    'edit-success-stories',
-
-    'add-new-article',
-    'edit-new-article',
-    'manage-blog-categories',
-    'edit-article',
-    'edit-blog-category',
-
-    //'manage-user-verification',
-    'push-notifications-system',
-    'edit-user-permissions',
-
-    'affiliates-settings',
-    'payment-requests',
-    'referrals-list',
-    'mock-email',
-
-    'pages-seo',
-
-    'manage-countries',
-    'add-countries',
-    'edit-countries',
-
-    'manage-verification-requests',
-    'live',
-    'manage-invitation',
-    'manage-apps',
-    'auto-like',
-    'manage-faqs',
-    'manage-currencies',
-    'manage_terms_pages',
-    'manage_emails',
-    'system_status',
-);
-
-$page = "dashboard";
+$page = request()->path() ?? "";
 @endphp
 
 <div class="navigation">
@@ -134,7 +14,7 @@ $page = "dashboard";
         <ul>
             
             <li>
-                <a <?php echo ($page=='dashboard' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=dashboard">
+                <a <?php echo ($page=='admin-cp' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=dashboard">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-cubes"></i></i>
                     </span>
@@ -143,16 +23,14 @@ $page = "dashboard";
             </li>
 
 
-            <li <?php echo ($page=='general-settings' || $page=='site-settings' || $page=='video-settings' ||
-                $page=='email-settings' || $page=='social-login' || $page=='site-features' || $page=='amazon-settings'
-                || $page=='live' ) ? 'class="open"' : '' ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_settings">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-gear"></i></i>
                     </span>
                     <span>Settings</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_settings">
                     <li>
                         <a <?php echo ($page=='general-settings' ) ? 'class="active"' : '' ; ?> href=""
                             data-ajax="?path=general-settings">General Configuration
@@ -195,15 +73,14 @@ $page = "dashboard";
                 </ul>
             </li>
 
-            <li <?php echo ($page=='manage-languages' || $page=='add-language' || $page=='edit-lang' ) ? 'class="open"'
-                : '' ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_lang">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-globe"></i></i>
                     </span>
                     <span>Languages</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_lang">
                     <li>
                         <a <?php echo ($page=='add-language' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=add-language">Add
                             New Language & Keys
@@ -217,20 +94,14 @@ $page = "dashboard";
                 </ul>
             </li>
 
-            <li <?php echo ($page=='manage-verification-requests' || $page=='manage-users' ||
-                $page=='affiliates-settings' || $page=='payment-requests' || $page=='referrals-list' ||
-                $page=='edit-user-permissions' || $page=='manage-user-verification' || $page=='manage-genders' ||
-                $page=='add-genders' || $page=='edit-genders' || $page=='manage-profile-fields' ||
-                $page=='add-new-profile-field' || $page=='edit-profile-field' || $page=='manage-success-stories' ||
-                $page=='add-success-stories' || $page=='edit-success-stories' || $page=='manage-countries' ||
-                $page=='add-countries' || $page=='edit-countries' ) ? 'class="open"' : '' ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_user">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-user"></i></i>
                     </span>
                     <span>Users</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_user">
                     <li>
                         <a <?php echo ($page=='manage-users' || $page=='edit-user-permissions' ) ? 'class="active"' : ''
                             ; ?> href=""
@@ -289,16 +160,14 @@ $page = "dashboard";
                 </ul>
             </li>
 
-            <li <?php echo ( $page=='manage-payments' || $page=='payments' || $page=='bank-receipts' ||
-                $page=='payment-settings' || $page=='manage-website-ads' || $page=='manage-currencies' )
-                ? 'class="open"' : '' ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_payment">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-credit-card"></i></i>
                     </span>
                     <span>Payments & Ads</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_payment">
                     <li>
                         <a <?php echo ($page=='payment-settings' ) ? 'class="active"' : '' ; ?> href=""
                             data-ajax="?path=payment-settings">Payment Configuration
@@ -331,14 +200,14 @@ $page = "dashboard";
                 </ul>
             </li>
 
-            <li <?php echo ($page=='manage-photos' ) ? 'class="open"' : '' ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_photos">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
                     </span>
                     <span>Photos</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_photos">
                     <li>
                         <a <?php echo ($page=='manage-photos' ) ? 'class="active"' : '' ; ?> href=""
                             data-ajax="?path=manage-photos">Manage Photos & Videos
@@ -347,14 +216,14 @@ $page = "dashboard";
                 </ul>
             </li>
 
-            <li <?php echo ($page=='manage-stickers' || $page=='add-new-sticker' ) ? 'class="open"' : '' ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_stickers">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
                     </span>
                     <span>Stickers</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_stickers">
                     <li>
                         <a <?php echo ($page=='manage-stickers' ) ? 'class="active"' : '' ; ?> href=""
                             data-ajax="?path=manage-stickers">Manage stickers
@@ -369,15 +238,14 @@ $page = "dashboard";
                 </ul>
             </li>
 
-            <li <?php echo ($page=='manage-articles' || $page=='add-new-article' || $page=='manage-blog-categories' ||
-                $page=='edit-article' ) ? 'class="open"' : '' ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_blogs">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-blog"></i></i>
                     </span>
                     <span>Blogs</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_blogs">
                     <li>
                         <a <?php echo ($page=='manage-articles' || $page=='edit-article' ) ? 'class="active"' : '' ; ?>
                             href=""
@@ -398,14 +266,14 @@ $page = "dashboard";
                 </ul>
             </li>
 
-            <li <?php echo ($page=='manage-gifts' || $page=='add-new-gift' ) ? 'class="open"' : '' ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_gift">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
                     </span>
                     <span>Gifts</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_gift">
                     <li>
                         <a <?php echo ($page=='manage-gifts' ) ? 'class="active"' : '' ; ?> href=""
                             data-ajax="?path=manage-gifts">Manage gifts
@@ -419,15 +287,14 @@ $page = "dashboard";
                 </ul>
             </li>
 
-            <li <?php echo ($page=='manage-themes' || $page=='change-site-desgin' || $page=='custom-design' )
-                ? 'class="open"' : '' ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_design">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-palette"></i></i>
                     </span>
                     <span>Design</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_design">
                     <li>
                         <a <?php echo ($page=='manage-themes' ) ? 'class="active"' : '' ; ?> href=""
                             data-ajax="?path=manage-themes">Themes
@@ -441,16 +308,14 @@ $page = "dashboard";
                 </ul>
             </li>
 
-            <li <?php echo ($page=='fake-users' || $page=='manage-announcements' || $page=='ban-users' ||
-                $page=='mock-email' || $page=='auto-like' || $page=="manage-invitation" ||
-                $page=="manage-invitation-keys" || $page=="manage-apps" ) ? 'class="open"' : '' ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_tool">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-wrench"></i></i>
                     </span>
                     <span>Tools</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_tool">
                     <li>
                         <a <?php echo ($page=='fake-users' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=fake-users">Fake
                             User Generator
@@ -497,16 +362,14 @@ $page = "dashboard";
                 </ul>
             </li>
 
-            <li <?php echo ($page=='edit-terms-pages' || $page=='manage-custom-pages' || $page=='add-new-custom-page' ||
-                $page=='edit-custom-page' || $page=='manage-faqs' || $page=='manage_terms_pages' ) ? 'class="open"' : ''
-                ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_pages">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-file"></i></i>
                     </span>
                     <span>Pages</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_pages">
                     <li>
                         <a <?php echo ($page=='manage-custom-pages' || $page=='add-new-custom-page' ||
                             $page=='edit-custom-page' ) ? 'class="active"' : '' ; ?> href=""
@@ -531,14 +394,14 @@ $page = "dashboard";
                 </ul>
             </li>
             
-            <li <?php echo ($page=='manage-reports' ) ? 'class="open"' : '' ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_report">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-triangle-exclamation"></i></i>
                     </span>
                     <span>Reports</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_report">
                     <li>
                         <a <?php echo ($page=='manage-reports' ) ? 'class="active"' : '' ; ?> href=""
                             data-ajax="?path=manage-reports">Manage Reports
@@ -547,14 +410,14 @@ $page = "dashboard";
                 </ul>
             </li>
             
-            <li <?php echo ( $page=='push-notifications-system' ) ? 'class="open"' : '' ; ?>>
-                <a href="javascript:void(0);">
+            <li>
+                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_api">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-sliders"></i></i>
                     </span>
                     <span>API Settings</span>
                 </a>
-                <ul class="ml-menu">
+                <ul class="collapse" id="c_api">
                     <li>
                         <a <?php echo ($page=='push-notifications-system' ) ? 'class="active"' : '' ; ?> href=""
                             data-ajax="?path=push-notifications-system">Push Notifications Settings

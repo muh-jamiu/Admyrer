@@ -5993,7 +5993,7 @@ body:not(.horizontal-navigation) .navigation .navigation-menu-body ul li > a .ba
 }
 
 body:not(.horizontal-navigation) .navigation .navigation-menu-body ul li > a + ul {
-  display: none;
+  /* display: none; */
 }
 
 body:not(.horizontal-navigation) .navigation .navigation-menu-body ul li > a + ul li a {

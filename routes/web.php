@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,10 @@ Route::get('/stories', [UserController::class, 'stories']);
 Route::get('/live-users', [UserController::class, 'live_users']);
 
 Route::get('/friend-requests', [UserController::class, 'friend_requests']);
+
+//Admin route
+Route::get('/admin-cp', [AdminController::class, 'index']);
+
 
 Route::get('/', function () {
     return view("index");

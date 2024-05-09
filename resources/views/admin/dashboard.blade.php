@@ -29,11 +29,11 @@ Admin Panel | Admyrer
                       <div>
                           <div class="avatar">
                               <span class="avatar-title bg-info-bright text-info rounded-pill">
-                                  <i class="material-icons">account_box</i>
+                                  <i class="material-icons"></i>
                               </span>
                           </div>
                       </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3"></div>
+                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2"></div>
                   </div>
               </div>
           </div>
@@ -46,11 +46,11 @@ Admin Panel | Admyrer
                       <div>
                           <div class="avatar">
                               <span class="avatar-title bg-primary-bright text-primary rounded-pill">
-                                  <i class="material-icons">account_circle</i>
+                                  <i class="material-icons"></i>
                               </span>
                           </div>
                       </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3">0</div>
+                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
                   </div>
               </div>
           </div>
@@ -63,11 +63,11 @@ Admin Panel | Admyrer
                       <div>
                           <div class="avatar">
                               <span class="avatar-title bg-main-bright text-main rounded-pill">
-                                  <i class="material-icons">account_circle</i>
+                                  <i class="material-icons"></i>
                               </span>
                           </div>
                       </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3">0</div>
+                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
                   </div>
               </div>
           </div>
@@ -80,11 +80,11 @@ Admin Panel | Admyrer
                       <div>
                           <div class="avatar">
                               <span class="avatar-title bg-warning-bright text-warning rounded-pill">
-                                  <i class="material-icons">people_outline</i>
+                                  <i class="material-icons"></i>
                               </span>
                           </div>
                       </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3">0</div>
+                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
                   </div>
               </div>
           </div>
@@ -97,11 +97,11 @@ Admin Panel | Admyrer
                       <div>
                           <div class="avatar">
                               <span class="avatar-title bg-info-bright text-info rounded-pill">
-                                  <i class="material-icons">person_outline</i>
+                                  <i class="material-icons"></i>
                               </span>
                           </div>
                       </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3">0</div>
+                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
                   </div>
               </div>
           </div>
@@ -114,11 +114,11 @@ Admin Panel | Admyrer
                       <div>
                           <div class="avatar">
                               <span class="avatar-title bg-primary-bright text-primary rounded-pill">
-                                  <i class="material-icons">image</i>
+                                  <i class="material-icons"></i>
                               </span>
                           </div>
                       </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3">0</div>
+                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
                   </div>
               </div>
           </div>
@@ -131,11 +131,11 @@ Admin Panel | Admyrer
                       <div>
                           <div class="avatar">
                               <span class="avatar-title bg-main-bright text-main rounded-pill">
-                                  <i class="material-icons">mail_outline</i>
+                                  <i class="material-icons"></i>
                               </span>
                           </div>
                       </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3">0</div>
+                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
                   </div>
               </div>
           </div>
@@ -148,11 +148,11 @@ Admin Panel | Admyrer
                       <div>
                           <div class="avatar">
                               <span class="avatar-title bg-warning-bright text-warning rounded-pill">
-                                  <i class="material-icons">report</i>
+                                  <i class="material-icons"></i>
                               </span>
                           </div>
                       </div>
-                      <div class="font-weight-bold ml-1 font-size-30 ml-3">0</div>
+                      <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
                   </div>
               </div>
           </div>

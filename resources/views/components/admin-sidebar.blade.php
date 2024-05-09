@@ -24,11 +24,12 @@ $page = request()->path() ?? "";
 
 
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_settings">
+                <a  style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_settings">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-gear"></i></i>
                     </span>
                     <span>Settings</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_settings">
                     <li>
@@ -74,11 +75,12 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_lang">
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_lang">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-globe"></i></i>
                     </span>
                     <span>Languages</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_lang">
                     <li>
@@ -95,11 +97,12 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_user">
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_user">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-user"></i></i>
                     </span>
                     <span>Users</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_user">
                     <li>
@@ -161,11 +164,12 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_payment">
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_payment">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-credit-card"></i></i>
                     </span>
                     <span>Payments & Ads</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_payment">
                     <li>
@@ -201,11 +205,12 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_photos">
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_photos">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
                     </span>
                     <span>Photos</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_photos">
                     <li>
@@ -217,11 +222,12 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_stickers">
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_stickers">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
                     </span>
                     <span>Stickers</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_stickers">
                     <li>
@@ -239,11 +245,12 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_blogs">
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_blogs">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-blog"></i></i>
                     </span>
                     <span>Blogs</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_blogs">
                     <li>
@@ -267,11 +274,12 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_gift">
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_gift">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
                     </span>
                     <span>Gifts</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_gift">
                     <li>
@@ -288,11 +296,12 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_design">
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_design">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-palette"></i></i>
                     </span>
                     <span>Design</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_design">
                     <li>
@@ -309,11 +318,12 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_tool">
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_tool">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-wrench"></i></i>
                     </span>
                     <span>Tools</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_tool">
                     <li>
@@ -363,11 +373,12 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_pages">
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_pages">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-file"></i></i>
                     </span>
                     <span>Pages</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_pages">
                     <li>
@@ -395,11 +406,12 @@ $page = request()->path() ?? "";
             </li>
             
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_report">
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_report">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-triangle-exclamation"></i></i>
                     </span>
                     <span>Reports</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_report">
                     <li>
@@ -411,11 +423,12 @@ $page = request()->path() ?? "";
             </li>
             
             <li>
-                <a href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_api">
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_api">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-sliders"></i></i>
                     </span>
                     <span>API Settings</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
                 </a>
                 <ul class="collapse" id="c_api">
                     <li>

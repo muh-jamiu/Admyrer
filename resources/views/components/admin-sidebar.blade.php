@@ -136,7 +136,7 @@ $page = "dashboard";
             <li>
                 <a <?php echo ($page=='dashboard' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=dashboard">
                     <span class="nav-link-icon">
-                        <i class="material-icons">dashboard</i>
+                        <i class="material-icons"><i class="fa-solid fa-cubes"></i></i>
                     </span>
                     <span>Dashboard</span>
                 </a>
@@ -148,7 +148,7 @@ $page = "dashboard";
                 || $page=='live' ) ? 'class="open"' : '' ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">settings</i>
+                        <i class="material-icons"><i class="fa-solid fa-gear"></i></i>
                     </span>
                     <span>Settings</span>
                 </a>
@@ -199,7 +199,7 @@ $page = "dashboard";
                 : '' ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">language</i>
+                        <i class="material-icons"><i class="fa-solid fa-globe"></i></i>
                     </span>
                     <span>Languages</span>
                 </a>
@@ -226,7 +226,7 @@ $page = "dashboard";
                 $page=='add-countries' || $page=='edit-countries' ) ? 'class="open"' : '' ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">account_circle</i>
+                        <i class="material-icons"><i class="fa-solid fa-user"></i></i>
                     </span>
                     <span>Users</span>
                 </a>
@@ -294,7 +294,7 @@ $page = "dashboard";
                 ? 'class="open"' : '' ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">money</i>
+                        <i class="material-icons"><i class="fa-solid fa-credit-card"></i></i>
                     </span>
                     <span>Payments & Ads</span>
                 </a>
@@ -334,7 +334,7 @@ $page = "dashboard";
             <li <?php echo ($page=='manage-photos' ) ? 'class="open"' : '' ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">perm_media</i>
+                        <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
                     </span>
                     <span>Photos</span>
                 </a>
@@ -350,7 +350,7 @@ $page = "dashboard";
             <li <?php echo ($page=='manage-stickers' || $page=='add-new-sticker' ) ? 'class="open"' : '' ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">perm_media</i>
+                        <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
                     </span>
                     <span>Stickers</span>
                 </a>
@@ -373,7 +373,7 @@ $page = "dashboard";
                 $page=='edit-article' ) ? 'class="open"' : '' ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">description</i>
+                        <i class="material-icons"><i class="fa-solid fa-blog"></i></i>
                     </span>
                     <span>Blogs</span>
                 </a>
@@ -401,7 +401,7 @@ $page = "dashboard";
             <li <?php echo ($page=='manage-gifts' || $page=='add-new-gift' ) ? 'class="open"' : '' ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">perm_media</i>
+                        <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
                     </span>
                     <span>Gifts</span>
                 </a>
@@ -423,7 +423,7 @@ $page = "dashboard";
                 ? 'class="open"' : '' ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">color_lens</i>
+                        <i class="material-icons"><i class="fa-solid fa-palette"></i></i>
                     </span>
                     <span>Design</span>
                 </a>
@@ -446,7 +446,7 @@ $page = "dashboard";
                 $page=="manage-invitation-keys" || $page=="manage-apps" ) ? 'class="open"' : '' ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">build</i>
+                        <i class="material-icons"><i class="fa-solid fa-wrench"></i></i>
                     </span>
                     <span>Tools</span>
                 </a>
@@ -502,7 +502,7 @@ $page = "dashboard";
                 ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">description</i>
+                        <i class="material-icons"><i class="fa-solid fa-file"></i></i>
                     </span>
                     <span>Pages</span>
                 </a>
@@ -534,7 +534,7 @@ $page = "dashboard";
             <li <?php echo ($page=='manage-reports' ) ? 'class="open"' : '' ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">warning</i>
+                        <i class="material-icons"><i class="fa-solid fa-triangle-exclamation"></i></i>
                     </span>
                     <span>Reports</span>
                 </a>
@@ -550,7 +550,7 @@ $page = "dashboard";
             <li <?php echo ( $page=='push-notifications-system' ) ? 'class="open"' : '' ; ?>>
                 <a href="javascript:void(0);">
                     <span class="nav-link-icon">
-                        <i class="material-icons">compare_arrows</i>
+                        <i class="material-icons"><i class="fa-solid fa-sliders"></i></i>
                     </span>
                     <span>API Settings</span>
                 </a>
@@ -566,7 +566,7 @@ $page = "dashboard";
             <li>
                 <a <?php echo ($page=='system_status' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=system_status">
                     <span class="nav-link-icon">
-                        <i class="material-icons">info</i>
+                        <i class="material-icons"><i class="fa-solid fa-circle-exclamation"></i></i>
                     </span>
                     <span>System Status</span>
                 </a>
@@ -575,7 +575,7 @@ $page = "dashboard";
             <li>
                 <a <?php echo ($page=='changelog' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=changelog">
                     <span class="nav-link-icon">
-                        <i class="material-icons">update</i>
+                        <i class="material-icons"><i class="fa-solid fa-rotate-right"></i></i>
                     </span>
                     <span>Changelogs</span>
                 </a>
@@ -584,12 +584,12 @@ $page = "dashboard";
             <li>
                 <a href="http://docs.quickdatescript.com/#faq" target="_blank">
                     <span class="nav-link-icon">
-                        <i class="material-icons">more_vert</i>
+                        <i class="material-icons"><i class="fa-solid fa-circle-question"></i></i>
                     </span>
                     <span>FAQs</span>
                 </a>
             </li>
-            
+
             <a class="pow_link" href="https://codecanyon.net/item/quickdate-the-ultimate-php-dating-platform/23268605"
                 target="_blank">
                 <p>Powered by</p>

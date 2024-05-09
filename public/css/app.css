@@ -4352,18 +4352,10 @@ body.hidden-navigation .navigation-nicescroll .nicescroll-cursors {
   margin-bottom: 30px;
 }
 
-.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
-  font-family: "themify";
-  content: "\E649";
-  font-size: 10px;
-  margin-right: 0;
+.breadcrumb-item.active{
+  color: red !important;
 }
 
-.breadcrumb .breadcrumb-item:before {
-  font-family: "themify";
-  content: "\E69B";
-  margin-right: 0.5rem;
-}
 
 .breadcrumb .breadcrumb-item.active {
   color: #5066e1;
@@ -5919,6 +5911,11 @@ body:not(.horizontal-navigation) .navigation .navigation-menu-body {
   flex-direction: column;
   padding-top: 30px;
   padding-bottom: 30px;
+  overflow: scroll;
+}
+
+::-webkit-scrollbar{
+  display: none ;
 }
 
 body:not(.horizontal-navigation) .navigation .navigation-menu-body ul li > a {

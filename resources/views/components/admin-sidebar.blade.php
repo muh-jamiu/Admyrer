@@ -119,3 +119,15 @@
         'system_status',
     );
 @endphp
+
+<div class="navigation">
+    <div class="navigation-header">
+        <span>Navigation</span>
+        <a href="#">
+            <i class="ti-close"></i>
+        </a>
+    </div>
+    <div class="navigation-menu-body">
+    </div>
+
+</div>

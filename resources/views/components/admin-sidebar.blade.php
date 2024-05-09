@@ -1,11 +1,13 @@
 @php
 $page = request()->path() ?? "";
+$page = explode('/', $page);
+$page = count($page) > 1 ? $page[1] : $page[0] ;
 @endphp
 
 <div class="navigation">
     <div class="navigation-header">
         <span>Navigation</span>
-        <a href="#">
+        <a href="/admin-cp/#">
             <i class="ti-close"></i>
         </a>
     </div>
@@ -14,7 +16,7 @@ $page = request()->path() ?? "";
         <ul>
             
             <li>
-                <a <?php echo ($page=='admin-cp' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=dashboard">
+                <a <?php echo ($page=='admin-cp' ) ? 'class="active"' : '' ; ?> href="/admin-cp" data-ajax="?path=dashboard">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-cubes"></i></i>
                     </span>
@@ -33,42 +35,42 @@ $page = request()->path() ?? "";
                 </a>
                 <ul class="collapse" id="c_settings">
                     <li>
-                        <a <?php echo ($page=='general-settings' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='general-settings' ) ? 'class="active"' : '' ; ?> href="/admin-cp/general-settings"
                             data-ajax="?path=general-settings">General Configuration
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='site-settings' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='site-settings' ) ? 'class="active"' : '' ; ?> href="/admin-cp/site-settings"
                             data-ajax="?path=site-settings">Website Information
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='site-features' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='site-features' ) ? 'class="active"' : '' ; ?> href="/admin-cp/site-features"
                             data-ajax="?path=site-features">Manage Site Features
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='email-settings' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='email-settings' ) ? 'class="active"' : '' ; ?> href="/admin-cp/email-settings"
                             data-ajax="?path=email-settings">E-mail & SMS Settings
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='video-settings' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='video-settings' ) ? 'class="active"' : '' ; ?> href="/admin-cp//video-settings"
                             data-ajax="?path=video-settings">Chat & Video/Audio
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='social-login' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='social-login' ) ? 'class="active"' : '' ; ?> href="/admin-cp/social-login"
                             data-ajax="?path=social-login">Social Login Settings
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='amazon-settings' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='amazon-settings' ) ? 'class="active"' : '' ; ?> href="/admin-cp/amazon-settings"
                             data-ajax="?path=amazon-settings">File Upload Configuration
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='live' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=live">Setup Live Streaming
+                        <a <?php echo ($page=='live' ) ? 'class="active"' : '' ; ?> href="/admin-cp/live" data-ajax="?path=live">Setup Live Streaming
                         </a>
                     </li>
                 </ul>
@@ -84,12 +86,12 @@ $page = request()->path() ?? "";
                 </a>
                 <ul class="collapse" id="c_lang">
                     <li>
-                        <a <?php echo ($page=='add-language' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=add-language">Add
+                        <a <?php echo ($page=='add-language' ) ? 'class="active"' : '' ; ?> href="/admin-cp/add-language" data-ajax="?path=add-language">Add
                             New Language & Keys
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='manage-languages' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage-languages' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-languages"
                             data-ajax="?path=manage-languages">Manage Languages
                         </a>
                     </li>
@@ -107,58 +109,38 @@ $page = request()->path() ?? "";
                 <ul class="collapse" id="c_user">
                     <li>
                         <a <?php echo ($page=='manage-users' || $page=='edit-user-permissions' ) ? 'class="active"' : ''
-                            ; ?> href=""
+                            ; ?> href="/admin-cp/manage-users"
                             data-ajax="?path=manage-users">Manage Users
                         </a>
                     </li>
                     <li>
                         <a <?php echo ($page=='manage-genders' || $page=='add-genders' || $page=='edit-genders' )
-                            ? 'class="active"' : '' ; ?> href=""
+                            ? 'class="active"' : '' ; ?> href="/admin-cp/manage-genders"
                             data-ajax="?path=manage-genders">Manage Genders
                         </a>
                     </li>
                     <li>
                         <a <?php echo ($page=='manage-countries' || $page=='add-countries' || $page=='edit-countries' )
-                            ? 'class="active"' : '' ; ?> href=""
+                            ? 'class="active"' : '' ; ?> href="/admin-cp/manage-countries"
                             data-ajax="?path=manage-countries">Manage Countries
                         </a>
                     </li>
                     <li>
                         <a <?php echo ($page=='manage-profile-fields' || $page=='add-new-profile-field' ||
-                            $page=='edit-profile-field' ) ? 'class="active"' : '' ; ?> href=""
+                            $page=='edit-profile-field' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-profile-fields"
                             data-ajax="?path=manage-profile-fields">Manage Custom Profile Fields
                         </a>
                     </li>
                     <li>
                         <a <?php echo ($page=='manage-success-stories' || $page=='add-success-stories' ||
-                            $page=='edit-success-stories' ) ? 'class="active"' : '' ; ?> href=""
+                            $page=='edit-success-stories' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-success-stories"
                             data-ajax="?path=manage-success-stories">Manage Success Stories
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='manage-verification-requests' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage-verification-requests' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-verification-requests"
                             data-ajax="?path=manage-verification-requests">Manage Verification Requests
                         </a>
-                    </li>
-                    <li>
-                        <a <?php echo ($page=='affiliates-settings' || $page=='payment-requests' ||
-                            $page=='referrals-list' ) ? 'class="open"' : '' ; ?> href="javascript:void(0);">Affiliates
-                            System</a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a <?php echo ($page=='affiliates-settings' ) ? 'class="active"' : '' ; ?> href=""
-                                    data-ajax="?path=affiliates-settings">
-                                    <span>Affiliates Settings</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a <?php echo ($page=='payment-requests' || $page=='referrals-list' ) ? 'class="active"'
-                                    : '' ; ?> href=""
-                                    data-ajax="?path=payment-requests">
-                                    <span>Payment Requests</span>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </li>
@@ -173,54 +155,13 @@ $page = request()->path() ?? "";
                 </a>
                 <ul class="collapse" id="c_polls">
                     <li>
-                        <a href=""
+                        <a href="/admin-cp/"
                             data-ajax="?path=manage-users">Create Polls
                         </a>
                     </li>
                     <li>
-                        <a href=""
+                        <a href="/admin-cp/"
                             data-ajax="?path=manage-genders">Manage Polls
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li>
-                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_payment">
-                    <span class="nav-link-icon">
-                        <i class="material-icons"><i class="fa-solid fa-credit-card"></i></i>
-                    </span>
-                    <span>Payments & Ads</span>
-                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
-                </a>
-                <ul class="collapse" id="c_payment">
-                    <li>
-                        <a <?php echo ($page=='payment-settings' ) ? 'class="active"' : '' ; ?> href=""
-                            data-ajax="?path=payment-settings">Payment Configuration
-                        </a>
-                    </li>
-                    <li>
-                        <a <?php echo ($page=='payments' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=payments">Payments
-                        </a>
-                    </li>
-                    <li>
-                        <a <?php echo ($page=='manage-payments' ) ? 'class="active"' : '' ; ?> href=""
-                            data-ajax="?path=manage-payments">Manage Payments
-                        </a>
-                    </li>
-                    <li>
-                        <a <?php echo ($page=='manage-currencies' ) ? 'class="active"' : '' ; ?> href=""
-                            data-ajax="?path=manage-currencies">Manage Currencies
-                        </a>
-                    </li>
-                    <li>
-                        <a <?php echo ($page=='bank-receipts' ) ? 'class="active"' : '' ; ?> href=""
-                            data-ajax="?path=bank-receipts">Manage bank receipts
-                        </a>
-                    </li>
-                    <li>
-                        <a <?php echo ($page=='manage-website-ads' ) ? 'class="active"' : '' ; ?> href=""
-                            data-ajax="?path=manage-website-ads">Manage Website Ads
                         </a>
                     </li>
                 </ul>
@@ -236,7 +177,7 @@ $page = request()->path() ?? "";
                 </a>
                 <ul class="collapse" id="c_photos">
                     <li>
-                        <a <?php echo ($page=='manage-photos' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage-photos' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-photos"
                             data-ajax="?path=manage-photos">Manage Photos & Videos
                         </a>
                     </li>
@@ -253,12 +194,12 @@ $page = request()->path() ?? "";
                 </a>
                 <ul class="collapse" id="c_stickers">
                     <li>
-                        <a <?php echo ($page=='manage-stickers' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage-stickers' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-stickers"
                             data-ajax="?path=manage-stickers">Manage stickers
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='add-new-sticker' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='add-new-sticker' ) ? 'class="active"' : '' ; ?> href="/admin-cp/add-new-sticker"
                             data-ajax="?path=add-new-sticker">
                             Add New sticker
                         </a>
@@ -277,17 +218,17 @@ $page = request()->path() ?? "";
                 <ul class="collapse" id="c_blogs">
                     <li>
                         <a <?php echo ($page=='manage-articles' || $page=='edit-article' ) ? 'class="active"' : '' ; ?>
-                            href=""
+                            href="/admin-cp/manage-articles"
                             data-ajax="?path=manage-articles">Manage Blog
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='manage-blog-categories' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage-blog-categories' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-blog-categories"
                             data-ajax="?path=manage-blog-categories">Blog categories
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='add-new-article' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='add-new-article' ) ? 'class="active"' : '' ; ?> href="/admin-cp/add-new-article"
                             data-ajax="?path=add-new-article">
                             Add New article
                         </a>
@@ -305,12 +246,12 @@ $page = request()->path() ?? "";
                 </a>
                 <ul class="collapse" id="c_gift">
                     <li>
-                        <a <?php echo ($page=='manage-gifts' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage-gifts' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-gifts"
                             data-ajax="?path=manage-gifts">Manage gifts
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='add-new-gift' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=add-new-gift">
+                        <a <?php echo ($page=='add-new-gift' ) ? 'class="active"' : '' ; ?> href="/admin-cp/add-new-gift" data-ajax="?path=add-new-gift">
                             Add New Gift
                         </a>
                     </li>
@@ -327,12 +268,12 @@ $page = request()->path() ?? "";
                 </a>
                 <ul class="collapse" id="c_design">
                     <li>
-                        <a <?php echo ($page=='manage-themes' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage-themes' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-themes"
                             data-ajax="?path=manage-themes">Themes
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='change-site-desgin' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='change-site-desgin' ) ? 'class="active"' : '' ; ?> href="/admin-cp/change-site-design"
                             data-ajax="?path=change-site-desgin">Change Site Design
                         </a>
                     </li>
@@ -349,45 +290,45 @@ $page = request()->path() ?? "";
                 </a>
                 <ul class="collapse" id="c_tool">
                     <li>
-                        <a <?php echo ($page=='fake-users' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=fake-users">Fake
+                        <a <?php echo ($page=='fake-users' ) ? 'class="active"' : '' ; ?> href="/admin-cp/" data-ajax="?path=fake-users">Fake
                             User Generator
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='manage-announcements' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage-announcements' ) ? 'class="active"' : '' ; ?> href="/admin-cp/"
                             data-ajax="?path=manage-announcements">Announcements
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='ban-users' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=ban-users">BlackList
+                        <a <?php echo ($page=='ban-users' ) ? 'class="active"' : '' ; ?> href="/admin-cp/" data-ajax="?path=ban-users">BlackList
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='mock-email' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=mock-email">Send
+                        <a <?php echo ($page=='mock-email' ) ? 'class="active"' : '' ; ?> href="/admin-cp/" data-ajax="?path=mock-email">Send
                             E-mail
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='manage-invitation' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage-invitation' ) ? 'class="active"' : '' ; ?> href="/admin-cp/"
                             data-ajax="?path=manage-invitation">Users Invitation
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='manage-invitation-keys' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage-invitation-keys' ) ? 'class="active"' : '' ; ?> href="/admin-cp/"
                             data-ajax="?path=manage-invitation-keys">Invitation Codes
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='manage-apps' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage-apps' ) ? 'class="active"' : '' ; ?> href="/admin-cp/"
                             data-ajax="?path=manage-apps">Applications
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='auto-like' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=auto-like">Auto Like
+                        <a <?php echo ($page=='auto-like' ) ? 'class="active"' : '' ; ?> href="/admin-cp/" data-ajax="?path=auto-like">Auto Like
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='manage_emails' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage_emails' ) ? 'class="active"' : '' ; ?> href="/admin-cp/"
                             data-ajax="?path=manage_emails">Manage Emails
                         </a>
                     </li>
@@ -405,22 +346,22 @@ $page = request()->path() ?? "";
                 <ul class="collapse" id="c_pages">
                     <li>
                         <a <?php echo ($page=='manage-custom-pages' || $page=='add-new-custom-page' ||
-                            $page=='edit-custom-page' ) ? 'class="active"' : '' ; ?> href=""
+                            $page=='edit-custom-page' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-custom-pages"
                             data-ajax="?path=manage-custom-pages">Manage Custom Pages
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='manage_terms_pages' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage_terms_pages' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage_terms_pages"
                             data-ajax="?path=manage_terms_pages">Manage Terms Pages
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='pages-seo' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=pages-seo">Edit Pages
+                        <a <?php echo ($page=='pages-seo' ) ? 'class="active"' : '' ; ?> href="/admin-cp/pages-seo" data-ajax="?path=pages-seo">Edit Pages
                             SEO Information
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='manage-faqs' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=manage-faqs">Manage
+                        <a <?php echo ($page=='manage-faqs' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-faqs" data-ajax="?path=manage-faqs">Manage
                             FAQs
                         </a>
                     </li>
@@ -437,7 +378,7 @@ $page = request()->path() ?? "";
                 </a>
                 <ul class="collapse" id="c_report">
                     <li>
-                        <a <?php echo ($page=='manage-reports' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='manage-reports' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-reports"
                             data-ajax="?path=manage-reports">Manage Reports
                         </a>
                     </li>
@@ -454,7 +395,7 @@ $page = request()->path() ?? "";
                 </a>
                 <ul class="collapse" id="c_api">
                     <li>
-                        <a <?php echo ($page=='push-notifications-system' ) ? 'class="active"' : '' ; ?> href=""
+                        <a <?php echo ($page=='push-notifications-system' ) ? 'class="active"' : '' ; ?> href="/admin-cp/push-notifications-system"
                             data-ajax="?path=push-notifications-system">Push Notifications Settings
                         </a>
                     </li>
@@ -462,7 +403,7 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
-                <a <?php echo ($page=='system_status' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=system_status">
+                <a <?php echo ($page=='system_status' ) ? 'class="active"' : '' ; ?> href="/admin-cp/system_status" data-ajax="?path=system_status">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-circle-exclamation"></i></i>
                     </span>
@@ -471,7 +412,7 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
-                <a <?php echo ($page=='changelog' ) ? 'class="active"' : '' ; ?> href="" data-ajax="?path=changelog">
+                <a <?php echo ($page=='changelog' ) ? 'class="active"' : '' ; ?> href="/admin-cp/changelog" data-ajax="?path=changelog">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-rotate-right"></i></i>
                     </span>

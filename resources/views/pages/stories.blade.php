@@ -232,7 +232,7 @@ Success stories | Admyrer
 	<div class="row r_margin">
 
         {{-- sidiebar --}}
-        <x-dashboard-sidebar></x-dashboard-sidebar>		
+        <x-dashboard-sidebar :storiesactive="true"></x-dashboard-sidebar>		
 
 		<div class="col-sm-9">
 			<!-- Filters  -->

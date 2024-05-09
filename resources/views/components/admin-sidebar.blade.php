@@ -164,6 +164,28 @@ $page = request()->path() ?? "";
             </li>
 
             <li>
+                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_polls">
+                    <span class="nav-link-icon">
+                        <i class="material-icons"><i class="fa-solid fa-square-poll-horizontal"></i></i>
+                    </span>
+                    <span>Polls</span>
+                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
+                </a>
+                <ul class="collapse" id="c_polls">
+                    <li>
+                        <a href=""
+                            data-ajax="?path=manage-users">Create Polls
+                        </a>
+                    </li>
+                    <li>
+                        <a href=""
+                            data-ajax="?path=manage-genders">Manage Polls
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_payment">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-credit-card"></i></i>

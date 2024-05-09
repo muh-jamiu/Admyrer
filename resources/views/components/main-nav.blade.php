@@ -1,5 +1,5 @@
 
-<nav role="navigation" class="bg-white" id="nav-logged-in">
+<nav role="navigation" class="bg-white" id="nav-logged-in" style="box-shadow: none; border-bottom: none">
     <div class="nav-wrapper container container_new">
         
         <span class="left dt_slide_menu hide" id="open_slide" onclick="SlideEraseCookie('open_slide')">
@@ -20,7 +20,7 @@
                 </li>
             </ul>
             <ul class="right">
-                <li class="">
+                {{-- <li class="">
                     <a href="javascript:void(0);">                        
                         <div class="btn text_co">
                             <span class="text-dark"><?php echo __( 'Credit' );?></span>&nbsp;&nbsp;
@@ -28,7 +28,7 @@
                             <span class="text-dark" id="credit_amount">10 </span>
                         </div>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="header_msg">
                     <a href="javascript:void(0);" id="messenger_opener" class="btn-flat">
@@ -54,9 +54,9 @@
                     </ul>
                 </li>
                 <li class="header_user">
-                    <div class="boost-div">
+                    {{-- <div class="boost-div">
                         <button title='<?php echo __('Boost me!');?>' id='boost_btn' class='btn boost-me'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 493.944 493.944"><path fill="currentColor" d="M367.468,175.996c-3.368-5.469-9.317-8.807-15.734-8.807h-84.958l45.919-143.098  c1.797-5.614,0.816-11.76-2.662-16.521c-3.464-4.748-9.014-7.57-14.9-7.57h-84.446c-8.02,0-15.125,5.18-17.563,12.814  l-68.487,213.465c-1.797,5.613-0.817,11.756,2.663,16.52c3.464,4.748,9.013,7.57,14.899,7.57h14.868h68.183l-22.006,235.037  c-0.352,3.736,2.004,7.185,5.614,8.227c3.593,1.045,7.427-0.608,9.126-3.961L368.19,194.01  C371.093,188.281,370.82,181.467,367.468,175.996z" /></svg></button>
-                    </div>
+                    </div> --}}
                     
                     <a href="javascript:void(0);" data-target="user_dropdown" class="dropdown-trigger btn-flat">
                         <img src="" /> <span><?php echo __( 'Hi,' );?> Jamiu</span> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"/></svg>

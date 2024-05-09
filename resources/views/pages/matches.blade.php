@@ -7,6 +7,8 @@ Matches | Admyrer
 @section("content")
 
 
+<x-main-nav></x-main-nav>
+
 <ul class="collapsible dt_new_home_filter" id="home_filters">
 	<div class="container">
 		<div class="dt_home_filters_head">

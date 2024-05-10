@@ -55,6 +55,7 @@ class UserController extends Controller
             abort(404);
         }
         $data["user"] = $userProf;
+        $data["loginUser"] = $this->getUser(session("admyrer_id"));
         return view("pages.show", compact("data"));
     }
 

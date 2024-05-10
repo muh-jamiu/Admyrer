@@ -2,6 +2,7 @@
 
 @php
 	$user = $data["user"] ?? [];
+	$loginUser = $data["loginUser"] ?? [];
 @endphp
 
 @section('title')
@@ -10,7 +11,7 @@ Find Matches | Admyrer
 
 @section("content")
 
-<x-main-nav :user="$user"></x-main-nav>
+<x-main-nav :user="$loginUser"></x-main-nav>
 
     <script>
         var meta = document.createElement('meta');

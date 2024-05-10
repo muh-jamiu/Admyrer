@@ -23,7 +23,7 @@
                     <a class="avatar" href="/" data-ajax=""><img src="" class="circle" alt="" /></a>
                 </div>
                 <span>
-                    <h3 class="text-capitalize"><a href="" data-ajax="">jamiu ganiu</a></h3>
+                    <h3 class="text-capitalize"><a href="" data-ajax="">{{$user->first_name ." ". $user->last_name}}</a></h3>
                     <p class="text-capitalize"><a href="/popularity" data-ajax="/popularity"><?php echo __( 'Popularity' );?>: <b>dey play</b></a></p>
                     <div>
                         <a href="/popularity" data-ajax="/popularity" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13,20H11V8L5.5,13.5L4.08,12.08L12,4.16L19.92,12.08L18.5,13.5L13,8V20Z" /></svg> <?php echo __( 'Increase' );?> <?php echo __( 'Popularity' );?></a>

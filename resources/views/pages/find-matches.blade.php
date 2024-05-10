@@ -1,12 +1,16 @@
 @extends("layouts.app")
 
+@php
+	$user = $data["user"] ?? [];
+@endphp
+
 @section('title')
 Find Matches | Admyrer 
 @endsection
 
 @section("content")
 
-<x-main-nav></x-main-nav>
+<x-main-nav :user="$user"></x-main-nav>
 
 <ul class="collapsible dt_new_home_filter" id="home_filters">
 	<div class="container">
@@ -239,7 +243,7 @@ Find Matches | Admyrer
 	<div class="row r_margin">
 
         {{-- sidiebar --}}
-        <x-dashboard-sidebar :findActive="true"></x-dashboard-sidebar>		
+        <x-dashboard-sidebar :findActive="true" :user="$user"></x-dashboard-sidebar>		
 
 		<div class="col-sm-9">
 			<!-- Filters  -->

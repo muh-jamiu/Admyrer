@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index(){
-        return view("pages.find-matches");
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.find-matches", compact("data"));
     }
 
     public function matches(){
@@ -107,5 +108,14 @@ class UserController extends Controller
         }
         
         return back()->with("msg", "something went wrong");
+    }
+
+    public function getUser($id){        
+       $user = User::find($id);
+        return $user;
+    }
+
+    public function logOut(){
+        session()->pull("admyrer_id");
     }
 }

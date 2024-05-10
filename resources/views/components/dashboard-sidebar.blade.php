@@ -102,7 +102,7 @@
                 </a>
             </li>
                 <li>
-                    <a href="/live-users" data-ajax="/live-users" class="">
+                    <a href="#live-users" data-ajax="/live-users" class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M17 9.2l5.213-3.65a.5.5 0 0 1 .787.41v12.08a.5.5 0 0 1-.787.41L17 14.8V19a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v4.2zm0 3.159l4 2.8V8.84l-4 2.8v.718zM3 6v12h12V6H3zm2 2h2v2H5V8z"></path></svg> <?php echo __( 'Live Videos' );?>
                     </a>
                 </li>
@@ -119,5 +119,53 @@
                 </li>
         </ul>
     </div>
-    {{-- <?php require( $theme_path . 'main' . $_DS . 'sidebar.php' );?> --}}
 </div>
+
+{{-- 
+<video autoplay onclick="startCall()" id="localVideo" style="width: 400px; height:400px; border:1px solid red"></video>
+<video autoplay onclick="stopCall()" id="remoteVideo" style="width: 400px; height:400px; border:1px solid blue"></video> --}}
+
+@push("javascript")
+<script>
+    const localVideo = document.getElementById('localVideo');
+    const remoteVideo = document.getElementById('remoteVideo');
+
+    function startCall (){
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+        .then(stream => {
+            localVideo.srcObject = stream;
+
+            const configuration = {
+                iceServers: [
+                    { urls: 'stun:stun.l.google.com:19302' } // STUN server for NAT traversal
+                ]
+            };
+
+            const peerConnection = new RTCPeerConnection(configuration);
+            stream.getTracks().forEach(track => peerConnection.addTrack(track, stream));
+
+            peerConnection.ontrack = event => {
+                remoteVideo.srcObject = event.streams[0];
+            };
+
+            // Signaling logic (connecting to signaling server, exchanging SDP offers and answers, ICE candidates, etc.) would go here
+        })
+        .catch(error => console.error('getUserMedia error:', error));
+
+    }
+
+    function stopCall(){
+        const stream = localVideo.srcObject;
+        const tracks = stream.getTracks();
+
+        tracks.forEach(track => track.stop());
+
+        localVideo.srcObject = null;
+        remoteVideo.srcObject = null;
+
+        // peerConnection.close();
+        // peerConnection = null;
+    }
+
+</script>
+@endpush

@@ -318,9 +318,11 @@ Find Matches | Admyrer
 	var s_img = document.querySelector(".s_img");
 	var s_link = document.querySelector(".s_link");
 	var index = 0
+	usr_thumb[index].classList.add("isActive")
 
 	function like(){
 		usr_thumb[index].classList.add("d-none");
+		usr_thumb[index + 1].classList.add("isActive")
 		index += 1
 		s_name.innerHTML = h_name[index].innerHTML
 		s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
@@ -335,6 +337,7 @@ Find Matches | Admyrer
 
 	function dislike(){
 		usr_thumb[index].classList.add("d-none");
+		usr_thumb[index + 1].classList.add("isActive")
 		index += 1
 		s_name.innerHTML = h_name[index].innerHTML
 		s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML

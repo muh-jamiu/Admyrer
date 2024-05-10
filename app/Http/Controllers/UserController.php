@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -174,4 +175,20 @@ class UserController extends Controller
        return $data;
     }
 
+    public function post_disliked(Like $like){
+        $like->user_id = request()->userId ;
+        $like->like_id = request()->like_id ;
+        $like->is_disliked = true;
+        $like->save();
+
+        return true;
+    }
+
+    public function post_like(Like $like){
+        $like->user_id = request()->userId ;
+        $like->like_id = request()->like_id ;
+        $like->is_liked = true;
+        $like->save();
+        return true;
+    }
 }

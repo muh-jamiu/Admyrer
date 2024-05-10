@@ -17,6 +17,7 @@
                                 <span class="text-capitalize h_body">{{$user->body}}</span>
                                 <span class="text-capitalize h_age">{{$user->age}}</span>
                                 <span class="text-capitalize h_loc">{{$user->country}}</span>
+                                <span class="text-capitalize h_Id">{{$user->id}}</span>
                             </div>
                             <img class="h_img" alt="" src={{$user->avatar}} loading="lazy">
                             <p class="text-capitalize h_username text-center">{{$user->username}}</p>

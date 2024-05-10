@@ -43,6 +43,7 @@
     <script src="/js/jquery-3.5.1.min.js"></script>
 </head>
 <body>
+    <img src="/img/login-banner-mask.svg" class="body_banner_mask">
 
     @yield("content")
     

@@ -19,6 +19,10 @@ Route::post('/login', [UserController::class, 'loginUser']);
 
 Route::post('/register', [UserController::class, 'registerUser']);
 
+Route::post('/like', [UserController::class, 'post_like']);
+
+Route::post('/disliked', [UserController::class, 'post_disliked']);
+
 Route::get('/@{username}', [UserController::class, 'show'])->middleware("notLogin");
 
 Route::get('/find-matches', [UserController::class, 'index'])->middleware("notLogin");

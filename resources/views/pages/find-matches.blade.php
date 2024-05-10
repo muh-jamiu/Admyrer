@@ -244,7 +244,8 @@ Find Matches | Admyrer
 	<div class="row r_margin">
 
         {{-- sidiebar --}}
-        <x-dashboard-sidebar :findActive="true" :user="$user"></x-dashboard-sidebar>		
+        <x-dashboard-sidebar :findActive="true" :user="$user"></x-dashboard-sidebar>	
+		<p class="d-none curr_ID">{{$user->id}}</p>	
 
 		<div class="col-sm-9">
 			<!-- Filters  -->
@@ -306,6 +307,7 @@ Find Matches | Admyrer
 	var h_height = document.querySelectorAll(".h_height");
 	var h_username = document.querySelectorAll(".h_username");
 	var h_img = document.querySelectorAll(".h_img");
+	var h_Id = document.querySelectorAll(".h_Id");
 
 	var s_relationship = document.querySelector(".s_relationship");
 	var s_name = document.querySelector(".s_name");
@@ -317,6 +319,7 @@ Find Matches | Admyrer
 	var s_username = document.querySelector(".s_username");
 	var s_img = document.querySelector(".s_img");
 	var s_link = document.querySelector(".s_link");
+	var curr_ID = document.querySelector(".curr_ID");
 	var index = 0
 	usr_thumb[index].classList.add("isActive")
 
@@ -333,6 +336,13 @@ Find Matches | Admyrer
 		s_img.src = h_img[index].src
 		s_link.href = "/@" + h_username[index].innerHTML
 		s_relationship.innerHTML = h_relationship[index].innerHTML
+
+		axios.post("/like", {
+			userId: curr_ID.innerHTML,
+			like_id: h_Id[index].innerHTML,
+		})
+		.then(res => console.log(res))
+		.catch(error => console.log(error))
 	}
 
 	function dislike(){
@@ -348,6 +358,13 @@ Find Matches | Admyrer
 		s_img.src = h_img[index].src
 		s_relationship.innerHTML = h_relationship[index].innerHTML
 		s_link.href = "/@" + h_username[index].innerHTML
+
+		axios.post("/disliked", {
+			userId: curr_ID.innerHTML,
+			like_id: h_Id[index].innerHTML,
+		})
+		.then(res => console.log(res))
+		.catch(error => console.log(error))
 	}
 
     $(document).ready(function(){

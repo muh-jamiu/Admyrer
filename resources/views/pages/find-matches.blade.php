@@ -316,6 +316,7 @@ Find Matches | Admyrer
 	var s_height = document.querySelector(".s_height");
 	var s_username = document.querySelector(".s_username");
 	var s_img = document.querySelector(".s_img");
+	var s_link = document.querySelector(".s_link");
 	var index = 0
 
 	function like(){
@@ -328,6 +329,7 @@ Find Matches | Admyrer
 		s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
 		s_height.innerHTML = h_height[index].innerHTML
 		s_img.src = h_img[index].src
+		s_link.href = "/@" + h_username[index].innerHTML
 		s_relationship.innerHTML = h_relationship[index].innerHTML
 	}
 
@@ -342,6 +344,7 @@ Find Matches | Admyrer
 		s_height.innerHTML = h_height[index].innerHTML
 		s_img.src = h_img[index].src
 		s_relationship.innerHTML = h_relationship[index].innerHTML
+		s_link.href = "/@" + h_username[index].innerHTML
 	}
 
     $(document).ready(function(){

@@ -258,7 +258,7 @@ Find Matches | Admyrer
 			</div>
 			
 			@if (count($random_user) > 0)
-				<x-user-slider :randomuser="$random_user"></x-user-slider>
+				<x-user-slider :user="$user" :randomuser="$random_user"></x-user-slider>
 				<!-- End Filters  -->
 
 				<hr class="dt_home_rand_user_hr">

@@ -1,22 +1,28 @@
 
-     
+@php
+    $gender = $user->gender;
+    $country = $user->country;
+@endphp
 <div id="section_match_users" class="<">
     <div class="dt_home_match_user">
             <div class="valign-wrapper mtc_usr_avtr" id="avaters_item_container">
                 @foreach ($randomuser as $user) 
-                <div class="usr_thumb" data-id="" id="user">
-                    <div class="d-none">
-                        <span class="text-capitalize h_relationship">{{$user->relationship}}</span>
-                        <span class="text-capitalize h_name">{{$user->first_name}} {{$user->last_name}}</span>
-                        <span class="text-capitalize h_lang">{{$user->language}}</span>
-                        <span class="text-capitalize h_height">{{$user->height}}</span>
-                        <span class="text-capitalize h_body">{{$user->body}}</span>
-                        <span class="text-capitalize h_age">{{$user->age}}</span>
-                        <span class="text-capitalize h_loc">{{$user->country}}</span>
-                    </div>
-                    <img class="h_img" alt="" src={{$user->avatar}} loading="lazy">
-                    <p class="text-capitalize h_username text-center">{{$user->username}}</p>
-                </div>
+                    @if ($user->gender != $gender)
+                        <div class="usr_thumb" data-id="" id="user">
+                            <div class="d-none">
+                                <span class="text-capitalize h_relationship">{{$user->relationship}}</span>
+                                <span class="text-capitalize h_name">{{$user->first_name}} {{$user->last_name}}</span>
+                                <span class="text-capitalize h_lang">{{$user->language}}</span>
+                                <span class="text-capitalize h_height">{{$user->height}}</span>
+                                <span class="text-capitalize h_body">{{$user->body}}</span>
+                                <span class="text-capitalize h_age">{{$user->age}}</span>
+                                <span class="text-capitalize h_loc">{{$user->country}}</span>
+                            </div>
+                            <img class="h_img" alt="" src={{$user->avatar}} loading="lazy">
+                            <p class="text-capitalize h_username text-center">{{$user->username}}</p>
+                        </div>
+                    @endif
+              
                 @endforeach
             </div>
         

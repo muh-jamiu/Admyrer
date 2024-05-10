@@ -296,6 +296,21 @@ Find Matches | Admyrer
 
 @push("javascript")
 <script>
+	var usr_thumb = document.querySelectorAll(".usr_thumb");
+	var index = 0
+
+	function like(){
+		usr_thumb[index].classList.add("d-none");
+		index += 1
+		console.log(usr_thumb[index])
+	}
+
+	function dislike(){
+		usr_thumb[index].classList.add("d-none");
+		index += 1
+		console.log(usr_thumb[index])
+	}
+
     $(document).ready(function(){
         $('#my_country').on('change',() => {
             $('.located_at').html(`&nbsp;&nbsp;<?php echo __('located_at');?> <span id="located">${$("#my_country option:selected" ).text()}</span>`);
@@ -337,6 +352,7 @@ Find Matches | Admyrer
             e.preventDefault();
         });
     });
+	
     function resetSearchData() {
         $.get(window.ajax + 'profile/resetSearch', function (data) {
             if (data.status == 200) {

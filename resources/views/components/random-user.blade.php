@@ -8,7 +8,7 @@
             <div class="card valign-wrapper">
                 <div class="card-image">
                     <a href={{"/@" .$user->username}}>
-                        <img src="/img/icon.png" alt="">
+                        <img src={{$user->avatar}} alt="" loading="lazy">
                     </a>
                 </div>
                 <div class="card-content">

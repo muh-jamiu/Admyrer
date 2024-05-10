@@ -30,13 +30,32 @@ Login | Admyrer
 				<div class="">
 					<div class="dt_login_con">
 						<div class="row dt_login login">
-							<form method="POST" action="/Useractions/login" class="login">
+							<form method="POST" action="/login" class="login">
+								@csrf
 								<p><span class="bold"><?php echo __( 'Welcome back,' );?></span> <?php echo __( 'Login to your account to continue.' );?></p>
+								@if ($errors->any())
+									<div class="alert alert-danger">
+										<ul>
+											@foreach ($errors->all() as $error)
+												<li>{{ $error }}</li>
+											@endforeach
+										</ul>
+									</div>
+								@endif
+
+								@if (session("msg"))
+									<div class="alert alert-danger">
+										<ul>
+											<li>{{session("msg")}}</li>
+										</ul>
+									</div>
+								@endif
+
 								<div class="alert alert-success" role="alert" style="display:none;"></div>
 								<div class="alert alert-danger" role="alert" style="display:none;"></div>
 								<div class="row">
 									<div class="input-field">
-										<input name="username" id="username" type="text" class="validate" required >
+										<input name="username" id="username" type="text" class="validate" required value="{{ old('username') }}">
 										<label for="username" class="mx-2"><?php echo __( 'Username or Email' );?></label>
 									</div>
 								</div>

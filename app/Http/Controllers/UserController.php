@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -59,13 +60,26 @@ class UserController extends Controller
     }
 
     public function loginUser(User $user){
-        $request = request()->validate([
-            "email" => "required|email|unique:users",
-            "username" => "required|unique:users",
+        request()->validate([
+            "username" => "required",
+            "password" => "required|min:5",
         ]);
-        $user = $user->find(1);
-        dd($user);
-        return;
+
+        $existingUser = $user::where('email', request()->username)->first();
+        if(!$existingUser){
+            $existingUser = $user::where('username', request()->username)->first();
+        }
+
+        if(!$existingUser){
+            return back()->with("msg", "Sorry!, This account cannot be found");
+        }
+
+        if(Hash::check(request()->password, $existingUser->password)){ 
+            session()->put("admyrer_id", $user->id);
+            return redirect("/find-matches");      
+        }
+
+        return back()->with("msg", "Password or Email is not correct!");     
     }
 
     public function registerUser(User $user){
@@ -73,7 +87,7 @@ class UserController extends Controller
             "email" => "required|email|unique:users",
             "username" => "required|unique:users",
             "password" => "required|min:5|max:10",
-            "username" => "required|min:5",
+            "username" => "required|min:5|unique:users",
         ]);
 
         if(request()->c_password != request()->password){
@@ -85,11 +99,10 @@ class UserController extends Controller
         $user->username = request()->username;
         $user->email = request()->email;
         $user->password = request()->password;
-        $user = $user->save();
-
-        dd($user);
+        $user->save();
 
         if($user){
+            session()->put("admyrer_id", $user->id);
             return redirect("/steps");
         }
         

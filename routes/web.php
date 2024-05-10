@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/login', [UserController::class, 'loginUser']);
+Route::post('/register', [UserController::class, 'registerUser']);
+
 Route::get('/find-matches', [UserController::class, 'index']);
 
 Route::get('/matches', [UserController::class, 'matches']);

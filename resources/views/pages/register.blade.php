@@ -32,26 +32,45 @@ Register | Admyrer
 					<div class="dt_login_con">
 						<div class="row dt_login login">
 							<form method="POST" action="/register" class="register">
+								@csrf
 								<p class=""><span class="fw-bold"><?php echo __( 'Get started,' );?></span> <?php echo __( 'Sign up to get started finding your partner!' );?></p>
+								@if ($errors->any())
+									<div class="alert alert-danger">
+										<ul>
+											@foreach ($errors->all() as $error)
+												<li>{{ $error }}</li>
+											@endforeach
+										</ul>
+									</div>
+								@endif
+
+								@if (session("msg"))
+									<div class="alert alert-danger">
+										<ul>
+											<li>{{session("msg")}}</li>
+										</ul>
+									</div>
+								@endif
+
 								<div class="alert alert-success" role="alert" style="display:none;"></div>
 								<div class="alert alert-danger" role="alert" style="display:none;"></div>
 								<div class="row">
 									<div class="input-field col m6 s12">
-										<input name="first_name" id="first_name" type="text" class="validate" value="" autofocus>
+										<input name="first_name" id="first_name" type="text" class="validate" value="{{ old('first_name') }}" autofocus>
 										<label for="first_name"><?php echo __( 'First Name' );?></label>
 									</div>
 									<div class="input-field col m6 s12">
-										<input name="last_name" id="last_name" type="text" class="validate" value="">
+										<input name="last_name" id="last_name" type="text" class="validate" value="{{ old('last_name') }}">
 										<label for="last_name"><?php echo __( 'Last Name' );?></label>
 									</div>
 								</div>
 								<div class="row">
 									<div class="input-field col m6 s12">
-										<input name="username" id="username" type="text" class="validate" value="" required>
+										<input name="username" id="username" type="text" class="validate" value="{{ old('username') }}" required>
 										<label for="username"><?php echo __( 'Username' );?></label>
 									</div>
 									<div class="input-field col m6 s12">
-										<input name="email" id="email" type="email" class="validate" value="" required>
+										<input name="email" id="email" type="email" class="validate" value="{{ old('email') }}" required>
 										<label for="email"><?php echo __( 'Email' );?></label>
 									</div>
 								</div>

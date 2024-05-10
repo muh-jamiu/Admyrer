@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -55,5 +56,43 @@ class UserController extends Controller
 
     public function friend_requests(){
         return view("pages.friend_requests");
+    }
+
+    public function loginUser(User $user){
+        $request = request()->validate([
+            "email" => "required|email|unique:users",
+            "username" => "required|unique:users",
+        ]);
+        $user = $user->find(1);
+        dd($user);
+        return;
+    }
+
+    public function registerUser(User $user){
+        request()->validate([
+            "email" => "required|email|unique:users",
+            "username" => "required|unique:users",
+            "password" => "required|min:5|max:10",
+            "username" => "required|min:5",
+        ]);
+
+        if(request()->c_password != request()->password){
+            return back()->with("msg", "password does not match");
+        }
+
+        $user->first_name = request()->first_name;
+        $user->last_name = request()->last_name;
+        $user->username = request()->username;
+        $user->email = request()->email;
+        $user->password = request()->password;
+        $user = $user->save();
+
+        dd($user);
+
+        if($user){
+            return redirect("/steps");
+        }
+        
+        return back()->with("msg", "something went wrong");
     }
 }

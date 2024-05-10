@@ -5,7 +5,7 @@
             <div class="valign-wrapper mtc_usr_avtr" id="avaters_item_container">
                 @foreach ($randomuser as $user) 
                 <div class="usr_thumb" data-id="" id="user">
-                    <img alt="" src="https://images.timbu.com/hotels-ng/supplier_0yiv6nunwy_1_260x240.jpg">
+                    <img alt="" src="/img/icon.png">
                     <p class="text-capitalize text-center">{{$user->username}}</p>
                 </div>
                 @endforeach
@@ -18,7 +18,7 @@
                         <div class="mtc_usrd_slider">
                             <div class="carousel carousel-slider center match_usr_img_slidr">
                                 <div class="carousel-item" style="display: inline-block !important; visibility:visible !important">
-                                    <img alt="dd" src="https://images.timbu.com/hotels-ng/supplier_0yiv6nunwy_1_260x240.jpg">
+                                    <img alt="dd" src="/img/icon.png">
                                 </div>
                             </div>
                         </div>

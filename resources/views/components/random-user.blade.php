@@ -8,7 +8,7 @@
             <div class="card valign-wrapper">
                 <div class="card-image">
                     <a href={{"/@" .$user->username}}>
-                        <img src="https://images.timbu.com/hotels-ng/supplier_0yiv6nunwy_1_260x240.jpg" alt="">
+                        <img src="/img/icon.png" alt="">
                     </a>
                 </div>
                 <div class="card-content">

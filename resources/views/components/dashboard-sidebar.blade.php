@@ -20,7 +20,7 @@
                     <svg width="90px" height="90px" viewBox="0 0 80 80">
                         <path class="load-bg cir1" d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"></path>
                         <path id="load-line1" class="load-circle" style="stroke-dashoffset: 192.6168975830078px; stroke-dasharray: 192.6168975830078px;stroke:" d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z" ></path></svg>
-                    <a class="avatar" href="/" data-ajax=""><img src="" class="circle" alt="" /></a>
+                    <a class="avatar" href="/" data-ajax=""><img src="/img/icon.png" class="circle" alt="" /></a>
                 </div>
                 <span>
                     <h3 class="text-capitalize mb-4"><a href="" data-ajax="">{{$user->first_name ." ". $user->last_name}}</a></h3>

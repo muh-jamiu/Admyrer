@@ -31,7 +31,7 @@ Find Matches | Admyrer
 			<div class="dt_left_sidebar dt_profile_side">
 				<div class="avatar">
 					<a class="inline" href="" id="avater_profile_img">
-						<img src="" alt="" class="responsive-img" />
+						<img src="/img/icon.png" alt="" class="responsive-img" />
 					</a>
 							<div class="dt_chng_avtr">
 								<span class="btn-upload-image" onclick="document.getElementById('admin_profileavatar_img').click(); return false">
@@ -95,7 +95,7 @@ Find Matches | Admyrer
 								</li>
 						</ul>
 					</div>
-				<div class="home_usr_stats">
+				{{-- <div class="home_usr_stats">
 					<div>
 						<div>
 							<b>0</b>
@@ -110,7 +110,7 @@ Find Matches | Admyrer
 							<p>0</p>
 						</div>
 					</div>
-				</div>
+				</div> --}}
 				
 			</div>
 		</div>

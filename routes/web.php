@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', [UserController::class, 'loginUser']);
+
 Route::post('/register', [UserController::class, 'registerUser']);
+
+Route::get('/@{username}', [UserController::class, 'show'])->middleware("notLogin");
 
 Route::get('/find-matches', [UserController::class, 'index'])->middleware("notLogin");
 

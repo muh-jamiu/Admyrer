@@ -2,6 +2,7 @@
 
 @php
 	$user = $data["user"] ?? [];
+	$random_user = $data["randomUser"] ?? [];
 @endphp
 
 @section('title')

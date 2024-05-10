@@ -48,6 +48,11 @@ class UserController extends Controller
         return view("pages.stories");
     }
 
+    public function show(){
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.show", compact("data"));
+    }
+
     
     public function hot(){
         return view("pages.hot");

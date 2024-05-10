@@ -75,7 +75,7 @@ class UserController extends Controller
         }
 
         if(Hash::check(request()->password, $existingUser->password)){ 
-            session()->put("admyrer_id", $user->id);
+            session()->put("admyrer_id", $existingUser->id);
             return redirect("/find-matches");      
         }
 

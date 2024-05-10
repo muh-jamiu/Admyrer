@@ -18,29 +18,29 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [UserController::class, 'loginUser']);
 Route::post('/register', [UserController::class, 'registerUser']);
 
-Route::get('/find-matches', [UserController::class, 'index']);
+Route::get('/find-matches', [UserController::class, 'index'])->middleware("notLogin");
 
-Route::get('/matches', [UserController::class, 'matches']);
+Route::get('/matches', [UserController::class, 'matches'])->middleware("notLogin");
 
-Route::get('/visits', [UserController::class, 'visits']);
+Route::get('/visits', [UserController::class, 'visits'])->middleware("notLogin");
 
-Route::get('/friends', [UserController::class, 'friends']);
+Route::get('/friends', [UserController::class, 'friends'])->middleware("notLogin");
 
-Route::get('/gifts', [UserController::class, 'gifts']);
+Route::get('/gifts', [UserController::class, 'gifts'])->middleware("notLogin");
 
-Route::get('/likes', [UserController::class, 'likes']);
+Route::get('/likes', [UserController::class, 'likes'])->middleware("notLogin");
 
-Route::get('/liked', [UserController::class, 'liked']);
+Route::get('/liked', [UserController::class, 'liked'])->middleware("notLogin");
 
-Route::get('/disliked', [UserController::class, 'disliked']);
+Route::get('/disliked', [UserController::class, 'disliked'])->middleware("notLogin");
 
-Route::get('/hots', [UserController::class, 'hot']);
+Route::get('/hots', [UserController::class, 'hot'])->middleware("notLogin");
 
-Route::get('/stories', [UserController::class, 'stories']);
+Route::get('/stories', [UserController::class, 'stories'])->middleware("notLogin");
 
-Route::get('/live-users', [UserController::class, 'live_users']);
+Route::get('/live-users', [UserController::class, 'live_users'])->middleware("notLogin");
 
-Route::get('/friend-requests', [UserController::class, 'friend_requests']);
+Route::get('/friend-requests', [UserController::class, 'friend_requests'])->middleware("notLogin");
 
 //Admin route
 Route::get('/admin-cp', [AdminController::class, 'index']);
@@ -128,43 +128,43 @@ Route::get('/admin-cp/change-site-design', [AdminController::class, 'change_site
 
 Route::get('/', function () {
     return view("index");
-});
+})->middleware("isLogin");
 
 Route::get('/login', function () {
     return view("pages.login");
-});
+})->middleware("isLogin");
 
 Route::get('/register', function () {
     return view("pages.register");
-});
+})->middleware("isLogin");
 
 Route::get('/about', function () {
     return view("pages.about");
-});
+})->middleware("isLogin");
 
 Route::get('/terms', function () {
     return view("pages.terms");
-});
+})->middleware("isLogin");
 
 Route::get('/contact', function () {
     return view("pages.contact");
-});
+})->middleware("isLogin");
 
 Route::get('/privacy', function () {
     return view("pages.privacy");
-});
+})->middleware("isLogin");
 
 Route::get('/faqs', function () {
     return view("pages.faq");
-});
+})->middleware("isLogin");
 
 Route::get('/blog', function () {
     return view("pages.blog");
-});
+})->middleware("isLogin");
 
 Route::get('/forgot', function () {
     return view("pages.forgot");
-});
+})->middleware("isLogin");
 
 Route::get('/steps', function () {
     return view("pages.steps");

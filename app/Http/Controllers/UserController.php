@@ -137,6 +137,30 @@ class UserController extends Controller
         return $user;
     }
 
+    public function getAllLikes(){        
+       $like = Like::where(["is_liked" => true, "user_id" => session("admyrer_id")])->get("like_id");
+       $data = [];
+
+       foreach($like as $key => $l){  
+            $user = User::where('id', $l->like_id)->first();
+            $data[$key] = $user;
+       }
+
+        return $data;
+    }
+
+    public function getAllDisLikes(){        
+       $like = Like::where(["is_disliked" => true, "user_id" => session("admyrer_id")])->get();
+       $data = [];
+
+        foreach($like as $key => $l){  
+            $user = User::where('id', $l->like_id)->first();
+            $data[$key] = $user;
+        }
+
+        return $data;
+    }
+
     public function getUserByUsername($username){  
         $user = User::where('username', $username)->first();
         return $user;

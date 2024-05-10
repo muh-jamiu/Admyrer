@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Like;
 use App\Models\User;
+use App\Models\Visitors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -155,6 +156,26 @@ class UserController extends Controller
 
         foreach($like as $key => $l){  
             $user = User::where('id', $l->like_id)->first();
+            $data[$key] = $user;
+        }
+
+        return $data;
+    }
+
+    public function post_visits(Visitors $visitors){
+        $visitors->visitorsID = request()->visitorsID;
+        $visitors->visitsID = request()->visitsID;
+        $visitors->save();
+
+        return true;
+    }
+
+    public function get_visits(){
+        $visitors = Visitors::where("visitsID", session("admyrer_id"))->get();
+        $data = [];
+
+        foreach($visitors as $key => $v){  
+            $user = User::where('id', $v->visitorsID)->first();
             $data[$key] = $user;
         }
 

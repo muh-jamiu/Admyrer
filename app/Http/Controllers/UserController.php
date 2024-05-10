@@ -10,6 +10,7 @@ class UserController extends Controller
 {
     public function index(){
         $data["user"] = $this->getUser(session("admyrer_id"));
+        $data["randomUser"] = $this->getAllUserRandomly();
         return view("pages.find-matches", compact("data"));
     }
 
@@ -118,4 +119,43 @@ class UserController extends Controller
     public function logOut(){
         session()->pull("admyrer_id");
     }
+
+    public function getAllUser(){        
+       $user = User::all();
+        return $user;
+    }
+
+    public function getAllUserRandomly(){        
+       $user = User::inRandomOrder()->get();
+        return $user;
+    }
+
+    public function getAllUserFilter($key, $value){        
+       $user = User::where($key, $value);
+        return $user;
+    }
+
+    public function getSortedUser($sort){        
+       $user = User::orderBy($sort)->get();
+        return $user;
+    }
+
+    public function matchedUsers()
+    {
+        $users = $this->getAllUser();
+        $currentUser = $this->getUser(session("admyrer_id"));
+        $gender =  $currentUser->gender;
+        $data = [];
+        foreach($users as $key => $u){
+            if($u->gender != $gender){
+                $data[$key] = $u;
+            }
+        }
+
+        if(count($data) == 0){
+            $data = $users;
+        }
+       return $data;
+    }
+
 }

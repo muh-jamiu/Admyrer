@@ -5,8 +5,17 @@
             <div class="valign-wrapper mtc_usr_avtr" id="avaters_item_container">
                 @foreach ($randomuser as $user) 
                 <div class="usr_thumb" data-id="" id="user">
-                    <img alt="" src={{$user->avatar}} loading="lazy">
-                    <p class="text-capitalize text-center">{{$user->username}}</p>
+                    <div class="d-none">
+                        <span class="text-capitalize h_relationship">{{$user->relationship}}</span>
+                        <span class="text-capitalize h_name">{{$user->first_name}} {{$user->last_name}}</span>
+                        <span class="text-capitalize h_lang">{{$user->language}}</span>
+                        <span class="text-capitalize h_height">{{$user->height}}</span>
+                        <span class="text-capitalize h_body">{{$user->body}}</span>
+                        <span class="text-capitalize h_age">{{$user->age}}</span>
+                        <span class="text-capitalize h_loc">{{$user->country}}</span>
+                    </div>
+                    <img class="h_img" alt="" src={{$user->avatar}} loading="lazy">
+                    <p class="text-capitalize h_username text-center">{{$user->username}}</p>
                 </div>
                 @endforeach
             </div>
@@ -18,7 +27,7 @@
                         <div class="mtc_usrd_slider">
                             <div class="carousel carousel-slider center match_usr_img_slidr">
                                 <div class="carousel-item" style="display: inline-block !important; visibility:visible !important">
-                                    <img alt={{$randomuser[0]->avatar}} src={{$randomuser[0]->avatar}}>
+                                    <img class="s_img" alt={{$randomuser[0]->avatar}} src={{$randomuser[0]->avatar}}>
                                 </div>
                             </div>
                         </div>
@@ -27,9 +36,9 @@
                     <div class="col s12 m6">
                         <div class="mtc_usrd_sidebar flex_btn">
                             <div class="mtc_usrd_summary">
-                                <h5 class="text-capitalize"><?php echo __('About');?> <a href="">{{$randomuser[0]->first_name}} {{$randomuser[0]->last_name}}</a></h5>
+                                <h5 class="text-capitalize"><?php echo __('About');?> <a href="" class="s_name">{{$randomuser[0]->first_name}} {{$randomuser[0]->last_name}}</a></h5>
                                 
-                                <a class="edit" href={{"/@" .$randomuser[0]->username}} title="<?php echo __('view_profile');?>">
+                                <a class="edit s_link" href={{"/@" .$randomuser[0]->username}} title="<?php echo __('view_profile');?>">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="10" r="3"></circle><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"></path></svg>
                                 </a>
                             </div>
@@ -38,30 +47,30 @@
                                 <div class="col s6">
                                         <div>
                                             <p class="info_title"><?php echo __('Preferred Language');?></p>
-                                            <span class="text-capitalize">{{$randomuser[0]->language ?? "English"}}</span>
+                                            <span class="text-capitalize s_lang">{{$randomuser[0]->language ?? "English"}}</span>
                                         </div>
                                         <div>
                                             <p class="info_title"><?php echo __('Relationship status');?></p>
-                                            <span class="text-capitalize">{{$randomuser[0]->relationship}}</span>
+                                            <span class="text-capitalize s_relationship">{{$randomuser[0]->relationship}}</span>
                                         </div>
                                         <div>
                                             <p class="info_title"><?php echo __('Height');?></p>
-                                            <span class="text-capitalize">{{$randomuser[0]->height}}cm</span>
+                                            <span class="text-capitalize s_height">{{$randomuser[0]->height}}cm</span>
                                         </div>
                                 </div>
 
                                 <div class="col s6">
                                         <div>
                                             <p class="info_title"><?php echo __('Body Type');?></p>
-                                            <span class="text-capitalize">{{$randomuser[0]->body}}</span>
+                                            <span class="text-capitalize s_body">{{$randomuser[0]->body}}</span>
                                         </div>
                                         <div>
                                             <p class="info_title"><?php echo __('Age');?></p>
-                                            <span class="text-capitalize">{{$randomuser[0]->age ?? 0}}</span>
+                                            <span class="text-capitalize s_age">{{$randomuser[0]->age ?? 0}}</span>
                                         </div>
                                         <div>
                                             <p class="info_title"><?php echo __('Location');?></p>
-                                            <span class="text-capitalize">{{$randomuser[0]->location}}</span>
+                                            <span class="text-capitalize s_loc">{{$randomuser[0]->country}}</span>
                                         </div>
                                 </div>
                             </div>

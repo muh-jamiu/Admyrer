@@ -297,18 +297,51 @@ Find Matches | Admyrer
 @push("javascript")
 <script>
 	var usr_thumb = document.querySelectorAll(".usr_thumb");
+	var h_relationship = document.querySelectorAll(".h_relationship");
+	var h_name = document.querySelectorAll(".h_name");
+	var h_age = document.querySelectorAll(".h_age");
+	var h_body = document.querySelectorAll(".h_body");
+	var h_loc = document.querySelectorAll(".h_loc");
+	var h_lang = document.querySelectorAll(".h_lang");
+	var h_height = document.querySelectorAll(".h_height");
+	var h_username = document.querySelectorAll(".h_username");
+	var h_img = document.querySelectorAll(".h_img");
+
+	var s_relationship = document.querySelector(".s_relationship");
+	var s_name = document.querySelector(".s_name");
+	var s_age = document.querySelector(".s_age");
+	var s_body = document.querySelector(".s_body");
+	var s_loc = document.querySelector(".s_loc");
+	var s_lang = document.querySelector(".s_lang");
+	var s_height = document.querySelector(".s_height");
+	var s_username = document.querySelector(".s_username");
+	var s_img = document.querySelector(".s_img");
 	var index = 0
 
 	function like(){
 		usr_thumb[index].classList.add("d-none");
 		index += 1
-		console.log(usr_thumb[index])
+		s_name.innerHTML = h_name[index].innerHTML
+		s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
+		s_body.innerHTML = h_body[index].innerHTML
+		s_loc.innerHTML = h_loc[index].innerHTML
+		s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
+		s_height.innerHTML = h_height[index].innerHTML
+		s_img.src = h_img[index].src
+		s_relationship.innerHTML = h_relationship[index].innerHTML
 	}
 
 	function dislike(){
 		usr_thumb[index].classList.add("d-none");
 		index += 1
-		console.log(usr_thumb[index])
+		s_name.innerHTML = h_name[index].innerHTML
+		s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
+		s_body.innerHTML = h_body[index].innerHTML
+		s_loc.innerHTML = h_loc[index].innerHTML
+		s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
+		s_height.innerHTML = h_height[index].innerHTML
+		s_img.src = h_img[index].src
+		s_relationship.innerHTML = h_relationship[index].innerHTML
 	}
 
     $(document).ready(function(){

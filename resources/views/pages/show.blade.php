@@ -136,19 +136,19 @@ Find Matches | Admyrer
 								<h5 class="text-capitalize fs-5"><?php echo __( 'About' );?> {{$user->first_name}} {{$user->last_name}}</h5>
 							</div>
 							<div class="sidebar_usr_info dt_profile_about_info">
-									<div class="desc">{{$user->about ?? "N/A"}}</div>
+									<div class="desc text-capitalize">{{$user->about ?? "N/A"}}</div>
 								<div class="row">
 										<div class="col s6">
 											<div>
 												<p class="info_title"><?php echo __( 'Location' );?></p>
-												<span>{{$user->location ?? "N/A"}}</span>
+												<span class="text-capitalize">{{$user->location ?? "N/A"}}</span>
 											</div>
 										</div>
 						
 										<div class="col s6">
 											<div>
 												<p class="info_title"><?php echo __( 'Country' );?></p>
-												<span>{{$user->country ?? "N/A"}}</span>
+												<span class="text-capitalize">{{$user->country ?? "N/A"}}</span>
 											</div>
 										</div>
 								</div>
@@ -188,20 +188,20 @@ Find Matches | Admyrer
 										<?php if( !empty( $user->gender ) ) {?>
 											<div class="row">
 												<div class="col s6">
-													<p class="info_title"><?php echo __( 'Gender' );?></p>
+													<p class="info_title text-capitalize"><?php echo __( 'Gender' );?></p>
 												</div>
 												<div class="col s6">
-													<p><?php echo __($user->gender);?></p>
+													<p class="text-capitalize"><?php echo __($user->gender);?></p>
 												</div>
 											</div>
 										<?php } ?>
 										<?php if( !empty( $user->language ) ) {?>
 										<div class="row">
 											<div class="col s6">
-												<p class="info_title"><?php echo __( 'Preferred Language' );?></p>
+												<p class="info_title "><?php echo __( 'Preferred Language' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo __($user->language);?></p>
+												<p class="text-capitalize"><?php echo __($user->language);?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -211,7 +211,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Relationship status' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->relationship_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->relationship;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -221,7 +221,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Work status' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->work_status_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->work_status;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -231,7 +231,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Education Level' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->education_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->education;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -251,7 +251,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Ethnicity' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->ethnicity_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->ethnicity;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -261,7 +261,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Body Type' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->body_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->body;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -271,7 +271,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Height' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->height;?>cm</p>
+												<p class="text-capitalize"><?php echo $user->height;?>cm</p>
 											</div>
 										</div>
 										<?php } ?>
@@ -281,7 +281,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Hair color' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->hair_color_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->hair_color;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -301,7 +301,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Character' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->character_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->character_txt;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -311,7 +311,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Children' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->children_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->children;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -321,7 +321,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Friends' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->friends_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->friends;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -331,7 +331,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Pets' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->pets_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->pets;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -350,7 +350,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'I live with' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->live_with_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->live_with;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -360,7 +360,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Car' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->car_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->car;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -370,7 +370,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Religion' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->religion_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->religion;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -380,7 +380,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Smoke' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->smoke_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->smoke;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -390,7 +390,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Drink' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->drink_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->drink;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -400,7 +400,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Travel' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->travel_txt;?></p>
+												<p class="text-capitalize"><?php echo $user->travel;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -419,7 +419,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Music Genre' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->music;?></p>
+												<p class="text-capitalize"><?php echo $user->music;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -429,7 +429,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Dish' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->dish;?></p>
+												<p class="text-capitalize"><?php echo $user->dish;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -439,7 +439,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Song' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->song;?></p>
+												<p class="text-capitalize"><?php echo $user->song;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -449,7 +449,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Hobby' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->hobby;?></p>
+												<p class="text-capitalize"><?php echo $user->hobby;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -459,7 +459,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'City' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->city;?></p>
+												<p class="text-capitalize"><?php echo $user->city;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -469,7 +469,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Sport' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->sport;?></p>
+												<p class="text-capitalize"><?php echo $user->sport;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -479,7 +479,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Book' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->book;?></p>
+												<p class="text-capitalize"><?php echo $user->book;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -489,7 +489,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Movie' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->movie;?></p>
+												<p class="text-capitalize"><?php echo $user->movie;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -499,7 +499,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'Color' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->colour;?></p>
+												<p class="text-capitalize"><?php echo $user->colour;?></p>
 											</div>
 										</div>
 										<?php } ?>
@@ -509,7 +509,7 @@ Find Matches | Admyrer
 												<p class="info_title"><?php echo __( 'TV Show' );?></p>
 											</div>
 											<div class="col s6">
-												<p><?php echo $user->tv;?></p>
+												<p class="text-capitalize"><?php echo $user->tv;?></p>
 											</div>
 										</div>
 										<?php } ?>

@@ -49,7 +49,12 @@ class UserController extends Controller
     }
 
     public function show(){
-        $data["user"] = $this->getUser(session("admyrer_id"));
+        $username = str_replace("@", "", request()->path());
+        $userProf = $this->getUserByUsername($username);
+        if(!$userProf){
+            abort(404);
+        }
+        $data["user"] = $userProf;
         return view("pages.show", compact("data"));
     }
 
@@ -127,6 +132,11 @@ class UserController extends Controller
 
     public function getAllUser(){        
        $user = User::all();
+        return $user;
+    }
+
+    public function getUserByUsername($username){  
+        $user = User::where('username', $username)->first();
         return $user;
     }
 

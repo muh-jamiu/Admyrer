@@ -21,33 +21,43 @@ class UserController extends Controller
     }
 
     public function visits(){
-        return view("pages.visits");
+        $data["visits"] = $this->get_visits();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.visits", compact("data"));
     }
 
     public function friends(){
-        return view("pages.friends");
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.friends", compact("data"));
     }
 
     public function gifts(){
-        return view("pages.gifts");
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.gifts", compact("data"));
     }
 
     public function likes(){
-        return view("pages.likes");
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.likes", compact("data"));
     }
     
     public function liked(){
-        return view("pages.liked");
+        $data["liked"] = $this->getAllLikes();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.liked", compact("data"));
     }
 
     
     public function disliked(){
-        return view("pages.disliked");
+        $data["dislikes"] = $this->getAllDisLikes();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.disliked", compact("data"));
     }
 
     
     public function stories(){
-        return view("pages.stories");
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.stories", compact("data"));
     }
 
     public function show(){
@@ -56,6 +66,7 @@ class UserController extends Controller
         if(!$userProf){
             abort(404);
         }
+        $this->post_visits(session("admyrer_id"), $userProf->id);
         $data["user"] = $userProf;
         $data["loginUser"] = $this->getUser(session("admyrer_id"));
         return view("pages.show", compact("data"));
@@ -63,7 +74,8 @@ class UserController extends Controller
 
     
     public function hot(){
-        return view("pages.hot");
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.hot", compact("data"));
     }
 
     public function live_users(){
@@ -71,7 +83,8 @@ class UserController extends Controller
     }
 
     public function friend_requests(){
-        return view("pages.friend_requests");
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.friend_requests", compact("data"));
     }
 
     public function loginUser(User $user){
@@ -162,9 +175,10 @@ class UserController extends Controller
         return $data;
     }
 
-    public function post_visits(Visitors $visitors){
-        $visitors->visitorsID = request()->visitorsID;
-        $visitors->visitsID = request()->visitsID;
+    public function post_visits($visitorsID, $visitsID){
+        $visitors = new Visitors();
+        $visitors->visitorsID = $visitorsID;
+        $visitors->visitsID = $visitsID;
         $visitors->save();
 
         return true;

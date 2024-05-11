@@ -1,12 +1,17 @@
 @extends("layouts.app")
 
+@php
+	$user = $data["user"] ?? [];
+	$liked = $data["liked"] ?? [];
+@endphp
+
 @section('title')
 Liked | Admyrer 
 @endsection
 
 @section("content")
 
-<x-main-nav></x-main-nav>
+<x-main-nav :user="$user"></x-main-nav>
 
 <ul class="collapsible dt_new_home_filter" id="home_filters">
 	<div class="container">
@@ -232,7 +237,7 @@ Liked | Admyrer
 	<div class="row r_margin">
 
         {{-- sidiebar --}}
-        <x-dashboard-sidebar :likedactive="true"></x-dashboard-sidebar>	
+        <x-dashboard-sidebar :user="$user" :likedactive="true"></x-dashboard-sidebar>	
 
 		<div class="col-sm-9">
 			<!-- Filters  -->

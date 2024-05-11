@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Follows;
 use App\Models\Like;
 use App\Models\User;
 use App\Models\Visitors;
@@ -157,6 +158,7 @@ class UserController extends Controller
         return $user;
     }
 
+    //likes and dislike
     public function getAllLikes(){        
        $like = Like::where(["is_liked" => true, "user_id" => session("admyrer_id")])->orderBy("created_at", "desc")->get();
        $data = [];
@@ -189,6 +191,33 @@ class UserController extends Controller
         return $data;
     }
 
+     //Follow
+     public function post_follows($followsID, $followersID){
+        $follows = Follows::where(["followersID" => session("admyrer_id"), "followersID" => $followersID])->orderBy("created_at", "desc")->get();
+        if(count($follows) > 0){
+            return;
+        }
+        $follows = new Follows();
+        $follows->followsID = $followsID;
+        $follows->followersID = $followersID;
+        $follows->save();
+
+        return true;
+    }
+
+    public function get_follows(){
+        $follows = Follows::where("followsID", session("admyrer_id"))->orderBy("created_at", "desc")->get();
+        $data = [];
+
+        foreach($follows as $key => $v){  
+            $user = User::where('id', $v->followersID)->first();
+            $data[$key] = $user;
+        }
+
+        return $data;
+    }
+
+    //visits
     public function post_visits($visitorsID, $visitsID){
         $visitors = new Visitors();
         $visitors->visitorsID = $visitorsID;
@@ -210,6 +239,7 @@ class UserController extends Controller
         return $data;
     }
 
+    //get users
     public function getUserByUsername($username){  
         $user = User::where('username', $username)->first();
         return $user;
@@ -230,6 +260,7 @@ class UserController extends Controller
         return $user;
     }
 
+    //match users
     public function matchedUsers()
     {
         $users = $this->getAllUser();
@@ -248,6 +279,7 @@ class UserController extends Controller
        return $data;
     }
 
+    //likes
     public function post_disliked(Like $like){
         $like->user_id = request()->userId ;
         $like->like_id = request()->like_id ;

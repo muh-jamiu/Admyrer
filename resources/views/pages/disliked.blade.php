@@ -231,42 +231,54 @@ Disliked | Admyrer
 </ul>
 
 
-{{-- main bar --}}
+
 <div class="container container-fluid container_new page-margin find_matches_cont">
-
 	<div class="row r_margin">
-
-        {{-- sidiebar --}}
-        <x-dashboard-sidebar :user="$user" :dislikedactive="true"></x-dashboard-sidebar>		
-
+		{{-- <div class="col-sm-9"> --}}
+			<x-dashboard-sidebar :user="$user" :likedactive="true"></x-dashboard-sidebar>	
+		{{-- </div> --}}
+	
 		<div class="col-sm-9">
-			<!-- Filters  -->
-			<div class="dt_home_filters_prnt">
-				<div class="dt_home_filters">
-					<h6><?php echo __('People I Disliked');?></h6>
+			<!-- People i liked  -->
+			<div class="container-fluid dt_ltst_users">
+				<div class="dt_home_rand_user">
+					<h6 class="bold mb-3"><?php echo __( 'People i Disliked' );?></h6>
+					
+					@if (count($dislikes) > 0)
+						<div class="row" id="liked_users_container">
+							@foreach ($dislikes as $likeUser)					
+								<div class="col-sm-3 m6 s12 matches visit" >
+									<div class="card valign-wrapper" style="border: none !important">
+										<div class="card-image">
+											<a href={{"/@" . $likeUser->username}}>
+												<img src={{$likeUser->avatar}} alt="">
+											</a>
+										</div>
+										<div class="card-content">
+											<a href={{"/@" . $likeUser->username}} data-ajax="" class="text-capitalize"><span class="card-titl fw-bold">{{$likeUser->first_name}} {{$likeUser->last_name}}</span></a>
+											<p class="text-capitalize"><span class="time ajax-time age" title="">{{$likeUser->gender}}</span></p>
+											<p class="text-capitalize">{{$likeUser->country}}</p>
+											<div class="rand_bottom_bar">
+												<button id="like_btn" class="btn waves-effect like liked" data-ajax-post="/useractions/remove_like" data-ajax-params="userid=" data-ajax-callback="callback_liked_remove_like">
+													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M1,4.27L2.28,3L20,20.72L18.73,22L15.18,18.44L13.45,20.03L12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,7.55 2.23,6.67 2.63,5.9L1,4.27M7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,11.07 20.42,13.32 17.79,15.97L5.27,3.45C5.95,3.16 6.7,3 7.5,3Z"/></svg>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							@endforeach
+						</div>
+					@endif
+
+					@if (count($dislikes) == 0)
+						<x-dashboard-empty></x-dashboard-empty>  						
+					@endif
 				</div>
 			</div>
-			<!-- End Filters  -->
-
-            <x-dashboard-empty></x-dashboard-empty>        
-          
-        
-            <!-- Match Users  -->
-            <div id="section_match_users" class="">
-                <div class="dt_home_match_user">
-                    <div class="valign-wrapper mtc_usr_avtr" id="avaters_item_container">
-                    </div>
-                    <div class="mtc_usr_details" id="match_item_container">
-                    </div>
-                </div>
-            </div>
-            <!-- End Match Users  -->
+			<!-- People i liked -->
 		</div>
-		<!-- End Search Users  -->
-
 	</div>
 </div>
-
 
 <x-footer></x-footer>
 

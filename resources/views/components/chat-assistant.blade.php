@@ -2,8 +2,8 @@
     <div class="head d-flex justify-content-between">
         <p class="mb-0 fw-bold">Chat Assistant AI</p>
         <div class="d-flex">
-            <p class="mb-0 mx-3">icon</p>
-            <p class="mb-0">icon</p>
+            <p style="color: #CC42BD" class="mb-0 mx-3"><i class="fa-solid fa-user"></i> </p>
+            <p style="color: #CC42BD" class="mb-0"><i class="fa-solid fa-robot"></i> </p>
         </div>
     </div>
 

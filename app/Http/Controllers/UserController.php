@@ -17,7 +17,8 @@ class UserController extends Controller
         return view("pages.find-matches", compact("data"));
     }
 
-    public function matches(){
+    public function matches(){;
+        $data["matchedUsers"] = $this->matchedUsers();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.matches", compact("data"));
     }
@@ -263,20 +264,9 @@ class UserController extends Controller
     //match users
     public function matchedUsers()
     {
-        $users = $this->getAllUser();
-        $currentUser = $this->getUser(session("admyrer_id"));
-        $gender =  $currentUser->gender;
-        $data = [];
-        foreach($users as $key => $u){
-            if($u->gender != $gender){
-                $data[$key] = $u;
-            }
-        }
-
-        if(count($data) == 0){
-            $data = $users;
-        }
-       return $data;
+        $currentUser = $this->getUser(session("admyrer_id"));        
+        $user = User::where("country", $currentUser->country)->get();
+        return $user;
     }
 
     //likes

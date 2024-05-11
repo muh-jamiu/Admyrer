@@ -2,6 +2,7 @@
 
 @php
 	$user = $data["user"] ?? [];
+	$matchedUsers = $data["matchedUsers"] ?? [];
 @endphp
 
 @section('title')
@@ -240,27 +241,46 @@ Matches | Admyrer
         <x-dashboard-sidebar :user="$user" :matchesactive="true"></x-dashboard-sidebar>		
 
 		<div class="col-sm-9">
-			<!-- Filters  -->
-			<div class="dt_home_filters_prnt">
-				<div class="dt_home_filters">
-					<h6><?php echo __('Matches');?></h6>
+			<!-- People i liked  -->
+			<div class="container-fluid dt_ltst_users">
+				<div class="dt_home_rand_user">
+					<h6 class="bold mb-3"><?php echo __( 'Visitors' );?></h6>
+					
+					@if (count($matchedUsers) > 0)
+						<div class="row" id="liked_users_container">
+							@foreach ($matchedUsers as $key => $likeUser)					
+								<div class="col-sm-3 m6 s12 matches visit likeUserrs" >
+									<div class="card valign-wrapper" style="border: none !important">
+										<div class="card-image">
+											<a href={{"/@" . $likeUser->username}}>
+												<img src={{$likeUser->avatar}} alt="">
+											</a>
+										</div>
+										<div class="card-content">
+											<a href={{"/@" . $likeUser->username}} data-ajax="" class="text-capitalize"><span class="card-titl fw-bold">{{$likeUser->first_name}} {{$likeUser->last_name}}</span></a>
+											<p class="text-capitalize"><span class="time ajax-time age" title="">{{$likeUser->gender}}</span></p>
+											<p class="text-capitalize">{{$likeUser->country}}</p>
+											<div class="rand_bottom_bar">
+												<button class="btn waves-effect like" id="like_btn" data-userid="" data-ajax-post="/useractions/like" data-ajax-params="userid=>&username=" data-ajax-callback="callback_like">
+													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"/></svg>
+												</button>
+												<button class="btn waves-effect dislike _dislike_text" data-userid="" id="dislike_btn" data-ajax-post="/useractions/dislike" data-ajax-params="userid" data-ajax-callback="callback_dislike">
+													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/></svg>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							@endforeach
+						</div>
+					@endif
+
+					@if (count($matchedUsers) == 0)
+						<x-dashboard-empty></x-dashboard-empty>  						
+					@endif
 				</div>
 			</div>
-			<!-- End Filters  -->
-
-            <x-dashboard-empty></x-dashboard-empty>        
-          
-        
-            <!-- Match Users  -->
-            <div id="section_match_users" class="">
-                <div class="dt_home_match_user">
-                    <div class="valign-wrapper mtc_usr_avtr" id="avaters_item_container">
-                    </div>
-                    <div class="mtc_usr_details" id="match_item_container">
-                    </div>
-                </div>
-            </div>
-            <!-- End Match Users  -->
+			<!-- People i liked -->
 		</div>
 		<!-- End Search Users  -->
 

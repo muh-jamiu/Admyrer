@@ -152,12 +152,14 @@ class UserController extends Controller
     }
 
     public function getAllLikes(){        
-       $like = Like::where(["is_liked" => true, "user_id" => session("admyrer_id")])->orderBy("created_at", "desc")->get("like_id");
+       $like = Like::where(["is_liked" => true, "user_id" => session("admyrer_id")])->orderBy("created_at", "desc")->get();
        $data = [];
+       $time = [];
 
        foreach($like as $key => $l){  
             $user = User::where('id', $l->like_id)->first();
             $data[$key] = $user;
+            $time[$key] = $l->created_at;
        }
 
         return $data;

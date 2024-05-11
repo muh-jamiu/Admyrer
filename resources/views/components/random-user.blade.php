@@ -5,7 +5,7 @@
 <div class="row" id="random_users_container">
     @foreach ($randomuser as $user)        
         <div class="col-sm-4 m6 s12 random_user_item">
-            <div class="card valign-wrapper">
+            <div class="card valign-wrapper" style="border: none !important">
                 <div class="card-image">
                     <a href={{"/@" .$user->username}}>
                         <img src={{$user->avatar}} alt="" loading="lazy">

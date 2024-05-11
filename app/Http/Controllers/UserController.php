@@ -152,7 +152,7 @@ class UserController extends Controller
     }
 
     public function getAllLikes(){        
-       $like = Like::where(["is_liked" => true, "user_id" => session("admyrer_id")])->get("like_id");
+       $like = Like::where(["is_liked" => true, "user_id" => session("admyrer_id")])->orderBy("created_at", "desc")->get("like_id");
        $data = [];
 
        foreach($like as $key => $l){  
@@ -164,7 +164,7 @@ class UserController extends Controller
     }
 
     public function getAllDisLikes(){        
-       $like = Like::where(["is_disliked" => true, "user_id" => session("admyrer_id")])->get();
+       $like = Like::where(["is_disliked" => true, "user_id" => session("admyrer_id")])->orderBy("created_at", "desc")->get();
        $data = [];
 
         foreach($like as $key => $l){  
@@ -185,7 +185,7 @@ class UserController extends Controller
     }
 
     public function get_visits(){
-        $visitors = Visitors::where("visitsID", session("admyrer_id"))->get();
+        $visitors = Visitors::where("visitsID", session("admyrer_id"))->orderBy("created_at", "desc")->get();
         $data = [];
 
         foreach($visitors as $key => $v){  

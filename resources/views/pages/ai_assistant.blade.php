@@ -26,7 +26,7 @@ AI Assistant | Admyrer
 				</div>
 			</div>    
 
-            <x-chat-assistant></x-chat-assistant> 	
+            <x-chat-assistant :user="$user"></x-chat-assistant> 	
           
         
             <!-- Match Users  -->

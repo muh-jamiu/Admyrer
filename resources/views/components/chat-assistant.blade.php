@@ -13,14 +13,14 @@
             <div class="">
                 <p class='mb-0 mx-3'><i class="fa-brands fa-bots"></i></p>
                 <div class="msgBodys mt-0">
-                    <p class='mb-0 p-2'>Hi Jamiu, What question do you have today ?</p>
+                    <p class='mb-0 p-2'>Hi {{$user->first_name}}, What question do you have today ?</p>
                 </div>
             </div>
         </div>
 
         <div class="wrap2 unique mt -2">
             <p class='mb-0 msgIcon mx-3 text-end mb-0'>
-            <img src=$ alt="" className='' width=${20} />
+            <img src={{$user->avatar}} alt="" class='sender_img' />
             </p>
             <div class="sentMsg mt-0">
                 <div class="myMsg">
@@ -40,7 +40,8 @@
 @push("javascript")
     <script>
         var message = document.querySelector(".message")
-        console.log("we")
+        var sender_img = document.querySelector(".sender_img")
+
         const AImsg = (msg) => {
             $(".msg-container").append(`
             <div class="wrap1 unique">
@@ -59,7 +60,7 @@
           $(".msg-container").append(`
           <div class="wrap2 unique mt -2">
           <p class='mb-0 msgIcon mx-3 text-end mb-0'>
-          <img src= alt="" className='' width=${20} />
+          <img src=${sender_img.src} alt="" className='' width=${20} />
           </p>
           <div class="sentMsg mt-0">
               <div class="myMsg">
@@ -67,7 +68,7 @@
               </div>
             </div>
           </div>`)
-          $(".msg-container").scrollTop($(".msg-container").height()*200);
+          $(".msg-container").scrollTop($(".msg-container").height()*100);
           message.value = ""
         }else{
           alert("Please type a message")

@@ -420,7 +420,7 @@ nav .header_user .dropdown-content > li.night_day {
 .msg-container .wrap1 .msgBodys{
     margin: 1em;
     background-color: rgba(105, 83, 63, 0.07);
-    padding: .5em;
+    padding: .2em;
     overflow-wrap: break-word;
     display: inline-block;
     border-radius: 0 .8em .8em .8em;
@@ -434,7 +434,7 @@ nav .header_user .dropdown-content > li.night_day {
 .msg-container .sentMsg .myMsg{
     background: #CC42BD;
     border-radius: .8em 0 .8em .8em;
-    padding: .5em;
+    padding: .2em;
     display: inline-block;
     overflow-wrap: break-word;
     color: white;
@@ -448,8 +448,34 @@ nav .header_user .dropdown-content > li.night_day {
     margin-right: 15em;
 }
 
+.msg-container .wrap2 img{
+    border-radius: 50% !important;
+    height: 30px;
+    border: 2px solid rgb(197, 197, 197);
+    padding: .1em;
+    width: 30px;
+}
+
 .msg-container .wrap2{
     margin-left: 15em;
+}
+
+@media (max-width: 600px)  {
+    .msg-container .wrap2{
+        margin-left: 1em;
+    }    
+
+    .msg-container .wrap1{
+        margin-right: 1em;
+    } 
+    
+    .chat_assistant .send textarea{
+        width: 70% !important;
+    }
+
+    .chat_assistant .send button{
+        width: 30% !important;
+    }
 }
 
 .msg-container .msgBody div ,.sentMsg .myMsg div{
@@ -481,6 +507,8 @@ nav .header_user .dropdown-content > li.night_day {
     padding: 1em;
     height: 400px;
     overflow: scroll;
+    padding-top: 2em;
+    padding-bottom: 5em;
 }
 
 .chat_assistant .send button{

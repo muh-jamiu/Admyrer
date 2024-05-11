@@ -21,6 +21,8 @@ Route::post('/register', [UserController::class, 'registerUser']);
 
 Route::post('/like', [UserController::class, 'post_like']);
 
+Route::post('/send-ai-message', [UserController::class, 'handleAIMessage']);
+
 Route::post('/delete-like', [UserController::class, 'deleteLikes']);
 
 Route::post('/disliked', [UserController::class, 'post_disliked']);

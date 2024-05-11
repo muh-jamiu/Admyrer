@@ -301,16 +301,16 @@ class UserController extends Controller
         return true;
     }
 
-    public function handleMessage()
+    public function handleAIMessage()
     {
-        $userMessage = request()->input('message');
+        $userMessage = request()->message;
 
         // Send user message to Google Gemini
         $response = $this->sendToGemini($userMessage);
 
         // Process the response from Gemini
         $botReply = $this->processGeminiResponse($response);
-        dd($botReply);
+        return $botReply;
     }
 
     private function sendToGemini($message)
@@ -323,7 +323,12 @@ class UserController extends Controller
                 'Content-Type' => 'application/json',
             ],
             'json' => [
-                "contents" => [["parts" => [["text" => "hi"]]]],
+                "contents" => [
+                    ["parts" => [
+                            ["text" => $message]
+                        ]
+                    ]
+                ],
             ],
         ]);
 

@@ -69,9 +69,10 @@
             </div>
           </div>`)
           $(".msg-container").scrollTop($(".msg-container").height()*100);
+          SendAiMsg(message.value);
           message.value = ""
         }else{
-          alert("Please type a message")
+            alert("Please type a message")
         }
       }
 
@@ -86,6 +87,25 @@
         }
 
       }
+
+      function responsesText(){
+        var text = "my name is jamiu"
+
+        for (let i = 0; i < text.length; i++) {
+            // setTimeout(() => {
+                console.log(text[i])
+            // }, 2000);
+            
+        }
+      }
+
+      function SendAiMsg(msg){
+		axios.post("/send-ai-message", {
+			message: msg,
+		})
+		.then(res => console.log(res))
+		.catch(error => console.log(error))
+	}
 
 
     </script>

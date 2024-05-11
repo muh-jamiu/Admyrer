@@ -32,45 +32,45 @@
     </div>
 
     <div class="send d-flex">
-        <textarea name="" placeholder="Type message......" id=""></textarea>
-        <button class="">Send Message</button>
+        <textarea class="message" name="" placeholder="Type message......" id=""></textarea>
+        <button onclick="sendMsg()" class="">Send Message</button>
     </div>
 </div>
 
 @push("javascript")
     <script>
+        var message = document.querySelector(".message")
         console.log("we")
-          const AImsg = (msg) => {
-        $(".msg-container").append(`
-          <div class="wrap1 unique">
-          <div class="">
-              <p class='mb-0 mx-3'><i class="fa-brands fa-bots"></i></p>
-              <div class="msgBodys mt-0">
-                  <p class='mb-0 p-2'>${msg}</p>
-              </div>
-          </div>
-        </div>`)
-        $(".msg-container").scrollTop($(".msg-container").height()*200);
-      }
+        const AImsg = (msg) => {
+            $(".msg-container").append(`
+            <div class="wrap1 unique">
+            <div class="">
+                <p class='mb-0 mx-3'><i class="fa-brands fa-bots"></i></p>
+                <div class="msgBodys mt-0">
+                    <p class='mb-0 p-2'>${msg}</p>
+                </div>
+            </div>
+            </div>`)
+            $(".msg-container").scrollTop($(".msg-container").height()*200);
+        }
     
       const sendMsg = () => {
-        if(msgInputs.current.value != ""){
+        if(message.value != ""){
           $(".msg-container").append(`
           <div class="wrap2 unique mt -2">
           <p class='mb-0 msgIcon mx-3 text-end mb-0'>
-          <img src=${farmer} alt="" className='' width=${20} />
+          <img src= alt="" className='' width=${20} />
           </p>
           <div class="sentMsg mt-0">
               <div class="myMsg">
-                  <p class="mb-0 p-2">${msgInputs.current.value}</p>
+                  <p class="mb-0 p-2">${message.value}</p>
               </div>
             </div>
           </div>`)
           $(".msg-container").scrollTop($(".msg-container").height()*200);
-          postMsg("",msgInputs.current.value)
-          msgInputs.current.value = ""
+          message.value = ""
         }else{
-          alert("warning","Please type a message")
+          alert("Please type a message")
         }
       }
     </script>

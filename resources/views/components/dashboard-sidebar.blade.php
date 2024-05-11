@@ -10,6 +10,7 @@
     $visitactive = $visitactive ?? false;
     $storiesactive = $storiesactive ?? false;
     $hotactive = $hotactive ?? false;
+    $aiactive = $aiactive ?? false;
 @endphp
 
 <div class="col-sm-3">
@@ -72,7 +73,7 @@
                 </li>
                 
                 <li>
-                    <a href="/ai-assistant" data-ajax="/ai-assistant" class="">
+                    <a href="/ai-assistant" data-ajax="/ai-assistant" class={{$aiactive ? "active" : ""}}>
                         <i class="fa-solid fa-robot" style="margin-right: 1.2em"></i>  <?php echo __( 'AI Assistant' );?>
                     </a>
                 </li>

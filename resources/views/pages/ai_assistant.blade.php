@@ -16,7 +16,7 @@ AI Assistant | Admyrer
 	<div class="row r_margin">
 
         {{-- sidiebar --}}
-        <x-dashboard-sidebar :findActive="true" :user="$user"></x-dashboard-sidebar>
+        <x-dashboard-sidebar :aiactive="true" :user="$user"></x-dashboard-sidebar>
 
 		<div class="col-sm-9">
 			<!-- Filters  -->

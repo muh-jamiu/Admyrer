@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="wrap2 unique mt -2">
+        <div class="wrap2 unique mt -2 d-none">
             <p class='mb-0 msgIcon mx-3 text-end mb-0'>
             <img src={{$user->avatar}} alt="" class='sender_img' />
             </p>
@@ -41,6 +41,15 @@
     <script>
         var message = document.querySelector(".message")
         var sender_img = document.querySelector(".sender_img")
+        var loader = document.querySelector(".loader")
+
+        const AIMsgloader = () => {
+            $(".msg-container").append(` <div class="wrap1 unique loader">
+            <div class="spinner-grow text-dark spinner-grow-sm mx-4">
+            </div>
+        </div>`)
+            $(".msg-container").scrollTop($(".msg-container").height()*200);
+        }
 
         const AImsg = (msg) => {
             $(".msg-container").append(`
@@ -48,11 +57,11 @@
             <div class="">
                 <p class='mb-0 mx-3'><i class="fa-brands fa-bots"></i></p>
                 <div class="msgBodys mt-0">
-                    <p class='mb-0 p-2'>${msg}</p>
+                    <div style="word-wrap:break-word !important; overflow-wrap: break-word !important; white-space:pre-wrap !important" class='mb-0 p-2'>${msg}</div>
                 </div>
             </div>
             </div>`)
-            $(".msg-container").scrollTop($(".msg-container").height()*200);
+            // $(".msg-container").scrollTop($(".msg-container").height()*200);
         }
     
       const sendMsg = () => {
@@ -100,11 +109,25 @@
       }
 
       function SendAiMsg(msg){
+        AIMsgloader()
 		axios.post("/send-ai-message", {
 			message: msg,
 		})
-		.then(res => console.log(res))
-		.catch(error => console.log(error))
+		.then(res => {
+            var loader = document.querySelectorAll(".loader")
+            for (let i = 0; i < loader.length; i++) {
+                loader[i].classList.add("d-none")                
+            }
+            // console.log(res.data[0].text)
+            AImsg(res.data[0].text)
+        })
+		.catch(error => {
+            var loader = document.querySelectorAll(".loader")
+            for (let i = 0; i < loader.length; i++) {
+                loader[i].classList.add("d-none")                
+            }
+            console.log(error)
+        })
 	}
 
 

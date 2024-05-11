@@ -339,7 +339,7 @@ Find Matches | Admyrer
 
 		axios.post("/like", {
 			userId: curr_ID.innerHTML,
-			like_id: h_Id[index].innerHTML,
+			like_id: h_Id[index - 1].innerHTML,
 		})
 		.then(res => console.log(res))
 		.catch(error => console.log(error))
@@ -361,7 +361,7 @@ Find Matches | Admyrer
 
 		axios.post("/disliked", {
 			userId: curr_ID.innerHTML,
-			like_id: h_Id[index].innerHTML,
+			like_id: h_Id[index - 1].innerHTML,
 		})
 		.then(res => console.log(res))
 		.catch(error => console.log(error))

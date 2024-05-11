@@ -17,7 +17,8 @@ class UserController extends Controller
     }
 
     public function matches(){
-        return view("pages.matches");
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.matches", compact("data"));
     }
 
     public function visits(){

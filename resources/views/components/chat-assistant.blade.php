@@ -74,5 +74,19 @@
           alert("Please type a message")
         }
       }
+
+      function CheckDisrespectWords(words){
+        const Disrepectwords = ["money", "fuck", "shit", "bitch", "asshole", "kill", "stab"];
+        const _words = words.toLowerCase()
+
+        for (const word of Disrepectwords) {
+            if(_words.includes(word)){
+                console.log(word)
+            }
+        }
+
+      }
+
+
     </script>
 @endpush

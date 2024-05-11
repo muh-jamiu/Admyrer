@@ -390,6 +390,12 @@ nav .header_user .dropdown-content > li.night_day {
 	margin: 70px -20px 10px;
     width: calc(100% + 40px);
 }
+
+.chat_assistant{
+    height: 500px;
+    border-radius: 3px;
+}
+
 nav .header_user #night_mode_toggle {
 	box-shadow: none;
     color: #433E42;justify-content: space-between;

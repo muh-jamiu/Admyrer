@@ -87,6 +87,11 @@ class UserController extends Controller
         return view("pages.friend_requests", compact("data"));
     }
 
+    public function ai_assistant(){
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.ai_assistant", compact("data"));
+    }
+
     public function loginUser(User $user){
         request()->validate([
             "username" => "required",

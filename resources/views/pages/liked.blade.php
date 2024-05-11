@@ -12,6 +12,7 @@ Liked | Admyrer
 @section("content")
 
 <x-main-nav :user="$user"></x-main-nav>
+<p class="d-none " id="curr_ID">{{$user->id}}</p>	
 
 <ul class="collapsible dt_new_home_filter" id="home_filters">
 	<div class="container">
@@ -245,8 +246,8 @@ Liked | Admyrer
 					
 					@if (count($liked) > 0)
 						<div class="row" id="liked_users_container">
-							@foreach ($liked as $likeUser)					
-								<div class="col-sm-3 m6 s12 matches visit" >
+							@foreach ($liked as $key => $likeUser)					
+								<div class="col-sm-3 m6 s12 matches visit likeUserrs" >
 									<div class="card valign-wrapper" style="border: none !important">
 										<div class="card-image">
 											<a href={{"/@" . $likeUser->username}}>
@@ -258,7 +259,7 @@ Liked | Admyrer
 											<p class="text-capitalize"><span class="time ajax-time age" title="">{{$likeUser->gender}}</span></p>
 											<p class="text-capitalize">{{$likeUser->country}}</p>
 											<div class="rand_bottom_bar">
-												<button id="like_btn" class="btn waves-effect like liked" data-ajax-post="/useractions/remove_like" data-ajax-params="userid=" data-ajax-callback="callback_liked_remove_like">
+												<button onclick="Like({{$likeUser->id}}, {{$key}})" id="like_btn" class="btn waves-effect like liked" data-ajax-post="/useractions/remove_like" data-ajax-params="userid=" data-ajax-callback="callback_liked_remove_like">
 													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 18C12 19 12.25 19.92 12.67 20.74L12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 9.93 21.5 11.26 20.62 12.61C19.83 12.23 18.94 12 18 12C14.69 12 12 14.69 12 18M21.54 15.88L20.12 14.47L18 16.59L15.88 14.47L14.47 15.88L16.59 18L14.47 20.12L15.88 21.54L18 19.41L20.12 21.54L21.54 20.12L19.41 18L21.54 15.88Z"/></svg>
 												</button>
 											</div>
@@ -289,6 +290,22 @@ Liked | Admyrer
 
 @push("javascript")
 <script>
+	var curr_ID = document.getElementById("curr_ID");
+	var likeUserrs = document.querySelectorAll(".likeUserrs")
+
+	function Like(like, index){
+		likeUserrs[index].classList.add("d-none")
+
+		// axios.post("/disliked", {
+		// 	userId: curr_ID.innerHTML,
+		// 	like_id: like,
+		// })
+		// .then(res => console.log(res))
+		// .catch(error => console.log(error))
+	}
+
+
+
     $(document).ready(function(){
         $('#my_country').on('change',() => {
             $('.located_at').html(`&nbsp;&nbsp;<?php echo __('located_at');?> <span id="located">${$("#my_country option:selected" ).text()}</span>`);

@@ -417,6 +417,55 @@ nav .header_user .dropdown-content > li.night_day {
     display: none;
 }
 
+.msg-container .wrap1 .msgBodys{
+    margin: 1em;
+    background-color: rgba(105, 83, 63, 0.07);
+    padding: .5em;
+    overflow-wrap: break-word;
+    display: inline-block;
+    border-radius: 0 .8em .8em .8em;
+    font-size: .9em;
+    color: black;
+    max-width: 80%;
+    width: fit-content;
+    line-height: 20px;
+}
+
+.msg-container .sentMsg .myMsg{
+    background: #CC42BD;
+    border-radius: .8em 0 .8em .8em;
+    padding: .5em;
+    display: inline-block;
+    overflow-wrap: break-word;
+    color: white;
+    font-size: .9em;
+    line-height: 20px;
+    max-width: 90%;
+    width: fit-content;
+}
+
+.msg-container .wrap1{
+    margin-right: 15em;
+}
+
+.msg-container .wrap2{
+    margin-left: 15em;
+}
+
+.msg-container .msgBody div ,.sentMsg .myMsg div{
+    margin-top: .3em;
+    color: rgba(255, 255, 255, 0.539);
+    text-align: right;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .8em;
+}
+
+.msg-container .sentMsg{
+    display: flex;
+    justify-content: flex-end;
+    margin: 1em;
+}
+
 .chat_assistant .send textarea{
     resize: none;
     border: 1px solid transparent;

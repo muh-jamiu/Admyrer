@@ -6,6 +6,7 @@ use App\Models\Follows;
 use App\Models\Like;
 use App\Models\User;
 use App\Models\Visitors;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -298,5 +299,41 @@ class UserController extends Controller
         $like->is_liked = true;
         $like->save();
         return true;
+    }
+
+    public function handleMessage()
+    {
+        $userMessage = request()->input('message');
+
+        // Send user message to Google Gemini
+        $response = $this->sendToGemini($userMessage);
+
+        // Process the response from Gemini
+        $botReply = $this->processGeminiResponse($response);
+        dd($botReply);
+    }
+
+    private function sendToGemini($message)
+    {
+        $client = new Client();
+
+        $response = $client->post('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyAF3l3ODTEHgGnhqf6Il4D9tPo-MrwuKaI', [
+            'headers' => [
+                'Authorization' => 'AIzaSyAF3l3ODTEHgGnhqf6Il4D9tPo-MrwuKaI',
+                'Content-Type' => 'application/json',
+            ],
+            'json' => [
+                "contents" => [["parts" => [["text" => "hi"]]]],
+            ],
+        ]);
+
+        return json_decode($response->getBody(), true);
+    }
+
+    private function processGeminiResponse($response)
+    {
+        $botReply = $response["candidates"][0]["content"]["parts"];
+
+        return $botReply;
     }
 }

@@ -165,6 +165,12 @@ class UserController extends Controller
         return $data;
     }
 
+    public function deleteLikes(){
+       $like = Like::where(["like_id" => request()->like_id, "user_id" => session("admyrer_id")])->first();
+       $like->delete();
+        return true;
+    }
+
     public function getAllDisLikes(){        
        $like = Like::where(["is_disliked" => true, "user_id" => session("admyrer_id")])->orderBy("created_at", "desc")->get();
        $data = [];

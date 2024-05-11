@@ -236,7 +236,7 @@ Disliked | Admyrer
 <div class="container container-fluid container_new page-margin find_matches_cont">
 	<div class="row r_margin">
 		{{-- <div class="col-sm-9"> --}}
-			<x-dashboard-sidebar :user="$user" :likedactive="true"></x-dashboard-sidebar>	
+			<x-dashboard-sidebar :user="$user" :dislikedactive="true"></x-dashboard-sidebar>	
 		{{-- </div> --}}
 	
 		<div class="col-sm-9">
@@ -292,12 +292,11 @@ Disliked | Admyrer
 	function DisLike(like, index){
 		likeUserrs[index].classList.add("d-none")
 
-		// axios.post("/disliked", {
-		// 	userId: curr_ID.innerHTML,
-		// 	like_id: like,
-		// })
-		// .then(res => console.log(res))
-		// .catch(error => console.log(error))
+		axios.post("/delete-like", {
+			like_id: like,
+		})
+		.then(res => console.log(res))
+		.catch(error => console.log(error))
 	}
 
     $(document).ready(function(){

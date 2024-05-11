@@ -296,12 +296,11 @@ Liked | Admyrer
 	function Like(like, index){
 		likeUserrs[index].classList.add("d-none")
 
-		// axios.post("/disliked", {
-		// 	userId: curr_ID.innerHTML,
-		// 	like_id: like,
-		// })
-		// .then(res => console.log(res))
-		// .catch(error => console.log(error))
+		axios.post("/delete-like", {
+			like_id: like,
+		})
+		.then(res => console.log(res))
+		.catch(error => console.log(error))
 	}
 
 

@@ -394,6 +394,53 @@ nav .header_user .dropdown-content > li.night_day {
 .chat_assistant{
     height: 500px;
     border-radius: 3px;
+    padding: 0;
+    position: relative;
+    /* overflow: hidden; */
+}
+
+.chat_assistant .head{
+    border-bottom: 1px solid rgb(229, 229, 229);
+    padding: .5em 1em;
+}
+
+.chat_assistant .send{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* padding: 0 1em; */
+    border-top: 1px solid rgb(229, 229, 229);
+    background-color: white;
+}
+
+.chat_assistant .send textarea::-webkit-scrollbar, .chat_assistant .chat_container::-webkit-scrollbar{
+    display: none;
+}
+
+.chat_assistant .send textarea{
+    resize: none;
+    border: 1px solid transparent;
+    padding: 1em;
+    border-radius: 3px;
+    width: 90%;
+    padding-top: 1em;
+    padding-bottom: 1.3em;
+    margin-right: .5em;
+}
+
+.chat_assistant .chat_container{
+    padding: 1em;
+    height: 400px;
+    overflow: scroll;
+}
+
+.chat_assistant .send button{
+    background-color: #CC42BD;
+    width: 15%;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    font-size: 12px;
 }
 
 nav .header_user #night_mode_toggle {

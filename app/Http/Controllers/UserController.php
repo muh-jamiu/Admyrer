@@ -17,7 +17,7 @@ class UserController extends Controller
         return view("pages.find-matches", compact("data"));
     }
 
-    public function matches(){;
+    public function matches(){
         $data["matchedUsers"] = $this->matchedUsers();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.matches", compact("data"));
@@ -40,6 +40,7 @@ class UserController extends Controller
     }
 
     public function likes(){
+        $data["personalLikes"] = $this->getPersonalLikes();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.likes", compact("data"));
     }
@@ -169,6 +170,18 @@ class UserController extends Controller
             $user = User::where('id', $l->like_id)->first();
             $data[$key] = $user;
             $time[$key] = $l->created_at;
+       }
+
+        return $data;
+    }
+
+    public function getPersonalLikes(){        
+       $like = Like::where(["is_liked" => true, "like_id" => session("admyrer_id")])->orderBy("created_at", "desc")->get();
+       $data = [];
+
+       foreach($like as $key => $l){  
+            $user = User::where('id', $l->like_id)->first();
+            $data[$key] = $user;;
        }
 
         return $data;

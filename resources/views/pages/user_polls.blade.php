@@ -59,4 +59,22 @@ Polls | Admyrer
 
 <x-footer></x-footer>
 
+@push("javascript")
+
+<script>
+	var ans = document.querySelectorAll(".ans");
+    ans.forEach((element, index) => {
+        element.addEventListener('click', () => {
+            ans.forEach((item, index) => {
+                item.classList.remove("selected")
+            });
+
+            element.classList.add("selected")
+        })
+    });
+
+</script>
+    
+@endpush
+
 @endsection

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Follows;
 use App\Models\Like;
+use App\Models\Poll;
 use App\Models\User;
+use App\Models\UserPoll;
+use App\Models\Userpolls;
 use App\Models\Visitors;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -341,5 +344,46 @@ class UserController extends Controller
         $botReply = $response["candidates"][0]["content"]["parts"];
 
         return $botReply;
+    }
+
+    //Polls
+    public function createPoll(){
+        $poll = new Poll();
+        $poll->title = request()->title;
+        $poll->options = request()->options;
+    }
+
+    public function createUserPoll(){
+        $poll = new Poll();
+        $poll->userId = session("admyrer_id");
+        $poll->answer = request()->answer;
+        $poll->pollId = request()->pollId;
+        $poll->save();
+
+        return true;
+    }
+
+    public function getUserPoll(){
+        $Userpoll = Userpolls::where("userId", session("admyrer_id"))->get();
+        $Allpoll = $this->getPolls();
+
+        $data["Userpoll"] = $Userpoll;
+        $data["Allpoll"] = $Allpoll;
+        $data["user"] = $this->getUser(session("admyrer_id"));
+
+        return view("pages.user_polls", compact("data"));
+    }
+
+
+    public function getPolls(){
+        $poll = Poll::all();
+        return $poll;        
+    }
+
+    public function deletePoll(){
+        $poll = Poll::find(request()->id);
+        $poll->delete();
+
+        return true;        
     }
 }

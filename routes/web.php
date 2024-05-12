@@ -33,6 +33,8 @@ Route::get('/find-matches', [UserController::class, 'index'])->middleware("notLo
 
 Route::get('/matches', [UserController::class, 'matches'])->middleware("notLogin");
 
+Route::get('/user-polls', [UserController::class, 'getUserPoll'])->middleware("notLogin");
+
 Route::get('/visits', [UserController::class, 'visits'])->middleware("notLogin");
 
 Route::get('/ai-assistant', [UserController::class, 'ai_assistant'])->middleware("notLogin");

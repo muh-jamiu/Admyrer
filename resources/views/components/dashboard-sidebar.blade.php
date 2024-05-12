@@ -77,6 +77,11 @@
                         <i class="fa-solid fa-robot" style="margin-right: 1.2em"></i>  <?php echo __( 'AI Assistant' );?>
                     </a>
                 </li>
+                <li>
+                    <a href="/user-polls" data-ajax="/ai-assistant" class={{false ? "active" : ""}}>
+                        <i class="fa-solid fa-robot" style="margin-right: 1.2em"></i>  <?php echo __( 'Polls' );?>
+                    </a>
+                </li>
             <li class="divider" tabindex="-1"></li>
             {{-- <li>
                 <a href="/gifts" data-ajax="/gifts" class={{$giftactive ? "active" : ""}}>

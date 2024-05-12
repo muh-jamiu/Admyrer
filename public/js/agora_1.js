@@ -63,12 +63,14 @@ let handleUserLeft = async (user) => {
     document.getElementById(`user-container-${user.uid}`).remove()
     var live_vid = document.querySelector(".live_vid")
     live_vid.classList.add("d-none")
+    document.getElementById('video-streams').innerHTML = ""
 }
 
 let leaveAndRemoveLocalStream = async () => {
     var live_vid = document.querySelector(".live_vid")
     live_vid.classList.add("d-none")
-    
+    document.getElementById('video-streams').innerHTML = ""
+
     for(let i = 0; localTracks.length > i; i++){
         localTracks[i].stop()
         localTracks[i].close()

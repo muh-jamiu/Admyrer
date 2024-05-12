@@ -6049,6 +6049,7 @@ textarea.materialize-textarea.report_user_report {
     border: 1px solid grey;
     margin-bottom: 2em;
     border-radius: 6px;
+    overflow: hidden !important;
 }
 
 ::-webkit-scrollbar{

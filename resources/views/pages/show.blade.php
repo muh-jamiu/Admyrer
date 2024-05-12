@@ -137,7 +137,7 @@ Find Matches | Admyrer
 								<h5 class="text-capitalize fs-5"><?php echo __( 'About' );?> {{$user->first_name}} {{$user->last_name}}</h5>
 							</div>
 							<div class="sidebar_usr_info dt_profile_about_info">
-									<div class="desc text-capitalize">{{$user->about ?? "N/A"}}</div>
+									{{-- <div class="desc text-capitalize">{{$user->about ?? "N/A"}}</div> --}}
 								<div class="row">
 										<div class="col s6">
 											<div>

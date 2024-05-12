@@ -316,8 +316,9 @@ class UserController extends Controller
     private function sendToGemini($message)
     {
         $client = new Client();
+        $key = "AIzaSyAF3l3ODTEHgGnhqf6Il4D9tPo-MrwuKaI";
 
-        $response = $client->post('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyAF3l3ODTEHgGnhqf6Il4D9tPo-MrwuKaI', [
+        $response = $client->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=$key", [
             'headers' => [
                 'Authorization' => 'AIzaSyAF3l3ODTEHgGnhqf6Il4D9tPo-MrwuKaI',
                 'Content-Type' => 'application/json',

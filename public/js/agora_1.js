@@ -17,37 +17,32 @@ let joinAndDisplayLocalStream = async () => {
     
     // Initialize the AgoraRTC client
     client.init(APP_ID, () => {
-        console.log('AgoraRTC client initialized');
-  
-    // Join a channel
-    var UID = "";
-    client.join(
-        TOKEN, // Token, if you have one. This is where you'd use the token generated on the server side.
-        CHANNEL,
-        null, // Optional channel key
-        TOKEN,
-        (uid) => {
-            UID = uid
-            console.log('User ' + uid + ' joined channel ');
-        },
-        (err) => {
-            console.error('Failed to join channel', err);
-        }
-    );
+        client.join(
+            TOKEN, 
+            CHANNEL,
+            null,
+            TOKEN,
+            async (uid) =>  {
+                var UID = uid
+                localTracks = await  AgoraRTC.createMicrophoneAndCameraTracks() 
+
+                let player = `<div class="video-containers col-sm-4" id="user-container-${UID}">
+                                    <div class="video-player" id="user-${UID}"></div>
+                            </div>`
+                document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
+
+                localTracks[1].play(`user-${UID}`)
+                
+                await client.publish([localTracks[0], localTracks[1]])
+            },
+            (err) => {
+                console.error('Failed to join channel', err);
+            }
+        );
     }, (err) => {
         console.error('AgoraRTC client initialization failed', err);
     });
 
-    localTracks = await AgoraRTC.createMicrophoneAndCameraTracks() 
-
-    let player = `<div class="video-containers col-sm-4" id="user-container-${UID}">
-                        <div class="video-player" id="user-${UID}"></div>
-                  </div>`
-    document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
-
-    localTracks[1].play(`user-${UID}`)
-    
-    await client.publish([localTracks[0], localTracks[1]])
 }
 
 let joinStream = async () => {
@@ -131,27 +126,3 @@ document.getElementById('join-btn').addEventListener('click', joinStream)
 document.getElementById('leave-btn').addEventListener('click', leaveAndRemoveLocalStream)
 document.getElementById('mic-btn').addEventListener('click', toggleMic)
 document.getElementById('camera-btn').addEventListener('click', toggleCamera)
-
-   
-    // // Initialize the AgoraRTC client
-    // client.init(APP_ID, () => {
-    //     console.log('AgoraRTC client initialized');
-  
-    // // Join a channel
-    // var UID = "";
-    // client.join(
-    //     TOKEN, // Token, if you have one. This is where you'd use the token generated on the server side.
-    //     CHANNEL,
-    //     null, // Optional channel key
-    //     TOKEN,
-    //     (uid) => {
-    //         UID = uid
-    //         console.log('User ' + uid + ' joined channel ');
-    //     },
-    //     (err) => {
-    //         console.error('Failed to join channel', err);
-    //     }
-    // );
-    // }, (err) => {
-    //     console.error('AgoraRTC client initialization failed', err);
-    // });

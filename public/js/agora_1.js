@@ -1,5 +1,5 @@
-const APP_ID = "378c43133dab45e089328fc510cc93aa"
-const TOKEN = "bf64dee4113d4718a4222096a3f03ef3"
+const APP_ID = "b76f67d420d2486699d05d28cf678251"
+const TOKEN = "007eJxTYJjefDhFOlO+5epr76wdqySUJuv4MMt97jtmt/V0Y5extp0CQ5K5WZqZeYqJkUGKkYmFmZmlZYqBaYqRRTJQ1MLI1NDyi0NaQyAjg8VLX2ZGBggE8VkYchMz8xgYAMccHUA="
 const CHANNEL = "main"
 
 const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
@@ -15,7 +15,28 @@ let joinAndDisplayLocalStream = async () => {
     
     client.on('user-left', handleUserLeft)
     
-    let UID = await client.join(APP_ID, CHANNEL, TOKEN, null)
+    // Initialize the AgoraRTC client
+    client.init(APP_ID, () => {
+        console.log('AgoraRTC client initialized');
+  
+    // Join a channel
+    var UID = "";
+    client.join(
+        TOKEN, // Token, if you have one. This is where you'd use the token generated on the server side.
+        CHANNEL,
+        null, // Optional channel key
+        TOKEN,
+        (uid) => {
+            UID = uid
+            console.log('User ' + uid + ' joined channel ');
+        },
+        (err) => {
+            console.error('Failed to join channel', err);
+        }
+    );
+    }, (err) => {
+        console.error('AgoraRTC client initialization failed', err);
+    });
 
     localTracks = await AgoraRTC.createMicrophoneAndCameraTracks() 
 
@@ -110,3 +131,27 @@ document.getElementById('join-btn').addEventListener('click', joinStream)
 document.getElementById('leave-btn').addEventListener('click', leaveAndRemoveLocalStream)
 document.getElementById('mic-btn').addEventListener('click', toggleMic)
 document.getElementById('camera-btn').addEventListener('click', toggleCamera)
+
+   
+    // // Initialize the AgoraRTC client
+    // client.init(APP_ID, () => {
+    //     console.log('AgoraRTC client initialized');
+  
+    // // Join a channel
+    // var UID = "";
+    // client.join(
+    //     TOKEN, // Token, if you have one. This is where you'd use the token generated on the server side.
+    //     CHANNEL,
+    //     null, // Optional channel key
+    //     TOKEN,
+    //     (uid) => {
+    //         UID = uid
+    //         console.log('User ' + uid + ' joined channel ');
+    //     },
+    //     (err) => {
+    //         console.error('Failed to join channel', err);
+    //     }
+    // );
+    // }, (err) => {
+    //     console.error('AgoraRTC client initialization failed', err);
+    // });

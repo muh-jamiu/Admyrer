@@ -520,6 +520,45 @@ nav .header_user .dropdown-content > li.night_day {
     font-size: 12px;
 }
 
+.polls .card{
+    border-radius: 3px;
+    box-shadow: .1em .1em 1em rgb(222, 222, 222) !important;
+    font-size: 14px;
+}
+
+.polls .card .head{
+    background-color: #CC42BD;
+    width: 100%;
+    padding: .5em;
+    text-align: center;
+    color: white;
+    border-radius: 3px 3px 0px 0px;
+    padding-bottom: 0em;
+}
+
+.polls .card .ans{
+    border: 1px solid rgb(220, 220, 220);
+    width: 100%;
+    border-radius: 3px;
+    padding: .3em;
+    transition: .2s;
+}
+
+.polls .card .ans:hover{
+    background-color: #CC42BD;
+    color: white;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.polls .card .ans span{
+    border: 1px solid rgb(220, 220, 220);
+    border-radius: 3px;
+    padding: .5em;
+    text-align: center;
+    font-weight: 900;
+}
+
 nav .header_user #night_mode_toggle {
 	box-shadow: none;
     color: #433E42;justify-content: space-between;

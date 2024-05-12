@@ -138,8 +138,6 @@
 <video autoplay onclick="startCall()" id="localVideo" style="width: 400px; height:400px; border:1px solid red"></video>
 <video autoplay onclick="stopCall()" id="remoteVideo" style="width: 400px; height:400px; border:1px solid blue"></video> --}}
 
-<x-start-live></x-start-live>
-
 @push("javascript")
 <script>
     const localVideo = document.getElementById('localVideo');

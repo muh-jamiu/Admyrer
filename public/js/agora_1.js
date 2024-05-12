@@ -17,8 +17,8 @@ let joinAndDisplayLocalStream = async () => {
 
     localTracks = await AgoraRTC.createMicrophoneAndCameraTracks() 
 
-    let player = `<div class="video-container" id="user-container-${UID}">
-                        <div class="video-player" id="user-${UID}"></div>
+    let player = `<div style="width: 100%; height:100%" class="video-container" id="user-container-${UID}">
+                        <div style="width: 100%; height:100%" class="video-player" id="user-${UID}"></div>
                   </div>`
     document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
 

@@ -6001,7 +6001,13 @@ textarea.materialize-textarea.report_user_report {
 
 
 
-
+.live_vid{
+    position: fixed;
+    width: 100%;
+    background-color: red;
+    height: 100%;
+    z-index: 1000;
+}
 
 
 

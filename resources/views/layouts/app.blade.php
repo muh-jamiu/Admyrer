@@ -44,6 +44,7 @@
     <script src="/js/jquery-3.5.1.min.js"></script>
 </head>
 <body>
+    <x-start-live></x-start-live>
     <img src="/img/login-banner-mask.svg" class="body_banner_mask">
 
     @yield("content")

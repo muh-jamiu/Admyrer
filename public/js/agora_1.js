@@ -8,6 +8,8 @@ let localTracks = []
 let remoteUsers = {}
 
 let joinAndDisplayLocalStream = async () => {
+    var live_vid = document.querySelector(".live_vid")
+    live_vid.classList.remove("d-none")
 
     client.on('user-published', handleUserJoined)
     
@@ -17,8 +19,8 @@ let joinAndDisplayLocalStream = async () => {
 
     localTracks = await AgoraRTC.createMicrophoneAndCameraTracks() 
 
-    let player = `<div style="width: 100%; height:100%" class="video-container" id="user-container-${UID}">
-                        <div style="width: 100%; height:100%" class="video-player" id="user-${UID}"></div>
+    let player = `<div class="video-containers col-sm-4" id="user-container-${UID}">
+                        <div class="video-player" id="user-${UID}"></div>
                   </div>`
     document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
 
@@ -59,9 +61,14 @@ let handleUserJoined = async (user, mediaType) => {
 let handleUserLeft = async (user) => {
     delete remoteUsers[user.uid]
     document.getElementById(`user-container-${user.uid}`).remove()
+    var live_vid = document.querySelector(".live_vid")
+    live_vid.classList.add("d-none")
 }
 
 let leaveAndRemoveLocalStream = async () => {
+    var live_vid = document.querySelector(".live_vid")
+    live_vid.classList.add("d-none")
+    
     for(let i = 0; localTracks.length > i; i++){
         localTracks[i].stop()
         localTracks[i].close()

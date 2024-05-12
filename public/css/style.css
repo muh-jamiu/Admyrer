@@ -6004,9 +6004,55 @@ textarea.materialize-textarea.report_user_report {
 .live_vid{
     position: fixed;
     width: 100%;
-    background-color: red;
+    background-color: black;
     height: 100%;
     z-index: 1000;
+    overflow: hidden;
+}
+
+.live_vid .btns{
+    position: absolute;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.181);
+    bottom: 0;
+    padding: .5em;
+    justify-content: center;
+}
+
+.live_vid .btns button{
+    margin-right: 1em;
+    margin-left: 1em;
+    border-radius: 3px !important;
+    box-shadow: none !important;
+    border-radius: 50% !important;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    font-size: 14px !important;
+}
+
+.live_vid .video-streams{
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+
+.live_vid .video-containers{
+    width: 400px;
+    height: 400px;
+}
+
+
+.live_vid .video-player{
+    width: 100%;
+    height: 100%;
+    border: 1px solid grey;
+    margin-bottom: 2em;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar{
+    display: none;
 }
 
 

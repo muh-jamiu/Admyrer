@@ -20,36 +20,23 @@
                 </li>
             </ul>
             <ul class="right">
-                {{-- <li class="">
-                    <a href="javascript:void(0);">                        
-                        <div class="btn text_co">
-                            <span class="text-dark"><?php echo __( 'Credit' );?></span>&nbsp;&nbsp;
-                            <svg xmlns="http://www.w3.org/2000/svg" width="13.658" height="15.175" viewBox="0 0 13.658 15.175"> <path id="Path_5894" data-name="Path 5894" d="M3367.018,4985.622h8.347a.759.759,0,0,0,0-1.518h-6.07a3.793,3.793,0,1,1,0-7.587h1.518V4975h3.035v1.518h3.793v3.035h-8.346a.759.759,0,0,0,0,1.518h6.07a3.793,3.793,0,1,1,0,7.587h-1.518v1.518h-3.035v-1.518h-3.794Z" transform="translate(-3365.5 -4975)" fill="#cc42bd"/> </svg> 
-                            <span class="text-dark" id="credit_amount">10 </span>
-                        </div>
-                    </a>
-                </li> --}}
 
-                <li class="header_msg">
+                <li class="header_msg dropdown">
                     <a href="javascript:void(0);" id="messenger_opener" class="btn-flat">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"></path><line x1="8" y1="9" x2="16" y2="9"></line><line x1="8" y1="13" x2="14" y2="13"></line></svg>
                         <span class="badge red chat_badge hide" href="javascript:void(0);" id="messenger_opener">0</span></a>
                     </a>
                 </li>
-                <li class="header_notifications">
-                    <a href="javascript:void(0);" id="notificationbtn" data-ajax-post="/useractions/shownotifications" data-ajax-params="" data-ajax-callback="callback_show_notifications" data-target="notif_dropdown" class="dropdown-trigger btn-flat">
+                
+                <li class="header_notifications dropdown">
+                    <a data-bs-toggle="dropdown" href="javascript:void(0);" id="notificationbtn" data-ajax-post="/useractions/shownotifications" data-ajax-params="" data-ajax-callback="callback_show_notifications" data-target="notif_dropdown" class="dropdown-trigger btn-flat">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path><path d="M9 17v1a3 3 0 0 0 6 0v-1"></path><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727"></path><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727"></path></svg>
                         <span class="badge notification_badge hide">0</span>
                     </a>
-                    <ul id="notif_dropdown" class="dropdown-content">
+                    <ul id="notif_dropdown" class="dropdown-content dropdown-menu" style="opacity: 1.0 !important">
                         <div class="valign-wrapper">
-                            <h3><?php echo __( 'Notifications' );?></h3>
+                            <p><?php echo __( 'Notifications' );?></p>
                             <button type="button" class="waves-effect"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></button>
-                        </div>
-                        <div class="dt_notifis_prnt">
-                            <h5 class="empty_state">
-                                <svg width="140" height="64" viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" fill="#e05cd1" style="width: 90px;"> <path d="M30.262 57.02L7.195 40.723c-5.84-3.976-7.56-12.06-3.842-18.063 3.715-6 11.467-7.65 17.306-3.68l4.52 3.76 2.6-5.274c3.717-6.002 11.47-7.65 17.305-3.68 5.84 3.97 7.56 12.054 3.842 18.062L34.49 56.118c-.897 1.512-2.793 1.915-4.228.9z" fill-opacity=".5"> <animate attributeName="fill-opacity" begin="0s" dur="1.4s" values="0.5;1;0.5" calcMode="linear" repeatCount="indefinite"></animate> </path> <path d="M105.512 56.12l-14.44-24.272c-3.716-6.008-1.996-14.093 3.843-18.062 5.835-3.97 13.588-2.322 17.306 3.68l2.6 5.274 4.52-3.76c5.84-3.97 13.592-2.32 17.307 3.68 3.718 6.003 1.998 14.088-3.842 18.064L109.74 57.02c-1.434 1.014-3.33.61-4.228-.9z" fill-opacity=".5"> <animate attributeName="fill-opacity" begin="0.7s" dur="1.4s" values="0.5;1;0.5" calcMode="linear" repeatCount="indefinite"></animate> </path> <path d="M67.408 57.834l-23.01-24.98c-5.864-6.15-5.864-16.108 0-22.248 5.86-6.14 15.37-6.14 21.234 0L70 16.168l4.368-5.562c5.863-6.14 15.375-6.14 21.235 0 5.863 6.14 5.863 16.098 0 22.247l-23.007 24.98c-1.43 1.556-3.757 1.556-5.188 0z"></path> </svg>
-                            </h5>
                         </div>
                     </ul>
                 </li>

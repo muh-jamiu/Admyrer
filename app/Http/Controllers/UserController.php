@@ -211,13 +211,14 @@ class UserController extends Controller
     }
 
      //Follow
-     public function post_follows($followsID, $followersID){
-        $follows = Follows::where(["followersID" => session("admyrer_id"), "followersID" => $followersID])->orderBy("created_at", "desc")->get();
+     public function post_follows(){
+        $follows = Follows::where(["followersID" => session("admyrer_id"), "followsID" => request()->followsID])->get();
         if(count($follows) > 0){
-            return;
+            return false;
         }
+
         $follows = new Follows();
-        $follows->followsID = $followsID;
+        $follows->followsID = request()->followsID;
         $follows->followersID = session("admyrer_id");
         $follows->save();
 
@@ -229,7 +230,7 @@ class UserController extends Controller
         $data = [];
 
         foreach($follows as $key => $v){  
-            $user = User::where('id', $v->followersID)->first();
+            $user = User::where('id', $v->followsID)->first();
             $data[$key] = $user;
         }
 
@@ -238,7 +239,6 @@ class UserController extends Controller
 
     public function deleteFollows(){
         $follows = Follows::where(["followsID" => request()->id, "followersID" => session("admyrer_id")])->first();
-        return request()->id;
         $follows->delete();
 
         return true;        

@@ -25,6 +25,8 @@ Route::post('/send-ai-message', [UserController::class, 'handleAIMessage']);
 
 Route::post('/delete-like', [UserController::class, 'deleteLikes']);
 
+Route::post('/post-follows', [UserController::class, 'post_follows']);
+
 Route::post('/delete-follows', [UserController::class, 'deleteFollows']);
 
 Route::post('/disliked', [UserController::class, 'post_disliked']);

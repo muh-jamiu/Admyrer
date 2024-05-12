@@ -4305,7 +4305,7 @@ body h5.empty_state svg {display: block;margin: 0 auto 15px;width: 60px;height: 
 }
 
 /*Modals*/
-.modal {border-radius: 15px;width: 100%;/*top: 50% !important;transform: translateY(calc(-50% - 6px)) !important;*/box-shadow: 0px 3px 20px rgb(0 0 0 / 2%);background-color: #ffffff;}
+.modasl {border-radius: 15px;width: 100%;/*top: 50% !important;transform: translateY(calc(-50% - 6px)) !important;*/box-shadow: 0px 3px 20px rgb(0 0 0 / 2%);background-color: #ffffff;}
 /*.modal:not(.dt_msg_box) .modal-content:not(.datepicker-container) {
 	padding: 35px;
 }
@@ -5864,7 +5864,7 @@ textarea.materialize-textarea.report_user_report {
 }
 
 /*18+*/
-.et_plus.modal {
+.et_plus.modasl {
     top: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
@@ -6012,7 +6012,7 @@ textarea.materialize-textarea.report_user_report {
 }
 
 @media (min-width: 676px){
-.modal {max-width: 500px;}
+.msodal {max-width: 500px;}
 }
 
 @media (min-width: 993px){

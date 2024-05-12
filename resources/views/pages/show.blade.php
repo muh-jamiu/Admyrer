@@ -52,9 +52,9 @@ Find Matches | Admyrer
 				<div class="dt_othr_ur_info">
 					<h6 class="text-capitalize"> 
 						{{$user->first_name}} {{$user->last_name}}
-						<span tooltip="<?php echo __( 'This user is Not verified' );?>" flow="down">
+						{{-- <span tooltip="<?php echo __( 'This user is Not verified' );?>" flow="down">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#e18805" d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M17,15.59L15.59,17L12,13.41L8.41,17L7,15.59L10.59,12L7,8.41L8.41,7L12,10.59L15.59,7L17,8.41L13.41,12L17,15.59Z" /></svg>
-						</span>
+						</span> --}}
 					</h6>
 				</div>
 					<div class="dt_usr_opts_mnu">
@@ -68,13 +68,10 @@ Find Matches | Admyrer
 							<a href="javascript:void(0);" class="green_bg tooltipped" data-position="bottom" data-tooltip="">
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M14 14.252v2.09A6 6 0 0 0 6 22l-2-.001a8 8 0 0 1 10-7.748zM12 13c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm5.793 8.914l3.535-3.535 1.415 1.414-4.95 4.95-3.536-3.536 1.415-1.414 2.12 2.121z"/></svg>
 							</a> --}}
-						<a href="javascript:void(0);" class="yellow_bg tooltipped" id="btn_open_private_conversation" data-ajax-post="/chat/open_private_conversation" data-ajax-params="from=<?php echo $user->id;?>&web_device_id=<?php echo $user->web_device_id;?>" data-ajax-callback="open_private_conversation" data-position="bottom" data-tooltip="<?php echo __( 'Message' );?>">
+						<a data-bs-toggle="modal" data-bs-target="#chatConversations" href="javascript:void(0);" class="yellow_bg tooltipped" id="btn_open_private_conversation" data-ajax-post="/chat/open_private_conversation" data-ajax-params="from=<?php echo $user->id;?>&web_device_id=<?php echo $user->web_device_id;?>" data-ajax-callback="open_private_conversation" data-position="bottom" data-tooltip="<?php echo __( 'Message' );?>">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M14 22.5L11.2 19H6a1 1 0 0 1-1-1V7.103a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1V18a1 1 0 0 1-1 1h-5.2L14 22.5zm1.839-5.5H21V8.103H7V17H12.161L14 19.298 15.839 17zM2 2h17v2H3v11H1V3a1 1 0 0 1 1-1z"/></svg>
 						</a>
-							<a href="javascript:void(0);" class="blue_bg tooltipped" data-ajax-post="/user/open_gift_model" data-ajax-params="" data-ajax-callback="callback_open_gift_model" data-position="bottom" data-tooltip="<?php echo __( 'Send a gift' );?>">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M3 10H2V4.003C2 3.449 2.455 3 2.992 3h18.016A.99.99 0 0 1 22 4.003V10h-1v10.001a.996.996 0 0 1-.993.999H3.993A.996.996 0 0 1 3 20.001V10zm16 0H5v9h14v-9zM4 5v3h16V5H4zm5 7h6v2H9v-2z"/></svg>
-							</a>
-						
+							
 						<a href="javascript:void(0);" data-target="user_prof_dropdown" class="dropdown-trigger">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12 3c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 14c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-7c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
 						</a>
@@ -530,6 +527,34 @@ Find Matches | Admyrer
 	</div>
 </div>
 <!-- End Profile  -->
+
+
+{{-- modal --}}
+  
+  <!-- The Modal -->
+  <div class="modal fade" id="chatConversations">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+	  <div class="modal-content p-0">
+  
+		<!-- Modal Header -->
+		<div class="modal-header">
+		  <h4 class="modal-title">Modal Heading</h4>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		</div>
+  
+		<!-- Modal body -->
+		<div class="modal-body">
+		  Modal body..
+		</div>
+  
+		<!-- Modal footer -->
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+		</div>
+  
+	  </div>
+	</div>
+  </div>
 
 
 

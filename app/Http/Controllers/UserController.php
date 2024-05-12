@@ -351,6 +351,9 @@ class UserController extends Controller
         $poll = new Poll();
         $poll->title = request()->title;
         $poll->options = request()->options;
+        
+        $poll->save();
+        return true;
     }
 
     public function createUserPoll(){
@@ -383,6 +386,34 @@ class UserController extends Controller
     public function deletePoll(){
         $poll = Poll::find(request()->id);
         $poll->delete();
+
+        return true;        
+    }
+
+
+    //follows
+    public function createFollows(){
+        $follows = new Follows();
+        $follows->followsID = request()->followsID;
+        $follows->followersID =session("admyrer_id");
+
+        $follows->save();
+        return true;   
+        
+    }
+
+    public function getUserFollows(){
+        $follows = Follows::where("followsID", session("admyrer_id"))->get();
+
+        $data["follows"] = $follows;
+        $data["user"] = $this->getUser(session("admyrer_id"));
+
+        return view("pages.user_polls", compact("data"));
+    }
+
+    public function deleteFollows(){
+        $follows = Follows::find(request()->id);
+        $follows->delete();
 
         return true;        
     }

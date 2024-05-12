@@ -38,6 +38,7 @@
     <script src="/js/chat.js"></script>
     <script src="/js/functions.js"></script>
     <script src="/js/agora.js"></script>
+    <script src="/js/agora_1.js"></script>
     <script src="/js/plugins.js"></script>
     <script src="/js/jquery-2.1.1.min.js"></script>
     <script src="/js/jquery-3.5.1.min.js"></script>

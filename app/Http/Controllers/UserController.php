@@ -399,4 +399,29 @@ class UserController extends Controller
         return true;        
     }
 
+    //Agora
+    public function generateToken()
+    {
+        $channelName = "main";
+        $appId = "378c43133dab45e089328fc510cc93aa";
+        $appCertificate = "bf64dee4113d4718a4222096a3f03ef3";
+
+        // Make a request to Agora's token server to generate a token
+        $client = new Client();
+        $response = $client->post('https://api.agora.io/v1/token/rtc/generate', [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Basic ' . base64_encode($appId . ':' . $appCertificate),
+            ],
+            'json' => [
+                'cname' => $channelName,
+            ],
+        ]);
+
+        $token = json_decode($response->getBody()->getContents(), true)['rtcToken'];
+        dd($token);
+
+        return response()->json(['token' => $token]);
+    }
+
 }

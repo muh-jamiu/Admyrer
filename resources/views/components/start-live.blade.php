@@ -1,6 +1,6 @@
 <div class="live_vid d-none">
    <div class="btns d-flex">
-        <button  class="btn" onclick="joinStream()">start</button>
+        <button  class="btn" id="join-btn" onclick="joinStream()">start</button>
         <button onclick="leaveAndRemoveLocalStream()" class="btn bg-danger" id="leave-btn"><i class="fa-solid fa-person-walking-arrow-right"></i></button>
         <button onclick="toggleMic()" class="btn bg-danger" id="mic-btn"><i class="fa-solid fa-microphone"></i></button>
         <button onclick="toggleCamera()" class="btn bg-danger" id="camera-btn"><i class="fa-solid fa-camera-retro"></i></button>

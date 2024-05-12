@@ -25,6 +25,8 @@ Route::post('/send-ai-message', [UserController::class, 'handleAIMessage']);
 
 Route::post('/delete-like', [UserController::class, 'deleteLikes']);
 
+Route::post('/delete-follows', [UserController::class, 'deleteFollows']);
+
 Route::post('/disliked', [UserController::class, 'post_disliked']);
 
 Route::get('/@{username}', [UserController::class, 'show'])->middleware("notLogin");

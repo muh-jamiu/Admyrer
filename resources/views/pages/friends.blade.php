@@ -2,6 +2,7 @@
 
 @php
 	$user = $data["user"] ?? [];
+	$follows = $data["follows"] ?? [];
 @endphp
 
 @section('title')
@@ -10,6 +11,7 @@ Friends | Admyrer
 
 @section("content")
 <x-main-nav :user="$user"></x-main-nav>
+<p class="d-none " id="curr_ID">{{$user->id}}</p>
 
 
 <ul class="collapsible dt_new_home_filter" id="home_filters">
@@ -239,27 +241,44 @@ Friends | Admyrer
         <x-dashboard-sidebar :user="$user" :friendsactive="true"></x-dashboard-sidebar>		
 
 		<div class="col-sm-9">
-			<!-- Filters  -->
-			<div class="dt_home_filters_prnt">
-				<div class="dt_home_filters">
-					<h6><?php echo __('Friends');?></h6>
+			<!-- People i liked  -->
+			<div class="container-fluid dt_ltst_users">
+				<div class="dt_home_rand_user">
+					<h6 class="bold mb-3"><?php echo __( 'Friends' );?></h6>
+					
+					@if (count($follows) > 0)
+						<div class="row" id="liked_users_container">
+							@foreach ($follows as $key => $likeUser)					
+								<div class="col-sm-3 m6 s12 matches visit likeUserrs" >
+									<div class="card valign-wrapper" style="border: none !important">
+										<div class="card-image">
+											<a href={{"/@" . $likeUser->username}}>
+												<img src={{$likeUser->avatar}} alt="">
+											</a>
+										</div>
+										<div class="card-content">
+											<a href={{"/@" . $likeUser->username}} data-ajax="" class="text-capitalize"><span class="card-titl fw-bold">{{$likeUser->first_name}} {{$likeUser->last_name}}</span></a>
+											<p class="text-capitalize"><span class="time ajax-time age" title="">{{$likeUser->gender}}</span></p>
+											<p class="text-capitalize">{{$likeUser->country}}</p>
+											<div class="rand_bottom_bar">
+												<button onclick="Like({{$likeUser->id}}, {{$key}})" id="like_btn" class="btn waves-effect like liked" data-ajax-post="/useractions/remove_like" data-ajax-params="userid=" data-ajax-callback="callback_liked_remove_like">
+													<a href="javascript:void(0);" id="btn_delete_friend" data-ajax-post="/user/add_friend" data-ajax-params="to=" data-ajax-callback="callback_add_friend" class="red_bg tooltipped" data-position="bottom" data-tooltip="<?php echo __( 'UnFriend' );?>">
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M14 14.252v2.09A6 6 0 0 0 6 22l-2-.001a8 8 0 0 1 10-7.748zM12 13c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm7 6.586l2.121-2.122 1.415 1.415L20.414 19l2.122 2.121-1.415 1.415L19 20.414l-2.121 2.122-1.415-1.415L17.586 19l-2.122-2.121 1.415-1.415L19 17.586z"/></svg>
+													</a></button>
+											</div>
+										</div>
+									</div>
+								</div>
+							@endforeach
+						</div>
+					@endif
+
+					@if (count($follows) == 0)
+						<x-dashboard-empty></x-dashboard-empty>  						
+					@endif
 				</div>
 			</div>
-			<!-- End Filters  -->
-
-            <x-dashboard-empty></x-dashboard-empty>        
-          
-        
-            <!-- Match Users  -->
-            <div id="section_match_users" class="">
-                <div class="dt_home_match_user">
-                    <div class="valign-wrapper mtc_usr_avtr" id="avaters_item_container">
-                    </div>
-                    <div class="mtc_usr_details" id="match_item_container">
-                    </div>
-                </div>
-            </div>
-            <!-- End Match Users  -->
+			<!-- People i liked -->
 		</div>
 		<!-- End Search Users  -->
 
@@ -271,6 +290,20 @@ Friends | Admyrer
 
 @push("javascript")
 <script>
+
+	var curr_ID = document.getElementById("curr_ID");
+	var likeUserrs = document.querySelectorAll(".likeUserrs")
+
+	function Like(like, index){
+		likeUserrs[index].classList.add("d-none")
+
+		axios.post("/delete-follows", {
+			id: like,
+		})
+		.then(res => console.log(res))
+		.catch(error => console.log(error))
+	}
+
     $(document).ready(function(){
         $('#my_country').on('change',() => {
             $('.located_at').html(`&nbsp;&nbsp;<?php echo __('located_at');?> <span id="located">${$("#my_country option:selected" ).text()}</span>`);

@@ -34,6 +34,7 @@ class UserController extends Controller
     }
 
     public function friends(){
+        $data["follows"] = $this->get_follows();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.friends", compact("data"));
     }
@@ -217,14 +218,14 @@ class UserController extends Controller
         }
         $follows = new Follows();
         $follows->followsID = $followsID;
-        $follows->followersID = $followersID;
+        $follows->followersID = session("admyrer_id");
         $follows->save();
 
         return true;
     }
 
     public function get_follows(){
-        $follows = Follows::where("followsID", session("admyrer_id"))->orderBy("created_at", "desc")->get();
+        $follows = Follows::where("followersID", session("admyrer_id"))->orderBy("created_at", "desc")->get();
         $data = [];
 
         foreach($follows as $key => $v){  
@@ -233,6 +234,14 @@ class UserController extends Controller
         }
 
         return $data;
+    }
+
+    public function deleteFollows(){
+        $follows = Follows::where(["followsID" => request()->id, "followersID" => session("admyrer_id")])->first();
+        return request()->id;
+        $follows->delete();
+
+        return true;        
     }
 
     //visits
@@ -390,31 +399,4 @@ class UserController extends Controller
         return true;        
     }
 
-
-    //follows
-    public function createFollows(){
-        $follows = new Follows();
-        $follows->followsID = request()->followsID;
-        $follows->followersID =session("admyrer_id");
-
-        $follows->save();
-        return true;   
-        
-    }
-
-    public function getUserFollows(){
-        $follows = Follows::where("followsID", session("admyrer_id"))->get();
-
-        $data["follows"] = $follows;
-        $data["user"] = $this->getUser(session("admyrer_id"));
-
-        return view("pages.user_polls", compact("data"));
-    }
-
-    public function deleteFollows(){
-        $follows = Follows::find(request()->id);
-        $follows->delete();
-
-        return true;        
-    }
 }

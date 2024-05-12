@@ -11,6 +11,7 @@
     $storiesactive = $storiesactive ?? false;
     $hotactive = $hotactive ?? false;
     $aiactive = $aiactive ?? false;
+    $pollactive = $pollactive ?? false;
 @endphp
 
 <div class="col-sm-3">
@@ -78,7 +79,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/user-polls" data-ajax="/ai-assistant" class={{false ? "active" : ""}}>
+                    <a href="/user-polls" data-ajax="/ai-assistant" class={{$pollactive ? "active" : ""}}>
                         <i class="fa-solid fa-robot" style="margin-right: 1.2em"></i>  <?php echo __( 'Polls' );?>
                     </a>
                 </li>

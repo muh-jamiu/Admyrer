@@ -272,6 +272,42 @@ class UserController extends Controller
         return $user;
     }
 
+    public function updateUser(Request $request){
+        $user = User::find($request->id);
+        
+        if(!$user){
+            return "User Not Fuund";
+        }
+        
+        $user->first_name = $request->first_name ?? $user->first_name;
+        $user->last_name = $request->last_name ?? $user->last_name;
+        $user->email = $request->email ?? $user->email;
+        $user->username = $request->username ??  "$user->username" ;
+        $user->avatar = $request->avatar ?? $user->avatar;
+        $user->address = $request->address ?? $user->address;
+        $user->birthday = $request->birthday ??  $user->birthday;
+        $user->gender = $request->gender ?? $user->gender ;
+        $user->country = $request->country ?? $user->country;
+        $user->verified = $request->verified ?? $user->verified;
+        $user->height = $request->height >> $user->height;
+        $user->hair_color = $request->hair_color ?? $user->hair_color;
+        $user->interest = $request->interest ?? $user->interest;
+        $user->state = $request->state ?? $user->state;
+        $user->location = $request->location ?? $user->location;
+        $user->phone_number = $request->phone_number ?? $user->phone_number;
+        $user->relationship = $request->relationship ?? $user->relationship;
+        $user->work_status = $request->work_status ?? $user->work_status;
+        $user->education = $request->education ?? $user->education;
+        $user->body = $request->body ?? $user->body;
+        $user->car = $request->car ?? $user->car;
+        $user->religion = $request->religion ?? $user->religion ;
+        $user->city = $request->city ?? $user->city ;
+        $user->color = $request->color ?? $user->color;
+        $user->update();
+        
+        return true;
+    }
+
     public function getAllUserRandomly(){        
        $user = User::inRandomOrder()->get();
         return $user;

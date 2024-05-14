@@ -302,7 +302,7 @@ Complete Profile Setup | Admyrer
       var hair = document.querySelector(".hair")
       var photo = document.querySelector(".photo")
 
-		axios.post("/", {
+		axios.post("/update-user", {
          photo: "",
          height: height.value,
          hair_color: hair.value,

@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [UserController::class, 'loginUser']);
 
+Route::post('/update-user', [UserController::class, 'updateUser']);
+
 Route::post('/register', [UserController::class, 'registerUser']);
 
 Route::post('/like', [UserController::class, 'post_like']);

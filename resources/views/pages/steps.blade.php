@@ -62,7 +62,7 @@ Complete Profile Setup | Admyrer
                   <div class="slider" style="height: fit-content !important">
                      <div class="steps_alerts" style="padding: 0px 50px 0px;;width: 680px;"></div>
                         {{-- choose photo --}}
-                        <div class="slider-form d-none slider-one second_slider" id="profile_image_upload">
+                        <div class="slider-form slider-one second_slider" id="profile_image_upload">
                         <div class="choose_photo">
                            <h6 class="bold"><?php echo __( 'people want to see what you look like!' );?></h6>
                            <p><?php echo __( 'Upload Images to set your Profile Picture Image.' );?></p>
@@ -173,39 +173,39 @@ Complete Profile Setup | Admyrer
                      </div>
                      
                         {{-- info --}}
-                        <form class="slider-form info_slide slider-two slider-zero-active  third_slider">
+                        <form class="slider-form info_slide  d-none slider-two slider-zero-active  third_slider">
                            <div class="row">
                               <div class="input-field col-sm-6" style="margin-bottom: 5em">
-                                 <select id="height" name="height" data-errmsg="<?php echo __( 'Your height is required.');?>">
+                                 <select class="height" id="height" name="height" data-errmsg="<?php echo __( 'Your height is required.');?>">
                                     <option value="" disabled selected>Height</option>
                                  </select>
                               </div>
 
                               <div class="input-field col-sm-6" style="margin-bottom: 5em">
-                                 <select id="hair" name="hair">
+                                 <select class="hair" id="hair" name="hair">
                                     <option value="" disabled selected>Hair Color</option>
                                  </select>
                               </div>
 
                               <div class="input-field col-sm-6">
-                                 <input id="mobile" type="text" data-errmsg="<?php echo __( 'Your phone number is required.');?>" class="validate" title="Field must be a number." placeholder="<?php echo __('Phone number, e.g +90..');?>" data-validation-type="sms" required>
+                                 <input type="text" data-errmsg="<?php echo __( 'Your phone number is required.');?>" class="phone" title="Field must be a number." placeholder="<?php echo __('Phone number, e.g +90..');?>" required>
                                  <label for="mobile"><?php echo __( 'Mobile Number' );?></label>
                               </div>
 
                               <div class="input-field col-sm-6">
-                                 <input id="birthdate" data-errmsg="<?php echo __( 'Select your Birth date.');?>" type="text" class="datepicker user_bday" required>
+                                 <input id="birthdate" data-errmsg="<?php echo __( 'Select your Birth date.');?>" type="text" class="datepicker user_bday bdy" required>
                                  <label for="birthdate"><?php echo __( 'Birthdate' );?></label>
                               </div>
 
                               <div class="input-field col-sm-6">
-                                 <select id="country" data-errmsg="<?php echo __( 'Select your country.');?>" required>
+                                 <select class="country" id="country" data-errmsg="<?php echo __( 'Select your country.');?>" required>
                                     <option value="" disabled selected><?php echo __( 'Choose your country' );?></option>
                                     
                                  </select>
                               </div>
 
                               <div class="input-field col-sm-6">
-                                 <select id="gender" name="gender" data-errmsg="<?php echo __( 'Choose your Gender');?>" required>
+                                 <select class="gender" id="gender" name="gender" data-errmsg="<?php echo __( 'Choose your Gender');?>" required>
                                     <option value="" disabled selected>Gender</option>
                                  </select>
                               </div>
@@ -213,7 +213,7 @@ Complete Profile Setup | Admyrer
                         </div>
 
                            <div class="mt-5">
-                              <button style="color: #CC42BD !important;float: right; background:white" class="waves-effect second_btn waves-light btn btn_primary bold next" data-src="" data-emailvalidation="">
+                              <button onclick="update()" style="color: #CC42BD !important;float: right; background:white" class="waves-effect second_btn waves-light btn btn_primary bold next" data-src="" data-emailvalidation="">
                                  <?php echo __( 'Next' );?> 
                                  <svg viewBox="0 0 19 14" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
                                     <path fill="currentColor" d="M18.6 6.9v-.5l-6-6c-.3-.3-.9-.3-1.2 0-.3.3-.3.9 0 1.2l5 5H1c-.5 0-.9.4-.9.9s.4.8.9.8h14.4l-4 4.1c-.3.3-.3.9 0 1.2.2.2.4.2.6.2.2 0 .4-.1.6-.2l5.2-5.2h.2c.5 0 .8-.4.8-.8 0-.3 0-.5-.2-.7z"></path>
@@ -292,6 +292,29 @@ Complete Profile Setup | Admyrer
 @push("javascript")
 
 <script type="text/javascript">
+
+   function update(){
+      var bdy = document.querySelector(".bdy")
+      var height = document.querySelector(".height")
+      var country = document.querySelector(".country")
+      var gender = document.querySelector(".gender")
+      var phone = document.querySelector(".phone")
+      var hair = document.querySelector(".hair")
+      var photo = document.querySelector(".photo")
+
+		axios.post("/", {
+         photo: "",
+         height: height.value,
+         hair_color: hair.value,
+         country: country.value,
+         birthday: bdy.value,
+         gender: gender.value,
+         phone: phone.value,
+		})
+		.then(res => console.log(res))
+		.catch(error => console.log(error))
+	}
+
    flatpickr("#birthdate", {
         dateFormat: "Y-m-d",
         // Other options...

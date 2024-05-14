@@ -1972,6 +1972,16 @@ color: #FCCBF7;
 font: normal normal normal 16px;
 color: #FCCBF7;
 }
+.info_slide select{
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-bottom: 1px solid white;
+    width: 100%;
+    transform: translateY(25px);
+    padding-bottom: 1em;
+}
+
 .dt_selct_avatar{
     overflow: hidden !important;
 }

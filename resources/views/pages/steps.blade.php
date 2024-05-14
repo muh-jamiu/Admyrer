@@ -59,16 +59,16 @@ Complete Profile Setup | Admyrer
 
                <div class="slider-ctr">
                   
-                  <div class="slider">
+                  <div class="slider" style="height: fit-content !important">
                      <div class="steps_alerts" style="padding: 0px 50px 0px;;width: 680px;"></div>
                         {{-- choose photo --}}
-                        <form class="slider-form slider-one second_slider" id="profile_image_upload">
+                        <div class="slider-form slider-one second_slider" id="profile_image_upload">
                         <div class="choose_photo">
                            <h6 class="bold"><?php echo __( 'people want to see what you look like!' );?></h6>
                            <p><?php echo __( 'Upload Images to set your Profile Picture Image.' );?></p>
                            {{-- <span class="dt_selct_avatar" onclick="document.getElementById('avatar_img').click(); return false" style="background-image: url();background-repeat: no-repeat;background-size: cover;background-position: center center;">
                            </span> --}}
-                           <span class="dt_selct_avatar" onclick="document.getElementById('avatar_img').click(); return false">
+                           <span class="dt_selct_avatar" id="imagePreview" onclick="document.getElementById('avatar_img').click(); return false">
                               <span class="svg-empty">
                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <path fill="currentColor" d="M5,3A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H14.09C14.03,20.67 14,20.34 14,20C14,19.32 14.12,18.64 14.35,18H5L8.5,13.5L11,16.5L14.5,12L16.73,14.97C17.7,14.34 18.84,14 20,14C20.34,14 20.67,14.03 21,14.09V5C21,3.89 20.1,3 19,3H5M19,16V19H16V21H19V24H21V21H24V19H21V16H19Z">
@@ -76,9 +76,17 @@ Complete Profile Setup | Admyrer
                               </span>
                            </span>
                            <button class="btn-image" onclick="document.getElementById('avatar_img').click(); return false"><?php echo __( 'Browse Image' );?></button>
-                           <input type="file" id="avatar_img" class="hide" accept="image/x-png, image/gif, image/jpeg" name="avatar">
+                           <input type="file" id="avatar_img" class="hide fileInput" accept="image/x-png, image/gif, image/jpeg" name="avatar">
                            <div class="progress hide" style="width: 180px;margin: auto;margin-top: 25px;padding-top: 4px;">
                               <div class="determinate" style="width: 0%"></div >
+                           </div>
+                           <div class="first_btn d-none">
+                              <button style="color: #CC42BD !important;float: right; background:white" class="waves-effect rounded waves-light btn btn_primary bold next" data-src="" data-emailvalidation="">
+                                 <?php echo __( 'Next' );?> 
+                                 <svg viewBox="0 0 19 14" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+                                    <path fill="currentColor" d="M18.6 6.9v-.5l-6-6c-.3-.3-.9-.3-1.2 0-.3.3-.3.9 0 1.2l5 5H1c-.5 0-.9.4-.9.9s.4.8.9.8h14.4l-4 4.1c-.3.3-.3.9 0 1.2.2.2.4.2.6.2.2 0 .4-.1.6-.2l5.2-5.2h.2c.5 0 .8-.4.8-.8 0-.3 0-.5-.2-.7z"></path>
+                                 </svg>
+                              </button>
                            </div>
                         </div>
 
@@ -162,10 +170,10 @@ Complete Profile Setup | Admyrer
                            });
                            
                         </script>
-                     </form>
+                     </div>
                      
                         {{-- info --}}
-                        <form class="slider-form slider-two slider-zero-active <?php if ($step != 2) { ?> hide <?php } ?> third_slider">
+                        <form class="slider-form info_slide slider-two slider-zero-active d-none third_slider">
                            <div class="row">
                               <div class="input-field col s6">
                                  <select id="height" name="height" data-errmsg="<?php echo __( 'Your height is required.');?>">
@@ -198,9 +206,8 @@ Complete Profile Setup | Admyrer
                               <input id="birthdate" data-errmsg="<?php echo __( 'Select your Birth date.');?>" type="text" class="datepicker user_bday" required>
                               <label for="birthdate"><?php echo __( 'Birthdate' );?></label>
                            </div>
-                           <div class="step_footer">
-                              <p><?php echo __( '2 of 3 steps to complete to access PRO upgrade, features' );?></p>
-                              <button class="waves-effect waves-light btn btn_primary bold second next" data-src="" data-emailvalidation="">
+                           <div class="">
+                              <button style="color: #CC42BD !important;float: right; background:white" class="waves-effect second_btn waves-light btn btn_primary bold next" data-src="" data-emailvalidation="">
                                  <?php echo __( 'Next' );?> 
                                  <svg viewBox="0 0 19 14" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
                                     <path fill="currentColor" d="M18.6 6.9v-.5l-6-6c-.3-.3-.9-.3-1.2 0-.3.3-.3.9 0 1.2l5 5H1c-.5 0-.9.4-.9.9s.4.8.9.8h14.4l-4 4.1c-.3.3-.3.9 0 1.2.2.2.4.2.6.2.2 0 .4-.1.6-.2l5.2-5.2h.2c.5 0 .8-.4.8-.8 0-.3 0-.5-.2-.7z"></path>
@@ -211,34 +218,7 @@ Complete Profile Setup | Admyrer
                         
 
                         {{-- phone otp verify --}}
-                        <form class="slider-form d-none slider-three forth_slider">
-                           <!-- Mobile -->
-                           <div class="otp_head">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                 <path fill="currentColor" d="M16,18H7V4H16M11.5,22A1.5,1.5 0 0,1 10,20.5A1.5,1.5 0 0,1 11.5,19A1.5,1.5 0 0,1 13,20.5A1.5,1.5 0 0,1 11.5,22M15.5,1H7.5A2.5,2.5 0 0,0 5,3.5V20.5A2.5,2.5 0 0,0 7.5,23H15.5A2.5,2.5 0 0,0 18,20.5V3.5A2.5,2.5 0 0,0 15.5,1Z" />
-                              </svg>
-                              <p><?php echo __( 'Phone Verification Needed' );?></p>
-                              <div class="row">
-                                 <div class="col s12 m2"></div>
-                                 <div class="col s12 m8">
-                                    <div class="input-field inline">
-                                       <input id="mobile_validate" type="text" style="width: 200px;" value="">
-                                    </div>
-                                    <button class="btn waves-effect waves-light" style="margin-left: -5px;" id="send_otp"><?php echo __( 'Send OTP' );?></button>
-                                 </div>
-                                 <div class="col s12 m2"></div>
-                              </div>
-                           </div>
-                           <div class="enter_otp">
-                              <p><?php echo __( 'Please enter the verification code sent to your Phone' );?></p>
-                              <div id="otp_outer">
-                                 <div id="otp_inner">
-                                    <input id="otp_check_phone" type="text" maxlength="4" value="" pattern="\d*" title="Field must be a number." onkeyup="if (/\D/g.test(this.value)){ this.value = this.value.replace(/\D/g,'') } if($(this).val().length == 4){verify_sms_code(this);}" required />
-                                    <a href="javascript:void(0);" onclick="resendCodeSms(this)"><?php echo __( 'Resend' );?></a>
-                                 </div>
-                              </div>
-                           </div>
-                           
+                        <form class="slider-form phone_slide d-none slider-three forth_slider">                           
                            <!-- Email -->
                            <div class="otp_head">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -267,7 +247,7 @@ Complete Profile Setup | Admyrer
                            </div>
                            <!-- End Email -->
 
-                           <div class="dt_p_head center pro_success">
+                           <div class="dt_p_head d-none center pro_success">
                               <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
                                  <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"></circle>
                                  <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path>
@@ -276,9 +256,8 @@ Complete Profile Setup | Admyrer
                               <p class="bold"><?php echo __('You have successfully registered.');?></p>
                            </div>
                            
-                           <div class="step_footer">
-                              <p><?php echo __( '3 of 3 steps to complete to access PRO upgrade, features' );?></p>
-                              <button class="waves-effect waves-light btn btn_primary bold reset" disabled>
+                           <div class="step_foote">
+                              <button style="color: #CC42BD !important;float: right; background:white" class="waves-effect third_btn waves-light btn btn_primary bold reset" disabled>
                                  <?php echo __( 'Finish' );?> 
                                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
                                     <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path>
@@ -307,6 +286,39 @@ Complete Profile Setup | Admyrer
 @push("javascript")
 
 <script type="text/javascript">
+   var first_btn = document.querySelector(".first_btn")
+   var second_btn = document.querySelector(".second_btn")
+   var choose_photo = document.querySelector(".choose_photo")
+   var info_slide = document.querySelector(".info_slide")
+   var phone_slide = document.querySelector(".phone_slide")
+
+   first_btn.addEventListener("click", () => {
+      choose_photo.classList.add("d-none")
+      info_slide.classList.remove("d-none")
+   })
+
+   second_btn.addEventListener("click", () => {
+      info_slide.classList.add("d-none")
+      phone_slide.classList.remove("d-none")
+   })
+
+
+   function previewImage(event) {
+      var reader = new FileReader(); // FileReader object to read the file
+      reader.onload = function() {
+         var image = document.createElement('img'); // Create an image element
+         image.src = reader.result; // Set the source of the image to the result of FileReader
+         image.setAttribute('id', 'preview'); // Set an id for the image
+         document.getElementById('imagePreview').innerHTML = ''; // Clear previous image, if any
+         document.getElementById('imagePreview').appendChild(image); // Append the image to the div
+      }
+      first_btn.classList.remove("d-none")
+      reader.readAsDataURL(event.target.files[0]); // Read the selected file as a data URL
+   }
+
+  document.querySelector('.fileInput').addEventListener('change', previewImage);
+
+
     function resendCodeSms(self) {
        let txt = $(self).text();
        $(self).text("Please wait..").attr('disabled', true);

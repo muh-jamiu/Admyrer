@@ -177,13 +177,13 @@ Complete Profile Setup | Admyrer
                            <div class="row">
                               <div class="input-field col-sm-6" style="margin-bottom: 5em">
                                  <select id="height" name="height" data-errmsg="<?php echo __( 'Your height is required.');?>">
-                                    <option value="">Height</option>
+                                    <option value="" disabled selected>Height</option>
                                  </select>
                               </div>
 
                               <div class="input-field col-sm-6" style="margin-bottom: 5em">
                                  <select id="hair" name="hair">
-                                    <option value="">Hair Color</option>
+                                    <option value="" disabled selected>Hair Color</option>
                                  </select>
                               </div>
 
@@ -206,7 +206,7 @@ Complete Profile Setup | Admyrer
 
                               <div class="input-field col-sm-6">
                                  <select id="gender" name="gender" data-errmsg="<?php echo __( 'Choose your Gender');?>" required>
-                                    <option value="">Gender</option>
+                                    <option value="" disabled selected>Gender</option>
                                  </select>
                               </div>
 
@@ -292,6 +292,11 @@ Complete Profile Setup | Admyrer
 @push("javascript")
 
 <script type="text/javascript">
+   flatpickr("#birthdate", {
+        dateFormat: "Y-m-d",
+        // Other options...
+    });
+    
    var first_btn = document.querySelector(".first_btn")
    var second_btn = document.querySelector(".second_btn")
    var choose_photo = document.querySelector(".choose_photo")

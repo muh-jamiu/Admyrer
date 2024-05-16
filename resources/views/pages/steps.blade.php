@@ -441,7 +441,6 @@ Complete Profile Setup | Admyrer
                         </form>
                         
 
-                        {{-- phone otp verify --}}
                         <form class="slider-form phone_slide d-none slider-three forth_slider">                           
                            <!-- Email -->
                            <div class="otp_head">
@@ -453,14 +452,14 @@ Complete Profile Setup | Admyrer
                                  <div class="col s12 m2"></div>
                                  <div class="col s12 m8">
                                     <div class="input-field inline">
-                                       <input id="email" type="email" value="" data-email="">
+                                       <input class="verify_email" id="email" type="email" value="" data-email="">
                                     </div>
                                     <button class="btn waves-effect waves-light" id="send_otp_email"><?php echo __( 'Send OTP' );?></button>
                                  </div>
                                  <div class="col s12 m2"></div>
                               </div>
                            </div>
-                           <div class="enter_otp_email">
+                           <div class="enter_otp_email d-none">
                               <p><?php echo __( 'Please enter the verification code sent to your Email' );?></p>
                               <div id="otp_outer">
                                  <div id="otp_inner">
@@ -542,7 +541,19 @@ Complete Profile Setup | Admyrer
    var choose_photo = document.querySelector(".choose_photo")
    var info_slide = document.querySelector(".info_slide")
    var phone_slide = document.querySelector(".phone_slide")
+   var verify_email = document.querySelector(".verify_email")
+   var enter_otp_email = document.querySelector(".enter_otp_email")
    var profile_image_upload = document.getElementById("profile_image_upload")
+   var send_otp_email = document.getElementById("send_otp_email")
+
+   send_otp_email.addEventListener("click", () => {
+      if(verify_email.value == ""){
+         alert("Provide your email address")
+         enter_otp_email.classList.add("d-none")
+         return
+      }
+      enter_otp_email.classList.remove("d-none")
+   })
 
    first_btn.addEventListener("click", (e) => {
       e.preventDefault()

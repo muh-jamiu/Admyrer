@@ -158,6 +158,7 @@ class UserController extends Controller
 
     public function logOut(){
         session()->pull("admyrer_id");
+        return redirect("/");
     }
 
     public function getAllUser(){        

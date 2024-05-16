@@ -35,6 +35,8 @@ Route::post('/delete-follows', [UserController::class, 'deleteFollows']);
 
 Route::post('/disliked', [UserController::class, 'post_disliked']);
 
+Route::any('/logOut', [UserController::class, 'logOut']);
+
 Route::get('/@{username}', [UserController::class, 'show'])->middleware("notLogin");
 
 Route::get('/find-matches', [UserController::class, 'index'])->middleware("notLogin");

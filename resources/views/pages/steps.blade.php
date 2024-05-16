@@ -212,7 +212,7 @@ Complete Profile Setup | Admyrer
 @endsection
 
 @section("content")
-<x-active-navbar></x-active-navbar>
+<x-step-navbar></x-step-navbar>
 <div class="mb-5">
 <!-- Step One  -->
    <div class="container slider_container <?php echo $current_step;?>">

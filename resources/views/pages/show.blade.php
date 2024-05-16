@@ -33,7 +33,7 @@ Find Matches | Admyrer
 			<div class="dt_left_sidebar dt_profile_side">
 				<div class="avatar">
 					<a class="inline" href="" id="avater_profile_img">
-						<img src={{$user->avatar}} alt="" class="responsive-img" />
+						<img src={{$user->avatar ?? "/img/icon.png"}} alt="" class="responsive-img" />
 					</a>
 							<div class="dt_chng_avtr">
 								<span class="btn-upload-image" onclick="document.getElementById('admin_profileavatar_img').click(); return false">

@@ -251,7 +251,7 @@ Liked | Admyrer
 									<div class="card valign-wrapper" style="border: none !important">
 										<div class="card-image">
 											<a href={{"/@" . $likeUser->username}}>
-												<img src={{$likeUser->avatar}} alt="">
+												<img src={{$likeUser->avatar ?? "/img/icon.png"}} alt="">
 											</a>
 										</div>
 										<div class="card-content">

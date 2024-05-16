@@ -19,7 +19,7 @@
                                 <span class="text-capitalize h_loc">{{$user->country}}</span>
                                 <span class="text-capitalize h_Id">{{$user->id}}</span>
                             </div>
-                            <img class="h_img" alt="" src={{$user->avatar}} loading="lazy">
+                            <img class="h_img" alt="" src={{$user->avatar ?? "/img/icon.png"}} loading="lazy">
                             <p class="text-capitalize h_username text-center">{{$user->username}}</p>
                         </div>
                     @endif
@@ -34,7 +34,7 @@
                         <div class="mtc_usrd_slider">
                             <div class="carousel carousel-slider center match_usr_img_slidr">
                                 <div class="carousel-item" style="display: inline-block !important; visibility:visible !important">
-                                    <img class="s_img" alt={{$randomuser[0]->avatar}} src={{$randomuser[0]->avatar}}>
+                                    <img class="s_img" alt={{$randomuser[0]->avatar ?? "/img/icon.png"}} src={{$randomuser[0]->avatar}}>
                                 </div>
                             </div>
                         </div>

@@ -4,7 +4,6 @@
 	$user = $data["user"] ?? [];
 	$Allpoll = $data["Allpoll"] ?? [];
 	$Userpoll = $data["Userpoll"] ?? [];
-    $test = [1,2,3,4,5,6];
 @endphp
 
 @section('title')
@@ -29,9 +28,9 @@ Polls | Admyrer
 				</div>
 			</div>  
             
-            @if (count($test) > 0)
+            @if (count($Allpoll) > 0)
                 <div class="row" id="liked_users_container">
-                    @foreach ($test as $key => $poll)					
+                    @foreach ($Allpoll as $key => $poll)					
                         <div class="col-sm-4 m6 s12 matches visit likeUserrs" >
                             <div class="card valign-wrapper" style="border: none !important"> 
                                 <div class="head">
@@ -49,7 +48,7 @@ Polls | Admyrer
                 </div>
             @endif
 
-			@if (count($test) == 0)
+			@if (count($Allpoll) == 0)
             	<x-dashboard-empty></x-dashboard-empty> 				
 			@endif       
     

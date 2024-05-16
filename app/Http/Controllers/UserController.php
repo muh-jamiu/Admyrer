@@ -273,16 +273,16 @@ class UserController extends Controller
     }
 
     public function updateUser(Request $request){
-        $user = User::find($request->id);
+        $user = User::find(session("admyrer_id"));
         
         if(!$user){
-            return "User Not Fuund";
+            return "User Not Fuund" . session("admyrer_id");
         }
         
         $user->first_name = $request->first_name ?? $user->first_name;
         $user->last_name = $request->last_name ?? $user->last_name;
         $user->email = $request->email ?? $user->email;
-        $user->username = $request->username ??  "$user->username" ;
+        $user->username = $request->username ??  $user->username ;
         $user->avatar = $request->avatar ?? $user->avatar;
         $user->address = $request->address ?? $user->address;
         $user->birthday = $request->birthday ??  $user->birthday;
@@ -294,7 +294,7 @@ class UserController extends Controller
         $user->interest = $request->interest ?? $user->interest;
         $user->state = $request->state ?? $user->state;
         $user->location = $request->location ?? $user->location;
-        $user->phone_number = $request->phone_number ?? $user->phone_number;
+        $user->phone_number = $request->phone ?? $user->phone_number;
         $user->relationship = $request->relationship ?? $user->relationship;
         $user->work_status = $request->work_status ?? $user->work_status;
         $user->education = $request->education ?? $user->education;

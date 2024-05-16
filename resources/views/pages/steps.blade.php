@@ -6,6 +6,204 @@
 
    $current_step = "";
    $step = null;
+
+   $countries = [
+    "Afghanistan",
+    "Albania",
+    "Algeria",
+    "Andorra",
+    "Angola",
+    "Antigua and Barbuda",
+    "Argentina",
+    "Armenia",
+    "Australia",
+    "Austria",
+    "Azerbaijan",
+    "Bahamas",
+    "Bahrain",
+    "Bangladesh",
+    "Barbados",
+    "Belarus",
+    "Belgium",
+    "Belize",
+    "Benin",
+    "Bhutan",
+    "Bolivia",
+    "Bosnia and Herzegovina",
+    "Botswana",
+    "Brazil",
+    "Brunei",
+    "Bulgaria",
+    "Burkina Faso",
+    "Burundi",
+    "Cabo Verde",
+    "Cambodia",
+    "Cameroon",
+    "Canada",
+    "Central African Republic",
+    "Chad",
+    "Chile",
+    "China",
+    "Colombia",
+    "Comoros",
+    "Congo (Congo-Brazzaville)",
+    "Costa Rica",
+    "Croatia",
+    "Cuba",
+    "Cyprus",
+    "Czechia (Czech Republic)",
+    "Democratic Republic of the Congo",
+    "Denmark",
+    "Djibouti",
+    "Dominica",
+    "Dominican Republic",
+    "Ecuador",
+    "Egypt",
+    "El Salvador",
+    "Equatorial Guinea",
+    "Eritrea",
+    "Estonia",
+    "Eswatini (fmr. Swaziland)",
+    "Ethiopia",
+    "Fiji",
+    "Finland",
+    "France",
+    "Gabon",
+    "Gambia",
+    "Georgia",
+    "Germany",
+    "Ghana",
+    "Greece",
+    "Grenada",
+    "Guatemala",
+    "Guinea",
+    "Guinea-Bissau",
+    "Guyana",
+    "Haiti",
+    "Holy See",
+    "Honduras",
+    "Hungary",
+    "Iceland",
+    "India",
+    "Indonesia",
+    "Iran",
+    "Iraq",
+    "Ireland",
+    "Israel",
+    "Italy",
+    "Jamaica",
+    "Japan",
+    "Jordan",
+    "Kazakhstan",
+    "Kenya",
+    "Kiribati",
+    "Kuwait",
+    "Kyrgyzstan",
+    "Laos",
+    "Latvia",
+    "Lebanon",
+    "Lesotho",
+    "Liberia",
+    "Libya",
+    "Liechtenstein",
+    "Lithuania",
+    "Luxembourg",
+    "Madagascar",
+    "Malawi",
+    "Malaysia",
+    "Maldives",
+    "Mali",
+    "Malta",
+    "Marshall Islands",
+    "Mauritania",
+    "Mauritius",
+    "Mexico",
+    "Micronesia",
+    "Moldova",
+    "Monaco",
+    "Mongolia",
+    "Montenegro",
+    "Morocco",
+    "Mozambique",
+    "Myanmar (formerly Burma)",
+    "Namibia",
+    "Nauru",
+    "Nepal",
+    "Netherlands",
+    "New Zealand",
+    "Nicaragua",
+    "Niger",
+    "Nigeria",
+    "North Korea",
+    "North Macedonia (formerly Macedonia)",
+    "Norway",
+    "Oman",
+    "Pakistan",
+    "Palau",
+    "Palestine State",
+    "Panama",
+    "Papua New Guinea",
+    "Paraguay",
+    "Peru",
+    "Philippines",
+    "Poland",
+    "Portugal",
+    "Qatar",
+    "Romania",
+    "Russia",
+    "Rwanda",
+    "Saint Kitts and Nevis",
+    "Saint Lucia",
+    "Saint Vincent and the Grenadines",
+    "Samoa",
+    "San Marino",
+    "Sao Tome and Principe",
+    "Saudi Arabia",
+    "Senegal",
+    "Serbia",
+    "Seychelles",
+    "Sierra Leone",
+    "Singapore",
+    "Slovakia",
+    "Slovenia",
+    "Solomon Islands",
+    "Somalia",
+    "South Africa",
+    "South Korea",
+    "South Sudan",
+    "Spain",
+    "Sri Lanka",
+    "Sudan",
+    "Suriname",
+    "Sweden",
+    "Switzerland",
+    "Syria",
+    "Tajikistan",
+    "Tanzania",
+    "Thailand",
+    "Timor-Leste",
+    "Togo",
+    "Tonga",
+    "Trinidad and Tobago",
+    "Tunisia",
+    "Turkey",
+    "Turkmenistan",
+    "Tuvalu",
+    "Uganda",
+    "Ukraine",
+    "United Arab Emirates",
+    "United Kingdom",
+    "United States of America",
+    "Uruguay",
+    "Uzbekistan",
+    "Vanuatu",
+    "Venezuela",
+    "Vietnam",
+    "Yemen",
+    "Zambia",
+    "Zimbabwe"
+];
+
    
 @endphp
 
@@ -178,12 +376,28 @@ Complete Profile Setup | Admyrer
                               <div class="input-field col-sm-6" style="margin-bottom: 5em">
                                  <select class="height" id="height" name="height" data-errmsg="<?php echo __( 'Your height is required.');?>">
                                     <option value="" disabled selected>Height</option>
+                                    @foreach (range(139, 220) as $h)
+                                       <option value="{{$h}}">{{$h}} cm</option>
+                                       
+                                    @endforeach                                   
                                  </select>
                               </div>
 
                               <div class="input-field col-sm-6" style="margin-bottom: 5em">
                                  <select class="hair" id="hair" name="hair">
                                     <option value="" disabled selected>Hair Color</option>
+                                    <option value="Brown">Brown</option>
+                                    <option value="Black">Black</option>
+                                    <option value="white">white</option>
+                                    <option value="Sandy">Sandy</option>
+                                    <option value="Other">Other</option>
+                                    <option value="Partly or Completely Bald">Partly or Completely Bald</option>
+                                    <option value="Green">Green</option>
+                                    <option value="Blue">Blue</option>
+                                    <option value="Orange">Orange</option>
+                                    <option value="Pink">Pink</option>
+                                    <option value="Purple">Purple</option>
+                                    <option value="Red/Auburn">Red/Auburn</option>
                                  </select>
                               </div>
 
@@ -200,20 +414,24 @@ Complete Profile Setup | Admyrer
                               <div class="input-field col-sm-6">
                                  <select class="country" id="country" data-errmsg="<?php echo __( 'Select your country.');?>" required>
                                     <option value="" disabled selected><?php echo __( 'Choose your country' );?></option>
-                                    
+                                    @foreach ($countries as $country)
+                                       <option value="{{$country}}">{{$country}}</option>
+                                    @endforeach
                                  </select>
                               </div>
 
                               <div class="input-field col-sm-6">
                                  <select class="gender" id="gender" name="gender" data-errmsg="<?php echo __( 'Choose your Gender');?>" required>
                                     <option value="" disabled selected>Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
                                  </select>
                               </div>
 
                         </div>
 
                            <div class="mt-5">
-                              <button onclick="update()" style="color: #CC42BD !important;float: right; background:white" class="waves-effect second_btn waves-light btn btn_primary bold next" data-src="" data-emailvalidation="">
+                              <button style="color: #CC42BD !important;float: right; background:white" class="waves-effect second_btn waves-light btn btn_primary bold next" data-src="" data-emailvalidation="">
                                  <?php echo __( 'Next' );?> 
                                  <svg viewBox="0 0 19 14" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
                                     <path fill="currentColor" d="M18.6 6.9v-.5l-6-6c-.3-.3-.9-.3-1.2 0-.3.3-.3.9 0 1.2l5 5H1c-.5 0-.9.4-.9.9s.4.8.9.8h14.4l-4 4.1c-.3.3-.3.9 0 1.2.2.2.4.2.6.2.2 0 .4-.1.6-.2l5.2-5.2h.2c.5 0 .8-.4.8-.8 0-.3 0-.5-.2-.7z"></path>
@@ -317,7 +535,6 @@ Complete Profile Setup | Admyrer
 
    flatpickr("#birthdate", {
         dateFormat: "Y-m-d",
-        // Other options...
     });
     
    var first_btn = document.querySelector(".first_btn")
@@ -327,12 +544,26 @@ Complete Profile Setup | Admyrer
    var phone_slide = document.querySelector(".phone_slide")
    var profile_image_upload = document.getElementById("profile_image_upload")
 
-   first_btn.addEventListener("click", () => {
+   first_btn.addEventListener("click", (e) => {
+      e.preventDefault()
       profile_image_upload.classList.add("d-none")
       info_slide.classList.remove("d-none")
    })
 
-   second_btn.addEventListener("click", () => {
+   var bdy = document.querySelector(".bdy")
+   var height = document.querySelector(".height")
+   var country = document.querySelector(".country")
+   var gender = document.querySelector(".gender")
+   var phone = document.querySelector(".phone")
+   var hair = document.querySelector(".hair")
+   var photo = document.querySelector(".photo")
+
+   second_btn.addEventListener("click", (e) => {
+      e.preventDefault()
+      if(height.value == "" || hair.value == "" || country.value == "" || bdy.value == "" || gender.value == "" || phone.value == ""){
+         alert("Please fill all details")
+         return
+      }
       info_slide.classList.add("d-none")
       phone_slide.classList.remove("d-none")
    })

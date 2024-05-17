@@ -1,5 +1,5 @@
 const APP_ID = "b76f67d420d2486699d05d28cf678251"
-const TOKEN = "007eJxTYJjefDhFOlO+5epr76wdqySUJuv4MMt97jtmt/V0Y5extp0CQ5K5WZqZeYqJkUGKkYmFmZmlZYqBaYqRRTJQ1MLI1NDyi0NaQyAjg8VLX2ZGBggE8VkYchMz8xgYAMccHUA="
+const TOKEN = "007eJxTYOjU6zj6+qJb6wstuZoP07cuPVjFfe+VzSne34dVzWcpnj6twJBkbpZmZp5iYmSQYmRiYWZmaZliYJpiZJEMFLUwMjVUvuue1hDIyHDnYiUjIwMEgvgsDLmJmXkMDADgmCEj"
 const CHANNEL = "main"
 
 const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
@@ -20,9 +20,9 @@ let joinAndDisplayLocalStream = async () => {
             TOKEN,
             async (uid) =>  {
                 var UID = uid
-                client.on('user-published', handleUserJoined)
+                await client.on('user-published', handleUserJoined)
                 
-                client.on('user-left', handleUserLeft)
+                await client.on('user-left', handleUserLeft)
                 
                 localTracks = await  AgoraRTC.createMicrophoneAndCameraTracks() 
 
@@ -32,6 +32,8 @@ let joinAndDisplayLocalStream = async () => {
                 document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
 
                 localTracks[1].play(`user-${UID}`)
+
+                console.log(localTracks)
                 
                 await client.publish([localTracks[0], localTracks[1]])
             },
@@ -52,6 +54,7 @@ let joinStream = async () => {
 }
 
 let handleUserJoined = async (user, mediaType) => {
+    alert(user.id)
     remoteUsers[user.uid] = user 
     await client.subscribe(user, mediaType)
 
@@ -75,7 +78,7 @@ let handleUserJoined = async (user, mediaType) => {
 }
 
 let handleUserLeft = async (user) => {
-    console.log("user", user)
+    alert(user.id)
     delete remoteUsers[user.uid]
     document.getElementById(`user-container-${user.uid}`).remove()
     var live_vid = document.querySelector(".live_vid")
@@ -95,8 +98,8 @@ let leaveAndRemoveLocalStream = async () => {
 
     await client.leave()
     document.getElementById('join-btn').style.display = 'block'
-    document.getElementById('stream-controls').style.display = 'none'
-    document.getElementById('video-streams').innerHTML = ''
+    // document.getElementById('stream-controls').style.display = 'none'
+    // document.getElementById('video-streams').innerHTML = ''
 }
 
 let toggleMic = async (e) => {

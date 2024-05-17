@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VerifyMail;
 use App\Models\Follows;
 use App\Models\Like;
 use App\Models\Poll;
@@ -10,8 +11,10 @@ use App\Models\UserPoll;
 use App\Models\Userpolls;
 use App\Models\Visitors;
 use GuzzleHttp\Client;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -459,6 +462,21 @@ class UserController extends Controller
         dd($token);
 
         return response()->json(['token' => $token]);
+    }
+
+    //mail
+    public function sendMail(Request $request){
+        $name = strtoupper($request->name);
+        $message = $request->message;
+        $email = $request->email;
+        $subject = strtoupper($request->subject);
+
+        $mail = Mail::to($email)->send(new VerifyMail($message, $subject, $email, $name));
+        if(!$mail){
+            return back()->with("error_msg", "Something went wrong, Please try again later!!");
+        }
+
+        return back()->with("success_msg", "Email was sent");
     }
 
 }

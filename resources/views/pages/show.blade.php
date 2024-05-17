@@ -3,6 +3,7 @@
 @php
 	$user = $data["user"] ?? [];
 	$loginUser = $data["loginUser"] ?? [];
+	$check = $user->id == $loginUser->id ? true : false;
 @endphp
 
 @section('title')

@@ -448,7 +448,12 @@ nav .header_user .dropdown-content > li.night_day {
     margin-right: 15em;
 }
 
-.msg-container .wrap2 img{
+#chatConversations .msg-container .wrap1{
+    margin-right: 1em;
+}
+
+
+.msg-container img{
     border-radius: 50% !important;
     height: 30px;
     border: 2px solid rgb(197, 197, 197);
@@ -458,6 +463,29 @@ nav .header_user .dropdown-content > li.night_day {
 
 .msg-container .wrap2{
     margin-left: 15em;
+}
+
+#chatConversations .msg-container .wrap2{
+    margin-left: 1em;
+}
+
+#chatConversations .modal-foote{
+    padding: .5em 1em;
+}
+
+#chatConversations .modal-foote textarea{
+    resize: none;
+    border: none;
+    margin-right: .5em;
+    padding-top: .5em;
+}
+
+#chatConversations .modal-foote  button{
+    background-color: #CC42BD;
+    border: none;
+    color: white;
+    border-radius: 3px;
+    white-space: nowrap;
 }
 
 @media (max-width: 600px)  {
@@ -2044,6 +2072,12 @@ color: #FCCBF7;
     box-shadow: none;
     border-radius: 0;
     color: #fff;}
+
+#chatConversations .modal-body{
+    border: 1px solid rgb(242, 242, 242);
+    height: 350px;
+    overflow: scroll;
+}
 #otp_outer a {
 	color: #fff;
     background: rgb(255 255 255 / 20%);

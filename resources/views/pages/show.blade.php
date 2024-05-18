@@ -535,23 +535,46 @@ Find Matches | Admyrer
   
   <!-- The Modal -->
   <div class="modal fade" id="chatConversations">
-	<div class="modal-dialog modal-dialog-centered modal-lg">
+	<div class="modal-dialog modal-dialog-centered modal-l">
 	  <div class="modal-content p-0">
   
 		<!-- Modal Header -->
 		<div class="modal-header">
-		  <h4 class="modal-title">Modal Heading</h4>
+		  <h6 class="modal-title text-capitalize">Chat with {{$user->first_name}}</h6>
 		  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 		</div>
   
 		<!-- Modal body -->
 		<div class="modal-body">
-		  Modal body..
+			<div class="chat_container msg-container">
+				<div class="wrap1 unique d-none">
+					<div class="">
+						<p class='mb-0 msgIcon mx-3'><img width="30px" height="30px" src='{{$user->avatar ?? "/img/icon.png"}}' alt=""/></p>
+						<div class="msgBodys mt-0">
+							<p class='mb-0 p-2'>Hi {{$user->first_name}}, What question do you have today ?</p>
+						</div>
+					</div>
+				</div>
+		
+				<div class="wrap2 unique mt -2 d-none">
+					<p class='mb-0 msgIcon mx-3 text-end mb-0'>
+					<img src='{{$loginUser->avatar ?? "/img/icon.png"}}' alt="" class='sender_img' />
+					</p>
+					<div class="sentMsg mt-0">
+						<div class="myMsg">
+							<p class="mb-0 p-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. In sapiente impedit eveniet harum ea, rerum amet eaque! Iure, alias! Laboriosam perspiciatis porro non suscipit iusto provident voluptatibus quidem excepturi optio.</p>
+						</div>
+					</div>
+				</div>		
+			</div>
 		</div>
   
 		<!-- Modal footer -->
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+		<div class="modal-foote">
+			<div class="send d-flex">
+				<textarea class="message" name="" placeholder="Type message......" id=""></textarea>
+				<button onclick="sendMsg()" class="px-2">Send Message</button>
+			</div>
 		</div>
   
 	  </div>
@@ -566,6 +589,30 @@ Find Matches | Admyrer
 @push("javascript")
 
 <script>
+
+	var message = document.querySelector(".message")
+    var sender_img = document.querySelector(".sender_img")
+
+	const sendMsg = () => {
+        if(message.value != ""){
+          $(".msg-container").append(`
+          <div class="wrap2 unique mt -2">
+          <p class='mb-0 msgIcon mx-3 text-end mb-0'>
+          <img src='${sender_img.src ?? "/img/icon.png"}' alt="" className='' width=${20} />
+          </p>
+          <div class="sentMsg mt-0">
+              <div class="myMsg">
+                  <p class="mb-0 p-2">${message.value}</p>
+              </div>
+            </div>
+          </div>`)
+          $(".modal-body").scrollTop($(".modal-body").height()*100);
+          message.value = ""
+        }else{
+            alert("Please type a message")
+        }
+    }
+
 	var curr_ID = document.getElementById("curr_ID");
 
 	function Like(){

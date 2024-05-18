@@ -472,7 +472,6 @@ class UserController extends Controller
         $subject = strtoupper($request->subject);
 
         $mail = Mail::to($email)->send(new VerifyMail($message, $subject, $email, $name));
-        return $mail;
         if(!$mail){
             return back()->with("error_msg", "Something went wrong, Please try again later!!");
         }

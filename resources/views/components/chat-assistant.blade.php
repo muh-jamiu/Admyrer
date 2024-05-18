@@ -20,7 +20,7 @@
 
         <div class="wrap2 unique mt -2 d-none">
             <p class='mb-0 msgIcon mx-3 text-end mb-0'>
-            <img src={{$user->avatar}} alt="" class='sender_img' />
+            <img src='{{$user->avatar ?? "/img/icon.png"}}' alt="" class='sender_img' />
             </p>
             <div class="sentMsg mt-0">
                 <div class="myMsg">
@@ -69,7 +69,7 @@
           $(".msg-container").append(`
           <div class="wrap2 unique mt -2">
           <p class='mb-0 msgIcon mx-3 text-end mb-0'>
-          <img src=${sender_img.src} alt="" className='' width=${20} />
+          <img src='${sender_img.src ?? "/img/icon.png"}' alt="" className='' width=${20} />
           </p>
           <div class="sentMsg mt-0">
               <div class="myMsg">

@@ -592,9 +592,24 @@ Find Matches | Admyrer
 
 	var message = document.querySelector(".message")
     var sender_img = document.querySelector(".sender_img")
+	const Disrepectwords = ["money", "fuck", "shit", "bitch", "asshole", "kill", "stab"];
+
 
 	const sendMsg = () => {
         if(message.value != ""){
+			const word = message.value
+			const _words = word.toLowerCase()
+			for (const word of Disrepectwords) {
+				if(_words.includes(word)){
+					Swal.fire({
+					icon: "error",
+					title: "Content Moderation in Our Social Chat App",
+					text:`The text "${word}" violated our terms, We ensuring a safe and welcoming environment for all users through effective content moderation. Our advanced tools promote respectful and positive message`,
+					footer: '<a href="#">Why do I have this issue?</a>'
+					});
+				}
+			}
+
           $(".msg-container").append(`
           <div class="wrap2 unique mt -2">
           <p class='mb-0 msgIcon mx-3 text-end mb-0'>
@@ -611,6 +626,22 @@ Find Matches | Admyrer
         }else{
             alert("Please type a message")
         }
+    }
+
+	function CheckDisrespectWords(words){
+        const Disrepectwords = ["money", "fuck", "shit", "bitch", "asshole", "kill", "stab"];
+        const _words = words.toLowerCase()
+		var istrue = false;
+
+        for (const word of Disrepectwords) {
+            if(_words.includes(word)){
+				istrue = true
+            }else{
+				istrue = false
+			}
+        }
+		
+		console.log(istrue)
     }
 
 	var curr_ID = document.getElementById("curr_ID");

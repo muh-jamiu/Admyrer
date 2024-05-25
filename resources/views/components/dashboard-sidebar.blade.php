@@ -12,6 +12,7 @@
     $hotactive = $hotactive ?? false;
     $aiactive = $aiactive ?? false;
     $pollactive = $pollactive ?? false;
+    $quizactive = $quizactive ?? false;
 @endphp
 
 <div class="col-sm-3">
@@ -76,6 +77,11 @@
                 <li>
                     <a href="/ai-assistant" data-ajax="/ai-assistant" class={{$aiactive ? "active" : ""}}>
                         <i class="fa-solid fa-robot" style="margin-right: 1.2em"></i>  <?php echo __( 'AI Assistant' );?>
+                    </a>
+                </li>
+                <li>
+                    <a href="/quiz" data-ajax="" class={{$quizactive ? "active" : ""}}>
+                        <i style="margin-right: 1.2em" class="fa-regular fa-face-meh-blank"></i>  <?php echo __( 'Matching Quiz' );?>
                     </a>
                 </li>
                 <li>

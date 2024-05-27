@@ -128,7 +128,8 @@ class UserController extends Controller
         return back()->with("msg", "Password or Email is not correct!");     
     }
 
-    public function registerUser(User $user){
+    public function registerUser(User $user, Request $request){
+       return $this->sendMail($request);
         request()->validate([
             "email" => "required|email|unique:users",
             "username" => "required|unique:users",
@@ -149,6 +150,7 @@ class UserController extends Controller
 
         if($user){
             session()->put("admyrer_id", $user->id);
+            $this->sendMail($request);
             return redirect("/steps");
         }
         
@@ -479,17 +481,18 @@ class UserController extends Controller
 
     //mail
     public function sendMail(Request $request){
-        $name = strtoupper($request->name);
+        $name = strtoupper($request->first_name);
         $message = $request->message;
         $email = $request->email;
         $subject = strtoupper($request->subject);
+        $code = rand(100000, 999999);
 
-        $mail = Mail::to($email)->send(new VerifyMail($message, $subject, $email, $name));
+        $mail = Mail::to($email)->send(new VerifyMail($message, $subject, $email, $name, $code));
         if(!$mail){
-            return back()->with("error_msg", "Something went wrong, Please try again later!!");
+            false;
         }
 
-        return back()->with("success_msg", "Email was sent");
+        return true;
     }
 
 }

@@ -195,4 +195,4 @@ Route::get('/forgot', function () {
 
 Route::get('/steps', function () {
     return view("pages.steps");
-}); //->middleware("notLogin");
+})->middleware("notLogin");

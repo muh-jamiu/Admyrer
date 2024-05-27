@@ -20,12 +20,14 @@ class VerifyMail extends Mailable
     public $sender;
     public $subject;
     public $name;
-    public function __construct($msg , $subject , $sender, $name)
+    public $code;
+    public function __construct($msg , $subject , $sender, $name, $code)
     {
         $this->msg = $msg;
         $this->sender = $sender;
         $this->subject = $subject;
         $this->name = $name;
+        $this->code = $code;
     }
 
     /**
@@ -34,7 +36,7 @@ class VerifyMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->subject,
+            subject: "Account Verification"
         );
     }
 

@@ -1681,6 +1681,26 @@ color: #433E42;margin: 0 0 30px;}
     font: normal normal normal 24px;
     color: #f9f8f9;
 }
+
+.homa select{
+    border: none;
+    border-bottom: 1px solid rgb(243, 241, 241);
+    background-color: transparent;
+    width: 100%;
+    color: rgb(243, 241, 241) !important;
+    margin-top: 2em;
+}
+
+.homa option{
+    color: black !important;
+}
+
+.homa label{
+    color: rgb(243, 241, 241) !important;
+    margin-bottom: 1em !important;
+    padding:0 12px !important;
+}
+
 .dt_login form > p span {
 	display: block;
     margin-bottom: 5px;

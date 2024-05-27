@@ -6586,7 +6586,7 @@ textarea.materialize-textarea+label:after,
 }
 
 .input-field.col label {
-    left: .75rem
+    /* left: .75rem */
 }
 
 .input-field.col .prefix~label,

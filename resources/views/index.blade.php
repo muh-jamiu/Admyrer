@@ -38,15 +38,19 @@ Admyrer | Meet new and interesting people
 					<a href="/about" data-ajax="/about" class="main-know-bttn " style="transform: translateX(-20px);background-color:transparent"><?php echo __( 'Know More' );?></a>
 				</div>
 				
-				<div class="section dt_hdr_filters">
+				<div class="section dt_hdr_filters homa">
 					<div class="row">
 						<div class="input-field col">
 							<select>
+								<option value="">Male</option>
+								<option value="">Female</option>
 							</select>
 							<label class="bold"><?php echo __( 'I am a' );?>:</label>
 						</div>
 						<div class="input-field col">
 							<select>
+								<option value="">Female</option>
+								<option value="">Male</option>
 							</select>
 							<label class="bold"><?php echo __( 'I\'m looking for a' );?>:</label>
 						</div>

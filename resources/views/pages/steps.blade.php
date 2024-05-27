@@ -262,7 +262,7 @@ Complete Profile Setup | Admyrer
                         {{-- choose photo --}}
                         <div class="slider-form slider-one second_slider" id="profile_image_upload">
                         <div class="choose_photo">
-                           <h6 class="bold"><?php echo __( 'people want to see what you look like!' );?></h6>
+                           {{-- <h6 class="bold"><?php echo __( 'people want to see what you look like!' );?></h6> --}}
                            <p><?php echo __( 'Upload Images to set your Profile Picture Image.' );?></p>
                            {{-- <span class="dt_selct_avatar" onclick="document.getElementById('avatar_img').click(); return false" style="background-image: url();background-repeat: no-repeat;background-size: cover;background-position: center center;">
                            </span> --}}

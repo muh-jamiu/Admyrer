@@ -260,7 +260,7 @@ Complete Profile Setup | Admyrer
                   <div class="slider" style="height: fit-content !important">
                      <div class="steps_alerts" style="padding: 0px 50px 0px;;width: 680px;"></div>
                         {{-- choose photo --}}
-                        <div class="slider-form slider-one second_slider" id="profile_image_upload">
+                        <div class="slider-form d-none slider-one second_slider" id="profile_image_upload">
                         <div class="choose_photo">
                            <h6 class="bold"><?php echo __( 'people want to see what you look like!' );?></h6>
                            <p><?php echo __( 'Upload Images to set your Profile Picture Image.' );?></p>
@@ -431,7 +431,7 @@ Complete Profile Setup | Admyrer
                         </div>
 
                            <div class="mt-5">
-                              <button style="color: #CC42BD !important;float: right; background:white" class="waves-effect second_btn waves-light btn btn_primary bold next" data-src="" data-emailvalidation="">
+                              <button onclick="update()" style="color: #CC42BD !important;float: right; background:white" class="waves-effect second_btn waves-light btn btn_primary bold next" data-src="" data-emailvalidation="">
                                  <?php echo __( 'Next' );?> 
                                  <svg viewBox="0 0 19 14" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
                                     <path fill="currentColor" d="M18.6 6.9v-.5l-6-6c-.3-.3-.9-.3-1.2 0-.3.3-.3.9 0 1.2l5 5H1c-.5 0-.9.4-.9.9s.4.8.9.8h14.4l-4 4.1c-.3.3-.3.9 0 1.2.2.2.4.2.6.2.2 0 .4-.1.6-.2l5.2-5.2h.2c.5 0 .8-.4.8-.8 0-.3 0-.5-.2-.7z"></path>
@@ -440,36 +440,39 @@ Complete Profile Setup | Admyrer
                            </div>
                         </form>
                         
-
-                        <form class="slider-form phone_slide d-none slider-three forth_slider">                           
+                        {{-- email verify --}}
+                        <form class="slider-form phone_slide slider-three forth_slider">                           
                            <!-- Email -->
                            <div class="otp_head">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                  <path fill="currentColor" d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" />
                               </svg>
-                              <p><?php echo __( 'Email Verification Needed' );?></p>
-                              <div class="row">
+                              <p class="mb-0"><?php echo __( 'Email Verification Needed' );?></p>
+                              
+                              <div class="enter_otp_email">
+                                 <p><?php echo __( 'Please enter the verification code sent to your Email' );?></p>
+                                 <div id="otp_outer">
+                                    <div id="otp_inner">
+                                       <input id="otp_check_email" type="text" maxlength="4" value="" pattern="\d*" title="Field must be a number." onkeyup="if (/\D/g.test(this.value)){ this.value = this.value.replace(/\D/g,'') } if($(this).val().length == 4){verify_email_code(this);}" required/>
+                                       <a href="javascript:void(0);" onclick="resendCode(this)"><?php echo __( 'Resend' );?></a>
+                                    </div>
+                                 </div>
+                              </div>
+
+                              {{-- <div class="row">
                                  <div class="col s12 m2"></div>
                                  <div class="col s12 m8">
                                     <div class="input-field inline">
                                        <input class="verify_email" id="email" type="email" value="" data-email="">
                                     </div>
-                                    <button class="btn waves-effect waves-light" id="send_otp_email"><?php echo __( 'Send OTP' );?></button>
+                                    <button class="btn waves-effect waves-light" id="send_otp_email"><?php echo __( 'Resend OTP' );?></button>
                                  </div>
                                  <div class="col s12 m2"></div>
-                              </div>
-                           </div>
-                           <div class="enter_otp_email d-none">
-                              <p><?php echo __( 'Please enter the verification code sent to your Email' );?></p>
-                              <div id="otp_outer">
-                                 <div id="otp_inner">
-                                    <input id="otp_check_email" type="text" maxlength="4" value="" pattern="\d*" title="Field must be a number." onkeyup="if (/\D/g.test(this.value)){ this.value = this.value.replace(/\D/g,'') } if($(this).val().length == 4){verify_email_code(this);}" required/>
-                                    <a href="javascript:void(0);" onclick="resendCode(this)"><?php echo __( 'Resend' );?></a>
-                                 </div>
-                              </div>
+                              </div> --}}
                            </div>
                            <!-- End Email -->
 
+                           {{-- finish --}}
                            <div class="dt_p_head d-none center pro_success">
                               <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
                                  <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"></circle>
@@ -479,14 +482,15 @@ Complete Profile Setup | Admyrer
                               <p class="bold"><?php echo __('You have successfully registered.');?></p>
                            </div>
                            
-                           <div class="step_foote">
-                              <button onclick="update()" style="color: #CC42BD !important;float: right; background:white" class="waves-effect third_btn waves-light btn btn_primary bold reset">
+                           <div class="step_foote lasta done">
+                              <button onclick="" style="color: #CC42BD !important;float: right; background:white" class="waves-effect d-none third_btn waves-light btn btn_primary bold reset">
                                  <?php echo __( 'Finish' );?> 
                                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
                                     <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path>
                                  </svg>
                               </button>
                            </div>
+
                         </form>
                   </div>
                </div>
@@ -530,10 +534,81 @@ Complete Profile Setup | Admyrer
 		})
 		.then(res => {
          console.log(res)
-         window.location.href = "/find-matches"
       })
 		.catch(error => console.log(error))
 	}
+
+   function verifyCode(code){
+      counter()
+      axios.post("/verify-code", {
+         code: code,
+		})
+		.then(res => {
+         console.log(res)
+         if(res.data == 'Invalid code'){
+            msg("error", res.data)
+            return
+         }
+
+         msg("success", "Email verified successfully")
+         document.querySelector(".pro_success").classList.remove("d-none")
+         document.querySelector(".lasta").classList.remove("d-none")
+         document.querySelector(".otp_head").classList.add("d-none")
+         // window.location.href = "/find-matches"
+      })
+		.catch(error => {
+         console.log(error)
+         msg("error", error.data)
+      })      
+   }
+
+   function verify_email_code( thisx ){
+      var vl = $(thisx).val();
+      verifyCode(vl)
+   }
+
+   function msg(icon, msg){
+      const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+         toast.onmouseenter = Swal.stopTimer;
+         toast.onmouseleave = Swal.resumeTimer;
+      }
+      });
+      Toast.fire({
+      icon: icon,
+      title: msg
+      });
+   }
+
+   function counter(){
+      let timerInterval;
+      Swal.fire({
+      title: "Auto close alert!",
+      html: "I will close in <b></b> milliseconds.",
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: () => {
+         Swal.showLoading();
+         const timer = Swal.getPopup().querySelector("b");
+         timerInterval = setInterval(() => {
+            timer.textContent = `${Swal.getTimerLeft()}`;
+         }, 100);
+      },
+      willClose: () => {
+         clearInterval(timerInterval);
+      }
+      }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+         console.log("I was closed by the timer");
+      }
+      });
+   }
 
 
    document.getElementById('avatar_img').addEventListener('change', handleImageChange);
@@ -936,45 +1011,8 @@ Complete Profile Setup | Admyrer
              e.preventDefault();
          });
  
- function verify_email_code( thisx ){
-     var vl = $(thisx);
-     $.get( window.ajax + 'useractions/get_email_verification_code', function(data, status){
-         setTimeout(() => {
-             $('#otp_check_email').removeAttr('disabled');
-         },1000);
-         if( data.status == 200 ){
-             if( vl.val() == data.code ){
-                 var data = {
-                     'start_up': '3',
-                     'phone_verified' : '1'
-                 };
- 
-                 $.get( window.ajax + 'profile/set_data', data );
-                   $('.dt_signup_steps').html(`<h5 class="empty_state"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M15,3H12V6H8V3H5A2,2 0 0,0 3,5V21A2,2 0 0,0 5,23H15A2,2 0 0,0 17,21V5A2,2 0 0,0 15,3M10,8A2,2 0 0,1 12,10A2,2 0 0,1 10,12A2,2 0 0,1 8,10A2,2 0 0,1 10,8M14,16H6V15C6,13.67 8.67,13 10,13C11.33,13 14,13.67 14,15V16M11,5H9V1H11V5M14,19H6V18H14V19M10,21H6V20H10V21M19,12V7H21V12H19M19,16V14H21V16H19Z" /></svg><?php echo __('Your account wait admin photo verification. Please try again later.');?></h5>`);
-            
-                   $('.dt_signup_steps').html(`<div class="dt_p_head center pro_success">
-                         <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"></circle>
-                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"></path>
-                         </svg>
-                         <h2 class="light"><?php echo __( 'Congratulations!' );?></h2>
-                         <p class="bold"><?php echo __('You have successfully registered.');?></p>
-                      </div>`);
-                   setTimeout(function(){
-                     window.location = window.site_url;
-                   }, 1000);
- 
-                 
- 
-             }else{
-                showResponseAlert('.steps_alerts','danger',"Wrong verification email code, try again later.",2000);
-                 vl.focus();
-             }
-         }else{
-          showResponseAlert('.steps_alerts','danger',"Wrong verification email code, try again later.",2000);
-         }
-     });
- }
+
+
  function verify_sms_code( thisx ){
      var vl = $(thisx);
      $.get( window.ajax + 'useractions/get_sms_verification_code', function(data, status){

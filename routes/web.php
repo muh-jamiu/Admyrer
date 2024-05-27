@@ -31,6 +31,8 @@ Route::post('/delete-like', [UserController::class, 'deleteLikes']);
 
 Route::post('/post-follows', [UserController::class, 'post_follows']);
 
+Route::post('/verify-code', [UserController::class, 'verifyCode']);
+
 Route::post('/generate-token', [UserController::class, 'generateToken']);
 
 Route::post('/delete-follows', [UserController::class, 'deleteFollows']);

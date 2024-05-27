@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VerifyMail;
+use App\Models\accountVerify;
 use App\Models\Follows;
 use App\Models\Like;
 use App\Models\Poll;
@@ -129,7 +130,6 @@ class UserController extends Controller
     }
 
     public function registerUser(User $user, Request $request){
-       return $this->sendMail($request);
         request()->validate([
             "email" => "required|email|unique:users",
             "username" => "required|unique:users",
@@ -150,7 +150,7 @@ class UserController extends Controller
 
         if($user){
             session()->put("admyrer_id", $user->id);
-            $this->sendMail($request);
+            $this->sendMail($request, $user->id);
             return redirect("/steps");
         }
         
@@ -342,6 +342,29 @@ class UserController extends Controller
         return $uploadedFileUrl["url"];
     }
 
+    public function postCode($code, $id){
+        $verify = new accountVerify();
+        $verify->userId = session("admyrer_id") ?? $id;
+        $verify->code = $code;
+        $verify->save();
+
+        return true;
+    }
+
+    public function verifyCode(accountVerify $verify){
+        $code = $verify::where('code', request()->code)->first();
+        if(!$code){
+            return "Invalid code";
+        }
+
+        if($code->userId != session("admyrer_id")){
+            return "Invalid code";
+        }
+
+        $code->delete();
+        return true;
+    }
+
     //match users
     public function matchedUsers()
     {
@@ -480,7 +503,7 @@ class UserController extends Controller
     }
 
     //mail
-    public function sendMail(Request $request){
+    public function sendMail(Request $request, $id){
         $name = strtoupper($request->first_name);
         $message = $request->message;
         $email = $request->email;
@@ -492,6 +515,7 @@ class UserController extends Controller
             false;
         }
 
+        $this->postCode($code, $id);
         return true;
     }
 

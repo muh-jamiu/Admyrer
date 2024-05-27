@@ -34,7 +34,7 @@
                         <div class="mtc_usrd_slider">
                             <div class="carousel carousel-slider center match_usr_img_slidr">
                                 <div class="carousel-item" style="display: inline-block !important; visibility:visible !important">
-                                    <img class="s_img" alt={{$randomuser[0]->avatar ?? "/img/icon.png"}} src={{$randomuser[0]->avatar}}>
+                                    <img class="s_img" alt={{$randomuser[0]->avatar ?? "/img/icon.png"}} src={{$randomuser[0]->avatar ?? "/img/icon.png"}}>
                                 </div>
                             </div>
                         </div>

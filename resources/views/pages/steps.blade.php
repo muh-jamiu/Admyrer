@@ -260,7 +260,7 @@ Complete Profile Setup | Admyrer
                   <div class="slider" style="height: fit-content !important">
                      <div class="steps_alerts" style="padding: 0px 50px 0px;;width: 680px;"></div>
                         {{-- choose photo --}}
-                        <div class="slider-form d-none slider-one second_slider" id="profile_image_upload">
+                        <div class="slider-form slider-one second_slider" id="profile_image_upload">
                         <div class="choose_photo">
                            <h6 class="bold"><?php echo __( 'people want to see what you look like!' );?></h6>
                            <p><?php echo __( 'Upload Images to set your Profile Picture Image.' );?></p>
@@ -441,7 +441,7 @@ Complete Profile Setup | Admyrer
                         </form>
                         
                         {{-- email verify --}}
-                        <form class="slider-form phone_slide slider-three forth_slider">                           
+                        <form class="slider-form d-none phone_slide slider-three forth_slider">                           
                            <!-- Email -->
                            <div class="otp_head">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -459,16 +459,6 @@ Complete Profile Setup | Admyrer
                                  </div>
                               </div>
 
-                              {{-- <div class="row">
-                                 <div class="col s12 m2"></div>
-                                 <div class="col s12 m8">
-                                    <div class="input-field inline">
-                                       <input class="verify_email" id="email" type="email" value="" data-email="">
-                                    </div>
-                                    <button class="btn waves-effect waves-light" id="send_otp_email"><?php echo __( 'Resend OTP' );?></button>
-                                 </div>
-                                 <div class="col s12 m2"></div>
-                              </div> --}}
                            </div>
                            <!-- End Email -->
 
@@ -550,16 +540,23 @@ Complete Profile Setup | Admyrer
             return
          }
 
-         msg("success", "Email verified successfully")
          document.querySelector(".pro_success").classList.remove("d-none")
          document.querySelector(".lasta").classList.remove("d-none")
          document.querySelector(".otp_head").classList.add("d-none")
-         // window.location.href = "/find-matches"
+         document.querySelector(".third_btn").classList.remove("d-none")
+
+         setTimeout(() => {
+            window.location.href = "/find-matches"
+         }, 2000)
       })
 		.catch(error => {
          console.log(error)
          msg("error", error.data)
       })      
+   }
+
+   function redirect(){
+      window.location.href = "/find-matches"
    }
 
    function verify_email_code( thisx ){
@@ -658,16 +655,6 @@ Complete Profile Setup | Admyrer
    var verify_email = document.querySelector(".verify_email")
    var enter_otp_email = document.querySelector(".enter_otp_email")
    var profile_image_upload = document.getElementById("profile_image_upload")
-   var send_otp_email = document.getElementById("send_otp_email")
-
-   send_otp_email.addEventListener("click", () => {
-      if(verify_email.value == ""){
-         alert("Provide your email address")
-         enter_otp_email.classList.add("d-none")
-         return
-      }
-      enter_otp_email.classList.remove("d-none")
-   })
 
    first_btn.addEventListener("click", (e) => {
       e.preventDefault()

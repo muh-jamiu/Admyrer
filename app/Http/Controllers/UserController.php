@@ -508,7 +508,7 @@ class UserController extends Controller
         $message = $request->message;
         $email = $request->email;
         $subject = strtoupper($request->subject);
-        $code = rand(100000, 999999);
+        $code = rand(1000, 9999);
 
         $mail = Mail::to($email)->send(new VerifyMail($message, $subject, $email, $name, $code));
         if(!$mail){

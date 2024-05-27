@@ -27,7 +27,7 @@ Register | Admyrer
 		</nav>
 		
 		<div class="container-fluid auth_bg_img">
-			<div class="container dt_login_bg">
+			<div class="dt_login_bg">
 				<div class="">
 					<div class="dt_login_con">
 						<div class="row dt_login login">

@@ -547,7 +547,7 @@ Complete Profile Setup | Admyrer
 
          setTimeout(() => {
             window.location.href = "/find-matches"
-         }, 2000)
+         }, 3000)
       })
 		.catch(error => {
          console.log(error)

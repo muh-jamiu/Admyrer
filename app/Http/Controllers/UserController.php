@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\UserPoll;
 use App\Models\Userpolls;
 use App\Models\Visitors;
+use Cloudinary\Cloudinary;
 use GuzzleHttp\Client;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
@@ -307,6 +308,10 @@ class UserController extends Controller
         $user->religion = $request->religion ?? $user->religion ;
         $user->city = $request->city ?? $user->city ;
         $user->color = $request->color ?? $user->color;
+        if($request->image){
+            $photo = $this->uploadImage();
+            $user->avatar = $photo;
+        }
         $user->update();
         
         return true;
@@ -325,6 +330,14 @@ class UserController extends Controller
     public function getSortedUser($sort){        
        $user = User::orderBy($sort)->get();
         return $user;
+    }
+
+    public function uploadImage(){    
+        $file = request()->file('image')->getRealPath();   
+        $cloudinary = new Cloudinary();    
+        $uploadedFileUrl = $cloudinary->uploadApi()->upload($file,);
+        
+        return $uploadedFileUrl["url"];
     }
 
     //match users

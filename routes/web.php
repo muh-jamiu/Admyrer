@@ -21,6 +21,8 @@ Route::post('/update-user', [UserController::class, 'updateUser']);
 
 Route::post('/register', [UserController::class, 'registerUser']);
 
+Route::post('/upload-image', [UserController::class, 'uploadImage']);
+
 Route::post('/like', [UserController::class, 'post_like']);
 
 Route::post('/send-ai-message', [UserController::class, 'handleAIMessage']);
@@ -193,4 +195,4 @@ Route::get('/forgot', function () {
 
 Route::get('/steps', function () {
     return view("pages.steps");
-})->middleware("notLogin");
+}); //->middleware("notLogin");

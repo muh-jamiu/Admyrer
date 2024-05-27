@@ -279,7 +279,7 @@ Complete Profile Setup | Admyrer
                               <div class="determinate" style="width: 0%"></div >
                            </div>
                            <div class="first_btn d-none">
-                              <button style="color: #CC42BD !important;float: right; background:white" class="waves-effect rounded waves-light btn btn_primary bold next" data-src="" data-emailvalidation="">
+                              <button onclick="uploadImage()" style="color: #CC42BD !important;float: right; background:white" class="waves-effect rounded waves-light btn btn_primary bold next" data-src="" data-emailvalidation="">
                                  <?php echo __( 'Next' );?> 
                                  <svg viewBox="0 0 19 14" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
                                     <path fill="currentColor" d="M18.6 6.9v-.5l-6-6c-.3-.3-.9-.3-1.2 0-.3.3-.3.9 0 1.2l5 5H1c-.5 0-.9.4-.9.9s.4.8.9.8h14.4l-4 4.1c-.3.3-.3.9 0 1.2.2.2.4.2.6.2.2 0 .4-.1.6-.2l5.2-5.2h.2c.5 0 .8-.4.8-.8 0-.3 0-.5-.2-.7z"></path>
@@ -534,6 +534,42 @@ Complete Profile Setup | Admyrer
       })
 		.catch(error => console.log(error))
 	}
+
+
+   document.getElementById('avatar_img').addEventListener('change', handleImageChange);
+
+   let selectedImage;
+
+   function handleImageChange(event) {
+      selectedImage = event.target.files[0];
+   }
+
+   async function uploadImage() {
+      if (!selectedImage) {
+         alert('Please select an image first.');
+         return;
+      }
+      
+
+      let formData = new FormData();
+      formData.append('image', selectedImage);
+
+      try {
+         axios.post('/update-user', formData, {
+            headers: {
+               'Content-Type': 'multipart/form-data'
+            }
+         })
+         .then(res => {
+            console.log(res)
+         })
+         .catch(err => console.log(err))
+
+      } catch (error) {
+         console.log('Error uploading image:', error);
+      }
+   }
+
 
    flatpickr("#birthdate", {
         dateFormat: "Y-m-d",

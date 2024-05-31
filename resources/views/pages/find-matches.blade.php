@@ -320,50 +320,82 @@ Find Matches | Admyrer
 	var s_img = document.querySelector(".s_img");
 	var s_link = document.querySelector(".s_link");
 	var curr_ID = document.querySelector(".curr_ID");
+	var random_user_item = document.querySelectorAll(".random_user_item");
 	var index = 0
+	var rand_index = 0
 	usr_thumb[index].classList.add("isActive")
 
-	function like(){
-		usr_thumb[index].classList.add("d-none");
-		usr_thumb[index + 1].classList.add("isActive")
-		index += 1
-		s_name.innerHTML = h_name[index].innerHTML
-		s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
-		s_body.innerHTML = h_body[index].innerHTML
-		s_loc.innerHTML = h_loc[index].innerHTML
-		s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
-		s_height.innerHTML = h_height[index].innerHTML
-		s_img.src = h_img[index].src
-		s_link.href = "/@" + h_username[index].innerHTML
-		s_relationship.innerHTML = h_relationship[index].innerHTML
+	function like(name, rand){
+		if(rand){
+			random_user_item[rand_index].classList.add("d-none");
+			rand_index += 1
+		}
+		if(!rand){
+			usr_thumb[index].classList.add("d-none");
+			usr_thumb[index + 1].classList.add("isActive")
+			s_name.innerHTML = h_name[index].innerHTML
+			s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
+			s_body.innerHTML = h_body[index].innerHTML
+			s_loc.innerHTML = h_loc[index].innerHTML
+			s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
+			s_height.innerHTML = h_height[index].innerHTML
+			s_img.src = h_img[index].src
+			s_link.href = "/@" + h_username[index].innerHTML
+			s_relationship.innerHTML = h_relationship[index].innerHTML
+			index += 1
+		}
 
 		axios.post("/like", {
 			userId: curr_ID.innerHTML,
-			like_id: h_Id[index - 1].innerHTML,
+			like_id: h_Id[index - 1] ?  h_Id[index - 1].innerHTML :  h_Id[index].innerHTML,
 		})
-		.then(res => console.log(res))
+		.then(res => {
+			Swal.fire({
+			position: "top-end",
+			icon: "success",
+			title:`You like ${name}`,
+			showConfirmButton: false,
+			timer: 1500
+			});
+		})
 		.catch(error => console.log(error))
 	}
 
-	function dislike(){
-		usr_thumb[index].classList.add("d-none");
-		usr_thumb[index + 1].classList.add("isActive")
-		index += 1
-		s_name.innerHTML = h_name[index].innerHTML
-		s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
-		s_body.innerHTML = h_body[index].innerHTML
-		s_loc.innerHTML = h_loc[index].innerHTML
-		s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
-		s_height.innerHTML = h_height[index].innerHTML
-		s_img.src = h_img[index].src
-		s_relationship.innerHTML = h_relationship[index].innerHTML
-		s_link.href = "/@" + h_username[index].innerHTML
+	function dislike(name, rand){
+		if(rand){
+			random_user_item[rand_index].classList.add("d-none");
+			rand_index += 1
+		}
+
+		if(!rand){
+			usr_thumb[index].classList.add("d-none");
+			usr_thumb[index + 1].classList.add("isActive")
+			index += 1
+			s_name.innerHTML = h_name[index].innerHTML
+			s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
+			s_body.innerHTML = h_body[index].innerHTML
+			s_loc.innerHTML = h_loc[index].innerHTML
+			s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
+			s_height.innerHTML = h_height[index].innerHTML
+			s_img.src = h_img[index].src
+			s_relationship.innerHTML = h_relationship[index].innerHTML
+			s_link.href = "/@" + h_username[index].innerHTML
+		}
 
 		axios.post("/disliked", {
 			userId: curr_ID.innerHTML,
-			like_id: h_Id[index - 1].innerHTML,
+			like_id: h_Id[index - 1] ?  h_Id[index - 1].innerHTML :  h_Id[index].innerHTML,
 		})
-		.then(res => console.log(res))
+		.then(res => {
+			console.log(res)
+			Swal.fire({
+			position: "top-end",
+			icon: "success",
+			title: `You dislike ${name}`,
+			showConfirmButton: false,
+			timer: 1500
+			});
+		})
 		.catch(error => console.log(error))
 	}
 

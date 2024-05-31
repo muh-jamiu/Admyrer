@@ -652,7 +652,26 @@ Find Matches | Admyrer
 		axios.post("/post-follows", {
 			followsID: curr_ID.innerHTML,
 		})
-		.then(res => console.log(res))
+		.then(res => {
+			console.log(res)
+			if(res.data == 1){
+				Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title:`You follow this user`,
+				showConfirmButton: false,
+				timer: 1500
+				});
+				return
+			}
+			Swal.fire({
+			position: "top-end",
+			icon: "error",
+			title:`You've already follow this user`,
+			showConfirmButton: false,
+			timer: 1500
+			});
+		})
 		.catch(error => console.log(error))
 	}
 </script>

@@ -300,7 +300,16 @@ Friends | Admyrer
 		axios.post("/delete-follows", {
 			id: like,
 		})
-		.then(res => console.log(res))
+		.then(res => {
+			Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title:`You unfollow this user`,
+				showConfirmButton: false,
+				timer: 1500
+			});
+			console.log(res)
+		})
 		.catch(error => console.log(error))
 	}
 

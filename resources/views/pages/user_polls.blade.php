@@ -31,16 +31,18 @@ Polls | Admyrer
             @if (count($Allpoll) > 0)
                 <div class="row" id="liked_users_container">
                     @foreach ($Allpoll as $key => $poll)					
-                        <div class="col-sm-4 m6 s12 matches visit likeUserrs" >
+                        <div class="col-sm-4 m6 s12 matches _polls visit likeUserrs" >
                             <div class="card valign-wrapper" style="border: none !important"> 
                                 <div class="head">
-                                    <p class="qst fw-bold">What is your name and what do you think about our webiste?</p>
-                                </div>                              
+                                    <p class="qst fw-bold">{{$poll->title}} ?</p>
+                                </div>      
+                                @php
+                                    $options = explode(",", $poll->options);
+                                @endphp                        
 								<div class="card-content  p-3 w-100" >
-                                    <p class="ans"><span>A</span> Yes</p>
-                                    <p class="ans"><span>B</span> No</p>
-                                    <p class="ans"><span>C</span> Maybe</p>
-                                    <p class="ans"><span>D</span> Awesome</p>
+                                    @foreach ($options as $key => $option)	
+                                    <p class="{{$poll->title}} ans"><span>{{$key + 1}}</span> {{$option}}</p>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -61,11 +63,32 @@ Polls | Admyrer
 @push("javascript")
 
 <script>
+    var poll_index = 0
+	var _polls = document.querySelectorAll("._polls");
+    _polls.forEach((item, index) => {
+
+    });
+
+
 	var ans = document.querySelectorAll(".ans");
     ans.forEach((element, index) => {
         element.addEventListener('click', () => {
             ans.forEach((item, index) => {
                 item.classList.remove("selected")
+            });
+
+            Swal.fire({
+            title: "Do you want to vote for this poll?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Vote",
+            denyButtonText: `Don't vote`
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire("Vote!", "", "success");
+            } else if (result.isDenied) {
+                Swal.fire("Changes are not saved", "", "info");
+            }
             });
 
             element.classList.add("selected")

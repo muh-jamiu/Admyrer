@@ -17,9 +17,20 @@ use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Services\OpenAIService;
+use App\Services\GoogleGeminiService;
 
 class UserController extends Controller
 {
+    protected $openAIService;
+    protected $googleGeminiService;
+
+    public function __construct(OpenAIService $openAIService, GoogleGeminiService $googleGeminiService)
+    {
+        $this->openAIService = $openAIService;
+        $this->googleGeminiService = $googleGeminiService;
+    }
+
     public function index(Request $request){
         $data["user"] = $this->getUser(session("admyrer_id"));
         $data["randomUser"] = $this->getAllUserRandomly();
@@ -517,6 +528,37 @@ class UserController extends Controller
 
         $this->postCode($code, $id);
         return true;
+    }
+
+    public function chat(Request $request)
+    {
+        $userMessage = $request->input('message');
+        $messages = [
+            ['role' => 'system', 'content' => 'You are a helpful assistant.'],
+            ['role' => 'user', 'content' => $userMessage],
+        ];
+
+        $result = $this->openAIService->generateChatResponse($messages);
+
+        return $result;
+    }
+
+    public function chatGemini(Request $request)
+    {
+        $userMessage = request()->message;
+        $messages = [
+            ["parts" => [
+                ["text" => "You are a admyrer dating website assistant."]
+            ], "role" => "model"],
+            ["parts" => [
+                ["text" => $userMessage]
+            ], "role" => "user"],
+        ];
+
+        $result = $this->googleGeminiService->generateChatResponse($messages);
+
+        $text = $result["candidates"][0]["content"]["parts"][0]["text"];
+        return str_replace("*", "", $text);
     }
 
 }

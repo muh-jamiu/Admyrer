@@ -17,6 +17,7 @@ Find Matches | Admyrer
 <x-main-nav :notification="$notification" :user="$loginUser"></x-main-nav>
 <p class="d-none " id="curr_ID">{{$user->id}}</p>
 <p class="d-none " id="curr_user_">{{$user->username}}</p>
+<p class="d-none " id="curr_from_user_">{{$loginUser->username}}</p>
 
     <script>
         var meta = document.createElement('meta');
@@ -637,7 +638,8 @@ Find Matches | Admyrer
 		axios.post("/save-message", {
 			message: message,
 			reciever: curr_ID.innerHTML,
-			username: curr_user_.innerHTML
+			username: curr_user_.innerHTML,
+			from_username: curr_from_user_.innerHTML
 		})
 		.then(res => {
 			console.log(res)

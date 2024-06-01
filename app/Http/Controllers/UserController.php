@@ -615,7 +615,7 @@ class UserController extends Controller
 
         $msg->save();
         $notification = new notification();
-        $notification->from = session("admyrer_id");
+        $notification->from =  request()->from_username;
         $notification->to = request()->username;
         $notification->save();
 
@@ -639,8 +639,9 @@ class UserController extends Controller
         return $msg;
     }
 
-    public function getNotification(){        
-        $notification = notification::where(["to" => session("admyrer_id")])->get();
+    public function getNotification(){     
+        $existingUser = User::where('id', session("admyrer_id"))->first() ?? null;
+        $notification = notification::where(["to" => $existingUser->username])->get();
         return $notification;
     }
 }

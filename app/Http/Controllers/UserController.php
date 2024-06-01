@@ -264,6 +264,11 @@ class UserController extends Controller
 
     //visits
     public function post_visits($visitorsID, $visitsID){
+        $visit = Visitors::where(["visitorsID" => session("admyrer_id"), "visitsID" => $visitsID])->get();
+        if(count($visit) > 0){
+            return false;
+        }
+
         $visitors = new Visitors();
         $visitors->visitorsID = $visitorsID;
         $visitors->visitsID = $visitsID;
@@ -385,7 +390,13 @@ class UserController extends Controller
     }
 
     //likes
-    public function post_disliked(Like $like){
+    public function post_disliked(Like $like){ 
+        $like = Like::where(["user_id" => session("admyrer_id"), "like_id" => request()->like_id, "is_disliked" => true])->get();
+        if(count($like) > 0){
+            return false;
+        }
+        
+        $like = new Like();
         $like->user_id = request()->userId ;
         $like->like_id = request()->like_id ;
         $like->is_disliked = true;
@@ -395,6 +406,12 @@ class UserController extends Controller
     }
 
     public function post_like(Like $like){
+        $like = Like::where(["user_id" => session("admyrer_id"), "like_id" => request()->like_id, "is_liked" => true])->get();
+        if(count($like) > 0){
+            return false;
+        }
+        
+        $like = new Like();
         $like->user_id = request()->userId ;
         $like->like_id = request()->like_id ;
         $like->is_liked = true;
@@ -561,4 +578,8 @@ class UserController extends Controller
         return str_replace("*", "", $text);
     }
 
+    public function quiz(){
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.quiz", compact("data"));
+    }
 }

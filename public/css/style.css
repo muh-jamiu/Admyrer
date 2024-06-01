@@ -493,6 +493,10 @@ nav .header_user .dropdown-content > li.night_day {
         margin-left: 1em;
     }    
 
+    ._quize{
+        width: 100% !important;
+    }
+
     .msg-container .wrap1{
         margin-right: 1em;
     } 

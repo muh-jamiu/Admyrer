@@ -41,6 +41,8 @@ Route::post('/disliked', [UserController::class, 'post_disliked']);
 
 Route::get('/chat', [UserController::class, 'chat']);
 
+Route::get('/quiz', [UserController::class, 'quiz']);
+
 Route::post('/chat-gemini', [UserController::class, 'chatGemini']);
 
 Route::any('/logOut', [UserController::class, 'logOut']);

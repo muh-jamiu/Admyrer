@@ -247,7 +247,8 @@ Visitors | Admyrer
 					
 					@if (count($visits) > 0)
 						<div class="row" id="liked_users_container">
-							@foreach ($visits as $key => $likeUser)					
+							@foreach ($visits as $key => $likeUser)
+							@if ($likeUser->id != $user->id)					
 								<div class="col-sm-3 m6 s12 matches visit likeUserrs" >
 									<div class="card valign-wrapper" style="border: none !important">
 										<div class="card-image">
@@ -270,6 +271,7 @@ Visitors | Admyrer
 										</div>
 									</div>
 								</div>
+							@endif
 							@endforeach
 						</div>
 					@endif

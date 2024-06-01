@@ -329,7 +329,34 @@ Find Matches | Admyrer
 		if(rand){
 			random_user_item[rand_index].classList.add("d-none");
 			rand_index += 1
+
+			axios.post("/like", {
+				userId: curr_ID.innerHTML,
+				like_id: h_Id[rand_index - 1] ?  h_Id[rand_index - 1].innerHTML :  h_Id[rand_index].innerHTML,
+			})
+			.then(res => {
+				console.log(res, h_Id[rand_index])
+				if(res.data != 1){
+					Swal.fire({
+					position: "top-end",
+					icon: "error",
+					title:`You've already liked this user`,
+					showConfirmButton: false,
+					timer: 1500
+					});
+					return
+				}
+				Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title:`You like this user`,
+				showConfirmButton: false,
+				timer: 1500
+				});
+			})
+			.catch(error => console.log(error))
 		}
+
 		if(!rand){
 			usr_thumb[index].classList.add("d-none");
 			usr_thumb[index + 1].classList.add("isActive")
@@ -343,28 +370,62 @@ Find Matches | Admyrer
 			s_link.href = "/@" + h_username[index].innerHTML
 			s_relationship.innerHTML = h_relationship[index].innerHTML
 			index += 1
+			axios.post("/like", {
+				userId: curr_ID.innerHTML,
+				like_id: h_Id[index - 1] ?  h_Id[index - 1].innerHTML :  h_Id[index].innerHTML,
+			})
+			.then(res => {
+				console.log(res, h_Id[index])
+				if(res.data != 1){
+					Swal.fire({
+					position: "top-end",
+					icon: "error",
+					title:`You've already liked this user`,
+					showConfirmButton: false,
+					timer: 1500
+					});
+					return
+				}
+				Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title:`You like this user`,
+				showConfirmButton: false,
+				timer: 1500
+				});
+			})
+			.catch(error => console.log(error))
 		}
-
-		axios.post("/like", {
-			userId: curr_ID.innerHTML,
-			like_id: h_Id[index - 1] ?  h_Id[index - 1].innerHTML :  h_Id[index].innerHTML,
-		})
-		.then(res => {
-			Swal.fire({
-			position: "top-end",
-			icon: "success",
-			title:`You like ${name}`,
-			showConfirmButton: false,
-			timer: 1500
-			});
-		})
-		.catch(error => console.log(error))
 	}
 
 	function dislike(name, rand){
 		if(rand){
 			random_user_item[rand_index].classList.add("d-none");
 			rand_index += 1
+			axios.post("/disliked", {
+				userId: curr_ID.innerHTML,
+				like_id: h_Id[rand_index - 1] ?  h_Id[rand_index - 1].innerHTML :  h_Id[rand_index].innerHTML,
+			})
+			.then(res => {
+				if(res.data != 1){
+					Swal.fire({
+					position: "top-end",
+					icon: "error",
+					title:`You've already disliked this user`,
+					showConfirmButton: false,
+					timer: 1500
+					});
+					return
+				}
+				Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title: `You dislike this user`,
+				showConfirmButton: false,
+				timer: 1500
+				});
+			})
+			.catch(error => console.log(error))	
 		}
 
 		if(!rand){
@@ -380,23 +441,34 @@ Find Matches | Admyrer
 			s_img.src = h_img[index].src
 			s_relationship.innerHTML = h_relationship[index].innerHTML
 			s_link.href = "/@" + h_username[index].innerHTML
+			axios.post("/disliked", {
+				userId: curr_ID.innerHTML,
+				like_id: h_Id[index - 1] ?  h_Id[index - 1].innerHTML :  h_Id[index].innerHTML,
+			})
+			.then(res => {
+				console.log(res)
+				if(res.data != 1){
+					Swal.fire({
+					position: "top-end",
+					icon: "error",
+					title:`You've already disliked this user`,
+					showConfirmButton: false,
+					timer: 1500
+					});
+					return
+				}
+				Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title: `You dislike this user`,
+				showConfirmButton: false,
+				timer: 1500
+				});
+			})
+			.catch(error => console.log(error))
 		}
 
-		axios.post("/disliked", {
-			userId: curr_ID.innerHTML,
-			like_id: h_Id[index - 1] ?  h_Id[index - 1].innerHTML :  h_Id[index].innerHTML,
-		})
-		.then(res => {
-			console.log(res)
-			Swal.fire({
-			position: "top-end",
-			icon: "success",
-			title: `You dislike ${name}`,
-			showConfirmButton: false,
-			timer: 1500
-			});
-		})
-		.catch(error => console.log(error))
+		
 	}
 
     $(document).ready(function(){

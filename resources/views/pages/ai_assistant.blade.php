@@ -1,6 +1,7 @@
 @extends("layouts.app")
 
 @php
+$notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
 @endphp
 
@@ -9,7 +10,7 @@ AI Assistant | Admyrer
 @endsection
 
 @section("content")
-<x-main-nav :user="$user"></x-main-nav>
+<x-main-nav :notification="$notification" :user="$user"></x-main-nav>
 
 {{-- main bar --}}
 <div class="container container-fluid container_new page-margin find_matches_cont">

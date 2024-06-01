@@ -27,6 +27,8 @@ Route::post('/like', [UserController::class, 'post_like']);
 
 Route::post('/conversation', [UserController::class, 'Conversation']);
 
+Route::get('/get-notification', [UserController::class, 'getNotification']);
+
 Route::post('/get-message', [UserController::class, 'getMessage']);
 
 Route::post('/save-message', [UserController::class, 'saveMessage']);

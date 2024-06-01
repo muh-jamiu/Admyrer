@@ -1,6 +1,7 @@
 @extends("layouts.app")
 
 @php
+$notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
     $questions = [
             [
@@ -192,7 +193,7 @@ Match Quiz | Admyrer
 
 @section("content")
 
-<x-main-nav :user="$user"></x-main-nav>
+<x-main-nav :notification="$notification" :user="$user"></x-main-nav>
 
 <div class="container quiz polls container-fluid container_new page-margin find_matches_cont">
 	<div class="row r_margin">

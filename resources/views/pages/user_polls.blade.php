@@ -1,6 +1,7 @@
 @extends("layouts.app")
 
 @php
+$notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
 	$Allpoll = $data["Allpoll"] ?? [];
 	$Userpoll = $data["Userpoll"] ?? [];
@@ -12,7 +13,7 @@ Polls | Admyrer
 
 @section("content")
 
-<x-main-nav :user="$user"></x-main-nav>
+<x-main-nav :notification="$notification" :user="$user"></x-main-nav>
 
 <div class="container polls container-fluid container_new page-margin find_matches_cont">
 	<div class="row r_margin">

@@ -1,6 +1,7 @@
 @extends("layouts.app")
 
 @php
+$notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
 @endphp
 
@@ -10,7 +11,7 @@ Success stories | Admyrer
 
 @section("content")
 
-<x-main-nav :user="$user"></x-main-nav>
+<x-main-nav :notification="$notification"  :user="$user"></x-main-nav>
 
 <ul class="collapsible dt_new_home_filter" id="home_filters">
 	<div class="container">

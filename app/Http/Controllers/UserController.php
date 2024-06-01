@@ -35,24 +35,28 @@ class UserController extends Controller
     }
 
     public function index(Request $request){
+        $data["notification"] = $this->getNotification();
         $data["user"] = $this->getUser(session("admyrer_id"));
         $data["randomUser"] = $this->getAllUserRandomly();
         return view("pages.find-matches", compact("data"));
     }
 
     public function matches(){
+        $data["notification"] = $this->getNotification();
         $data["matchedUsers"] = $this->matchedUsers();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.matches", compact("data"));
     }
 
     public function visits(){
+        $data["notification"] = $this->getNotification();
         $data["visits"] = $this->get_visits();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.visits", compact("data"));
     }
 
     public function friends(){
+        $data["notification"] = $this->getNotification();
         $data["follows"] = $this->get_follows();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.friends", compact("data"));
@@ -64,12 +68,14 @@ class UserController extends Controller
     }
 
     public function likes(){
+        $data["notification"] = $this->getNotification();
         $data["personalLikes"] = $this->getPersonalLikes();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.likes", compact("data"));
     }
     
     public function liked(){
+        $data["notification"] = $this->getNotification();
         $data["liked"] = $this->getAllLikes();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.liked", compact("data"));
@@ -77,6 +83,7 @@ class UserController extends Controller
 
     
     public function disliked(){
+        $data["notification"] = $this->getNotification();
         $data["dislikes"] = $this->getAllDisLikes();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.disliked", compact("data"));
@@ -84,11 +91,13 @@ class UserController extends Controller
 
     
     public function stories(){
+        $data["notification"] = $this->getNotification();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.stories", compact("data"));
     }
 
     public function show(){
+        $data["notification"] = $this->getNotification();
         $username = str_replace("@", "", request()->path());
         $userProf = $this->getUserByUsername($username);
         if(!$userProf){
@@ -103,6 +112,7 @@ class UserController extends Controller
 
     
     public function hot(){
+        $data["notification"] = $this->getNotification();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.hot", compact("data"));
     }
@@ -112,11 +122,13 @@ class UserController extends Controller
     }
 
     public function friend_requests(){
+        $data["notification"] = $this->getNotification();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.friend_requests", compact("data"));
     }
 
     public function ai_assistant(){
+        $data["notification"] = $this->getNotification();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.ai_assistant", compact("data"));
     }
@@ -489,6 +501,7 @@ class UserController extends Controller
         $Userpoll = Userpolls::where("userId", session("admyrer_id"))->get();
         $Allpoll = $this->getPolls();
 
+        $data["notification"] = $this->getNotification();
         $data["Userpoll"] = $Userpoll;
         $data["Allpoll"] = $Allpoll;
         $data["user"] = $this->getUser(session("admyrer_id"));
@@ -583,6 +596,7 @@ class UserController extends Controller
     }
 
     public function quiz(){
+        $data["notification"] = $this->getNotification();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.quiz", compact("data"));
     }
@@ -602,7 +616,7 @@ class UserController extends Controller
         $msg->save();
         $notification = new notification();
         $notification->from = session("admyrer_id");
-        $notification->to = request()->reciever;
+        $notification->to = request()->username;
         $notification->save();
 
         return true;
@@ -623,5 +637,10 @@ class UserController extends Controller
             ->orderBy('created_at', 'asc')
             ->get();
         return $msg;
+    }
+
+    public function getNotification(){        
+        $notification = notification::where(["to" => session("admyrer_id")])->get();
+        return $notification;
     }
 }

@@ -1,6 +1,7 @@
 @extends("layouts.app")
 
 @php
+$notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
 	$conversation = $data["conversation"] ?? [];
 	$loginUser = $data["loginUser"] ?? [];
@@ -13,8 +14,9 @@ Find Matches | Admyrer
 
 @section("content")
 
-<x-main-nav :user="$loginUser"></x-main-nav>
+<x-main-nav :notification="$notification" :user="$loginUser"></x-main-nav>
 <p class="d-none " id="curr_ID">{{$user->id}}</p>
+<p class="d-none " id="curr_user_">{{$user->username}}</p>
 
     <script>
         var meta = document.createElement('meta');
@@ -630,10 +632,12 @@ Find Matches | Admyrer
 
 
 	var curr_ID = document.getElementById("curr_ID");
+	var curr_user_ = document.getElementById("curr_user_");
 	function saveMsg(message){
 		axios.post("/save-message", {
 			message: message,
 			reciever: curr_ID.innerHTML,
+			username: curr_user_.innerHTML
 		})
 		.then(res => {
 			console.log(res)

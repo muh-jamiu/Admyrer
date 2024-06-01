@@ -21,35 +21,42 @@
             </ul>
             <ul class="right">
 
-                <li class="header_msg dropdown">
-                    <a href="javascript:void(0);" id="messenger_opener" class="btn-flat">
+                <li class="header_notifications dropdown">
+                    <a data-bs-toggle="dropdown" href="javascript:void(0);" id="messenger_opener" class="btn-flat">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"></path><line x1="8" y1="9" x2="16" y2="9"></line><line x1="8" y1="13" x2="14" y2="13"></line></svg>
-                        <span class="badge red chat_badge hide" href="javascript:void(0);" id="messenger_opener">0</span></a>
+                        <span class="badge red chat_badge" href="javascript:void(0);" id="messenger_opener">{{count($notification)}}</span></a>
                     </a>
+                    <ul id="notif_dropdown" class="dropdown-content dropdown-menu" style="opacity: 1.0 !important">
+                        <div class="">
+                        <p class="p-3 mb-0 fw-bold fs-5" style="border-bottom: 1px solid rgb(223, 223, 223)"><?php echo __( 'Messages' );?></p>
+                            @foreach ($notification as $item)
+                                <p class="p-1" style="border-bottom: 1px solid rgb(237, 237, 237)"><a style="color:rgb(138, 138, 138)" href="{{ "/@" . $item->from}}">{{$item->from}} sent you a message</a></p>
+                            @endforeach
+                          </div>
+                    </ul>
                 </li>
                 
                 <li class="header_notifications dropdown">
                     <a data-bs-toggle="dropdown" href="javascript:void(0);" id="notificationbtn" data-ajax-post="/useractions/shownotifications" data-ajax-params="" data-ajax-callback="callback_show_notifications" data-target="notif_dropdown" class="dropdown-trigger btn-flat">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path><path d="M9 17v1a3 3 0 0 0 6 0v-1"></path><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727"></path><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727"></path></svg>
-                        <span class="badge notification_badge hide">0</span>
+                        <span class="badge notification_badge ">1</span>
                     </a>
                     <ul id="notif_dropdown" class="dropdown-content dropdown-menu" style="opacity: 1.0 !important">
-                        <div class="valign-wrapper">
-                            <p><?php echo __( 'Notifications' );?></p>
-                            <button type="button" class="waves-effect"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></button>
+                        <div class="">
+                            <p style="border-bottom: 1px solid rgb(223, 223, 223)" class="fw-bold mb-0 p-3 fs-5"><?php echo __( 'Notifications' );?></p>
+                            <p style="border-bottom: 1px solid rgb(223, 223, 223)" class="pb-3"><a style="color:rgb(138, 138, 138)" href="#">Welcome to Admyrer, Connect and Chat with awesome people today, We have made it easy for you to have fun while you use our Admyrer platform.</a></p>
+                            {{-- <button type="button" class="waves-effect"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></button> --}}
                         </div>
                     </ul>
                 </li>
                 <li class="header_user">
-                    {{-- <div class="boost-div">
-                        <button title='<?php echo __('Boost me!');?>' id='boost_btn' class='btn boost-me'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 493.944 493.944"><path fill="currentColor" d="M367.468,175.996c-3.368-5.469-9.317-8.807-15.734-8.807h-84.958l45.919-143.098  c1.797-5.614,0.816-11.76-2.662-16.521c-3.464-4.748-9.014-7.57-14.9-7.57h-84.446c-8.02,0-15.125,5.18-17.563,12.814  l-68.487,213.465c-1.797,5.613-0.817,11.756,2.663,16.52c3.464,4.748,9.013,7.57,14.899,7.57h14.868h68.183l-22.006,235.037  c-0.352,3.736,2.004,7.185,5.614,8.227c3.593,1.045,7.427-0.608,9.126-3.961L368.19,194.01  C371.093,188.281,370.82,181.467,367.468,175.996z" /></svg></button>
-                    </div> --}}
                     
                     <a href="{{"/@" .$user->username}}" data-target="user_dropdown" class="dropdown-trigger btn-flat">
-                        <img src={{$user->avatar ?? "/img/icon.png"}} /> <span><?php echo __( 'Hi,' );?> {{$user->first_name}}</span> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"/></svg>
+                        <img src={{$user->avatar ?? "/img/icon.png"}} /> <span><?php echo __( 'Hi,' );?> {{$user->first_name}}</span> 
+                        {{-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"/></svg> --}}
                     </a>
 
-                    <ul id="user_dropdown" class="dropdown-content">
+                    {{-- <ul id="user_dropdown" class="dropdown-content">
                         <li class="hide header_credits_small_mobi">
                             <a href="/credit" data-ajax="/credit" class="waves-effect">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.5-6H14a.5.5 0 1 0 0-1h-4a2.5 2.5 0 1 1 0-5h1V6h2v2h2.5v2H10a.5.5 0 1 0 0 1h4a2.5 2.5 0 1 1 0 5h-1v2h-2v-2H8.5v-2z" /></svg> <?php echo __( 'Credit' );?>
@@ -118,7 +125,7 @@
                                 </div>
                             </a>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </li>
             </ul>
             

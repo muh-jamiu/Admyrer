@@ -2,6 +2,7 @@
 
 @php
 	$user = $data["user"] ?? [];
+	$conversation = $data["conversation"] ?? [];
 	$loginUser = $data["loginUser"] ?? [];
 	$check = $user->id == $loginUser->id ? true : false;
 @endphp
@@ -547,25 +548,32 @@ Find Matches | Admyrer
 		<!-- Modal body -->
 		<div class="modal-body">
 			<div class="chat_container msg-container">
-				<div class="wrap1 unique d-none">
-					<div class="">
-						<p class='mb-0 msgIcon mx-3'><img width="30px" height="30px" src='{{$user->avatar ?? "/img/icon.png"}}' alt=""/></p>
-						<div class="msgBodys mt-0">
-							<p class='mb-0 p-2'>Hi {{$user->first_name}}, What question do you have today ?</p>
+				
+				<img src='{{$loginUser->avatar ?? "/img/icon.png"}}' alt="" class='sender_img d-none' />
+				@foreach ($conversation as $msg)
+					@if($msg->sender == $loginUser->id)
+						<div class="wrap2 unique mt -2">
+							<p class='mb-0 msgIcon mx-3 text-end mb-0'>
+							<img src='{{$loginUser->avatar ?? "/img/icon.png"}}' alt="" class='' />
+							</p>
+							<div class="sentMsg mt-0">
+								<div class="myMsg">
+									<p class="mb-0 p-2">{{$msg->message}}</p>
+								</div>
+							</div>
+						</div>	
+					@else
+						<div class="wrap1 unique">
+							<div class="">
+								<p class='mb-0 msgIcon mx-3'><img width="30px" height="30px" src='{{$user->avatar ?? "/img/icon.png"}}' alt=""/></p>
+								<div class="msgBodys mt-0">
+									<p class='mb-0 p-2'>{{$msg->message}}</p>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-		
-				<div class="wrap2 unique mt -2 d-none">
-					<p class='mb-0 msgIcon mx-3 text-end mb-0'>
-					<img src='{{$loginUser->avatar ?? "/img/icon.png"}}' alt="" class='sender_img' />
-					</p>
-					<div class="sentMsg mt-0">
-						<div class="myMsg">
-							<p class="mb-0 p-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. In sapiente impedit eveniet harum ea, rerum amet eaque! Iure, alias! Laboriosam perspiciatis porro non suscipit iusto provident voluptatibus quidem excepturi optio.</p>
-						</div>
-					</div>
-				</div>		
+					@endif		
+				
+				@endforeach
 			</div>
 		</div>
   
@@ -590,6 +598,62 @@ Find Matches | Admyrer
 
 <script>
 
+	 // Enable pusher logging - don't include this in production
+	 Pusher.logToConsole = true;
+
+	
+
+	// function pusher(message){
+	// 	axios.post("/conversation", {
+	// 		message: message,
+	// 	}).then(res => {
+	// 		console.log(res)
+	// 		var pusher = new Pusher('61cbedc7014185332c2d', {
+	// 		cluster: 'mt1'
+	// 		});
+
+	// 		var channel = pusher.subscribe('chat');
+	// 		channel.bind('chatevent', function(data) {
+	// 			console.log(data.message)
+	// 			$(".msg-container").append(`
+	// 			<div class="wrap1 unique">
+	// 			<div class="">
+	// 				<p class='mb-0 mx-3'><i class="fa-brands fa-bots"></i></p>
+	// 				<div class="msgBodys mt-0">
+	// 					<div style="word-wrap:break-word !important; overflow-wrap: break-word !important; white-space:pre-wrap !important" class='mb-0 p-2 aiText'>${data.message}</div>
+	// 				</div>
+	// 			</div>
+	// 			</div>`)
+	// 			});
+	// 	})
+	// }
+
+
+	var curr_ID = document.getElementById("curr_ID");
+	function saveMsg(message){
+		axios.post("/save-message", {
+			message: message,
+			reciever: curr_ID.innerHTML,
+		})
+		.then(res => {
+			console.log(res)
+		}).catch(err => {
+			console.log(err)
+		})
+	}
+
+	function getMsg(){
+		axios.post("/get-message", {
+			message: message,
+		})
+		.then(res => {
+			console.log(res)
+		}).catch(err => {
+			console.log(err)
+		})
+	}
+
+	
 	var message = document.querySelector(".message")
     var sender_img = document.querySelector(".sender_img")
 	const Disrepectwords = ["money", "fuck", "shit", "bitch", "asshole", "kill", "stab"];
@@ -622,6 +686,7 @@ Find Matches | Admyrer
             </div>
           </div>`)
           $(".modal-body").scrollTop($(".modal-body").height()*100);
+		  saveMsg(message.value)
           message.value = ""
         }else{
             alert("Please type a message")

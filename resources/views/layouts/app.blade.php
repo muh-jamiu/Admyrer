@@ -38,6 +38,7 @@
     <script src="/js/plugins.js"></script>
     <script src="/js/jquery-2.1.1.min.js"></script>
     <script src="/js/jquery-3.5.1.min.js"></script>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 </head>
 <body>
     <x-start-live></x-start-live>

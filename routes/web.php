@@ -25,6 +25,12 @@ Route::post('/upload-image', [UserController::class, 'uploadImage']);
 
 Route::post('/like', [UserController::class, 'post_like']);
 
+Route::post('/conversation', [UserController::class, 'Conversation']);
+
+Route::post('/get-message', [UserController::class, 'getMessage']);
+
+Route::post('/save-message', [UserController::class, 'saveMessage']);
+
 Route::post('/send-ai-message', [UserController::class, 'handleAIMessage']);
 
 Route::post('/delete-like', [UserController::class, 'deleteLikes']);

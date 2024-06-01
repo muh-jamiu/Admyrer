@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChatEvent;
 use App\Mail\VerifyMail;
 use App\Models\accountVerify;
+use App\Models\conversation;
 use App\Models\Follows;
 use App\Models\Like;
+use App\Models\notification;
 use App\Models\Poll;
 use App\Models\User;
 use App\Models\UserPoll;
@@ -91,6 +94,7 @@ class UserController extends Controller
         if(!$userProf){
             abort(404);
         }
+        $data['conversation'] = $this->getMessage($userProf->id);
         $this->post_visits(session("admyrer_id"), $userProf->id);
         $data["user"] = $userProf;
         $data["loginUser"] = $this->getUser(session("admyrer_id"));
@@ -395,7 +399,7 @@ class UserController extends Controller
         if(count($like) > 0){
             return false;
         }
-        
+
         $like = new Like();
         $like->user_id = request()->userId ;
         $like->like_id = request()->like_id ;
@@ -581,5 +585,43 @@ class UserController extends Controller
     public function quiz(){
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.quiz", compact("data"));
+    }
+
+    public function Conversation(){
+        $msg = request()->message;
+        $t = broadcast(new ChatEvent($msg));
+        return true;
+    }
+
+    public function saveMessage(){
+        $msg = new conversation();
+        $msg->sender = session("admyrer_id");
+        $msg->reciever = request()->reciever;
+        $msg->message = request()->message;
+
+        $msg->save();
+        $notification = new notification();
+        $notification->from = session("admyrer_id");
+        $notification->to = request()->reciever;
+        $notification->save();
+
+        return true;
+    }
+
+    public function getMessage($reciever){
+        $senderId = session("admyrer_id");
+        $receiverId = $reciever;
+
+        $msg = Conversation::where(function($query) use ($senderId, $receiverId) {
+                $query->where('sender', $senderId)
+                    ->where('reciever', $receiverId);
+            })
+            ->orWhere(function($query) use ($senderId, $receiverId) {
+                $query->where('sender', $receiverId)
+                    ->where('reciever', $senderId);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+        return $msg;
     }
 }

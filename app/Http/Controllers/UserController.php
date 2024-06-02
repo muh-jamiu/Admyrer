@@ -603,8 +603,9 @@ class UserController extends Controller
 
     public function Conversation(){
         $msg = request()->message;
-        $t = broadcast(new ChatEvent($msg));
-        return true;
+        $sender = request()->sender;
+        $t = broadcast(new ChatEvent($msg))->toOthers();
+        return $sender;
     }
 
     public function saveMessage(){

@@ -584,7 +584,7 @@ Find Matches | Admyrer
 		<div class="modal-foote">
 			<div class="send d-flex">
 				<textarea class="message" name="" placeholder="Type message......" id=""></textarea>
-				<button onclick="sendMsg()" class="px-2">Send Message</button>
+				<button onclick="sendMsg('{{$loginUser->username}}')" class="px-2">Send Message</button>
 			</div>
 		</div>
   
@@ -603,33 +603,59 @@ Find Matches | Admyrer
 
 	 // Enable pusher logging - don't include this in production
 	 Pusher.logToConsole = true;
+	 var pusher = new Pusher('61cbedc7014185332c2d', {
+	cluster: 'mt1'
+	});
+
+	var _sender;
+	var channel = pusher.subscribe('chat');
+	var curr_user_ = document.getElementById("curr_user_");
+	var curr_from_user_ = document.getElementById("curr_from_user_");
+	channel.bind('chatevent', function(data) {
+		setTimeout(() => {
+		if(curr_from_user_.innerHTML != _sender){
+			const Toast = Swal.mixin({
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.onmouseenter = Swal.stopTimer;
+				toast.onmouseleave = Swal.resumeTimer;
+			}
+			});
+			Toast.fire({
+			icon: "info",
+			title: "You have a new message"
+			});
+
+			$(".msg-container").append(`
+			<div class="wrap1 unique">
+			<div class="">
+				<p class='mb-0 mx-3'><i class="fa-brands fa-bots"></i></p>
+				<div class="msgBodys mt-0">
+					<div style="word-wrap:break-word !important; overflow-wrap: break-word !important; white-space:pre-wrap !important" class='mb-0 p-2 aiText'>${data.message}</div>
+				</div>
+			</div>
+			</div>`)
+			}
+			
+		}, 1000);
+		_sender = ""
+	});
 
 	
 
-	// function pusher(message){
-	// 	axios.post("/conversation", {
-	// 		message: message,
-	// 	}).then(res => {
-	// 		console.log(res)
-	// 		var pusher = new Pusher('61cbedc7014185332c2d', {
-	// 		cluster: 'mt1'
-	// 		});
-
-	// 		var channel = pusher.subscribe('chat');
-	// 		channel.bind('chatevent', function(data) {
-	// 			console.log(data.message)
-	// 			$(".msg-container").append(`
-	// 			<div class="wrap1 unique">
-	// 			<div class="">
-	// 				<p class='mb-0 mx-3'><i class="fa-brands fa-bots"></i></p>
-	// 				<div class="msgBodys mt-0">
-	// 					<div style="word-wrap:break-word !important; overflow-wrap: break-word !important; white-space:pre-wrap !important" class='mb-0 p-2 aiText'>${data.message}</div>
-	// 				</div>
-	// 			</div>
-	// 			</div>`)
-	// 			});
-	// 	})
-	// }
+	function pusherM(message, sender){
+		axios.post("/conversation", {
+			message: message,
+			sender: sender,
+		}).then(res => {
+			console.log(res)			
+			_sender = res.data
+		})
+	}
 
 
 	var curr_ID = document.getElementById("curr_ID");
@@ -665,7 +691,7 @@ Find Matches | Admyrer
 	const Disrepectwords = ["money", "fuck", "shit", "bitch", "asshole", "kill", "stab"];
 
 
-	const sendMsg = () => {
+	const sendMsg = (sender) => {
         if(message.value != ""){
 			const word = message.value
 			const _words = word.toLowerCase()
@@ -692,6 +718,7 @@ Find Matches | Admyrer
             </div>
           </div>`)
           $(".modal-body").scrollTop($(".modal-body").height()*100);
+		  pusherM(message.value, sender)
 		  saveMsg(message.value)
           message.value = ""
         }else{

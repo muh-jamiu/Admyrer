@@ -17,7 +17,7 @@
             </div>
             <div class="offcanvas-footer bg-primary p-2">
                 <textarea name="" id="message" placeholder="type message...."></textarea>
-                <button onclick="sendMsg()" class="btn text-dark">Send</button>
+                <button onclick="sendMsg_()" class="btn text-dark">Send</button>
             </div>
         </div>
 
@@ -40,7 +40,7 @@
 
 @push('javascript')
     <script>
-        function sendMsg(params) {
+        function sendMsg_(params) {
             var message = document.getElementById("message")
             if(message.value.length > 0){
                 $(".offcanvas-body").append(`<li class="">${message.value}</li>`)

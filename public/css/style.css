@@ -480,6 +480,27 @@ nav .header_user .dropdown-content > li.night_day {
     padding-top: .5em;
 }
 
+.admin_login{
+    margin-top: 4em;
+}
+
+.admin_login form{
+    margin: auto auto;
+    width: 40%;
+    background-color: azure;
+    padding: 2em 1em;
+    border-radius: 6px !important;
+}
+
+.admin_login input{
+    padding: .3em .8em !important;
+    border-radius: 6px !important;
+    border: 1px solid #CC42BD !important;
+    width: 90% !important;
+    display: block !important;
+    margin-bottom: 1em !important;
+}
+
 #chatConversations .modal-foote  button{
     background-color: #CC42BD;
     border: none;
@@ -491,7 +512,11 @@ nav .header_user .dropdown-content > li.night_day {
 @media (max-width: 600px)  {
     .msg-container .wrap2{
         margin-left: 1em;
-    }    
+    }   
+    
+    .admin_login form{
+        width: 90% !important;
+    }
 
     ._quize{
         width: 100% !important;
@@ -585,6 +610,11 @@ nav .header_user .dropdown-content > li.night_day {
 
 .polls .card .ans.selected{
     background-color: #CC42BD;
+    color: white;
+}
+
+.polls .card .ans.selectedDB{
+    background-color: rgb(7, 184, 75);
     color: white;
 }
 
@@ -6103,14 +6133,90 @@ textarea.materialize-textarea.report_user_report {
     justify-content: center;
 }
 
+.live_vid i{
+    font-size: 12px !important;
+    list-style-type: none;
+}
+
+.live_vid .dropdown-menu{
+    overflow: scroll;
+}
+
+.live_vid textarea{
+    resize: none;
+    padding: .8em;
+    border: none;
+    width: 70%;
+    background-color: black;
+    border-radius: 6px;
+    color: white;
+}
+
+.review_ .justify-content-between{
+    border-bottom: 1px solid lightgray;
+}
+
+.review_ i{
+    color: grey;
+}
+
+.review_ i:hover{
+    color: yellow;
+    cursor: pointer;
+}
+
+.review_ .fa-star.active{
+    color: yellow;
+}
+
+.review_{
+    /* position: fixed; */
+    width: 50%;
+    box-shadow: .1em .1em 1em lightgrey;
+    height: 100vh;
+    background-color: white;
+    border-radius: 3px;
+    margin: auto auto;
+    z-index: 1000;
+    overflow: scroll;
+}
+
+.live_vid .offcanvas-footer button{
+    /* padding: .5em; */
+    border:none;
+    width: 20%;
+    background-color: white;
+    border-radius: 6px;
+    margin: 0 !important;
+    transform: translateY(-20px);
+}
+
+
+.live_vid .offcanvas-body li{
+    background-color: lightgray;
+    padding: .9em;
+    border-radius: 6px;
+    border-top-left-radius: 0px !important;
+    font-size: 14px;
+    margin-bottom: .6em;
+    width: fit-content;
+    list-style-type: none;
+}
+
+.live_vid .dropdown-menu{
+    transform: translateY(-50px) !important;
+    height: 300px !important;
+    width: 300px !important;
+}
+
 .live_vid .btns button{
     margin-right: 1em;
     margin-left: 1em;
     border-radius: 3px !important;
     box-shadow: none !important;
-    border-radius: 50% !important;
+    /* border-radius: 50% !important;
     height: 50px;
-    width: 50px;
+    width: 50px; */
     text-align: center;
     font-size: 14px !important;
 }

@@ -3,7 +3,14 @@
 @php
 	$notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
+	$club = $data["club"] ?? [];
+	$quiz = $data["quiz"] ?? [];
+	$dates = $data["dates"] ?? [];
+	$schedule = $data["schedule"] ?? [];
 	$random_user = $data["randomUser"] ?? [];
+	$searchUser = $data["searchUser"] ?? [];
+	$isSearch = $data["isSearch"] ?? false;
+	// dd($club);
 @endphp
 
 @section('title')
@@ -12,7 +19,7 @@ Find Matches | Admyrer
 
 @section("content")
 
-<x-main-nav :notification="$notification" :user="$user"></x-main-nav>
+<x-main-nav :dates="$dates" :schedule="$schedule"  :notification="$notification" :user="$user"></x-main-nav>
 
 <ul class="collapsible dt_new_home_filter" id="home_filters">
 	<div class="container">
@@ -254,20 +261,31 @@ Find Matches | Admyrer
 				<div class="dt_home_filters">
 					<h5><?php echo __('Just for you');?></h5>
 					<div class="dt_home_filters_head">
-						<p><span><?php echo __('Apply Filter');?></span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14,12V19.88C14.04,20.18 13.94,20.5 13.71,20.71C13.32,21.1 12.69,21.1 12.3,20.71L10.29,18.7C10.06,18.47 9.96,18.16 10,17.87V12H9.97L4.21,4.62C3.87,4.19 3.95,3.56 4.38,3.22C4.57,3.08 4.78,3 5,3V3H19V3C19.22,3 19.43,3.08 19.62,3.22C20.05,3.56 20.13,4.19 19.79,4.62L14.03,12H14Z" /></svg></p>
+						<form action="/search" method="post">
+							@csrf
+							<input name="search" style="width: fit-content" type="text" placeholder="find user by username, country, firstname (eg)" class="px-2">
+							<p><span><input style="background-color: transparent;border:none" type="submit" value="<?php echo __('Apply Filter');?>"></span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14,12V19.88C14.04,20.18 13.94,20.5 13.71,20.71C13.32,21.1 12.69,21.1 12.3,20.71L10.29,18.7C10.06,18.47 9.96,18.16 10,17.87V12H9.97L4.21,4.62C3.87,4.19 3.95,3.56 4.38,3.22C4.57,3.08 4.78,3 5,3V3H19V3C19.22,3 19.43,3.08 19.62,3.22C20.05,3.56 20.13,4.19 19.79,4.62L14.03,12H14Z" /></svg></p>
+						</form>
 					</div>
 				</div>
 			</div>
 			
 			@if (count($random_user) > 0)
-				<x-user-slider :user="$user" :randomuser="$random_user"></x-user-slider>
+				@if (!$isSearch)
+				<x-user-slider :quiz="$quiz" :user="$user" :randomuser="$random_user"></x-user-slider>					
+				@endif
 				<!-- End Filters  -->
 
 				<hr class="dt_home_rand_user_hr">
 				<div class="dt_ltst_users" id="dt_ltst_users">
 					<div class="dt_home_rand_user">
+						@if (!$isSearch)
 						<h6 class="mb-3"><?php echo __( 'Other users & profiles' );?></h6>
-						<x-random-user :randomuser="$random_user"></x-random-user>
+						@endif
+						@if ($isSearch)
+						<h6 class="mb-3"><?php echo __( 'Search results for users & profiles' );?> ({{count($searchUser)}})</h6>
+						@endif
+						<x-random-user :searchuser="$searchUser" :issearch="$isSearch"  :luser="$user" :quiz="$quiz" :randomuser="$random_user"></x-random-user>
 					</div>
 				</div>			
 			@endif      
@@ -293,6 +311,53 @@ Find Matches | Admyrer
 	</div>
 </div>
 
+
+@if (session("first"))
+<script>
+	Swal.fire({
+	icon: "info",
+	title: "Notice",
+	text:`Please complete the matching quiz for better date matching on the site, ignore the notice if you've already completed the matching quiz.`,
+	footer: '<a href="/quiz">Matching Quiz</a>'
+	});
+</script>
+@endif
+
+@if ($club)
+<script>
+	Swal.fire({
+		title: "Join night club?",
+		text: "Would you like to join night club?, Night club is always hosted by the admin for user purpose",
+		showDenyButton: true,
+		showCancelButton: true,
+		confirmButtonText: "Join",
+		denyButtonText: `Don't Join`
+		}).then((result) => {
+		if (result.isConfirmed) {
+		joinStream()
+			Swal.fire({
+			title: "Joining Club!",
+			html: "Please wait...",
+			timer: 10000,
+			timerProgressBar: true,
+			didOpen: () => {
+				Swal.showLoading();
+				const timer = Swal.getPopup().querySelector("b");
+				timerInterval = setInterval(() => {
+				}, 1000);
+			},
+			willClose: () => {
+				clearInterval(timerInterval);
+			}
+			}).then((result) => {
+			/* Read more about handling dismissals below */
+			if (result.dismiss === Swal.DismissReason.timer) {
+			}
+		});
+		}
+	});
+</script>
+@endif
 
 <x-footer></x-footer>
 

@@ -1,5 +1,8 @@
 @extends("layouts.dashlayout")
 
+@php
+@endphp
+
 @section('title')
 Admin Panel | Admyrer
 @endsection
@@ -32,7 +35,7 @@ Admin Panel | Admyrer
                                 </span>
                             </div>
                         </div>
-                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2"></div>
+                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">2</div>
                     </div>
                 </div>
             </div>
@@ -49,7 +52,7 @@ Admin Panel | Admyrer
                                 </span>
                             </div>
                         </div>
-                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">{{count($data["male"])}}</div>
                     </div>
                 </div>
             </div>
@@ -66,7 +69,7 @@ Admin Panel | Admyrer
                                 </span>
                             </div>
                         </div>
-                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">{{count($data["female"])}}</div>
                     </div>
                 </div>
             </div>
@@ -83,7 +86,7 @@ Admin Panel | Admyrer
                                 </span>
                             </div>
                         </div>
-                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">17</div>
                     </div>
                 </div>
             </div>
@@ -100,7 +103,7 @@ Admin Panel | Admyrer
                                 </span>
                             </div>
                         </div>
-                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">32</div>
                     </div>
                 </div>
             </div>
@@ -117,7 +120,7 @@ Admin Panel | Admyrer
                                 </span>
                             </div>
                         </div>
-                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">{{count($data["totalImage"])}}</div>
                     </div>
                 </div>
             </div>
@@ -134,7 +137,7 @@ Admin Panel | Admyrer
                                 </span>
                             </div>
                         </div>
-                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">0</div>
+                        <div class="font-weight-bold ml-1 font-size-30 ml-3 mx-2">{{count($data["messages"])}}</div>
                     </div>
                 </div>
             </div>

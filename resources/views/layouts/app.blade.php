@@ -16,13 +16,7 @@
     <link rel="shortcut icon" href="/img/icon.png">
     <!-- Include Flatpickr JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    {{-- <link rel="stylesheet" href="/css/ie.css"> --}}
     <link rel="stylesheet" href="/css/materialize.min.css">
-    {{-- <link rel="stylesheet" href="/css/night.css"> --}}
-    {{-- <link rel="stylesheet" href="/css/overrides.css"> --}}
-    {{-- <link rel="stylesheet" href="/css/plugins.css"> --}}
-    {{-- <link rel="stylesheet" href="/css/rtl.css"> --}}
-    {{-- <link rel="stylesheet" href="/css/emojionearea.css"> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://kit.fontawesome.com/4d349a1f95.js" crossorigin="anonymous"></script>
@@ -33,8 +27,7 @@
     <script src="/js/materialize.min.js"></script>
     <script src="/js/chat.js"></script>
     <script src="/js/functions.js"></script>
-    <script src="/js/agora.js"></script>
-    <script src="/js/agora_1.js"></script>
+    {{-- <script src="/js/agora.js"></script> --}}
     <script src="/js/plugins.js"></script>
     <script src="/js/jquery-2.1.1.min.js"></script>
     <script src="/js/jquery-3.5.1.min.js"></script>
@@ -49,4 +42,6 @@
     @stack('javascript')
 
 </body>
+<script src="https://download.agora.io/sdk/release/AgoraRTC_N.js"></script>
+<script src="/js/agora_1.js"></script>
 </html>

@@ -39,11 +39,38 @@
                 <li class="header_notifications dropdown">
                     <a data-bs-toggle="dropdown" href="javascript:void(0);" id="notificationbtn" data-ajax-post="/useractions/shownotifications" data-ajax-params="" data-ajax-callback="callback_show_notifications" data-target="notif_dropdown" class="dropdown-trigger btn-flat">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path><path d="M9 17v1a3 3 0 0 0 6 0v-1"></path><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727"></path><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727"></path></svg>
-                        <span class="badge notification_badge ">1</span>
+                        @php
+                            $count_ = 0;
+                        @endphp   
+                        @foreach ($dates as $key => $item)
+                            @if ($item->endUsername == $user->username)  
+                                @php
+                                    $count_++;
+                                @endphp                            
+                            @endif
+                        @endforeach
+                        @foreach ($schedule as $key => $item)
+                        @if ($item->endUsername == $user->username)  
+                            @php
+                                $count_++;
+                            @endphp                            
+                        @endif
+                        @endforeach
+                        <span class="badge notification_badge ">{{$count_ + 1}}</span>
                     </a>
                     <ul id="notif_dropdown" class="dropdown-content dropdown-menu" style="opacity: 1.0 !important">
                         <div class="">
                             <p style="border-bottom: 1px solid rgb(223, 223, 223)" class="fw-bold mb-0 p-3 fs-5"><?php echo __( 'Notifications' );?></p>
+                            @foreach ($schedule as $key => $item)
+                                @if ($item->endUsername == $user->username)                          
+                                <p class="p-1" style="border-bottom: 1px solid rgb(237, 237, 237)"><a style="color:rgb(138, 138, 138)" href="{{ "/@" . $item->username}}">{{$item->username}} send you a date scheduling</a></p>
+                                @endif
+                            @endforeach
+                            @foreach ($dates as $key => $item)
+                                @if ($item->endUsername == $user->username)                          
+                                <p class="p-1" style="border-bottom: 1px solid rgb(237, 237, 237)"><a style="color:rgb(138, 138, 138)" href="{{ "/@" . $item->username}}">{{$item->username}} send you video call request</a></p>
+                                @endif
+                            @endforeach
                             <p style="border-bottom: 1px solid rgb(223, 223, 223)" class="pb-3"><a style="color:rgb(138, 138, 138)" href="#">Welcome to Admyrer, Connect and Chat with awesome people today, We have made it easy for you to have fun while you use our Admyrer platform.</a></p>
                             {{-- <button type="button" class="waves-effect"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></button> --}}
                         </div>

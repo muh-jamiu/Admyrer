@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Models\conversation;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view("admin.dashboard");
+        $data = $this->buildPage();
+        return view("admin.dashboard", compact("data"));
     }
 
     public function system_status()
@@ -180,4 +185,56 @@ class AdminController extends Controller
     {
         return view("admin.dashboard");
     }
+
+    public function adminLogin()
+    {
+        return view("admin.login");
+    }
+
+    public function adminLoginUser(Admin $admin)
+    {
+        request()->validate([
+            "username" => "required",
+            "password" => "required|min:5",
+        ]);
+
+        $existingUser = $admin::where('username', request()->username)->first();
+
+        if(!$existingUser){
+            return back()->with("msg", "Sorry!, This account cannot be found");
+        }
+
+        if(request()->password == $existingUser->password){ 
+            session()->put("admin_username", $existingUser->username);
+            return redirect("admin-cp");     
+        }
+
+        return back()->with("msg", "Password or Username is not correct!"); 
+    }
+
+    public function createAdmin(Admin $admin)
+    {
+        request()->validate([
+            "username" => "required",
+            "password" => "required|min:5",
+        ]);
+
+        $existingUser = new Admin();
+
+        $existingUser->username = request()->username;
+        $existingUser->password = request()->password;
+        $existingUser->save();
+
+        return true;
+    }
+
+    public function buildPage(){
+        $data["allUser"] = User::all();
+        $data["messages"] = conversation::all();
+        $data["male"] = User::where('gender','male')->get();
+        $data["female"] = User::where('gender','female')->get();
+        $data["totalImage"] = User::where('avatar', "!=", '')->get();
+        return $data;
+    }
+    
 }

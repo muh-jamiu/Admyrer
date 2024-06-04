@@ -2,6 +2,8 @@
 
 @php
 $notification = $data["notification"] ?? [];
+	$dates = $data["dates"] ?? [];
+	$schedule = $data["schedule"] ?? [];
 	$user = $data["user"] ?? [];
 	$conversation = $data["conversation"] ?? [];
 	$loginUser = $data["loginUser"] ?? [];
@@ -9,12 +11,13 @@ $notification = $data["notification"] ?? [];
 @endphp
 
 @section('title')
-Find Matches | Admyrer 
+{{$user->username}} Profile | Admyrer 
 @endsection
 
 @section("content")
 
-<x-main-nav :notification="$notification" :user="$loginUser"></x-main-nav>
+<div class="show_">
+<x-main-nav :schedule="$schedule" :dates="$dates" :notification="$notification" :user="$loginUser"></x-main-nav>
 <p class="d-none " id="curr_ID">{{$user->id}}</p>
 <p class="d-none " id="curr_user_">{{$user->username}}</p>
 <p class="d-none " id="curr_from_user_">{{$loginUser->username}}</p>
@@ -38,13 +41,15 @@ Find Matches | Admyrer
 			<div class="dt_left_sidebar dt_profile_side">
 				<div class="avatar">
 					<a class="inline" href="" id="avater_profile_img">
-						<img src={{$user->avatar ?? "/img/icon.png"}} alt="" class="responsive-img" />
+						<img src={{$user->avatar ?? "/img/icon.png"}} alt="" id="imagePreview" class="responsive-img" />
 					</a>
 							<div class="dt_chng_avtr">
+								@if ($loginUser->id == $user->id)
 								<span class="btn-upload-image" onclick="document.getElementById('admin_profileavatar_img').click(); return false">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21,17H7V3H21M21,1H7A2,2 0 0,0 5,3V17A2,2 0 0,0 7,19H21A2,2 0 0,0 23,17V3A2,2 0 0,0 21,1M3,5H1V21A2,2 0 0,0 3,23H19V21H3M15.96,10.29L13.21,13.83L11.25,11.47L8.5,15H19.5L15.96,10.29Z" /></svg> <?php echo __( 'Change Photo' );?>
 								</span>
 								<input type="file" id="admin_profileavatar_img" data-username="" data-userid="" class="hide" accept="image/x-png, image/gif, image/jpeg" name="avatar">
+								@endif
 							</div>
 							<div class="dt_avatar_progress hide">
 								<div class="admin_avatar_imgprogress progress">
@@ -78,9 +83,10 @@ Find Matches | Admyrer
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M14 22.5L11.2 19H6a1 1 0 0 1-1-1V7.103a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1V18a1 1 0 0 1-1 1h-5.2L14 22.5zm1.839-5.5H21V8.103H7V17H12.161L14 19.298 15.839 17zM2 2h17v2H3v11H1V3a1 1 0 0 1 1-1z"/></svg>
 						</a>
 							
-						<a href="javascript:void(0);" data-target="user_prof_dropdown" class="dropdown-trigger">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12 3c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 14c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-7c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-						</a>
+						<a onclick="start_call()" href="javascript:void(0);" data-target="user_prof_dropdown" class="dropdown-trigger bg-primary">
+							<i class="fa-solid fa-video"></i></a>
+						<a data-bs-toggle="modal" data-bs-target="#myModal" href="javascript:void(0);" data-target="user_prof_dropdown" class="dropdown-trigger bg-danger">
+							<i class="fa-solid fa-clock"></i></a>
 						<ul id="user_prof_dropdown" class="dropdown-content" tabindex="0">
 								<li>
 									<a href="javascript:void(0);" data-ajax-post="/useractions/" data-ajax-params="userid=" class="block_text">
@@ -537,73 +543,190 @@ Find Matches | Admyrer
 
 {{-- modal --}}
   
-  <!-- The Modal -->
-  <div class="modal fade" id="chatConversations">
-	<div class="modal-dialog modal-dialog-centered modal-l">
-	  <div class="modal-content p-0">
-  
-		<!-- Modal Header -->
-		<div class="modal-header">
-		  <h6 class="modal-title text-capitalize">Chat with {{$user->first_name}}</h6>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-		</div>
-  
-		<!-- Modal body -->
-		<div class="modal-body">
-			<div class="chat_container msg-container">
-				
-				<img src='{{$loginUser->avatar ?? "/img/icon.png"}}' alt="" class='sender_img d-none' />
-				@foreach ($conversation as $msg)
-					@if($msg->sender == $loginUser->id)
-						<div class="wrap2 unique mt -2">
-							<p class='mb-0 msgIcon mx-3 text-end mb-0'>
-							<img src='{{$loginUser->avatar ?? "/img/icon.png"}}' alt="" class='' />
-							</p>
-							<div class="sentMsg mt-0">
-								<div class="myMsg">
-									<p class="mb-0 p-2">{{$msg->message}}</p>
-								</div>
-							</div>
-						</div>	
-					@else
-						<div class="wrap1 unique">
-							<div class="">
-								<p class='mb-0 msgIcon mx-3'><img width="30px" height="30px" src='{{$user->avatar ?? "/img/icon.png"}}' alt=""/></p>
-								<div class="msgBodys mt-0">
-									<p class='mb-0 p-2'>{{$msg->message}}</p>
-								</div>
+<!-- The Modal -->
+<div class="modal fade" id="chatConversations">
+<div class="modal-dialog modal-dialog-centered modal-l">
+	<div class="modal-content p-0">
+
+	<!-- Modal Header -->
+	<div class="modal-header">
+		<h6 class="modal-title text-capitalize">Chat with {{$user->first_name}}</h6>
+		<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+	</div>
+
+	<!-- Modal body -->
+	<div class="modal-body">
+		<div class="chat_container msg-container">
+			
+			<img src='{{$loginUser->avatar ?? "/img/icon.png"}}' alt="" class='sender_img d-none' />
+			@foreach ($conversation as $msg)
+				@if($msg->sender == $loginUser->id)
+					<div class="wrap2 unique mt -2">
+						<p class='mb-0 msgIcon mx-3 text-end mb-0'>
+						<img src='{{$loginUser->avatar ?? "/img/icon.png"}}' alt="" class='' />
+						</p>
+						<div class="sentMsg mt-0">
+							<div class="myMsg">
+								<p class="mb-0 p-2">{{$msg->message}}</p>
 							</div>
 						</div>
-					@endif		
-				
-				@endforeach
-			</div>
+					</div>	
+				@else
+					<div class="wrap1 unique">
+						<div class="">
+							<p class='mb-0 msgIcon mx-3'><img width="30px" height="30px" src='{{$user->avatar ?? "/img/icon.png"}}' alt=""/></p>
+							<div class="msgBodys mt-0">
+								<p class='mb-0 p-2'>{{$msg->message}}</p>
+							</div>
+						</div>
+					</div>
+				@endif		
+			
+			@endforeach
 		</div>
-  
-		<!-- Modal footer -->
-		<div class="modal-foote">
-			<div class="send d-flex">
-				<textarea class="message" name="" placeholder="Type message......" id=""></textarea>
-				<button onclick="sendMsg('{{$loginUser->username}}')" class="px-2">Send Message</button>
-			</div>
-		</div>
-  
-	  </div>
 	</div>
-  </div>
 
+	<!-- Modal footer -->
+	<div class="modal-foote">
+		<div class="send d-flex">
+			<textarea class="message" name="" placeholder="Type message......" id=""></textarea>
+			<button onclick="sendMsg('{{$loginUser->username}}')" class="px-2">Send Message</button>
+		</div>
+	</div>
+
+	</div>
+</div>
+</div>
+
+<div class="modal fade" id="myModal">
+<div class="modal-dialog modal-dialog-centered modal-l">
+	<div class="modal-content p-0">
+
+	<!-- Modal Header -->
+	<div class="modal-header">
+		<h6 class="modal-title text-capitalize">Schedule date with {{$user->first_name}}</h6>
+		<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+	</div>
+
+	<!-- Modal body -->
+	<div class="modal-body">
+		<input type="text" id="dates" placeholder="Pick date" class="px-2" style="width: 94% !important">
+		<button onclick="schedule_call()" class="btn btn-danger mt-2 mb-3">Schedule</button>
+		<p style="font-size: 10px">{{$user->first_name}} will recieve a notification about the date and time.</p>
+	</div>
+
+	<!-- Modal footer -->
+	<div class="modal-foote">
+	</div>
+
+	</div>
+</div>
+</div>
+  
 
 
 
 <x-footer></x-footer>
+</div>
 
 @push("javascript")
 
 <script>
+	function schedule_call(){
+		Swal.fire({
+            title: "Do you want to schedule video call?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "schedule",
+            denyButtonText: `Don't schedule`
+            }).then((result) => {
+            if (result.isConfirmed) {
+				storeSchedule()
+				Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title:`Date Scheduled Successfully`,
+				showConfirmButton: false,
+				timer: 1500
+				});
+				var date = document.getElementById("dates")
+				date.value = ''
+			}
+        });
+	}
 
-	 // Enable pusher logging - don't include this in production
-	 Pusher.logToConsole = true;
-	 var pusher = new Pusher('61cbedc7014185332c2d', {
+	function storeSchedule() {
+		var date = document.getElementById("dates")
+		axios.post("/schedule-date", {
+			endUsername: curr_user_.innerHTML,
+			username: curr_from_user_.innerHTML,
+			date: date.value
+		})
+		.then(res => {
+			console.log(res)
+		})
+		.catch(error => {
+			console.log(error)
+		})
+	}
+
+	function start_call(){
+		Swal.fire({
+            title: "Do you want to start video call?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Start",
+            denyButtonText: `Don't Start`
+            }).then((result) => {
+            if (result.isConfirmed) {
+                joinStream()
+				Swal.fire({
+				title: "Starting Video Call!",
+				html: "Please wait...",
+				timer: 10000,
+				timerProgressBar: true,
+				didOpen: () => {
+					Swal.showLoading();
+					const timer = Swal.getPopup().querySelector("b");
+					timerInterval = setInterval(() => {
+					}, 1000);
+				},
+				willClose: () => {
+					clearInterval(timerInterval);
+				}
+				}).then((result) => {
+					dateLive()
+				/* Read more about handling dismissals below */
+				if (result.dismiss === Swal.DismissReason.timer) {
+				}
+			});
+            }
+        });
+	}
+
+	function dateLive(endUsername, username) {
+		var curr_user_ = document.getElementById("curr_user_");
+		var curr_from_user_ = document.getElementById("curr_from_user_");
+		axios.post("/date-live", {
+			endUsername: curr_user_.innerHTML,
+			username: curr_from_user_.innerHTML,
+		})
+		.then(res => {
+			console.log(res)
+		})
+		.catch(error => {
+			console.log(error)
+		})
+	}
+
+	flatpickr("#dates", {
+        dateFormat: "d D M, Y",
+    });
+
+
+	// Enable pusher logging - don't include this in production
+	Pusher.logToConsole = true;
+	var pusher = new Pusher('61cbedc7014185332c2d', {
 	cluster: 'mt1'
 	});
 
@@ -643,9 +766,7 @@ Find Matches | Admyrer
 			
 		}, 1000);
 		_sender = ""
-	});
-
-	
+	});	
 
 	function pusherM(message, sender){
 		axios.post("/conversation", {
@@ -772,6 +893,73 @@ Find Matches | Admyrer
 		})
 		.catch(error => console.log(error))
 	}
+
+	
+	document.getElementById('admin_profileavatar_img').addEventListener('change', handleImageChange);
+
+	let selectedImage;
+
+	function handleImageChange(event) {
+		selectedImage = event.target.files[0];
+	}
+
+	async function uploadImage() {
+	let formData = new FormData();
+	formData.append('image', selectedImage);
+	let timerInterval;
+	Swal.fire({
+	title: "Uploading profile image!",
+	html: "Please wait...",
+	timer: 2000,
+	timerProgressBar: true,
+	didOpen: () => {
+		Swal.showLoading();
+		const timer = Swal.getPopup().querySelector("b");
+		timerInterval = setInterval(() => {
+		timer.textContent = `${Swal.getTimerLeft()}`;
+		}, 100);
+	},
+	willClose: () => {
+		clearInterval(timerInterval);
+	}
+	}).then((result) => {
+	/* Read more about handling dismissals below */
+	if (result.dismiss === Swal.DismissReason.timer) {
+		Swal.fire({
+		icon: "success",
+		title: "Uploaded",
+		text:`Profile image was uploaded successfully`,
+		footer: '<a href="/find-matches">Find matching date</a>'
+	});
+	}
+	});
+
+	try {
+		axios.post('/update-user', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			}
+		})
+		.then(res => {
+			console.log(res)
+		})
+		.catch(err => console.log(err))
+
+	} catch (error) {
+		console.log('Error uploading image:', error);
+	}
+	}
+
+	function previewImage(event) {
+      var reader = new FileReader();
+      reader.onload = function() {
+		var image = document.getElementById('imagePreview')
+         image.src = reader.result; 
+      }
+      reader.readAsDataURL(event.target.files[0]);
+	  uploadImage()
+   	}
+  document.getElementById('admin_profileavatar_img').addEventListener('change', previewImage);
 </script>
 	
 @endpush

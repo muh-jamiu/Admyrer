@@ -25,6 +25,8 @@ Route::post('/upload-image', [UserController::class, 'uploadImage']);
 
 Route::post('/like', [UserController::class, 'post_like']);
 
+Route::post('/submit-quiz', [UserController::class, 'createUserQuiz']);
+
 Route::post('/conversation', [UserController::class, 'Conversation']);
 
 Route::get('/get-notification', [UserController::class, 'getNotification']);
@@ -63,6 +65,8 @@ Route::get('/matches', [UserController::class, 'matches'])->middleware("notLogin
 
 Route::get('/user-polls', [UserController::class, 'getUserPoll'])->middleware("notLogin");
 
+Route::post('/create-userpoll', [UserController::class, 'createUserPoll']);
+
 Route::get('/visits', [UserController::class, 'visits'])->middleware("notLogin");
 
 Route::get('/ai-assistant', [UserController::class, 'ai_assistant'])->middleware("notLogin");
@@ -83,10 +87,30 @@ Route::get('/stories', [UserController::class, 'stories'])->middleware("notLogin
 
 Route::get('/live-users', [UserController::class, 'live_users'])->middleware("notLogin");
 
+Route::get('/review', [UserController::class, 'review'])->middleware("notLogin");
+
+Route::post('/review', [UserController::class, 'makereview']);
+
+Route::post('/store-live', [UserController::class, 'storeLive']);
+
+Route::post('/delete-live', [UserController::class, 'deleteLive']);
+
+Route::post('/date-live', [UserController::class, 'dateLive']);
+
+Route::post('/schedule-date', [UserController::class, 'scheduledateLive']);
+
+Route::post('/search', [UserController::class, 'searchUser']);
+
 Route::get('/friend-requests', [UserController::class, 'friend_requests'])->middleware("notLogin");
 
 //Admin route
-Route::get('/admin-cp', [AdminController::class, 'index']);
+Route::get('/admin-cp', [AdminController::class, 'index'])->middleware("admin");
+
+Route::get('/admin-login', [AdminController::class, 'adminLogin']);
+
+Route::post('/admin-login', [AdminController::class, 'adminLoginUser']);
+
+Route::post('/admin-create', [AdminController::class, 'createAdmin']);
 
 Route::get('/admin-cp/system_status', [AdminController::class, 'system_status']);
 

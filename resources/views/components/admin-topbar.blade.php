@@ -114,11 +114,11 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" title="User menu" data-toggle="dropdown">
                             <figure class="avatar avatar-sm">
-                                <img src=""
+                                {{-- <img src=""
                                      class="rounded-circle"
-                                     alt="avatar">
+                                     alt="avatar"> --}}
                             </figure>
-                            <span class="ml-2 d-sm-inline d-none">jamiu</span>
+                            <span class="ml-2 d-sm-inline d-none text-capitalize">{{session('admin_username')}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-big">
                             <div class="text-center py-4">

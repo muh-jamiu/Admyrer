@@ -3,6 +3,8 @@
 @php
 $notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
+	$dates = $data["dates"] ?? [];
+	$schedule = $data["schedule"] ?? [];
     $questions = [
             [
                 "question" => "What is your ideal date night?",
@@ -193,7 +195,7 @@ Match Quiz | Admyrer
 
 @section("content")
 
-<x-main-nav :notification="$notification" :user="$user"></x-main-nav>
+<x-main-nav :schedule="$schedule" :dates="$dates" :notification="$notification" :user="$user"></x-main-nav>
 
 <div class="container quiz polls container-fluid container_new page-margin find_matches_cont">
 	<div class="row r_margin">
@@ -225,7 +227,7 @@ Match Quiz | Admyrer
                                 </div>                         
 								<div class="card-content  p-3 w-100" >
                                     @foreach ($question["answers"] as $key => $answer)
-                                    <p class="p-3 ans"><span>{{$key + 1}}</span> {{$answer}}</p>
+                                    <p onclick="getTitle(`{{$answer}}`, `{{$question['question']}}`)" class="p-3 ans"><span>{{$key + 1}}</span> {{$answer}}</p>
                                     @endforeach
                                 </div>
                             </div>
@@ -247,6 +249,7 @@ Match Quiz | Admyrer
 @push("javascript")
 
 <script>
+
     var poll_index = 0
 	var _polls = document.querySelectorAll("._polls");
     _polls.forEach((item, index) => {
@@ -254,6 +257,14 @@ Match Quiz | Admyrer
         _polls[poll_index].classList.remove("d-none")
     });
 
+    
+    let _answer
+    let _question
+    
+    function getTitle(answer, question){
+        _answer = answer
+        _question = question
+    }
 
 	var ans = document.querySelectorAll(".ans");
     ans.forEach((element, index) => {
@@ -270,6 +281,7 @@ Match Quiz | Admyrer
             denyButtonText: `Don't Choose`
             }).then((result) => {
             if (result.isConfirmed) {
+                quiz(_answer, _question)
 	            var count = document.querySelector(".count");
                 poll_index += 1
                 count.innerHTML = poll_index + 1
@@ -290,6 +302,19 @@ Match Quiz | Admyrer
             element.classList.add("selected")
         })
     });
+
+    function quiz(answer, question){
+        axios.post("/submit-quiz", {
+			answer: answer,
+			title: question,
+		})
+        .then(res => {
+            console.log(res)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
 
 </script>
     

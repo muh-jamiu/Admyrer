@@ -72,8 +72,10 @@
                                             <span class="text-capitalize s_body">{{$randomuser[0]->body}}</span>
                                         </div>
                                         <div>
-                                            <p class="info_title"><?php echo __('Age');?></p>
-                                            <span class="text-capitalize s_age">{{$randomuser[0]->age ?? 0}}</span>
+                                            <p class="info_title"><?php echo __('Match');?></p>
+                                            <span class="text-capitalize s_age">
+                                                <div style="border: none !important; width:fit-content;background-color:rgba(255, 0, 0, 0.415)" class="text-capitalize px-3 text-white">0% Match <i class="fa-solid fa-xmark"></i></div>
+                                            </span>
                                         </div>
                                         <div>
                                             <p class="info_title"><?php echo __('Location');?></p>

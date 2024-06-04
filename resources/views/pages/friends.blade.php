@@ -3,6 +3,8 @@
 @php
 $notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
+	$dates = $data["dates"] ?? [];
+	$schedule = $data["schedule"] ?? [];
 	$follows = $data["follows"] ?? [];
 @endphp
 
@@ -11,7 +13,7 @@ Friends | Admyrer
 @endsection
 
 @section("content")
-<x-main-nav :notification="$notification" :user="$user"></x-main-nav>
+<x-main-nav :schedule="$schedule" :dates="$dates" :notification="$notification" :user="$user"></x-main-nav>
 <p class="d-none " id="curr_ID">{{$user->id}}</p>
 
 

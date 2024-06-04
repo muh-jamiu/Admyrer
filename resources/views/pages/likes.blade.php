@@ -3,6 +3,8 @@
 @php
 $notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
+	$schedule = $data["schedule"] ?? [];
+	$dates = $data["dates"] ?? [];
 	$personalLikes = $data["personalLikes"] ?? [];
 @endphp
 
@@ -12,7 +14,7 @@ Likes | Admyrer
 
 @section("content")
 
-<x-main-nav :notification="$notification" :user="$user"></x-main-nav>
+<x-main-nav :schedule="$schedule" :dates="$dates" :notification="$notification" :user="$user"></x-main-nav>
 
 <ul class="collapsible dt_new_home_filter" id="home_filters">
 	<div class="container">

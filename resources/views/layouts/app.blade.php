@@ -35,6 +35,14 @@
 </head>
 <body>
     <x-start-live></x-start-live>
+    <iframe
+    class="_frame"
+    allow="microphone;"
+    width="350"
+    height="430"
+    src="https://console.dialogflow.com/api-client/demo/embedded/ba5d0e95-3e65-4c88-9355-07fddb03597d">
+</iframe>
+<button class="bring text-white btn"><i class="fa-solid fa-comments"></i></button>
     <img src="/img/login-banner-mask.svg" class="body_banner_mask">
 
     @yield("content")
@@ -44,4 +52,20 @@
 </body>
 <script src="https://download.agora.io/sdk/release/AgoraRTC_N.js"></script>
 <script src="/js/agora_1.js"></script>
+<script>
+    var bring = document.querySelector(".bring");
+	var _frame = document.querySelector("._frame");
+	bring.addEventListener("click", () => {
+		if(_frame.classList.contains("active")){
+			_frame.classList.remove("active")
+			bring.classList.remove("active")
+			bring.innerHTML = `<i class="fa-solid fa-comments"></i>`
+		}else{			
+			_frame.classList.add("active")
+			bring.innerHTML = `<i class="fa-solid fa-xmark"></i>`
+			bring.classList.add("active")
+		}
+		console.log(_frame)
+	})
+</script>
 </html>

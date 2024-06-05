@@ -6152,6 +6152,53 @@ textarea.materialize-textarea.report_user_report {
     color: white;
 }
 
+iframe{
+    position: fixed !important;
+    right: 0;
+    bottom: 0;
+    z-index: 900;
+    box-shadow: .1em .1em 1em lightgray;
+    /* width: 0 !important; */
+    height: 100vh !important;
+    transition: .2s;
+    transform: translateX(500px);
+}
+
+._frame.active{
+    /* width: 350px !important;
+    height: 100vh !important; */
+    transform: translateX(0px);
+    transition: .2s;
+}
+
+.b-agent-demo .server-response{
+    background: black !important;
+}
+
+.response{
+    font-size: 14px !important;
+}
+
+.bring{
+    transform: translateY(-300px);
+    position: fixed !important;
+    right: 0;
+    bottom: 0;
+    z-index: 900;
+    box-shadow: .1em .1em 1em lightgray;
+    width: 80 !important;
+    height: 80 !important;
+    transition: 1s;
+    border-radius: 50%;
+    transition: .2s;
+    background-color: red !important;
+}
+
+.bring.active{
+    margin-right: 350px;
+    transition: .2s;
+}
+
 .review_ .justify-content-between{
     border-bottom: 1px solid lightgray;
 }

@@ -19,7 +19,10 @@
                     $matchingAnswers++;
                 }
             }
-            $cent = ($matchingAnswers / $totalQuestions) * 25;
+            $cent = 0;
+            if($matchingAnswers > 0){
+                $cent = ($matchingAnswers / $totalQuestions) * 25;
+            }
         }
     @endphp       
         <div class="col-sm-4 m6 s12 random_user_item">

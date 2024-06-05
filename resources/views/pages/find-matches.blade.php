@@ -334,7 +334,7 @@ Find Matches | Admyrer
 		denyButtonText: `Don't Join`
 		}).then((result) => {
 		if (result.isConfirmed) {
-		joinStream()
+		joinStream(null, null, null, null, null, null, true)
 			Swal.fire({
 			title: "Joining Club!",
 			html: "Please wait...",

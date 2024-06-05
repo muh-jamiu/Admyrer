@@ -30,9 +30,15 @@ var show_ = document.querySelector(".show_")
 let username_;
 let is_stream_;
 
-let joinStream = async (username, avatar, gender, name, country, is_stream) => {
+let _mus = document.getElementById("_mus")
+let joinStream = async (username, avatar, gender, name, country, is_stream, is_club) => {
     username_ = username
     is_stream_ = is_stream
+    if(is_club == true){
+        _mus.classList.remove("d-none")
+    }else{
+        _mus.classList.add("d-none")
+    }
     await joinAndDisplayLocalStream()
     if(show_){
         show_.classList.add("d-none")

@@ -22,7 +22,7 @@
         </div>
 
 
-        <button   data-bs-toggle="offcanvas" data-bs-target="#music_" class="btn" style="background-color: rgb(71, 202, 130)">Music <i class="fa-solid fa-music"></i></button>
+        <button  data-bs-toggle="offcanvas" id="_mus" data-bs-target="#music_" class="btn d-none" style="background-color: rgb(71, 202, 130)">Music <i class="fa-solid fa-music"></i></button>
  
         <div class="offcanvas offcanvas-end" id="music_">
             <div class="offcanvas-header bg-danger text-white">

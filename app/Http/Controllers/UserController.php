@@ -146,7 +146,8 @@ class UserController extends Controller
         if ($request->file('audio')) {
             $file = $request->file('audio');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/audio', $fileName);
+            // $file->storeAs('public/audio', $fileName);
+            $file->move(public_path('audio'), $fileName);
 
             $audioFile = new Audio();
             $audioFile->filename = $fileName;

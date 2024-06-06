@@ -30,15 +30,15 @@ Musics | Admyrer
                     <div>
                         <p class="name mb-0 text-capitalize">{{$item->name}}</p>
                         <p style="font-size: 10px" class="name mb-0 text-capitalize">Music by {{$item->artist}}
-                            <span style="font-size: 16px" class="mb-0 text-danger playbtn mx-2" onclick="playAudio('{{ asset('storage/audio/' . $item->filename) }}')"><i class="fa-regular fa-circle-play"></i></span> 
-                            <span style="font-size: 16px" class="mb-0 text-info " onclick="pauseAudio('{{ asset('storage/audio/' . $item->filename) }}')"><i class="fa-regular fa-circle-pause"></i></span> 
+                            <span style="font-size: 16px" class="mb-0 text-danger playbtn mx-2" onclick="playAudio('{{ url('audio/' . $item->filename) }}')"><i class="fa-regular fa-circle-play"></i></span> 
+                            <span style="font-size: 16px" class="mb-0 text-info " onclick="pauseAudio('{{ url('audio/' . $item->filename) }}')"><i class="fa-regular fa-circle-pause"></i></span> 
                         </p>
                     </div>
                     <form action="/delete-music" method="post">
                         @csrf
                         <input type="hidden" name="id" value="{{$item->id}}">
                         <button class="mb-0 btn" title="delete music"><i class="fa-solid fa-trash text-danger"></i></button>
-                        <audio id="audio_{{ $loop->index }}" src="{{ asset('storage/audio/' . $item->filename) }}" controls style="display:none;"></audio>
+                        <audio id="audio_{{ $loop->index }}" src="{{url('audio/' . $item->filename) }}" controls style="display:none;"></audio>
                     </form>
                 </div>
             @endforeach

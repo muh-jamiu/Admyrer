@@ -679,7 +679,7 @@ $notification = $data["notification"] ?? [];
             denyButtonText: `Don't Start`
             }).then((result) => {
             if (result.isConfirmed) {
-                joinStream()
+                joinStream(null, null, null, null, null, null, null, true)
 				Swal.fire({
 				title: "Starting Video Call!",
 				html: "Please wait...",

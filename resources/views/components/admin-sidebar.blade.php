@@ -24,6 +24,33 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                 </a>
             </li>
 
+            <li>
+                <a <?php echo ($page=='musics' ) ? 'class="active"' : '' ; ?> href="/admin-cp/musics" data-ajax="?path=dashboard">
+                    <span class="nav-link-icon">
+                        <i class="material-icons"><i class="fa-solid fa-music"></i></i>
+                    </span>
+                    <span>Music</span>
+                </a>
+            </li>
+
+            <li>
+                <a <?php echo ($page=='polls' ) ? 'class="active"' : '' ; ?> href="/admin-cp/polls" data-ajax="?path=dashboard">
+                    <span class="nav-link-icon">
+                        <i class="material-icons"><i class="fa-solid fa-square-poll-vertical"></i> </i>
+                    </span>
+                    <span>Polls</span>
+                </a>
+            </li>
+
+            {{-- <li>
+                <a <?php echo ($page=='reviews' ) ? 'class="active"' : '' ; ?> href="/admin-cp/reviews" data-ajax="?path=dashboard">
+                    <span class="nav-link-icon">
+                        <i class="material-icons"><i class="fa-solid fa-cubes"></i></i>
+                    </span>
+                    <span>Reviews</span>
+                </a>
+            </li> --}}
+
 
             <li>
                 <a  style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_settings">

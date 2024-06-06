@@ -6118,7 +6118,8 @@ textarea.materialize-textarea.report_user_report {
 .live_vid{
     position: fixed;
     width: 100%;
-    background-color: black;
+    background-color: white;
+    background: url("/img/testimonial_bg.jpg");
     height: 100%;
     z-index: 1000;
     overflow: hidden;

@@ -26,12 +26,11 @@
         {!! config('siteConfig.sitewide')['GOOGLE_TAG'] !!}
     </script>
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/new.css">
 
     <script src="/js/script.js"></script>
     <script src="/js/materialize.min.js"></script>
-    <script src="/js/chat.js"></script>
     <script src="/js/functions.js"></script>
-    <script src="/js/agora.js"></script>
     <script src="/js/plugins.js"></script>
     <script src="/js/jquery-2.1.1.min.js"></script>
     <script src="/js/jquery-3.5.1.min.js"></script>

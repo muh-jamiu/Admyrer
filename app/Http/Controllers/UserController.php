@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\callMessageEvent;
 use App\Events\ChatEvent;
 use App\Events\SignalingEvent;
+use App\Events\SpeedDateEvent;
 use App\Mail\VerifyMail;
 use App\Models\accountVerify;
+use App\Models\Audio;
 use App\Models\Club;
 use App\Models\conversation;
 use App\Models\Date;
@@ -137,6 +140,38 @@ class UserController extends Controller
         return view("pages.show", compact("data"));
     }
 
+    //audio
+    public function storeAudio(Request $request)
+    {
+        if ($request->file('audio')) {
+            $file = $request->file('audio');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/audio', $fileName);
+
+            $audioFile = new Audio();
+            $audioFile->filename = $fileName;
+            $audioFile->name = $request->name;
+            $audioFile->artist = $request->artist;
+            $audioFile->type = $request->type;
+            $audioFile->save();
+            return back()->with("msg", "Music Uploaded Successfully");
+        }
+
+        return back()->with("errorMsg", "Please select a valid audio file");
+    }
+
+    public function getAudio(){
+        $audio = Audio::all();
+        return $audio;
+    }
+
+    
+    public function deleteAudio(){
+        $audio = Audio::find(request()->id);
+        $audio->delete();
+        return back()->with("msg", "Music is deleted successfully");
+    }
+
     
     public function hot(){
         $data["schedule"] = $this->getScheduledateLive();
@@ -179,6 +214,29 @@ class UserController extends Controller
         return $lives;
     }
 
+    public function night(){
+        $data["clubs"] = $this->getClub();
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.night", compact("data"));
+    }
+
+    function createNightClub(Club $club){
+        $club->name = request()->name;
+        $club->username = request()->username;
+        $club->password = request()->password ?? 0;
+        $club->duration = 1;
+        $club->save();
+        return true;
+    }
+    
+    public function deleteNight(){
+        $club = Club::find(request()->id);
+        $club->delete();
+        return true;
+    }
     
     public function scheduledateLive(Schedule $schedule){
         $schedule->username = request()->username;
@@ -201,11 +259,11 @@ class UserController extends Controller
     }
 
     public function getClub(){
-        $clubs = Club::all();   
+        $clubs = Club::orderBy("created_at", "desc")->get();   
         if(count($clubs) > 0){
             return $clubs;
         } 
-        return false;
+        return [];
     }
 
     public function getLive(){
@@ -616,7 +674,7 @@ class UserController extends Controller
         $poll->options = request()->options;
         
         $poll->save();
-        return true;
+        return back()->with("msg", "Poll created successfully");
     }
 
     public function createUserPoll(){
@@ -651,17 +709,15 @@ class UserController extends Controller
         return view("pages.user_polls", compact("data"));
     }
 
+    public function deletePoll(){
+        $poll = Poll::find(request()->id);
+        $poll->delete();
+        return back()->with("msg", "Poll deleted successfully");
+    }
 
     public function getPolls(){
         $poll = Poll::all();
         return $poll;        
-    }
-
-    public function deletePoll(){
-        $poll = Poll::find(request()->id);
-        $poll->delete();
-
-        return true;        
     }
 
     //Quiz
@@ -790,6 +846,24 @@ class UserController extends Controller
         $t = broadcast(new ChatEvent($msg))->toOthers();
         return $sender;
     }
+
+    public function SpeedDate(){
+        $username = request()->username;
+        $t = broadcast(new SpeedDateEvent($username))->toOthers();
+        return $username;
+    }
+
+    public function InCallMsg(){
+        $msg = request()->msg;
+        $user = $this->getUserId() ?? "No Name";
+        $t = broadcast(new callMessageEvent($msg, $user))->toOthers();
+        return $user;
+    }
+
+    public function getUserId(){        
+        $user = User::find(session("admyrer_id"));
+         return $user->username;
+     }
 
     public function saveMessage(){
         $msg = new conversation();

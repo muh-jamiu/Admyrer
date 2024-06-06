@@ -323,42 +323,6 @@ Find Matches | Admyrer
 </script>
 @endif
 
-@if ($club)
-<script>
-	Swal.fire({
-		title: "Join night club?",
-		text: "Would you like to join night club?, Night club is always hosted by the admin for user purpose",
-		showDenyButton: true,
-		showCancelButton: true,
-		confirmButtonText: "Join",
-		denyButtonText: `Don't Join`
-		}).then((result) => {
-		if (result.isConfirmed) {
-		joinStream(null, null, null, null, null, null, true)
-			Swal.fire({
-			title: "Joining Club!",
-			html: "Please wait...",
-			timer: 10000,
-			timerProgressBar: true,
-			didOpen: () => {
-				Swal.showLoading();
-				const timer = Swal.getPopup().querySelector("b");
-				timerInterval = setInterval(() => {
-				}, 1000);
-			},
-			willClose: () => {
-				clearInterval(timerInterval);
-			}
-			}).then((result) => {
-			/* Read more about handling dismissals below */
-			if (result.dismiss === Swal.DismissReason.timer) {
-			}
-		});
-		}
-	});
-</script>
-@endif
-
 <x-footer></x-footer>
 
 @push("javascript")

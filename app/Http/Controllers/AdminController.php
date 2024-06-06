@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Audio;
 use App\Models\conversation;
+use App\Models\Poll;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -189,6 +191,28 @@ class AdminController extends Controller
     public function adminLogin()
     {
         return view("admin.login");
+    }
+
+    public function polls()
+    {
+        $data["poll"] = $this->getPolls();
+        return view("admin.polls", compact("data"));
+    }
+
+    public function getPolls(){
+        $poll = Poll::orderBy("created_at", "desc")->get();
+        return $poll;        
+    }
+
+    public function music()
+    {
+        $data["audio"] = $this->getAudio();
+        return view("admin.musics", compact("data"));
+    }
+
+    public function getAudio(){
+        $audio = Audio::orderBy("created_at", "desc")->get();
+        return $audio;
     }
 
     public function adminLoginUser(Admin $admin)

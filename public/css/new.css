@@ -1,0 +1,83 @@
+
+._music_ .list{
+    border: 1px solid lightgray;
+    margin-right: 2em;
+    border-radius: 3px;
+    padding: 0em !important ;
+    height: 420px;
+    overflow: scroll;
+}
+
+._music_ .list i:hover{
+    cursor: pointer;
+}
+
+._music_ .list .name{
+    font-size: 1.2em;
+}
+
+._music_ .list .d-flex{
+    padding: 1em ;
+    border-bottom: 1px solid lightgray;
+}
+
+._music_ .form{
+    box-shadow: .1em .1em 1em rgba(211, 211, 211, 0.46);
+    padding: 2em;
+    border-radius: 3px;
+    height: fit-content;
+}
+
+._music_ .form input,._music_ select{
+    padding: .7em;
+    display: block;
+    margin-bottom: 1.1em;
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    border-bottom: 1px solid grey;
+}
+
+._music_ .form label{
+    color: grey;
+    font-size: 14px;
+}
+
+._music_ .form button{
+    border: none;
+    background-color: red;
+    color: white;
+    padding: .5em 1em;
+    width: 10em;
+    border-radius: 3px;
+}
+
+._polls textarea, ._polls input{
+    padding: .7em;
+    display: block;
+    margin-bottom: 1.1em;
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid rgb(199, 199, 199) !important;
+    resize: none;
+}
+
+._polls .poll{
+    padding: 2em 1em;
+    height: fit-content;
+    margin-right: 2em;
+    margin-left: 2em;
+    margin-top: 2em;
+}
+
+._polls .poll .option{
+    border: 1px solid rgb(185, 184, 184);
+    padding: .8em;
+    border-radius: 3px;
+}
+
+._polls .form{
+    margin: auto auto;
+    /* margin-right: 2em; */
+    border-radius: 3px;
+}

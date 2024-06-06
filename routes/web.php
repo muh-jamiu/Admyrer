@@ -73,6 +73,8 @@ Route::get('/ai-assistant', [UserController::class, 'ai_assistant'])->middleware
 
 Route::get('/friends', [UserController::class, 'friends'])->middleware("notLogin");
 
+Route::get('/night-clubs', [UserController::class, 'night'])->middleware("notLogin");
+
 Route::get('/gifts', [UserController::class, 'gifts'])->middleware("notLogin");
 
 Route::get('/likes', [UserController::class, 'likes'])->middleware("notLogin");
@@ -91,6 +93,16 @@ Route::get('/review', [UserController::class, 'review'])->middleware("notLogin")
 
 Route::post('/review', [UserController::class, 'makereview']);
 
+Route::post('/store-club', [UserController::class, 'createNightClub']);
+
+Route::post('/call-message', [UserController::class, 'InCallMsg']);
+
+Route::post('/store-music', [UserController::class, 'storeAudio']);
+
+Route::post('/speed-date', [UserController::class, 'SpeedDate']);
+
+Route::post('/delete-music', [UserController::class, 'deleteAudio']);
+
 Route::post('/store-live', [UserController::class, 'storeLive']);
 
 Route::post('/delete-live', [UserController::class, 'deleteLive']);
@@ -98,6 +110,10 @@ Route::post('/delete-live', [UserController::class, 'deleteLive']);
 Route::post('/date-live', [UserController::class, 'dateLive']);
 
 Route::post('/schedule-date', [UserController::class, 'scheduledateLive']);
+
+Route::post('/create-poll', [UserController::class, 'createPoll']);
+
+Route::post('/delete-poll', [UserController::class, 'deletePoll']);
 
 Route::post('/search', [UserController::class, 'searchUser']);
 
@@ -107,6 +123,10 @@ Route::get('/friend-requests', [UserController::class, 'friend_requests'])->midd
 Route::get('/admin-cp', [AdminController::class, 'index'])->middleware("admin");
 
 Route::get('/admin-login', [AdminController::class, 'adminLogin']);
+
+Route::get('/admin-cp/musics', [AdminController::class, 'music'])->middleware("admin");
+
+Route::get('/admin-cp/polls', [AdminController::class, 'polls'])->middleware("admin");
 
 Route::post('/admin-login', [AdminController::class, 'adminLoginUser']);
 

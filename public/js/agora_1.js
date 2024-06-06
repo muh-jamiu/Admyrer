@@ -1,5 +1,5 @@
 const APP_ID = "b76f67d420d2486699d05d28cf678251"
-const TOKEN = "007eJxTYJBef/mr2rPjjutirI+K2394v6Bm+SIVq+t8e1r+HNE4FZeiwGBsbpFsYmxobJySmGRimmpgYWlsZJGWbGpokJxsaZyYWF0en9YQyMhwwWkmKyMDBIL4LAy5iZl5DAwAw8wgww=="
+const TOKEN = "007eJxTYPg5/7lQiaShiF3nZZGcs3dim5ZkB4aES2yavsXetibqrJsCg7G5RbKJsaGxcUpikolpqoGFpbGRRVqyqaFBcrKlcWKi2tGEtIZARobbd1cwMzJAIIjPwpCbmJnHwAAA9C4euQ=="
 const CHANNEL = "main"
 
 const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
@@ -11,7 +11,11 @@ joinAndDisplayLocalStream =async () => {
     await client.on('user-published', handleUserJoined)
     await client.on('user-left', handleUserLeft)
     var live_vid = document.querySelector(".live_vid")
+    var _liveBtn = document.querySelector("._liveBtn")
     live_vid.classList.remove("d-none")
+    setTimeout(()=> {
+        _liveBtn.classList.remove("d-none")
+    },1500)
     let UID = await client.join(APP_ID, CHANNEL, TOKEN, null)
     if(!is_stream_){
         localTracks = await  AgoraRTC.createMicrophoneAndCameraTracks() 
@@ -29,11 +33,13 @@ joinAndDisplayLocalStream =async () => {
 var show_ = document.querySelector(".show_")
 let username_;
 let is_stream_;
+let is_rev_;
 
 let _mus = document.getElementById("_mus")
-let joinStream = async (username, avatar, gender, name, country, is_stream, is_club) => {
+let joinStream = async (username, avatar, gender, name, country, is_stream, is_club, is_rev) => {
     username_ = username
     is_stream_ = is_stream
+    is_rev_ = is_rev
     if(is_club == true){
         _mus.classList.remove("d-none")
     }else{
@@ -43,7 +49,7 @@ let joinStream = async (username, avatar, gender, name, country, is_stream, is_c
     if(show_){
         show_.classList.add("d-none")
     }
-    if(!is_stream_){
+    if(avatar){
         storeLive(username, username, avatar, gender, name, country)
     }
 }
@@ -72,6 +78,7 @@ let handleUserJoined = async (user, mediaType) => {
 
 let handleUserLeft = async (user) => {
     delete remoteUsers[user.uid]
+    pauseAudio()
     if(show_){
         show_.classList.remove("d-none")
     }
@@ -85,11 +92,14 @@ let handleUserLeft = async (user) => {
 let leaveAndRemoveLocalStream = async () => {
     var live_vid = document.querySelector(".live_vid")
     live_vid.classList.add("d-none")
+    pauseAudio()
     if(show_){
         show_.classList.remove("d-none")
     }
     deleteLive(_liveID)
-    window.location.href = "/review?username=" + username_
+    if(is_rev_){
+        window.location.href = "/review?username=" + username_
+    }
     // document.getElementById('video-streams').innerHTML = ""
 
     for(let i = 0; localTracks.length > i; i++){
@@ -156,6 +166,40 @@ function deleteLive(id) {
     .catch(error => {
         console.log(error)
     })
+}
+
+function deleteclub(id) {
+    axios.post("/delete-club", {
+        id: id,
+    })
+    .then(res => {
+        console.log(res)
+    })
+    .catch(error => {
+        console.log(error)
+    })
+}
+
+let currentAudio = null;
+var playbtn = document.querySelectorAll(".playbtn")
+
+function playAudio(src) {
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+    }
+
+    currentAudio = new Audio(src);
+    currentAudio.play();
+}
+
+function pauseAudio(src) {
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio = null
+        return
+    }
 }
 
 document.getElementById('join-btn').addEventListener('click', joinStream)

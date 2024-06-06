@@ -20,22 +20,22 @@ class AdminController extends Controller
 
     public function system_status()
     {
-        return view("admin.dashboard");
+        return view("admin.system_status");
     }
 
     public function changelog()
     {
-        return view("admin.dashboard");
+        return view("admin.changelog");
     }
 
     public function push_notifications_system()
     {
-        return view("admin.dashboard");
+        return view("admin.push_notifications_system");
     }
 
     public function manage_reports()
     {
-        return view("admin.dashboard");
+        return view("admin.manage_reports");
     }
 
     public function manage_custom_pages()
@@ -60,52 +60,52 @@ class AdminController extends Controller
 
     public function general_settings()
     {
-        return view("admin.dashboard");
+        return view("admin.general");
     }
 
     public function site_settings()
     {
-        return view("admin.dashboard");
+        return view("admin.site_setting");
     }
 
     public function site_features()
     {
-        return view("admin.dashboard");
+        return view("admin.feature");
     }
 
     public function email_settings()
     {
-        return view("admin.dashboard");
+        return view("admin.email_settings");
     }
 
     public function video_settings()
     {
-        return view("admin.dashboard");
+        return view("admin.video_settings");
     }
 
     public function social_login()
     {
-        return view("admin.dashboard");
+        return view("admin.social_login");
     }
 
     public function live()
     {
-        return view("admin.dashboard");
+        return view("admin.live");
     }
 
     public function amazon_settings()
     {
-        return view("admin.dashboard");
+        return view("admin.amazon_settings");
     }
 
     public function add_language()
     {
-        return view("admin.dashboard");
+        return view("admin.add_language");
     }
 
     public function manage_languages()
     {
-        return view("admin.dashboard");
+        return view("admin.manage_languages");
     }
 
     public function manage_users()

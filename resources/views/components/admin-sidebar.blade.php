@@ -82,7 +82,7 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                         </a>
                     </li>
                     <li>
-                        <a <?php echo ($page=='video-settings' ) ? 'class="active"' : '' ; ?> href="/admin-cp//video-settings"
+                        <a <?php echo ($page=='video-settings' ) ? 'class="active"' : '' ; ?> href="/admin-cp/video-settings"
                             data-ajax="?path=video-settings">Chat & Video/Audio
                         </a>
                     </li>
@@ -125,7 +125,7 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                 </ul>
             </li>
 
-            <li>
+            {{-- <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_user">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-user"></i></i>
@@ -170,9 +170,9 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
 
-            <li>
+            {{-- <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_polls">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-square-poll-horizontal"></i></i>
@@ -192,9 +192,9 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
 
-            <li>
+            {{-- <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_photos">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
@@ -209,9 +209,9 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
 
-            <li>
+            {{-- <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_stickers">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
@@ -232,9 +232,9 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
 
-            <li>
+            {{-- <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_blogs">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-blog"></i></i>
@@ -261,31 +261,9 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
 
-            <li>
-                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_gift">
-                    <span class="nav-link-icon">
-                        <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
-                    </span>
-                    <span>Gifts</span>
-                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
-                </a>
-                <ul class="collapse" id="c_gift">
-                    <li>
-                        <a <?php echo ($page=='manage-gifts' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-gifts"
-                            data-ajax="?path=manage-gifts">Manage gifts
-                        </a>
-                    </li>
-                    <li>
-                        <a <?php echo ($page=='add-new-gift' ) ? 'class="active"' : '' ; ?> href="/admin-cp/add-new-gift" data-ajax="?path=add-new-gift">
-                            Add New Gift
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li>
+            {{-- <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_design">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-palette"></i></i>
@@ -305,7 +283,7 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
 
             <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_tool">
@@ -362,7 +340,7 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                 </ul>
             </li>
 
-            <li>
+            {{-- <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_pages">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-file"></i></i>
@@ -393,7 +371,7 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             
             <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_report">

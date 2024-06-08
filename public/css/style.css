@@ -6117,6 +6117,40 @@ textarea.materialize-textarea.report_user_report {
     background-color: red !important;
 }
 
+.testy{
+    width: 400px;
+    padding: 1em;
+    /* background-color: black !important; */
+    /* margin: auto auto; */
+    border-radius: 6px;
+    margin-right: 4em;
+    margin-left: 1em;
+}
+
+._testies{
+    width: 400px;
+    padding: 1em;
+    border-radius: 6px;
+    background-color: white;
+    height: fit-content;
+}
+
+
+.testy input{
+    border: 1px solid lightgray;
+    padding: 0 .5em !important;
+    border-radius: 6px !important;
+    width: 94% !important;
+    color: white;
+}
+
+.testy textarea{
+    resize: none;
+    color: white;
+    padding: .6em;
+    height: 300px;
+    border-radius: 6px;
+}
 
 
 .live_vid{

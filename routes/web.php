@@ -87,11 +87,15 @@ Route::get('/hots', [UserController::class, 'hot'])->middleware("notLogin");
 
 Route::get('/stories', [UserController::class, 'stories'])->middleware("notLogin");
 
+Route::get('/testimonial', [UserController::class, 'testimonial'])->middleware("notLogin");
+
 Route::get('/live-users', [UserController::class, 'live_users'])->middleware("notLogin");
 
 Route::get('/review', [UserController::class, 'review'])->middleware("notLogin");
 
 Route::post('/review', [UserController::class, 'makereview']);
+
+Route::post('/createTestimonial', [UserController::class, 'createTestimonial']);
 
 Route::post('/store-club', [UserController::class, 'createNightClub']);
 

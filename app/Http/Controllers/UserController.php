@@ -20,6 +20,7 @@ use App\Models\notification;
 use App\Models\Poll;
 use App\Models\Quiz;
 use App\Models\Schedule;
+use App\Models\Testimony;
 use App\Models\User;
 use App\Models\UserPoll;
 use App\Models\Userpolls;
@@ -777,6 +778,44 @@ class UserController extends Controller
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.quiz", compact("data"));
     }
+
+    // testimonial
+    public function testimonial(){
+        $data["testy"] = $this->getUserTesty();
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.testimonial", compact("data"));
+    }
+
+    public function createTestimonial(){
+        $testy = Testimony::where(["userId" => session("admyrer_id")])->get();
+        if(count($testy) > 0){
+            $testy = Testimony::find($testy[0]->id);
+            $testy->userId = session("admyrer_id");
+            $testy->name = request()->name;
+            $testy->comment = request()->comment;
+            $testy->avatar = request()->avatar;
+            $testy->update();
+            return back()->with("msg", "Updated");
+        }
+
+        $testy = new Testimony();
+        $testy->userId = session("admyrer_id");
+        $testy->name = request()->name;
+        $testy->comment = request()->comment;
+        $testy->avatar = request()->avatar;
+        $testy->save();
+
+        return back()->with("msg", "Updated");
+    }
+
+    public function getUserTesty(){
+        $testy = Testimony::where("userId", session("admyrer_id"))->get();
+        return $testy;
+    }
+
 
     //Agora
     public function generateToken()

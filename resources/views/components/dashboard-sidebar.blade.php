@@ -16,6 +16,7 @@
     $liveactive = $liveactive ?? false;
     $nightactive = $nightactive ?? false;
     $webactive = $webactive ?? false;
+    $testyactive = $testyactive ?? false;
 @endphp
 
 <div class="col-sm-3">
@@ -156,6 +157,11 @@
                     </a>
                 </li>
             <li class="divider" tabindex="-1"></li>
+            <li>
+                <a href="/testimonial" data-ajax="/live-users" class={{$testyactive ? "active" : ""}}>
+                    <i class="fa-regular fa-circle-up" style="margin-right: 1.2em"></i><?php echo __( 'Testimonial' );?>
+                </a>
+            </li>
             <li>
                 <a href="/blog" data-ajax="/blog" class="">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 22H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1zm-1-2V4H5v16h14zM8 9h8v2H8V9zm0 4h8v2H8v-2z"></path></svg> <?php echo __( 'Blog' );?>

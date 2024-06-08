@@ -42,6 +42,16 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                 </a>
             </li>
 
+            
+            <li>
+                <a <?php echo ($page=='testimonials' ) ? 'class="active"' : '' ; ?> href="/admin-cp/testimonials" data-ajax="?path=dashboard">
+                    <span class="nav-link-icon">
+                        <i class="material-icons"><i class="fa-solid fa-square-poll-vertical"></i> </i>
+                    </span>
+                    <span>Testimonials</span>
+                </a>
+            </li>
+
             {{-- <li>
                 <a <?php echo ($page=='reviews' ) ? 'class="active"' : '' ; ?> href="/admin-cp/reviews" data-ajax="?path=dashboard">
                     <span class="nav-link-icon">

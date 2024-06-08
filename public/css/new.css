@@ -81,3 +81,17 @@
     /* margin-right: 2em; */
     border-radius: 3px;
 }
+
+._music_ ._img_{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    /* margin: auto auto; */
+    margin-bottom: 1em;
+}
+
+._music_ ._img_ img{
+    height: 100%;
+    width: 100%;
+}

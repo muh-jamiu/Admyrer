@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Audio;
 use App\Models\conversation;
 use App\Models\Poll;
+use App\Models\Testimony;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -199,9 +200,26 @@ class AdminController extends Controller
         return view("admin.polls", compact("data"));
     }
 
+    public function testy()
+    {
+        $data["poll"] = $this->gettesty();
+        return view("admin.testy", compact("data"));
+    }
+
     public function getPolls(){
         $poll = Poll::orderBy("created_at", "desc")->get();
         return $poll;        
+    }
+
+    public function gettesty(){
+        $testy = Testimony::orderBy("created_at", "desc")->get();
+        return $testy;        
+    }
+
+    public function deletetesty(){
+        $testy = Testimony::find(request()->id);
+        $testy->delete();
+        return back()->with("msg", "Testimony Deleted Successfully");        
     }
 
     public function music()

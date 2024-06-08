@@ -138,7 +138,11 @@ Route::get('/admin-cp/musics', [AdminController::class, 'music'])->middleware("a
 
 Route::get('/admin-cp/polls', [AdminController::class, 'polls'])->middleware("admin");
 
+Route::get('/admin-cp/testimonials', [AdminController::class, 'testy'])->middleware("admin");
+
 Route::post('/admin-login', [AdminController::class, 'adminLoginUser']);
+
+Route::post('/delete-testy', [AdminController::class, 'deletetesty']);
 
 Route::post('/admin-create', [AdminController::class, 'createAdmin']);
 

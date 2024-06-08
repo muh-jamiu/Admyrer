@@ -113,11 +113,17 @@ Route::post('/schedule-date', [UserController::class, 'scheduledateLive']);
 
 Route::post('/create-poll', [UserController::class, 'createPoll']);
 
+Route::post('/delete-club', [UserController::class, 'deleteNight']);
+
+Route::post('/web-date', [UserController::class, 'WebDateNoties']);
+
 Route::post('/delete-poll', [UserController::class, 'deletePoll']);
 
 Route::post('/search', [UserController::class, 'searchUser']);
 
 Route::get('/friend-requests', [UserController::class, 'friend_requests'])->middleware("notLogin");
+
+Route::get('/web-date', [UserController::class, 'webDate'])->middleware("notLogin");
 
 //Admin route
 Route::get('/admin-cp', [AdminController::class, 'index'])->middleware("admin");

@@ -25,26 +25,94 @@
             </div>
         </div>
 
+        <button onclick="deleteclub()" id="end_club" class="btn d-none" style="background-color: rgb(238, 2, 2)">End Club <i class="fa-solid fa-xmark"></i></button>
+
 
         <button  data-bs-toggle="offcanvas" id="_mus" data-bs-target="#music_" class="btn d-none" style="background-color: rgb(71, 202, 130)">Music <i class="fa-solid fa-music"></i></button>
- 
+        <button id="timer"  class="btn d-none" style="background-color: rgb(61, 201, 30)"></button>
+        
         <div class="offcanvas offcanvas-end" id="music_">
             <div class="offcanvas-header bg-danger text-white">
               <h5 style="margin: 0 !important" class="offcanvas-title">Choose Music</h5>
               <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
             </div>
             <div class="offcanvas-body">
-                @foreach ($audio as $item)
-                <div class="d-flex" style="border-bottom:1px solid lightgray">
-                    <div>
-                        <h6 class="name mb-0 text-capitalize">{{$item->name}}</h6>
-                        <p style="font-size: 10px" class="name mb-0 text-capitalize">Music by {{$item->artist}}
-                            <span style="font-size: 16px" class="mb-0 text-danger playbtn mx-2" onclick="playAudio('{{ url('audio/' . $item->filename)}}')"><i class="fa-regular fa-circle-play"></i></span> 
-                            <span style="font-size: 16px" class="mb-0 text-info " onclick="pauseAudio('{{ url('audio/' . $item->filename)}}')"><i class="fa-regular fa-circle-pause"></i></span> 
-                        </p>
+                <div id="accordion">
+
+                    <div class="card" style="box-shadow: .1em .1em .5em rgb(240, 240, 240)">
+                      <div class="card-header bg-dark" data-bs-toggle="collapse" href="#collapseOne">
+                        <a class="collapsed text-white" >
+                          All Category
+                        </a>
+                      </div>
+                      <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+                        <div class="card-body">
+                            @foreach ($audio as $item)
+                            <div class="d-flex" style="border-bottom:1px solid lightgray">
+                                <div>
+                                    <h6 class="name mb-0 text-capitalize">{{$item->name}}</h6>
+                                    <p style="font-size: 10px" class="name mb-0 text-capitalize">Music by {{$item->artist}}
+                                        <span style="font-size: 16px" class="mb-0 text-danger playbtn mx-2" onclick="playAudio('{{ url('audio/' . $item->filename)}}')"><i class="fa-regular fa-circle-play"></i></span> 
+                                        <span style="font-size: 16px" class="mb-0 text-info " onclick="pauseAudio('{{ url('audio/' . $item->filename)}}')"><i class="fa-regular fa-circle-pause"></i></span> 
+                                    </p>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                      </div>
                     </div>
+                  
+                    <div class="card" style="box-shadow: .1em .1em .5em rgb(240, 240, 240)">
+                      <div class="card-header bg-primary" data-bs-toggle="collapse" href="#collapseTwo">
+                        <a class="collapsed text-white">
+                          Genre
+                        </a>
+                      </div>
+                      <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
+                        <div class="card-body">
+                            @foreach ($audio as $item)
+                            <div class="d-flex" style="border-bottom:1px solid lightgray">
+                                <div>
+                                    <h6 class="name mb-0 text-capitalize">{{$item->name}}</h6>
+                                    <p style="font-size: 10px" class="name mb-0 text-capitalize">Music by {{$item->artist}}
+                                        <span style="font-size: 16px" class="mb-0 text-danger playbtn mx-2" onclick="playAudio('{{ url('audio/' . $item->filename)}}')"><i class="fa-regular fa-circle-play"></i></span> 
+                                        <span style="font-size: 16px" class="mb-0 text-info " onclick="pauseAudio('{{ url('audio/' . $item->filename)}}')"><i class="fa-regular fa-circle-pause"></i></span> 
+                                    </p>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card" style="box-shadow: .1em .1em .5em rgb(240, 240, 240)">
+                        <div class="card-header bg-danger" data-bs-toggle="collapse" href="#collapse3">
+                          <a class="collapsed text-white">
+                            Others
+                          </a>
+                        </div>
+                        <div id="collapse3" class="collapse" data-bs-parent="#accordion">
+                          <div class="card-body">
+                              
+                          </div>
+                        </div>
+                      </div>
+                                    
                 </div>
-                @endforeach
+
+                @if (count($audio) > 0)
+                    @foreach ($audio as $item)
+                        <div class="d-flex mt-5">
+                            <div>
+                                <p style="font-size: 14px" class="name mb-0 text-capitalize">Play all music
+                                    <span style="font-size: 16px" class="mb-0 text-danger playbtn mx-2" onclick="playAudio('{{ url('audio/' . $audio[0]->filename)}}')"><i class="fa-regular fa-circle-play"></i></span> 
+                                    <span style="font-size: 16px" class="mb-0 text-info " onclick="pauseAudio('{{ url('audio/' . $audio[0]->filename)}}')"><i class="fa-regular fa-circle-pause"></i></span> 
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+
                 @if (count($audio) == 0)
                     <div class="text-center mt-5">
                         <h4 class="fw-bold">Empty</h4>

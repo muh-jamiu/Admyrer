@@ -27,7 +27,7 @@
                         <span class="badge red chat_badge" href="javascript:void(0);" id="messenger_opener">{{count($notification)}}</span></a>
                     </a>
                     <ul id="notif_dropdown" class="dropdown-content dropdown-menu" style="opacity: 1.0 !important">
-                        <div class="">
+                        <div class="" style="height: 300px; overflow:scroll">
                         <p class="p-3 mb-0 fw-bold fs-5" style="border-bottom: 1px solid rgb(223, 223, 223)"><?php echo __( 'Messages' );?></p>
                             @foreach ($notification as $item)
                                 <p class="p-1" style="border-bottom: 1px solid rgb(237, 237, 237)"><a style="color:rgb(138, 138, 138)" href="{{ "/@" . $item->from}}">{{$item->from}} sent you a message</a></p>
@@ -59,11 +59,14 @@
                         <span class="badge notification_badge ">{{$count_ + 1}}</span>
                     </a>
                     <ul id="notif_dropdown" class="dropdown-content dropdown-menu" style="opacity: 1.0 !important">
-                        <div class="">
+                        <div class="" style="height: 300px; overflow:scroll">
                             <p style="border-bottom: 1px solid rgb(223, 223, 223)" class="fw-bold mb-0 p-3 fs-5"><?php echo __( 'Notifications' );?></p>
                             @foreach ($schedule as $key => $item)
-                                @if ($item->endUsername == $user->username)                          
-                                <p class="p-1" style="border-bottom: 1px solid rgb(237, 237, 237)"><a style="color:rgb(138, 138, 138)" href="{{ "/@" . $item->username}}">{{$item->username}} send you a date scheduling</a></p>
+                                @if ($item->endUsername == $user->username)
+                                @php
+                                    $date = explode("/", $item->date);
+                                @endphp                          
+                                <p onclick="check(`{{$item->username}}`,`{{$date[0]}}`, `{{$date[1]}}`)" class="p-1" style="border-bottom: 1px solid rgb(237, 237, 237)"><a style="color:rgb(138, 138, 138)" href="#">{{$item->username}} schedule a date with you on {{$date[0]}} - {{$date[1]}} </a></p>
                                 @endif
                             @endforeach
                             @foreach ($dates as $key => $item)
@@ -178,3 +181,17 @@
             </ul>
     </div>
 </nav>
+
+@push('javascript')
+<script>
+    function check(name, date, time) {
+        Swal.fire({
+            icon: "info",
+            title: "Date Scheduled",
+            html: `${name} Schedule a date with you </br></br> <p style="color:red">${date} - ${time}</p> Please be there..`,
+            footer: `<a href="/@${name}">View ${name} profile?</a>`
+        });
+    }
+</script>
+    
+@endpush

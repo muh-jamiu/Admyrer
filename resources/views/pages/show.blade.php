@@ -610,7 +610,8 @@ $notification = $data["notification"] ?? [];
 
 	<!-- Modal body -->
 	<div class="modal-body">
-		<input type="text" id="dates" placeholder="Pick date" class="px-2" style="width: 94% !important">
+		<input type="text" id="dates" placeholder="Pick date" class="px-2 mb-4" style="width: 94% !important">
+		<input value="09:00" id="time_" type="time" placeholder="Pick time" class="px-2" style="width: 94% !important">
 		<button onclick="schedule_call()" class="btn btn-danger mt-2 mb-3">Schedule</button>
 		<p style="font-size: 10px">{{$user->first_name}} will recieve a notification about the date and time.</p>
 	</div>
@@ -657,10 +658,11 @@ $notification = $data["notification"] ?? [];
 
 	function storeSchedule() {
 		var date = document.getElementById("dates")
+		var time_ = document.getElementById("time_")
 		axios.post("/schedule-date", {
 			endUsername: curr_user_.innerHTML,
 			username: curr_from_user_.innerHTML,
-			date: date.value
+			date: date.value + " / " + time_.value
 		})
 		.then(res => {
 			console.log(res)

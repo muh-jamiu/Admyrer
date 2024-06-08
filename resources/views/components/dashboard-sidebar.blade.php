@@ -15,6 +15,7 @@
     $quizactive = $quizactive ?? false;
     $liveactive = $liveactive ?? false;
     $nightactive = $nightactive ?? false;
+    $webactive = $webactive ?? false;
 @endphp
 
 <div class="col-sm-3">
@@ -118,6 +119,11 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14 14.252v2.09A6 6 0 0 0 6 22l-2-.001a8 8 0 0 1 10-7.748zM12 13c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm6 6v-3h2v3h3v2h-3v3h-2v-3h-3v-2h3z" /></svg> <?php echo __( 'Friend requests' );?>
                 </a>
             </li> --}}
+            <li>
+                <a href="/web-date" data-ajax="/live-users" class={{$webactive ? "active" : ""}}>
+                    <i class="fa-solid fa-earth-europe" style="margin-right: 1.2em"></i> <?php echo __( 'Web Date' );?>
+                </a>
+            </li>
                 
                 <li>
                     <a href="/live-users" data-ajax="/live-users" class={{$liveactive ? "active" : ""}}>
@@ -235,6 +241,8 @@
 @push("javascript")
 <script>
 
+    
+
     Pusher.logToConsole = true;
     var pusher = new Pusher('61cbedc7014185332c2d', {
     cluster: 'mt1'
@@ -246,32 +254,25 @@
                 icon: "info",
                 title: "Notice",
                 text:`${data.username} send you Speed Date Request that will end in 10 minutes .`,
-                footer: '<a href="#" onclick="joinStream(null, null, null, null, null, null, null, null)">Accept Request</a>'
+                footer: '<a href="#" onclick="joinStream(null, null, null, null, null, null, null, true, true)">Accept Request</a>'
             });                
         }
+    });	
+
+    var channel = pusher.subscribe('web');
+    channel.bind('webevent', function(data) {
+        console.log(data.message)
+        Swal.fire({
+            icon: "info",
+            title: "Web Date Alert",
+            html:`${data.message} Send you a Web Date Request.`,
+            footer: '<a href="#" onclick="joinStream(null, null, null, null, null, null, null, null, null)">Join Web Date</a>'
+        });     
     });	
 
     const _name = document.getElementById('_name');
     const _pass = document.getElementById('_pass');
     const _user = document.getElementById('_user');
-
-    function createClub(params) {
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title:`You Created a night club`,
-            showConfirmButton: false,
-            timer: 1500
-        });
-        joinStream()
-        axios.post("/store-club", {
-            password: _pass.value,
-            name: _name.value,
-            username: _user.innerHTML,
-        })
-        .then(res => console.log(res))
-        .catch(res => console.log(res))
-    }
 
     const _username = document.getElementById('_user');
     const _username_ = document.getElementById('_username');
@@ -283,7 +284,7 @@
             showConfirmButton: false,
             timer: 1500
         });
-        joinStream(null, null, null, null, null, null, null, true)
+        joinStream(null, null, null, null, null, null, null, true, true)
         axios.post("/speed-date", {
             username: _username.innerHTML,
         })

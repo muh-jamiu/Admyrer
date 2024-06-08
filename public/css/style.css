@@ -6112,6 +6112,10 @@ textarea.materialize-textarea.report_user_report {
 	color: #fff !important;background: #CC42BD;
 }
 
+#_sendReq:hover{
+    cursor: pointer;
+    background-color: red !important;
+}
 
 
 

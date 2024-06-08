@@ -6,6 +6,7 @@ use App\Events\callMessageEvent;
 use App\Events\ChatEvent;
 use App\Events\SignalingEvent;
 use App\Events\SpeedDateEvent;
+use App\Events\WebEvent;
 use App\Mail\VerifyMail;
 use App\Models\accountVerify;
 use App\Models\Audio;
@@ -80,6 +81,15 @@ class UserController extends Controller
         $data["follows"] = $this->get_follows();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.friends", compact("data"));
+    }
+
+    public function webDate(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
+        $data["follows"] = $this->get_follows();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.webDate", compact("data"));
     }
 
     public function gifts(){
@@ -230,7 +240,7 @@ class UserController extends Controller
         $club->password = request()->password ?? 0;
         $club->duration = 1;
         $club->save();
-        return true;
+        return $club->id;
     }
     
     public function deleteNight(){
@@ -851,6 +861,12 @@ class UserController extends Controller
     public function SpeedDate(){
         $username = request()->username;
         $t = broadcast(new SpeedDateEvent($username))->toOthers();
+        return $username;
+    }
+
+    public function WebDateNoties(){
+        $username = request()->username;
+        $t = broadcast(new WebEvent($username))->toOthers();
         return $username;
     }
 

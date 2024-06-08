@@ -1,5 +1,5 @@
 const APP_ID = "b76f67d420d2486699d05d28cf678251"
-const TOKEN = "007eJxTYPg5/7lQiaShiF3nZZGcs3dim5ZkB4aES2yavsXetibqrJsCg7G5RbKJsaGxcUpikolpqoGFpbGRRVqyqaFBcrKlcWKi2tGEtIZARobbd1cwMzJAIIjPwpCbmJnHwAAA9C4euQ=="
+const TOKEN = "007eJxTYBBWEuCSqK/YeephVe2SoD+TijY+sm4UdWZheWsiY7FnepYCg7G5RbKJsaGxcUpikolpqoGFpbGRRVqyqaFBcrKlcWLiK5aUtIZARoZHuuYMjFAI4rMw5CZm5jEwAACBHByp"
 const CHANNEL = "main"
 
 const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
@@ -34,17 +34,31 @@ var show_ = document.querySelector(".show_")
 let username_;
 let is_stream_;
 let is_rev_;
+let is_speed_;
 
 let _mus = document.getElementById("_mus")
-let joinStream = async (username, avatar, gender, name, country, is_stream, is_club, is_rev) => {
+const timer = document.getElementById('timer');
+const end_club = document.getElementById('end_club');
+let joinStream = async (username, avatar, gender, name, country, is_stream, is_club, is_rev, is_speed, is_club_own) => {
     username_ = username
     is_stream_ = is_stream
     is_rev_ = is_rev
+    is_speed_ = is_speed
     if(is_club == true){
         _mus.classList.remove("d-none")
     }else{
         _mus.classList.add("d-none")
     }
+
+    if(is_club_own){
+        end_club.classList.remove("d-none")
+    }
+
+    if(is_speed){
+        timer.classList.remove("d-none")
+        start()
+    }
+
     await joinAndDisplayLocalStream()
     if(show_){
         show_.classList.add("d-none")
@@ -100,7 +114,6 @@ let leaveAndRemoveLocalStream = async () => {
     if(is_rev_){
         window.location.href = "/review?username=" + username_
     }
-    // document.getElementById('video-streams').innerHTML = ""
 
     for(let i = 0; localTracks.length > i; i++){
         localTracks[i].stop()
@@ -108,7 +121,6 @@ let leaveAndRemoveLocalStream = async () => {
     }
 
     await client.leave()
-    // document.getElementById('video-streams').innerHTML = ''
 }
 
 let toggleMic = async (e) => {
@@ -168,15 +180,39 @@ function deleteLive(id) {
     })
 }
 
-function deleteclub(id) {
-    axios.post("/delete-club", {
-        id: id,
+let clubId;
+function createClub(params) {
+    Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title:`You Created a night club`,
+        showConfirmButton: false,
+        timer: 1500
+    });
+    joinStream(null, null, null, null, null, null, true, null, null, true)
+    axios.post("/store-club", {
+        password: _pass.value,
+        name: _name.value,
+        username: _user.innerHTML,
     })
     .then(res => {
         console.log(res)
+        clubId = res.data
+    })
+    .catch(res => console.log(res))
+}
+
+function deleteclub() {
+    leaveAndRemoveLocalStream()
+    
+    axios.post("/delete-club", {
+        id: clubId,
+    })
+    .then(res => {
+        console.log(res, remoteUsers)
     })
     .catch(error => {
-        console.log(error)
+        console.log(error, remoteUsers)
     })
 }
 
@@ -200,6 +236,31 @@ function pauseAudio(src) {
         currentAudio = null
         return
     }
+}
+
+function startTimer(duration, display) {
+    let timer = duration, minutes, seconds;
+    const interval = setInterval(() => {
+        minutes = Math.floor(timer / 60);
+        seconds = timer % 60;
+
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        display.textContent = minutes + ':' + seconds;
+
+        if (--timer < 0) {
+            clearInterval(interval);
+            handleUserLeft()
+            leaveAndRemoveLocalStream()
+        }
+    }, 1000);
+}
+
+function start(params) {
+    const twoMinutes = 60 * 10;
+    const display = document.getElementById('timer');
+    startTimer(twoMinutes, display);
 }
 
 document.getElementById('join-btn').addEventListener('click', joinStream)

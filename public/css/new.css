@@ -95,3 +95,16 @@
     height: 100%;
     width: 100%;
 }
+
+._music_ .target{
+    background-color: white;
+    width: 700px;
+    padding: 1em;
+    border-radius: 6px;
+    margin: auto auto;
+}
+
+._music_ .target p{
+    line-height: 30px;
+    color: rgb(83, 83, 83);
+}

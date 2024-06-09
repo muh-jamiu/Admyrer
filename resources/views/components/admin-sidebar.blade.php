@@ -34,6 +34,15 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
             </li>
 
             <li>
+                <a <?php echo ($page=='marketing-strategy' ) ? 'class="active"' : '' ; ?> href="/admin-cp/marketing-strategy" data-ajax="?path=dashboard">
+                    <span class="nav-link-icon">
+                        <i class="material-icons"><i class="fa-solid fa-music"></i></i>
+                    </span>
+                    <span>Marketing Strategy</span>
+                </a>
+            </li>
+
+            <li>
                 <a <?php echo ($page=='polls' ) ? 'class="active"' : '' ; ?> href="/admin-cp/polls" data-ajax="?path=dashboard">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-square-poll-vertical"></i> </i>

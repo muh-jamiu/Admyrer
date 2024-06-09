@@ -10,9 +10,18 @@ use App\Models\Testimony;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Services\GoogleGeminiService;
 
 class AdminController extends Controller
 {
+    protected $openAIService;
+    protected $googleGeminiService;
+
+    public function __construct(GoogleGeminiService $googleGeminiService)
+    {
+        $this->googleGeminiService = $googleGeminiService;
+    }
+
     public function index()
     {
         $data = $this->buildPage();
@@ -278,5 +287,30 @@ class AdminController extends Controller
         $data["totalImage"] = User::where('avatar', "!=", '')->get();
         return $data;
     }
+
+    public function Marketing()
+    {
+        $userMessage = request()->message ?? "hi";
+        
+        $messages = [
+            ["parts" => [
+                ["text" => "You are to provide market strategy for admyrer dating website."]
+            ], "role" => "model"],
+            ["parts" => [
+                ["text" => $userMessage]
+            ], "role" => "user"],
+        ];
+
+        $result = $this->googleGeminiService->generateChatResponse($messages);
+
+        $text = $result["candidates"][0]["content"]["parts"][0]["text"];
+        return str_replace("*", "", $text);
+    }
+
+    public function Strategy(){
+        $data["poll"] = $this->Marketing();
+        return view("admin.marketing", compact("data"));
+    }
+
     
 }

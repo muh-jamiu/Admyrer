@@ -134,6 +134,10 @@ Route::get('/admin-cp', [AdminController::class, 'index'])->middleware("admin");
 
 Route::get('/admin-login', [AdminController::class, 'adminLogin']);
 
+Route::get('/marketing', [AdminController::class, 'Marketing'])->middleware("admin");
+
+Route::get('/admin-cp/marketing-strategy', [AdminController::class, 'Strategy'])->middleware("admin");
+
 Route::get('/admin-cp/musics', [AdminController::class, 'music'])->middleware("admin");
 
 Route::get('/admin-cp/polls', [AdminController::class, 'polls'])->middleware("admin");

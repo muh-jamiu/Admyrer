@@ -6314,18 +6314,36 @@ iframe{
 }
 
 .live_vid .video-containers{
-    width: 400px;
+    width: 540px;
     height: 400px;
+    margin-right: 1em;
+    margin-left: 1em;
+    /* background-color: lightgray; */
+    margin-bottom: 4em;
+    border-radius: 3px;
 }
 
+.topcont{
+    padding: 1em 2em;
+    overflow: scroll;
+}
+
+.topcont .cont{
+    background-color: white;
+    height: 100px;
+    width: 200px;
+    margin-right: 2em;
+    min-width: 200px;
+}
 
 .live_vid .video-player{
     width: 100%;
     height: 100%;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     margin-bottom: 2em;
-    border-radius: 6px;
+    /* border-radius: 6px; */
     overflow: hidden !important;
+    background-color: lightgray;
 }
 
 ::-webkit-scrollbar{

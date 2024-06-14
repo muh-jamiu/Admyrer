@@ -7,8 +7,8 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
 <div class="navigation">
     <div class="navigation-header">
         <span>Navigation</span>
-        <a href="/admin-cp/#">
-            <i class="ti-close"></i>
+        <a href="#" class="close_up">
+            <i class="fa-solid fa-xmark text-white"></i>
         </a>
     </div>
 

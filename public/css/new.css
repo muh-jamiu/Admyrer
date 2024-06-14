@@ -108,3 +108,32 @@
     line-height: 30px;
     color: rgb(83, 83, 83);
 }
+
+.navigation{
+    transition: 1s !important;
+}
+
+.navigation.hide{
+    opacity: 1.0 !important;
+    background-color: black;
+    left: 0 !important;
+    transition: .5s !important ;
+}
+
+.navigation .navigation-header, .navigation .navigation-header a{
+    background-color: black !important;
+}
+
+@media (max-width: 1200px){
+    .open_close{
+        display: inline !important; 
+    }
+
+    ._polls .poll{
+        margin-left: 0 !important;
+    }
+
+    ._music_ .target{
+        width: fit-content !important;
+    }
+}

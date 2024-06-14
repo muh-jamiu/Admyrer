@@ -140,8 +140,14 @@
                             </div>
                         </div>
                     </li>
+                    
                 </ul>
             </div>
+            
+        </div>
+
+        <div style="font-size: 20px; border:1px solid grey; height: fit-content;position: absolute;right: 0; display:none" class="open_close py-2 mx-5 px-3 mt-3">            
+            <i class="fa-solid text-white fa-bars"></i>
         </div>
 
         <ul class="navbar-nav ml-auto">
@@ -153,3 +159,19 @@
         </ul>
     </div>
 </div>
+
+
+@push('javascript')
+    <script>
+        var open_close = document.querySelector(".open_close")
+        var navigation = document.querySelector(".navigation")
+        var close_up = document.querySelector(".close_up")
+        open_close.addEventListener("click", () => {
+            navigation.classList.toggle("hide")
+        })
+        
+        close_up.addEventListener("click", () => {
+            navigation.classList.toggle("hide")
+        })
+    </script>
+@endpush

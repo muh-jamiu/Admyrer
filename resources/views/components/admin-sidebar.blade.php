@@ -304,7 +304,7 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                 </ul>
             </li> --}}
 
-            <li>
+            {{-- <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_tool">
                     <span class="nav-link-icon">
                         <i class="material-icons"><i class="fa-solid fa-wrench"></i></i>
@@ -357,7 +357,7 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
 
             {{-- <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_pages">

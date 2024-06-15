@@ -19,6 +19,7 @@ use App\Models\Live;
 use App\Models\notification;
 use App\Models\Poll;
 use App\Models\Quiz;
+use App\Models\Review;
 use App\Models\Schedule;
 use App\Models\Testimony;
 use App\Models\User;
@@ -141,6 +142,7 @@ class UserController extends Controller
         $data["notification"] = $this->getNotification();
         $username = str_replace("@", "", request()->path());
         $userProf = $this->getUserByUsername($username);
+        $data["review"] = $this->getreview($userProf->id);
         if(!$userProf){
             abort(404);
         }
@@ -957,5 +959,21 @@ class UserController extends Controller
         $existingUser = User::where('id', session("admyrer_id"))->first() ?? null;
         $notification = notification::where(["to" => $existingUser->username])->get();
         return $notification;
+    }
+
+    public function postreview(){
+        $review = new Review();
+        $review->userId = request()->id;
+        $review->username = request()->username;
+        $review->title = request()->title;
+        $review->comment = request()->comment;
+        $review->rating = request()->rating ?? 0;
+        $review->save();
+        return back()->with("msg", "Review is submitted successfully");
+    }
+
+    public function getreview($id){
+        $review = Review::where(["userId" => $id])->orderBy("created_at", "desc")->get();
+        return $review;
     }
 }

@@ -7,6 +7,7 @@ $notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
 	$conversation = $data["conversation"] ?? [];
 	$loginUser = $data["loginUser"] ?? [];
+	$review = $data["review"] ?? [];
 	$check = $user->id == $loginUser->id ? true : false;
 @endphp
 
@@ -190,6 +191,22 @@ $notification = $data["notification"] ?? [];
                     <div class="about_block"> <!-- Profile Info -->
                         <h4><?php echo __( 'Profile Info ' );?></h4>
 						<div class="row">
+
+							<div class="col-sm-6 mb-3">
+								<div class="dt_profile_info">
+									<h5><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0H24V24H0z"/><path fill="currentColor" d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228z"/></svg>&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M14.6 8H21a2 2 0 0 1 2 2v2.104a2 2 0 0 1-.15.762l-3.095 7.515a1 1 0 0 1-.925.619H2a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1h3.482a1 1 0 0 0 .817-.423L11.752.85a.5.5 0 0 1 .632-.159l1.814.907a2.5 2.5 0 0 1 1.305 2.853L14.6 8zM7 10.588V19h11.16L21 12.104V10h-6.4a2 2 0 0 1-1.938-2.493l.903-3.548a.5.5 0 0 0-.261-.571l-.661-.33-4.71 6.672c-.25.354-.57.644-.933.858zM5 11H3v8h2v-8z"/></svg>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __( 'Reviews' );?></h5>
+									@if ($loginUser->id != $user->id)
+										<p data-bs-toggle="modal" data-bs-target="#makeReview" style="width: fit-content" class="info_title mb-3 text-white bg-primary d-block btn text-capitalize"><?php echo __( 'Make Review' );?></p>
+									@endif
+									@if ($loginUser->id != $user->id)
+										<p data-bs-toggle="modal" data-bs-target="#myReview" style="width: fit-content" class="info_title bg-info  btn d-block text-capitalize"><?php echo __( 'Check user Review' );?></p>
+									@else
+										<p data-bs-toggle="modal" data-bs-target="#myReview" style="width: fit-content" class="info_title bg-info  btn d-block text-capitalize"><?php echo __( 'Check my Review' );?></p>
+									@endif
+
+									</div>
+							</div>
+
 							<?php if( true ) {?>
 								<div class="col-sm-6 mb-3">
 									<div class="dt_profile_info">
@@ -598,6 +615,137 @@ $notification = $data["notification"] ?? [];
 </div>
 </div>
 
+<div class="modal fade" id="makeReview">
+	<div class="modal-dialog modal-dialog-centered modal-l">
+		<div class="modal-content p-0">
+	
+		<!-- Modal Header -->
+		<div class="modal-header">
+			<h6 class="modal-title text-capitalize">Review {{$user->first_name}}</h6>
+			<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		</div>
+	
+		<form action="/post-review" method="POST">
+			@csrf
+		<!-- Modal body -->
+		<div class="modal-body">
+			<input type="hidden" name="id" value="{{$user->id}}">
+			<input type="hidden" name="rating" class="_rate_">
+			<label for="">Username</label>
+			<input name="username" required class="px-3 mb-3" style="width: 90%" type="text" placeholder="Enter your username">
+
+			<label for="">Title</label>
+			<input name="title" required class="px-3 mb-3" style="width: 90%" type="text" placeholder="Enter review title">
+
+			<label for="">Comment</label>
+			<Textarea name="comment" required class="p-3 mb-3" style="border:1px solid rgb(222, 222, 222); resize:none; height:150px; width: 97%" placeholder="write comment...."></Textarea>
+			
+			<div class="d-flex mt-1 mb-3">
+				<i class="fa-solid rev_ fa-star mx-3"></i>
+				<i class="fa-solid rev_ fa-star mx-3"></i>
+				<i class="fa-solid rev_ fa-star mx-3"></i>
+				<i class="fa-solid rev_ fa-star mx-3"></i>
+				<i class="fa-solid rev_ fa-star mx-3"></i>
+			</div>
+		</div>
+	
+		<!-- Modal footer -->
+		<div class="modal-foote px-3 mb-5">
+			<button class="btn-primary btn bg-primary">Save</button>
+			<button data-bs-dismiss="modal" class="btn-danger mx-2 btn bg-danger">Close</button>
+		</div>
+		</form>
+	
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="myReview">
+	<div class="modal-dialog modal-dialog-centered modal-l">
+		<div class="modal-content p-0">
+	
+		<!-- Modal Header -->
+		<div class="modal-header">
+			<h6 class="modal-title text-capitalize">My Reviews</h6>
+			<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		</div>
+	
+		<!-- Modal body -->
+		<div class="modal-body" style="height: 400px; overflow:scroll">
+			@foreach ($review as $item)
+			<div style="border: 1px solid rgb(218, 218, 218)" class="p-2 mb-3">
+				<p class="mb-0 text-capitalize fw-semibold">{{$item->username}}</p>
+				<p class="mb-1 text-capitalize">{{$item->title}}</p>
+				<p style="color: rgb(88, 88, 88); font-size:14px" class="mb-0 ">{{$item->comment}}</p>
+				@if ($item->rating == 0)		
+				<div class="d-flex mt-1 mb-2 mt-2">			
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+				</div>
+				@elseif($item->rating == 1)	
+				<div class="d-flex mt-1 mb-2 mt-2">
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+				</div>	
+				@elseif($item->rating == 2)	
+				<div class="d-flex mt-1 mb-2 mt-2">
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+				</div>	
+				@elseif($item->rating == 3)	
+				<div class="d-flex mt-1 mb-2 mt-2">
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid  text-warning fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>	
+				</div>
+				@elseif($item->rating == 4)	
+				<div class="d-flex mt-1 mb-2 mt-2">
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid  text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>	
+				</div>	
+				@elseif($item->rating == 5)	
+				<div class="d-flex mt-1 mb-2 mt-2">
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid  text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>	
+				</div>				
+				@endif
+			</div>
+			@endforeach
+			@if (count($review) == 0)
+				<div class="text-center mt-5">
+					<h5 class="fw-bold">Empty!</h5>
+					<p>There are no reviews available at the moment.</p>
+				</div>
+			@endif
+		</div>
+	
+		<!-- Modal footer -->
+		<div class="modal-foote px-3 mb-3 mt-2">
+			<button data-bs-dismiss="modal" class="btn-danger btn bg-danger">Close</button>
+		</div>
+	
+		</div>
+	</div>
+</div>
+	
+
 <div class="modal fade" id="myModal">
 <div class="modal-dialog modal-dialog-centered modal-l">
 	<div class="modal-content p-0">
@@ -625,6 +773,13 @@ $notification = $data["notification"] ?? [];
 </div>
   
 
+@if (session("msg"))
+	<script>
+		setTimeout(() => {
+			alert("Review Submitted Successfully")
+		}, 1500);
+	</script>
+@endif
 
 
 <x-footer></x-footer>
@@ -633,6 +788,21 @@ $notification = $data["notification"] ?? [];
 @push("javascript")
 
 <script>
+	var rev_ = document.querySelectorAll(".rev_")
+	var _rate_ = document.querySelector("._rate_")
+	let totalRate;
+
+	rev_.forEach((star, index1) => {
+		star.addEventListener("click", () => {
+			rev_.forEach((star, index2) => {
+				index1 >= index2 ? star.classList.add("text-warning") : star.classList.remove("text-warning");
+				totalRate = index1 + 1
+				_rate_.value = totalRate
+			});
+		});
+	});
+
+
 	function schedule_call(){
 		Swal.fire({
             title: "Do you want to schedule video call?",

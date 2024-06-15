@@ -55,6 +55,8 @@ Route::get('/quiz', [UserController::class, 'quiz']);
 
 Route::post('/chat-gemini', [UserController::class, 'chatGemini']);
 
+Route::post('/post-review', [UserController::class, 'postreview']);
+
 Route::any('/logOut', [UserController::class, 'logOut']);
 
 Route::get('/@{username}', [UserController::class, 'show'])->middleware("notLogin");

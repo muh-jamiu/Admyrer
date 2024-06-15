@@ -4,11 +4,11 @@
         <div class="footer-copyright">
             <div class="valign-wrapper">
                 <div>
-                    <span class="dt_foot_langs">
+                    {{-- <span class="dt_foot_langs">
                         <a class="modal-trigger" href="#modal_langs">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16.66" height="16.66" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg> <?php echo __( 'Language' );?>
                         </a>
-                    </span>
+                    </span> --}}
                     
                     <div id="modal_langs" class="modal modal-sm" tabindex="0">
                         <div class="modal-content">
@@ -41,7 +41,6 @@
                     &nbsp;-&nbsp;<li><a href="/privacy" data-ajax="/privacy"><?php echo __( 'Privacy Policy' );?></a></li>
                     &nbsp;-&nbsp;<li><a href="/contact" data-ajax="/contact"><?php echo __( 'Contact' );?></a></li>
                     &nbsp;-&nbsp;<li><a href="/faqs" data-ajax="/faqs"><?php echo __( 'faqs' );?></a></li>
-                    &nbsp;-&nbsp;<li><a href="/refund" data-ajax="/refund"><?php echo __( 'refund' );?></a></li>
                 </ul>
                 {{-- <?php require( $theme_path . 'main' . $_DS . 'custom-page.php' );?> --}}
                 

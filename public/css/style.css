@@ -6942,3 +6942,14 @@ ul:not(.browser-default) {transition: none !important;transform: none !important
 
 
 .boost-me {margin: 10px 7px;color: #fff;background: linear-gradient(180deg, #FF51EC, #D438DB);height: 32px;width: 32px;display: flex;align-items: center;justify-content: center;border-radius: 50%;padding: 0;box-shadow: 0px 2px 2px rgb(0 0 0 / 6%);}
+
+
+@media (max-width: 756px){
+    .live_vid ._liveBtn{
+        overflow: scroll !important;
+    }
+
+    .live_vid .btn{
+        white-space: nowrap !important;
+    }
+}

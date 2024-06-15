@@ -241,7 +241,7 @@ Admyrer | Meet new and interesting people
 							</div>
 							<div class="col s6">
 								<div><a href="/faqs" data-ajax="/faqs"><?php echo __( 'Frequently Asked Questions' );?></a></div>
-								<div><a href="/refund" data-ajax="/refund"><?php echo __( 'refund' );?></a></div>
+								{{-- <div><a href="/refund" data-ajax="/refund"><?php echo __( 'refund' );?></a></div> --}}
 								<div><a href="/blog" data-ajax="/blog"><?php echo __( 'Blog' );?></a></div>
 							</div>
 						</div>
@@ -267,13 +267,13 @@ Admyrer | Meet new and interesting people
 				<div class="row">
 					<div class="col m8">
 						<div class="row">
-							<div class="col-smp3">
+							{{-- <div class="col-smp3">
 								<div class="dt_foot_langs">
 									<a class="modal-trigger" href="#modal_langs_main">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16.66" height="16.66" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg> <?php echo __( 'Language' );?>
 									</a>
 								</div>
-							</div>
+							</div> --}}
 							{{-- <div class="col-sm-3">
 								<a href="/developers" data-ajax="/developers"><?php echo __( 'Developers' );?></a>
 							</div> --}}
@@ -291,7 +291,6 @@ Admyrer | Meet new and interesting people
 
 <div id="modal_langs_main" class="modal modal-sm" tabindex="0">
 	<div class="modal-content">
-		<h6 class="bold"><?php echo __( 'Language' );?></h6>
 		<ul class="browser-default dt_lang_modal">
 			
 		</ul>

@@ -52,8 +52,8 @@
                                 <div>
                                     <h6 class="name mb-0 text-capitalize">{{$item->name}}</h6>
                                     <p style="font-size: 10px" class="name mb-0 text-capitalize">Music by {{$item->artist}}
-                                        <span style="font-size: 16px" class="mb-0 text-danger playbtn mx-2" onclick="playAudio('{{ url('audio/' . $item->filename)}}')"><i class="fa-regular fa-circle-play"></i></span> 
-                                        <span style="font-size: 16px" class="mb-0 text-info " onclick="pauseAudio('{{ url('audio/' . $item->filename)}}')"><i class="fa-regular fa-circle-pause"></i></span> 
+                                        <span style="font-size: 16px" class="mb-0 text-danger playbtn mx-2" onclick="playAudio('{{ url('audio/' . $item->filename)}}')"><i style="font-size: 20px !important" class="fa-regular fa-circle-play"></i></span> 
+                                        <span style="font-size: 16px" class="mb-0 text-info " onclick="pauseAudio('{{ url('audio/' . $item->filename)}}')"><i style="font-size: 20px !important" class="fa-regular fa-circle-pause"></i></span> 
                                     </p>
                                 </div>
                             </div>
@@ -75,8 +75,8 @@
                                 <div>
                                     <h6 class="name mb-0 text-capitalize">{{$item->name}}</h6>
                                     <p style="font-size: 10px" class="name mb-0 text-capitalize">Music by {{$item->artist}}
-                                        <span style="font-size: 16px" class="mb-0 text-danger playbtn mx-2" onclick="playAudio('{{ url('audio/' . $item->filename)}}')"><i class="fa-regular fa-circle-play"></i></span> 
-                                        <span style="font-size: 16px" class="mb-0 text-info " onclick="pauseAudio('{{ url('audio/' . $item->filename)}}')"><i class="fa-regular fa-circle-pause"></i></span> 
+                                        <span style="font-size: 16px" class="mb-0 text-danger playbtn mx-2" onclick="playAudio('{{ url('audio/' . $item->filename)}}')"><i style="font-size: 20px !important" class="fa-regular fa-circle-play"></i></span> 
+                                        <span style="font-size: 16px" class="mb-0 text-info " onclick="pauseAudio('{{ url('audio/' . $item->filename)}}')"><i style="font-size: 20px !important" class="fa-regular fa-circle-pause"></i></span> 
                                     </p>
                                 </div>
                             </div>
@@ -105,8 +105,8 @@
                         <div class="d-flex mt-5">
                             <div>
                                 <p style="font-size: 14px" class="name mb-0 text-capitalize">Play all music
-                                    <span style="font-size: 16px" class="mb-0 text-danger playbtn mx-2" onclick="playAudio('{{ url('audio/' . $audio[0]->filename)}}')"><i class="fa-regular fa-circle-play"></i></span> 
-                                    <span style="font-size: 16px" class="mb-0 text-info " onclick="pauseAudio('{{ url('audio/' . $audio[0]->filename)}}')"><i class="fa-regular fa-circle-pause"></i></span> 
+                                    <span style="font-size: 16px" class="mb-0 text-danger playbtn mx-2" onclick="playAudio('{{ url('audio/' . $audio[0]->filename)}}')"><i style="font-size: 20px !important" class="fa-regular fa-circle-play"></i></span> 
+                                    <span style="font-size: 16px" class="mb-0 text-info " onclick="pauseAudio('{{ url('audio/' . $audio[0]->filename)}}')"><i style="font-size: 20px !important" class="fa-regular fa-circle-pause"></i></span> 
                                 </p>
                             </div>
                         </div>

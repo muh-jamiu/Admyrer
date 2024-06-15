@@ -21,10 +21,11 @@
             </ul>
             <ul class="right">
 
-                <li class="header_notifications dropdown">
+                <li class="header_notifications dropdown header_notifications_1">
                     <a data-bs-toggle="dropdown" href="javascript:void(0);" id="messenger_opener" class="btn-flat">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"></path><line x1="8" y1="9" x2="16" y2="9"></line><line x1="8" y1="13" x2="14" y2="13"></line></svg>
-                        <span class="badge red chat_badge" href="javascript:void(0);" id="messenger_opener">{{count($notification)}}</span></a>
+                        <span class="badge red chat_badge" href="javascript:void(0);" id="messenger_opener">0</span></a>
+                        <span class="badge d-none red chat_badge_1" href="javascript:void(0);" id="messenger_opener">{{count($notification)}}</span></a>
                     </a>
                     <ul id="notif_dropdown" class="dropdown-content dropdown-menu" style="opacity: 1.0 !important">
                         <div class="" style="height: 300px; overflow:scroll">
@@ -36,7 +37,7 @@
                     </ul>
                 </li>
                 
-                <li class="header_notifications dropdown">
+                <li class="header_notifications dropdown header_notifications_2">
                     <a data-bs-toggle="dropdown" href="javascript:void(0);" id="notificationbtn" data-ajax-post="/useractions/shownotifications" data-ajax-params="" data-ajax-callback="callback_show_notifications" data-target="notif_dropdown" class="dropdown-trigger btn-flat">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path><path d="M9 17v1a3 3 0 0 0 6 0v-1"></path><path d="M21 6.727a11.05 11.05 0 0 0 -2.794 -3.727"></path><path d="M3 6.727a11.05 11.05 0 0 1 2.792 -3.727"></path></svg>
                         @php
@@ -56,7 +57,8 @@
                             @endphp                            
                         @endif
                         @endforeach
-                        <span class="badge notification_badge ">{{$count_ + 1}}</span>
+                        <span class="badge notification_badge ">0</span>
+                        <span class="badge d-none notification_badge_1 ">{{$count_ + 1}}</span>
                     </a>
                     <ul id="notif_dropdown" class="dropdown-content dropdown-menu" style="opacity: 1.0 !important">
                         <div class="" style="height: 300px; overflow:scroll">
@@ -192,6 +194,66 @@
             footer: `<a href="/@${name}">View ${name} profile?</a>`
         });
     }
+
+    var header_notifications_1 = document.querySelector(".header_notifications_1")
+    var chat_badge = document.querySelector(".chat_badge")
+    var chat_badge_1 = document.querySelector(".chat_badge_1")
+    header_notifications_1.addEventListener("click", () => {
+        setCookie("allcount", "0", 100);
+        chat_badge.innerHTML = 0
+    })
+
+    var header_notifications_2 = document.querySelector(".header_notifications_2")
+    var notification_badge = document.querySelector(".notification_badge")
+    var notification_badge_1 = document.querySelector(".notification_badge_1")
+    header_notifications_2.addEventListener("click", () => {
+        setCookie("allcountN_", "0", 100);
+        notification_badge.innerHTML = 0
+    })
+
+    function setCookie(name, value, days) {
+    var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // Example usage: Get the value of the "username" cookie
+    var getcount = getCookie("allcount");    
+    if(getcount){
+        chat_badge.innerHTML = getcount
+    }else{
+        var allcount = setCookie("allcount", chat_badge_1.innerHTML, 100);
+        var getcount = getCookie("allcount");
+        chat_badge.innerHTML = getcount
+    }
+
+    var allcountN_ = getCookie("allcountN_");
+    console.log(notification_badge_1.innerHTML, allcountN_)
+    if(allcountN_){
+        notification_badge.innerHTML = allcountN_
+    }else{
+        var allcountN_ = setCookie("allcountN_", notification_badge_1.innerHTML, 100);
+        var getcountN = getCookie("allcountN_");
+        notification_badge.innerHTML = getcountN
+    }
+    
+
+
 </script>
     
 @endpush

@@ -94,6 +94,15 @@ class UserController extends Controller
         return view("pages.webDate", compact("data"));
     }
 
+    public function groupDate(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
+        $data["follows"] = $this->get_follows();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.group", compact("data"));
+    }
+
     public function gifts(){
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.gifts", compact("data"));

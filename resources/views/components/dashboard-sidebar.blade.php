@@ -17,6 +17,7 @@
     $nightactive = $nightactive ?? false;
     $webactive = $webactive ?? false;
     $testyactive = $testyactive ?? false;
+    $groupactive = $groupactive ?? false;
 @endphp
 
 <div class="col-sm-3">
@@ -123,6 +124,12 @@
             <li>
                 <a href="/web-date" data-ajax="/live-users" class={{$webactive ? "active" : ""}}>
                     <i class="fa-solid fa-earth-europe" style="margin-right: 1.2em"></i> <?php echo __( 'Web Date' );?>
+                </a>
+            </li>
+
+            <li>
+                <a href="/group-date" data-ajax="/live-users" class={{$groupactive ? "active" : ""}}>
+                    <i class="fa-solid fa-people-group" style="margin-right: 1.2em"></i> <?php echo __( 'Group Date' );?>
                 </a>
             </li>
                 

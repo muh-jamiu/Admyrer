@@ -6952,4 +6952,8 @@ ul:not(.browser-default) {transition: none !important;transform: none !important
     .live_vid .btn{
         white-space: nowrap !important;
     }
+
+    .live_vid .btns{
+        justify-content: start !important;
+    }
 }

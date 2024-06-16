@@ -131,6 +131,8 @@ Route::get('/friend-requests', [UserController::class, 'friend_requests'])->midd
 
 Route::get('/web-date', [UserController::class, 'webDate'])->middleware("notLogin");
 
+Route::get('/group-date', [UserController::class, 'groupDate'])->middleware("notLogin");
+
 //Admin route
 Route::get('/admin-cp', [AdminController::class, 'index'])->middleware("admin");
 

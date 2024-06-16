@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserApiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/test',function(){
-    return response()->json("data");
+Route::get('/',function(){
+    return response()->json("Welcome to admyrer api setup");
 });
+
+Route::post('/login', [UserApiController::class, 'loginUser']);
+
+Route::post('/register', [UserApiController::class, 'registerUser']);

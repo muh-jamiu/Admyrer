@@ -879,7 +879,7 @@ class UserController extends Controller
         $userMessage = request()->message;
         $messages = [
             ["parts" => [
-                ["text" => "You are a admyrer dating website assistant."]
+                ["text" => "You are a admyrer free dating website assistant."]
             ], "role" => "model"],
             ["parts" => [
                 ["text" => $userMessage]

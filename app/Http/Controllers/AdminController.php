@@ -263,6 +263,11 @@ class AdminController extends Controller
         return back()->with("msg", "Password or Username is not correct!"); 
     }
 
+    public function logout(){
+        session()->pull("admin_username");
+        return redirect("/admin-login");
+    }
+
     public function createAdmin(Admin $admin)
     {
         request()->validate([

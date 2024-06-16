@@ -453,6 +453,15 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                 </a>
             </li>
 
+            <li>
+                <a href="/admin-logout">
+                    <span class="nav-link-icon">
+                        <i class="material-icons"><i class="fa-solid fa-right-from-bracket"></i></i>
+                    </span>
+                    <span>Logout</span>
+                </a>
+            </li>
+
             <a class="pow_link" href="https://codecanyon.net/item/quickdate-the-ultimate-php-dating-platform/23268605"
                 target="_blank">
                 <p>Powered by</p>

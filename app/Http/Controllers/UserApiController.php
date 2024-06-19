@@ -31,7 +31,18 @@ class UserApiController extends Controller
 
     public function getUser($id){        
         $user = User::find($id);
-         return $user;
+        return $user;
+    }
+
+    public function buildPage(){
+        $data["user"] = $this->getUser(request()->id);
+        $data["random"] = $this->getAllUserRandomly();
+        $data["all"] = $this->getAllUser();
+        $data["countryUser"] = $this->countryUser();
+        $data["follows"] = $this->get_follows();
+        $data["visits"] = $this->get_visits();
+
+        response()->json(["data" => $data], 200);
     }
 
     public function searchUser(){  
@@ -114,7 +125,7 @@ class UserApiController extends Controller
     }
 
     public function get_follows(){
-        $follows = Follows::where("followersID", session("admyrer_id"))->orderBy("created_at", "desc")->get();
+        $follows = Follows::where("followersID", request()->id)->orderBy("created_at", "desc")->get();
         $data = [];
 
         foreach($follows as $key => $v){  
@@ -148,7 +159,7 @@ class UserApiController extends Controller
     }
 
     public function get_visits(){
-        $visitors = Visitors::where("visitsID", session("admyrer_id"))->orderBy("created_at", "desc")->get();
+        $visitors = Visitors::where("visitsID", request()->id)->orderBy("created_at", "desc")->get();
         $data = [];
 
         foreach($visitors as $key => $v){  
@@ -241,10 +252,9 @@ class UserApiController extends Controller
         return true;
     }
 
-    public function matchedUsers()
-    {
-        $currentUser = $this->getUser(session("admyrer_id"));        
-        $user = User::where("country", $currentUser->country)->get();
+    public function countryUser()
+    {      
+        $user = User::where("country", request()->country)->get();
         return $user;
     }
 

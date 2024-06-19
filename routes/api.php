@@ -29,3 +29,11 @@ Route::get('/',function(){
 Route::post('/login', [UserApiController::class, 'loginUser']);
 
 Route::post('/register', [UserApiController::class, 'registerUser']);
+
+Route::post('/county-user', [UserApiController::class, 'countryUser']);
+
+Route::post('/buildPage', [UserApiController::class, 'buildPage']);
+
+Route::get('/all-user', [UserApiController::class, 'getAllUser']);
+
+Route::post('/single-user', [UserApiController::class, 'getUser']);

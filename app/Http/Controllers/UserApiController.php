@@ -29,20 +29,16 @@ class UserApiController extends Controller
         $this->googleGeminiService = $googleGeminiService;
     }
 
-    public function getUser($id){        
-        $user = User::find($id);
-        return $user;
+    public function getUser(){        
+        $data["user"] = User::find(request()->id);
+        return response()->json(["data" => $data], 200);
     }
 
     public function buildPage(){
-        $data["user"] = $this->getUser(request()->id);
         $data["random"] = $this->getAllUserRandomly();
         $data["all"] = $this->getAllUser();
-        $data["countryUser"] = $this->countryUser();
-        $data["follows"] = $this->get_follows();
-        $data["visits"] = $this->get_visits();
 
-        response()->json(["data" => $data], 200);
+        return response()->json(["data" => $data], 200);
     }
 
     public function searchUser(){  
@@ -65,7 +61,7 @@ class UserApiController extends Controller
 
     //likes and dislike
     public function getAllLikes(){        
-       $like = Like::where(["is_liked" => true, "user_id" => session("admyrer_id")])->orderBy("created_at", "desc")->get();
+       $like = Like::where(["is_liked" => true, "user_id" =>  request()->id])->orderBy("created_at", "desc")->get();
        $data = [];
        $time = [];
 
@@ -75,11 +71,11 @@ class UserApiController extends Controller
             $time[$key] = $l->created_at;
        }
 
-        return $data;
+       return response()->json(["data" => $data], 200);
     }
 
     public function getPersonalLikes(){        
-       $like = Like::where(["is_liked" => true, "like_id" => session("admyrer_id")])->orderBy("created_at", "desc")->get();
+       $like = Like::where(["is_liked" => true, "like_id" =>  request()->id])->orderBy("created_at", "desc")->get();
        $data = [];
 
        foreach($like as $key => $l){  
@@ -87,17 +83,17 @@ class UserApiController extends Controller
             $data[$key] = $user;;
        }
 
-        return $data;
+       return response()->json(["data" => $data], 200);
     }
 
     public function deleteLikes(){
-       $like = Like::where(["like_id" => request()->like_id, "user_id" => session("admyrer_id")])->first();
+       $like = Like::where(["like_id" => request()->like_id, "user_id" =>  request()->id])->first();
        $like->delete();
         return true;
     }
 
     public function getAllDisLikes(){        
-       $like = Like::where(["is_disliked" => true, "user_id" => session("admyrer_id")])->orderBy("created_at", "desc")->get();
+       $like = Like::where(["is_disliked" => true, "user_id" => request()->id])->orderBy("created_at", "desc")->get();
        $data = [];
 
         foreach($like as $key => $l){  
@@ -105,7 +101,7 @@ class UserApiController extends Controller
             $data[$key] = $user;
         }
 
-        return $data;
+        return response()->json(["data" => $data], 200);
     }
 
     
@@ -133,7 +129,7 @@ class UserApiController extends Controller
             $data[$key] = $user;
         }
 
-        return $data;
+        return response()->json(["data" => $data], 200);
     }
 
     public function deleteFollows(){
@@ -167,7 +163,7 @@ class UserApiController extends Controller
             $data[$key] = $user;
         }
 
-        return $data;
+        return response()->json(["data" => $data], 200);
     }
 
     //get users
@@ -255,7 +251,7 @@ class UserApiController extends Controller
     public function countryUser()
     {      
         $user = User::where("country", request()->country)->get();
-        return $user;
+        return response()->json(["data" => $user], 200);
     }
 
     //dislikes
@@ -306,7 +302,7 @@ class UserApiController extends Controller
         }
 
         if(Hash::check(request()->password, $existingUser->password)){ 
-            return response()->json("user exist", 200);      
+            return response()->json($existingUser->id, 200);      
         }
 
         return response()->json("something went wrong", 500);     
@@ -388,8 +384,8 @@ class UserApiController extends Controller
 
     
     public function getMessage($reciever){
-        $senderId = session("admyrer_id");
-        $receiverId = $reciever;
+        $senderId = request()->sender;
+        $receiverId = request()->reciever;
 
         $msg = Conversation::where(function($query) use ($senderId, $receiverId) {
                 $query->where('sender', $senderId)

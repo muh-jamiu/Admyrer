@@ -36,4 +36,20 @@ Route::post('/buildPage', [UserApiController::class, 'buildPage']);
 
 Route::get('/all-user', [UserApiController::class, 'getAllUser']);
 
+Route::get('/random-user', [UserApiController::class, 'getAllUser']);
+
 Route::post('/single-user', [UserApiController::class, 'getUser']);
+
+Route::post('/get-visit', [UserApiController::class, 'get_visits']);
+
+Route::post('/get-follows', [UserApiController::class, 'get_follows']);
+
+Route::post('/get-likes', [UserApiController::class, 'getAllLikes']);
+
+Route::post('/my-likes', [UserApiController::class, 'getPersonalLikes']);
+
+Route::post('/get-dislikes', [UserApiController::class, 'getAllDisLikes']);
+
+Route::post('/chat-ai', [UserApiController::class, 'chatGemini']);
+
+Route::post('/get-message', [UserApiController::class, 'getMessage']);

@@ -31,21 +31,8 @@ class UserApiController extends Controller
 
     public function getUser(){        
         $data["user"] = User::find(request()->id);
-        $like = Like::where(["is_liked" => true, "like_id" =>  request()->id])->orderBy("created_at", "desc")->get();
-        $data["likes"] = 0;
- 
-        foreach($like as $key => $l){  
-             $user = User::where('id', $l->like_id)->first();
-             $data["likes"] = count($user);;
-        }
-
-        $visitors = Visitors::where("visitsID", request()->id)->orderBy("created_at", "desc")->get();
-        $data["visits"] = 0;
-
-        foreach($visitors as $key => $v){  
-            $user = User::where('id', $v->visitorsID)->first();
-            $data["visits"] = count($user);
-        }
+        $data["visits"] = $this->get_visits();
+        $data["likes"] = $this->getPersonalLikes();
 
         return response()->json(["data" => $data], 200);
     }
@@ -400,7 +387,7 @@ class UserApiController extends Controller
     }
 
     
-    public function getMessage($reciever){
+    public function getMessage(){
         $senderId = request()->sender;
         $receiverId = request()->reciever;
 

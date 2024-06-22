@@ -369,14 +369,14 @@ class UserApiController extends Controller
 
     public function saveMessage(){
         $msg = new conversation();
-        $msg->sender = session("admyrer_id");
+        $msg->sender = request()->sender;
         $msg->reciever = request()->reciever;
         $msg->message = request()->message;
 
         $msg->save();
         $notification = new notification();
-        $notification->from =  request()->from_username;
-        $notification->to = request()->username;
+        $notification->from =  request()->from_username ?? "";
+        $notification->to = request()->username ?? "";
         $notification->save();
 
         return true;

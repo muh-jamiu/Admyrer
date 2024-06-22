@@ -53,3 +53,5 @@ Route::post('/get-dislikes', [UserApiController::class, 'getAllDisLikes']);
 Route::post('/chat-ai', [UserApiController::class, 'chatGemini']);
 
 Route::post('/get-message', [UserApiController::class, 'getMessage']);
+
+Route::post('/save-message', [UserApiController::class, 'saveMessage']);

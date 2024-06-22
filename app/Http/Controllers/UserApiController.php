@@ -31,6 +31,22 @@ class UserApiController extends Controller
 
     public function getUser(){        
         $data["user"] = User::find(request()->id);
+        $like = Like::where(["is_liked" => true, "like_id" =>  request()->id])->orderBy("created_at", "desc")->get();
+        $data["likes"] = 0;
+ 
+        foreach($like as $key => $l){  
+             $user = User::where('id', $l->like_id)->first();
+             $data["likes"] = count($user);;
+        }
+
+        $visitors = Visitors::where("visitsID", request()->id)->orderBy("created_at", "desc")->get();
+        $data["visits"] = 0;
+
+        foreach($visitors as $key => $v){  
+            $user = User::where('id', $v->visitorsID)->first();
+            $data["visits"] = count($user);
+        }
+
         return response()->json(["data" => $data], 200);
     }
 
@@ -364,7 +380,8 @@ class UserApiController extends Controller
         $result = $this->googleGeminiService->generateChatResponse($messages);
 
         $text = $result["candidates"][0]["content"]["parts"][0]["text"];
-        return str_replace("*", "", $text);
+        $text = str_replace("*", "", $text);
+        return response()->json(["data" => $text], 200);
     }
 
     public function saveMessage(){
@@ -398,7 +415,7 @@ class UserApiController extends Controller
             ->orderBy('created_at', 'asc')
             ->get();
             
-        return $msg;
+        return response()->json(["data" => $msg], 200);
     }
 
     public function getNotification(){     

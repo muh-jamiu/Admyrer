@@ -55,3 +55,9 @@ Route::post('/chat-ai', [UserApiController::class, 'chatGemini']);
 Route::post('/get-message', [UserApiController::class, 'getMessage']);
 
 Route::post('/save-message', [UserApiController::class, 'saveMessage']);
+
+Route::post('/search', [UserApiController::class, 'searchUser']);
+
+Route::get('/token', [UserApiController::class, 'getToken']);
+
+Route::post('/get-recent', [UserApiController::class, 'getRecentMessage']);

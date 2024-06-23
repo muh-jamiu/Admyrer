@@ -53,7 +53,13 @@ class UserApiController extends Controller
         ->orWhere("gender", "like", "%$query%")
         ->get()
         ;
-        return $user;
+        
+        return response()->json(["data" => $user], 200);
+    }
+ 
+    public function getToken(){  
+        $token = "007eJxTYMj8dcqtqobLlr9VccnPv3WPLePkDa7ndv9fwGehslqM20yBIcncLM3MPMXEyCDFyMTCzMzSMsXANMXIIhkoamFkavj8YHlaQyAjQ9MBIWZGBggE8VkYchMz8xgYANfMHac=";
+        return response()->json(["data" => $token], 200);
     }
  
 
@@ -409,6 +415,25 @@ class UserApiController extends Controller
         $existingUser = User::where('id', session("admyrer_id"))->first() ?? null;
         $notification = notification::where(["to" => $existingUser->username])->get();
         return $notification;
+    }
+    
+    public function getRecentMessage(){
+        $senderId = request()->sender ?? 1;
+
+        $msg = Conversation::where(["sender" => $senderId])
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+
+        foreach($msg as $key => $d){
+            $dt = User::where('id',  $d->reciever)->get() ?? null;
+            $name[] = $dt[0]->username;
+            $image[] = $dt[0]->avatar;
+        }
+
+        $data["name"] = array_unique($name);
+        $data["image"] = array_unique($image);      
+        return response()->json(["data" => $data], 200);
     }
 
 }

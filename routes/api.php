@@ -61,3 +61,5 @@ Route::post('/search', [UserApiController::class, 'searchUser']);
 Route::get('/token', [UserApiController::class, 'getToken']);
 
 Route::post('/get-recent', [UserApiController::class, 'getRecentMessage']);
+
+Route::post('/get-polls', [UserApiController::class, 'getPolls']);

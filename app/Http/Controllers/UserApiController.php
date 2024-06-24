@@ -9,6 +9,7 @@ use App\Models\conversation;
 use App\Models\Follows;
 use App\Models\Like;
 use App\Models\notification;
+use App\Models\Poll;
 use App\Models\User;
 use App\Models\Visitors;
 use App\Services\GoogleGeminiService;
@@ -434,6 +435,11 @@ class UserApiController extends Controller
         $data["name"] = array_unique($name);
         $data["image"] = array_unique($image);      
         return response()->json(["data" => $data], 200);
+    }
+
+    public function getPolls(){
+        $poll = Poll::all();
+        return response()->json(["data" => $poll], 200);
     }
 
 }

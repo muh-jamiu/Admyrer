@@ -186,7 +186,8 @@ $notification = $data["notification"] ?? [];
                     "Not at all important - actions speak louder than words"
                 ]
             ]
-        ];
+    ];
+
 @endphp
 
 @section('title')

@@ -18,16 +18,30 @@ use Cloudinary\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Services\RtcTokenBuilder2;
 
 class UserApiController extends Controller
 {
     protected $openAIService;
     protected $googleGeminiService;
+    protected $agoraService;
 
-    public function __construct(OpenAIService $openAIService, GoogleGeminiService $googleGeminiService)
+    public function __construct(OpenAIService $openAIService, GoogleGeminiService $googleGeminiService, RtcTokenBuilder2 $agoraService)
     {
         $this->openAIService = $openAIService;
         $this->googleGeminiService = $googleGeminiService;
+        $this->agoraService = $agoraService;
+    }
+
+    public function generateToken(Request $request)
+    {
+        $channelName = $request->input('channel') ?? "main";
+        $uid = $request->input('uid', 0);
+        $role = $request->input('role') ?? "admyere";
+        $expireTimeInSeconds = 3600;
+
+        $token = $this->agoraService->buildTokenWithUid("b76f67d420d2486699d05d28cf678251", "65cec08399fb4d13bc71385a42b0471a", $channelName, $uid, $role, $expireTimeInSeconds);
+        return $token;
     }
 
     public function getUser(){        
@@ -58,8 +72,8 @@ class UserApiController extends Controller
         return response()->json(["data" => $user], 200);
     }
  
-    public function getToken(){  
-        $token = "007eJxTYMj8dcqtqobLlr9VccnPv3WPLePkDa7ndv9fwGehslqM20yBIcncLM3MPMXEyCDFyMTCzMzSMsXANMXIIhkoamFkavj8YHlaQyAjQ9MBIWZGBggE8VkYchMz8xgYANfMHac=";
+    public function getToken(Request $request){  
+        $token = $this->generateToken($request);
         return response()->json(["data" => $token], 200);
     }
  

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Mail\VerifyMail;
 use App\Models\accountVerify;
+use App\Models\AppClub;
+use App\Models\AppLive;
 use App\Models\conversation;
 use App\Models\Follows;
 use App\Models\Like;
@@ -454,6 +456,38 @@ class UserApiController extends Controller
     public function getPolls(){
         $poll = Poll::all();
         return response()->json(["data" => $poll], 200);
+    }
+
+    public function createLive(AppLive $user){
+        $user->userId = request()->userId ?? 0;
+        $user->username = request()->username;
+        $user->token = request()->token;
+        $user->channel = request()->channel;
+        $user->avatar = request()->avatar;
+        $user->save();
+
+        return true;
+    }
+
+    public function getLives(){
+        $live = AppLive::all();
+        return response()->json(["data" => $live], 200);
+    }
+
+    public function createClub(AppClub $user){
+        $user->userId = request()->userId ?? 0;
+        $user->username = request()->username;
+        $user->token = request()->token;
+        $user->channel = request()->channel;
+        $user->avatar = request()->avatar;
+        $user->save();
+
+        return true;
+    }
+
+    public function getClub(){
+        $live = AppClub::all();
+        return response()->json(["data" => $live], 200);
     }
 
 }

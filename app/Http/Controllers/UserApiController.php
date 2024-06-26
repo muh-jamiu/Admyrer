@@ -37,7 +37,7 @@ class UserApiController extends Controller
 
     public function generateToken(Request $request)
     {
-        $channelName = $request->input('channel') ?? "main";
+        $channelName = $request->channel ?? "main";
         $uid = $request->input('uid', 0);
         $role = $request->input('role') ?? "admyere";
         $expireTimeInSeconds = 3600;
@@ -458,6 +458,7 @@ class UserApiController extends Controller
         return response()->json(["data" => $poll], 200);
     }
 
+    // lives
     public function createLive(AppLive $user){
         $user->userId = request()->userId ?? 0;
         $user->username = request()->username;
@@ -466,7 +467,7 @@ class UserApiController extends Controller
         $user->avatar = request()->avatar;
         $user->save();
 
-        return true;
+        return response()->json(["data" => $user->id], 200);
     }
 
     public function getLives(){
@@ -474,6 +475,14 @@ class UserApiController extends Controller
         return response()->json(["data" => $live], 200);
     }
 
+    public function deleteLive(){
+        $audio = AppLive::find(request()->id);
+        $audio->delete();
+        return true;
+    }
+
+
+    // clubs
     public function createClub(AppClub $user){
         $user->userId = request()->userId ?? 0;
         $user->username = request()->username;
@@ -482,12 +491,18 @@ class UserApiController extends Controller
         $user->avatar = request()->avatar;
         $user->save();
 
-        return true;
+        return response()->json(["data" => $user->id], 200);
     }
 
     public function getClub(){
         $live = AppClub::all();
         return response()->json(["data" => $live], 200);
+    }
+
+    public function deleteClub(){
+        $audio = AppClub::find(request()->id);
+        $audio->delete();
+        return true;
     }
 
 }

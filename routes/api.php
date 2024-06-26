@@ -58,13 +58,13 @@ Route::post('/save-message', [UserApiController::class, 'saveMessage']);
 
 Route::post('/search', [UserApiController::class, 'searchUser']);
 
-Route::get('/token', [UserApiController::class, 'getToken']);
+Route::post('/token', [UserApiController::class, 'getToken']);
 
 Route::post('/get-recent', [UserApiController::class, 'getRecentMessage']);
 
 Route::post('/get-polls', [UserApiController::class, 'getPolls']);
 
-Route::get('/generate', [UserApiController::class, 'generateToken']);
+Route::post('/generate', [UserApiController::class, 'generateToken']);
 
 Route::post('/live', [UserApiController::class, 'createLive']);
 
@@ -73,3 +73,7 @@ Route::get('/live', [UserApiController::class, 'getLives']);
 Route::post('/club', [UserApiController::class, 'createClub']);
 
 Route::get('/club', [UserApiController::class, 'getClub']);
+
+Route::post('/delete-club', [UserApiController::class, 'deleteClub']);
+
+Route::post('/delete-live', [UserApiController::class, 'deleteLive']);

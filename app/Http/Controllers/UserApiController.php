@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AppEvent;
 use App\Http\Controllers\Controller;
 use App\Mail\VerifyMail;
 use App\Models\accountVerify;
@@ -502,6 +503,14 @@ class UserApiController extends Controller
     public function deleteClub(){
         $audio = AppClub::find(request()->id);
         $audio->delete();
+        return true;
+    }
+
+    public function Noties(){
+        $msg = request()->message ?? "test";
+        $username = request()->username ?? "test";
+        $title = request()->title ?? "test";
+        $t = broadcast(new AppEvent($username, $title, $msg))->toOthers();
         return true;
     }
 

@@ -77,3 +77,5 @@ Route::get('/club', [UserApiController::class, 'getClub']);
 Route::post('/delete-club', [UserApiController::class, 'deleteClub']);
 
 Route::post('/delete-live', [UserApiController::class, 'deleteLive']);
+
+Route::get('/notify', [UserApiController::class, 'Noties']);

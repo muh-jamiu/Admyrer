@@ -80,4 +80,4 @@ Route::post('/delete-live', [UserApiController::class, 'deleteLive']);
 
 Route::post('/verify', [UserApiController::class, 'verifyCode']);
 
-Route::get('/notify', [UserApiController::class, 'Noties']);
+Route::post('/notify', [UserApiController::class, 'Noties']);

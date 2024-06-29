@@ -254,7 +254,7 @@ class UserApiController extends Controller
 
     public function postCode($code, $id){
         $verify = new accountVerify();
-        $verify->userId = session("admyrer_id") ?? $id;
+        $verify->userId = $id ?? 0;
         $verify->code = $code;
         $verify->save();
 
@@ -314,11 +314,6 @@ class UserApiController extends Controller
     
     // authentication
     public function loginUser(User $user){
-        // request()->validate([
-        //     "username" => "required",
-        //     "password" => "required|min:5",
-        // ]);
-
         $existingUser = $user::where('email', request()->username)->first();
         if(!$existingUser){
             $existingUser = $user::where('username', request()->username)->first();
@@ -336,13 +331,6 @@ class UserApiController extends Controller
     }
 
     public function registerUser(User $user, Request $request){
-        request()->validate([
-            "email" => "required|email|unique:users",
-            "username" => "required|unique:users",
-            "password" => "required|min:5|max:10",
-            "username" => "required|min:5|unique:users",
-        ]);
-
         $user->first_name = request()->first_name;
         $user->last_name = request()->last_name;
         $user->username = request()->username;
@@ -351,19 +339,18 @@ class UserApiController extends Controller
         $user->save();
 
         if($user){
-            session()->put("admyrer_id", $user->id);
             $this->sendMail($request, $user->id);
-            return true;
+            return response()->json($user->id, 200);   
         }
         
-        return false;
+        return response()->json("something went wrong", 500);   
     }
 
     public function sendMail(Request $request, $id){
         $name = strtoupper($request->first_name);
-        $message = $request->message;
+        $message = "";
         $email = $request->email;
-        $subject = strtoupper($request->subject);
+        $subject = "";
         $code = rand(1000, 9999);
 
         $mail = Mail::to($email)->send(new VerifyMail($message, $subject, $email, $name, $code));
@@ -510,7 +497,8 @@ class UserApiController extends Controller
         $msg = request()->message ?? "test";
         $username = request()->username ?? "test";
         $title = request()->title ?? "test";
-        $t = broadcast(new AppEvent($username, $title, $msg))->toOthers();
+        $to = request()->to ?? "test";
+        $t = broadcast(new AppEvent($username, $title, $msg, $to))->toOthers();
         return true;
     }
 

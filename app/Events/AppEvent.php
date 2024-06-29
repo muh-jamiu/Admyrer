@@ -20,11 +20,13 @@ class AppEvent implements ShouldBroadcast
     public $username;
     public $title;
     public $message;
-    public function __construct($username, $title, $message)
+    public $to;
+    public function __construct($username, $title, $message, $to)
     {
         $this->username = $username;
         $this->message = $message;
         $this->title = $title;
+        $this->to = $to;
     }
 
     /**

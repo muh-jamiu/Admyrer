@@ -5,6 +5,7 @@
 <div class="live_vid d-none">
    <div class="btns d-none _liveBtn d-flex">
         {{-- <button  class="btn" id="join-btn" onclick="joinStream()">start</button> --}}
+        <button class="btn bg-primary d-none" id="speed_con">Connecting User <div class="spinner-border spinner-border-sm mx-2 text-white" style=""></div></button>
         <button onclick="leaveAndRemoveLocalStream()" class="btn bg-danger" id="leave-btn">Leave <i class="fa-solid fa-person-walking-arrow-right"></i></button>
         <button onclick="toggleMic()" class="btn bg-danger" id="mic-btn">Mic On <i class="fa-solid fa-microphone"></i></button>
         <button onclick="toggleCamera()" class="btn bg-danger" id="camera-btn">Camera On <i class="fa-solid fa-camera-retro"></i></button>

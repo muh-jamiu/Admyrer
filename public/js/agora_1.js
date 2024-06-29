@@ -1,5 +1,5 @@
 const APP_ID = "b76f67d420d2486699d05d28cf678251"
-const TOKEN = "007eJxTYLh7d0N7gCnn8zmd+rnF0rv/Oorrex3M4ODmXKl+do/0yzIFBmNzi2QTY0Nj45TEJBPTVAMLS2Mji7RkU0OD5GRL48TEyPDUtIZARoZzjW2MjAwQCOKzMOQmZuYxMAAA2XEdwg=="
+const TOKEN = "007eJxTYMg8dfqV1Ks5TSdXV+RlTHp1YjL768fWE211fPVeO5hwNjAoMCSZm6WZmaeYGBmkGJlYmJlZWqYYmKYYWSQDRS2MTA0VrBvSGgIZGW6LZDEzMkAgiM/CkJuYmcfAAABkYB5Y"
 const CHANNEL = "main"
 
 const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
@@ -38,6 +38,7 @@ let is_speed_;
 
 let _mus = document.getElementById("_mus")
 const timer = document.getElementById('timer');
+const speed_con = document.getElementById('speed_con');
 const end_club = document.getElementById('end_club');
 let joinStream = async (username, avatar, gender, name, country, is_stream, is_club, is_rev, is_speed, is_club_own) => {
     username_ = username
@@ -56,6 +57,7 @@ let joinStream = async (username, avatar, gender, name, country, is_stream, is_c
 
     if(is_speed){
         timer.classList.remove("d-none")
+        speed_con.classList.remove("d-none")
         start()
     }
 
@@ -248,8 +250,22 @@ function startTimer(duration, display) {
         seconds = seconds < 10 ? '0' + seconds : seconds;
 
         display.textContent = minutes + ':' + seconds;
+        
 
         if (--timer < 0) {
+            clearInterval(interval);
+            handleUserLeft()
+            leaveAndRemoveLocalStream()
+        }
+
+        if (timer == 540) {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title:`No Speed user is Connected at the moment`,
+                showConfirmButton: false,
+                timer: 1500
+            });
             clearInterval(interval);
             handleUserLeft()
             leaveAndRemoveLocalStream()

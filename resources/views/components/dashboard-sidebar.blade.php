@@ -232,13 +232,9 @@
         </div>
     
         <!-- Modal body -->
-        <div class="modal-body">
-            <label for="">Username </label>
-            <input id="_username" type="text" placeholder="Enter username" class="px-2" style="width: 94% !important">
-            <p style="font-size: 10px" class="text-danger">Provide the username of the user you like to go on a date with.</p>
-    
-            <button onclick="speedDate()" data-bs-dismiss="modal" class="btn btn-danger mt-2 mb-3">Send Request</button>
-            <p style="font-size: 10px">The user will be notify about the date.</p>
+        <div class="modal-body">    
+            <button onclick="speedDate()" data-bs-dismiss="modal" class="btn btn-danger mt-2 mb-3">Start Speed Date</button>
+            <p style="font-size: 10px" class="text-danger">You will be connected to random user that are currently seeking for speed date, if no user is connected, you will be disconnected after 1 minute.</p>
         </div>
     
         <!-- Modal footer -->
@@ -290,21 +286,14 @@
     const _username = document.getElementById('_user');
     const _username_ = document.getElementById('_username');
     function speedDate() {
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title:`You send a request to ${_username_.value}`,
-            showConfirmButton: false,
-            timer: 1500
-        });
-        joinStream(null, null, null, null, null, null, null, true, true)
-        axios.post("/speed-date", {
-            username: _username.innerHTML,
-        })
-        .then((res) => {
-            console.log(res)
-        })
-        .catch((error) => console.log(error))
+        joinStream(null, null, null, null, null, null, null, null, true, null)
+        // axios.post("/speed-date", {
+        //     username: _username.innerHTML,
+        // })
+        // .then((res) => {
+        //     console.log(res)
+        // })
+        // .catch((error) => console.log(error))
     }
 
     const localVideo = document.getElementById('localVideo');

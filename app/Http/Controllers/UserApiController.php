@@ -264,15 +264,15 @@ class UserApiController extends Controller
     public function verifyCode(accountVerify $verify){
         $code = $verify::where('code', request()->code)->first();
         if(!$code){
-            return "Invalid code";
+            return response()->json(false, 500);
         }
 
-        if($code->userId != session("admyrer_id")){
-            return "Invalid code";
+        if($code->userId != request()->id){
+            return response()->json(false, 500);
         }
 
         $code->delete();
-        return true;
+        return response()->json(true, 200);
     }
 
     public function countryUser()

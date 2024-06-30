@@ -13,6 +13,7 @@ use App\Models\Follows;
 use App\Models\Like;
 use App\Models\notification;
 use App\Models\Poll;
+use App\Models\Review;
 use App\Models\User;
 use App\Models\Visitors;
 use App\Services\GoogleGeminiService;
@@ -499,6 +500,23 @@ class UserApiController extends Controller
         $title = request()->title ?? "test";
         $to = request()->to ?? "test";
         $t = broadcast(new AppEvent($username, $title, $msg, $to))->toOthers();
+        return true;
+    }
+
+    public function getreview(){
+        $review = Review::where(["userId" => request()->id])->orderBy("created_at", "desc")->get();
+        return response()->json(["data" => $review], 200);
+    }
+
+    
+    public function postreview(){
+        $review = new Review();
+        $review->userId = request()->id;
+        $review->username = request()->username;
+        $review->title = request()->title;
+        $review->comment = request()->comment;
+        $review->rating = request()->rating ?? 0;
+        $review->save();
         return true;
     }
 

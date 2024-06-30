@@ -81,3 +81,7 @@ Route::post('/delete-live', [UserApiController::class, 'deleteLive']);
 Route::post('/verify', [UserApiController::class, 'verifyCode']);
 
 Route::post('/notify', [UserApiController::class, 'Noties']);
+
+Route::post('/create-review', [UserApiController::class, 'postreview']);
+
+Route::post('/get-reviews', [UserApiController::class, 'getreview']);

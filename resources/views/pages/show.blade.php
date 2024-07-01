@@ -321,6 +321,7 @@ $notification = $data["notification"] ?? [];
 								<div class="col-sm-6 mb-3">
 									<div class="dt_profile_info">
 										<h5><svg xmlns="http://www.w3.org/2000/svg" width="21.405" height="23.299" viewBox="0 0 21.405 23.299"> <path id="Path_5417" data-name="Path 5417" d="M3710.164,10486.625v1.147a19.122,19.122,0,0,1-2.192,8.952l-.264.574-2.008-1.147a17.086,17.086,0,0,0,2.157-7.8l.012-.574v-1.147Zm-6.886-3.443h2.3v5.051a14.6,14.6,0,0,1-3.1,8.608l-.264.344-1.779-1.378a12.646,12.646,0,0,0,2.835-7.574l.012-.46Zm1.147-4.591a5.5,5.5,0,0,1,4.063,1.722,5.654,5.654,0,0,1,1.676,4.018h-2.3a3.443,3.443,0,0,0-6.887,0v3.442a10.6,10.6,0,0,1-2.6,6.887l-.241.229-1.664-1.606a7.844,7.844,0,0,0,2.2-5.165l.011-.345v-3.442a5.654,5.654,0,0,1,1.676-4.018A5.5,5.5,0,0,1,3704.426,10478.591Zm0-4.591a10.2,10.2,0,0,1,7.3,2.983,10.421,10.421,0,0,1,3.03,7.347v3.442a23.806,23.806,0,0,1-.688,5.739l-.161.573-2.215-.573a20.538,20.538,0,0,0,.758-5.051l.011-.688v-3.442a8.125,8.125,0,0,0-1.194-4.247,8.334,8.334,0,0,0-3.236-2.983,9.28,9.28,0,0,0-4.315-.8,7.686,7.686,0,0,0-4.1,1.606l-1.641-1.606A10.216,10.216,0,0,1,3704.426,10474Zm-8.068,3.9,1.629,1.606a8.222,8.222,0,0,0-1.6,4.591v2.525a8.235,8.235,0,0,1-.872,3.673l-.172.345-2-1.148a5.921,5.921,0,0,0,.746-2.524v-2.64A10.347,10.347,0,0,1,3696.357,10477.9Z" transform="translate(-3693.35 -10474)" fill="currentColor"></path> </svg>&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="21.149" height="21.001" viewBox="0 0 21.149 21.001"> <path id="Path_4935" data-name="Path 4935" d="M3416.05,1822.683h5.824a19.048,19.048,0,0,0,3.1,9.438,10.65,10.65,0,0,1-8.927-9.438Zm0-2.125a10.65,10.65,0,0,1,8.927-9.438,19.048,19.048,0,0,0-3.1,9.438Zm21.149,0h-5.824a19.043,19.043,0,0,0-3.1-9.438,10.65,10.65,0,0,1,8.927,9.438Zm0,2.125a10.65,10.65,0,0,1-8.927,9.438,19.043,19.043,0,0,0,3.1-9.438Zm-13.2,0h5.25a4.46,4.46,0,1,1-5.25,0Zm0-2.125a4.46,4.46,0,1,1,5.25,0Z" transform="translate(-3416.05 -1811.12)" fill="currentColor"></path> </svg>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __( 'Personality' );?></h5>
+										
 
 										<?php if( !empty( $user->character ) ) {?>
 										<div class="row">
@@ -362,6 +363,7 @@ $notification = $data["notification"] ?? [];
 											</div>
 										</div>
 										<?php } ?>
+										<p data-bs-toggle="modal" data-bs-target="#rating" class="btn text-black bg-warning">Check User Ratings</p>
 									</div>
 								</div>
 							<?php } ?>
@@ -770,6 +772,38 @@ $notification = $data["notification"] ?? [];
 
 	</div>
 </div>
+</div>
+
+<div class="modal fade" id="rating">
+	<div class="modal-dialog modal-dialog-centered modal-l">
+		<div class="modal-content p-0">
+	
+		<!-- Modal Header -->
+		<div class="modal-header">
+			<h6 class="modal-title text-capitalize">Ratings</h6>
+			<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		</div>
+	
+		<!-- Modal body -->
+		<div class="modal-body" style="height: 400px; overflow:scroll">
+			@foreach ($review as $item)
+			
+			@endforeach
+			@if (true)
+				<div class="text-center mt-5">
+					<h5 class="fw-bold">Empty!</h5>
+					<p>There are no ratings available at the moment.</p>
+				</div>
+			@endif
+		</div>
+	
+		<!-- Modal footer -->
+		<div class="modal-foote px-3 mb-3 mt-2">
+			<button data-bs-dismiss="modal" class="btn-danger btn bg-danger">Close</button>
+		</div>
+	
+		</div>
+	</div>
 </div>
   
 

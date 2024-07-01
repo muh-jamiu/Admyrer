@@ -93,7 +93,7 @@ Route::get('/testimonial', [UserController::class, 'testimonial'])->middleware("
 
 Route::get('/live-users', [UserController::class, 'live_users'])->middleware("notLogin");
 
-Route::get('/review', [UserController::class, 'review'])->middleware("notLogin");
+Route::get('/review', [UserController::class, 'review']); //->middleware("notLogin");
 
 Route::post('/review', [UserController::class, 'makereview']);
 

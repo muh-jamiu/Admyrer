@@ -6267,6 +6267,13 @@ iframe{
     overflow: scroll;
 }
 
+@media (max-width: 1200px){
+
+.review_{
+    width: 100%;
+}
+}
+
 .live_vid .offcanvas-footer button{
     /* padding: .5em; */
     border:none;

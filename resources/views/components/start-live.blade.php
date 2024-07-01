@@ -27,6 +27,7 @@
         </div>
 
         <button onclick="deleteclub()" id="end_club" class="btn d-none" style="background-color: rgb(238, 2, 2)">End Club <i class="fa-solid fa-xmark"></i></button>
+        <button id="_skip" class="btn d-none" style="background-color: rgb(238, 2, 2)">Skips</button>
 
 
         <button  data-bs-toggle="offcanvas" id="_mus" data-bs-target="#music_" class="btn d-none" style="background-color: rgb(71, 202, 130)">Music <i class="fa-solid fa-music"></i></button>

@@ -1,5 +1,5 @@
 const APP_ID = "b76f67d420d2486699d05d28cf678251"
-const TOKEN = "007eJxTYMg8dfqV1Ks5TSdXV+RlTHp1YjL768fWE211fPVeO5hwNjAoMCSZm6WZmaeYGBmkGJlYmJlZWqYYmKYYWSQDRS2MTA0VrBvSGgIZGW6LZDEzMkAgiM/CkJuYmcfAAABkYB5Y"
+const TOKEN = "007eJxTYCj31M5kW+9uIGWTunRz0UW5VRqr2bNkrrnaXb7TrXFefpMCQ5K5WZqZeYqJkUGKkYmFmZmlZYqBaYqRRTJQ1MLI1PBGa2NaQyAjw5UUNSZGBggE8VkYchMz8xgYAGhuHKg="
 const CHANNEL = "main"
 
 const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
@@ -40,6 +40,7 @@ let _mus = document.getElementById("_mus")
 const timer = document.getElementById('timer');
 const speed_con = document.getElementById('speed_con');
 const end_club = document.getElementById('end_club');
+const _skip = document.getElementById('_skip');
 let joinStream = async (username, avatar, gender, name, country, is_stream, is_club, is_rev, is_speed, is_club_own) => {
     username_ = username
     is_stream_ = is_stream
@@ -58,7 +59,10 @@ let joinStream = async (username, avatar, gender, name, country, is_stream, is_c
     if(is_speed){
         timer.classList.remove("d-none")
         speed_con.classList.remove("d-none")
-        start()
+        _skip.classList.remove("d-none")
+        setTimeout(()=>{
+            start()
+        }, 4000)
     }
 
     await joinAndDisplayLocalStream()
@@ -279,7 +283,20 @@ function start(params) {
     startTimer(twoMinutes, display);
 }
 
-document.getElementById('join-btn').addEventListener('click', joinStream)
+var _skip_ = document.getElementById('_skip');
+_skip_.addEventListener("click", () => {
+    Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title:`Skipping to another active user`,
+        showConfirmButton: false,
+        timer: 1500
+    });    
+    start();
+})
+
+
+// document.getElementById('join-btn').addEventListener('click', joinStream)
 document.getElementById('leave-btn').addEventListener('click', leaveAndRemoveLocalStream)
 document.getElementById('mic-btn').addEventListener('click', toggleMic)
 document.getElementById('camera-btn').addEventListener('click', toggleCamera)

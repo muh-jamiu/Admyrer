@@ -19,6 +19,8 @@ Route::post('/login', [UserController::class, 'loginUser']);
 
 Route::post('/update-user', [UserController::class, 'updateUser']);
 
+Route::post('/update-userspec', [UserController::class, 'updateUserSpec']);
+
 Route::post('/register', [UserController::class, 'registerUser']);
 
 Route::post('/upload-image', [UserController::class, 'uploadImage']);
@@ -93,7 +95,9 @@ Route::get('/testimonial', [UserController::class, 'testimonial'])->middleware("
 
 Route::get('/live-users', [UserController::class, 'live_users'])->middleware("notLogin");
 
-Route::get('/review', [UserController::class, 'review']); //->middleware("notLogin");
+Route::get('/review', [UserController::class, 'review'])->middleware("notLogin");
+
+Route::get('/user-settings', [UserController::class, 'settings'])->middleware("notLogin");
 
 Route::post('/review', [UserController::class, 'makereview']);
 

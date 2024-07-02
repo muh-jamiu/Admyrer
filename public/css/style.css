@@ -6964,3 +6964,43 @@ ul:not(.browser-default) {transition: none !important;transform: none !important
         justify-content: start !important;
     }
 }
+
+.settings .container_{
+    background-color: white;
+    width: 80%;
+    border-radius: 20px;
+    padding: 2em;
+    margin : auto auto;
+    margin-bottom: 3em;
+}
+
+.settings .sect1 input{
+    padding: 0 1em !important;
+    margin: .5em !important;
+}
+
+.settings .container_ button{
+    padding: 0 3em !important;
+    margin: 1em !important;
+}
+
+.settings .container_ textarea{
+    padding: 1em;
+    height: 200px !important;
+    resize: none;
+}
+
+.settings .nav-tabs{
+    background-color: white !important;
+    margin: auto auto;
+    width : fit-content !important;
+    margin-top: 3em !important;
+    padding: 1em !important;
+    border-radius: 10px;
+}
+
+.settings .nav-tabs .active{
+    background-color: palevioletred !important;
+    border: none !important;
+    color: white !important;
+}

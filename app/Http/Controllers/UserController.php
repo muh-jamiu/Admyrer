@@ -162,6 +162,13 @@ class UserController extends Controller
         return view("pages.show", compact("data"));
     }
 
+    public function settings(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["notification"] = $this->getNotification();
+        $data["loginUser"] = $this->getUser(session("admyrer_id"));
+        return view("pages.settings", compact("data"));
+    }
+
     //audio
     public function storeAudio(Request $request)
     {
@@ -562,6 +569,58 @@ class UserController extends Controller
         $user->update();
         
         return true;
+    }
+
+    public function updateUserSpec(Request $request){
+        $user = User::find(session("admyrer_id"));
+        
+        if(!$user){
+            return "User Not Fuund" . session("admyrer_id");
+        }
+        
+        $user->first_name = $request->first_name ?? $user->first_name;
+        $user->last_name = $request->last_name ?? $user->last_name;
+        $user->email = $request->email ?? $user->email;
+        $user->username = $request->username ??  $user->username ;
+        $user->avatar = $request->avatar ?? $user->avatar;
+        $user->address = $request->address ?? $user->address;
+        $user->birthday = $request->birthday ??  $user->birthday;
+        $user->gender = $request->gender ?? $user->gender ;
+        $user->country = $request->country ?? $user->country;
+        $user->verified = $request->verified ?? $user->verified;
+        $user->height = $request->height >> $user->height;
+        $user->hair_color = $request->hair_color ?? $user->hair_color;
+        $user->interest = $request->interest ?? $user->interest;
+        $user->state = $request->state ?? $user->state;
+        $user->location = $request->location ?? $user->location;
+        $user->phone_number = $request->phone ?? $user->phone_number;
+        $user->relationship = $request->relationship ?? $user->relationship;
+        $user->work_status = $request->work_status ?? $user->work_status;
+        $user->education = $request->education ?? $user->education;
+        $user->body = $request->body ?? $user->body;
+        $user->car = $request->car ?? $user->car;
+        $user->religion = $request->religion ?? $user->religion ;
+        $user->city = $request->city ?? $user->city ;
+        $user->color = $request->color ?? $user->color;
+        $user->character = $request->character ?? $user->character;
+        $user->ethnicity = $request->ethnicity ?? $user->ethnicity;
+        $user->children = $request->children ?? $user->children;
+        $user->friends = $request->friends ?? $user->friends;
+        $user->pets = $request->pets ?? $user->pets;
+        $user->car = $request->car ?? $user->car;
+        $user->drink = $request->drink ?? $user->drink;
+        $user->smoke = $request->smoke ?? $user->smoke;
+        $user->travel = $request->travel ?? $user->travel;
+        $user->hobby = $request->hobby ?? $user->hobby;
+        $user->music = $request->music ?? $user->music;
+        $user->live_with = $request->live_with ?? $user->live_with;
+        if($request->image){
+            $photo = $this->uploadImage();
+            $user->avatar = $photo;
+        }
+        $user->update();
+        
+        return back()->with("msg", "Profile updated successfully");
     }
 
     public function getAllUserRandomly(){        

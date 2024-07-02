@@ -131,7 +131,11 @@ Review | Admyrer
         <button class="btn mt-4">Make Review</button>
     </form>
     <a href="/find-matches" class=" btn-danger">Not Now? Later</a>
-
+    <style>
+        .bring{
+            display: none !important;
+        }
+    </style>
 </div>
 
 @push("javascript")

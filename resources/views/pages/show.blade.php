@@ -164,22 +164,9 @@ $notification = $data["notification"] ?? [];
 										</div>
 								</div>
 							</div>
-								@if(false)
-								<div class="center mtc_usrd_actions dt_profile_about_action">
-									<div class="like">
-										<a href="javascript:void(0);" id="like_btn" data-replace-text="<?php echo __('Liked');?>" data-replace-dom=".like_text" data-ajax-post="/useractions/" data-ajax-params="email_on_profile_like=<?php echo $user->email_on_profile_like;?>&username=<?php echo $user->username;?>" data-ajax-callback="callback_">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg>
-											<span class="bold like_text" ><?php  echo __( 'Liked' )?></span>
-										</a>
-									</div>
-									<div class="dislike">
-										<a href="javascript:void(0);" id="dislike_btn" data-replace-text="<?php echo __('Disliked');?>" data-replace-dom=".dislike_text" data-ajax-post="/useractions/" data-ajax-params="username=<?php echo $user->username;?>" data-ajax-callback="callback_">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg>
-											<span class="bold dislike_text"><?php echo __( 'Disliked' )?></span>
-										</a>
-									</div>
-								</div>
-								@endif
+							<div class="settings_">
+								<h6><a class="btn" href="/user-settings"><i class="fa-solid fa-gear"></i> Settings</a></h6>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -817,6 +804,11 @@ $notification = $data["notification"] ?? [];
 
 
 <x-footer></x-footer>
+<style>
+    .bring{
+        display: none !important;
+    }
+</style>
 </div>
 
 @push("javascript")

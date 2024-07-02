@@ -160,7 +160,7 @@ class UserController extends Controller
         $this->post_visits(session("admyrer_id"), $userProf->id);
         $data["user"] = $userProf;
         $data["loginUser"] = $this->getUser(session("admyrer_id"));
-        $data["avatars"] = $this->getavatars();
+        $data["avatars"] = $this->getavatars($userProf->id);
         return view("pages.show", compact("data"));
     }
 
@@ -643,8 +643,8 @@ class UserController extends Controller
         
     }
 
-    public function getavatars(){  
-        $user = Avatar::where('userId', session("admyrer_id"))->orderBy("created_at", "desc")->get();
+    public function getavatars($id){  
+        $user = Avatar::where('userId', $id)->orderBy("created_at", "desc")->get();
         return $user;
     }
 

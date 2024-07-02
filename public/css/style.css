@@ -7004,3 +7004,32 @@ ul:not(.browser-default) {transition: none !important;transform: none !important
     border: none !important;
     color: white !important;
 }
+
+.img_cont_{
+    height: 370px;
+    overflow-y: scroll;
+    overflow-x: hidden !important;
+}
+
+.img_cont_ div{
+    overflow: hidden;
+}
+
+.img_cont_ img{
+    height: 300px;
+    width: fit-content !important;
+    margin-bottom: 1em !important;
+    object-fit: contain !important;
+}
+
+.dend{
+    position: relative;
+}
+
+.uploads_{
+    position: absolute;
+    background-color: white;
+    padding: 0 1em;
+    top: 0;
+    height: fit-content;
+}

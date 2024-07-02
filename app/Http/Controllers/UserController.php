@@ -10,6 +10,7 @@ use App\Events\WebEvent;
 use App\Mail\VerifyMail;
 use App\Models\accountVerify;
 use App\Models\Audio;
+use App\Models\Avatar;
 use App\Models\Club;
 use App\Models\conversation;
 use App\Models\Date;
@@ -159,6 +160,7 @@ class UserController extends Controller
         $this->post_visits(session("admyrer_id"), $userProf->id);
         $data["user"] = $userProf;
         $data["loginUser"] = $this->getUser(session("admyrer_id"));
+        $data["avatars"] = $this->getavatars();
         return view("pages.show", compact("data"));
     }
 
@@ -622,6 +624,30 @@ class UserController extends Controller
         
         return back()->with("msg", "Profile updated successfully");
     }
+
+    public function uploads_(Avatar $avatar){
+        $user = User::find(session("admyrer_id"));  
+
+        if(!$user){
+            return "User Not Fuund" . session("admyrer_id");
+        }
+        if(request()->image){
+            $photo = $this->uploadImage();
+            $avatar->avatar = $photo;
+            $avatar->userId = session("admyrer_id");
+            $avatar->save();
+            return true;
+        }
+
+        return false;
+        
+    }
+
+    public function getavatars(){  
+        $user = Avatar::where('userId', session("admyrer_id"))->orderBy("created_at", "desc")->get();
+        return $user;
+    }
+
 
     public function getAllUserRandomly(){        
        $user = User::inRandomOrder()->get();

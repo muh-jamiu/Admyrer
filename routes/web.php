@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [UserController::class, 'loginUser']);
 
+Route::post('/avatars', [UserController::class, 'uploads_']);
+
 Route::post('/update-user', [UserController::class, 'updateUser']);
 
 Route::post('/update-userspec', [UserController::class, 'updateUserSpec']);

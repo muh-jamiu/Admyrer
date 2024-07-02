@@ -4,6 +4,7 @@
 $notification = $data["notification"] ?? [];
 	$dates = $data["dates"] ?? [];
 	$schedule = $data["schedule"] ?? [];
+	$avatars_ = $data["avatars"] ?? [];
 	$user = $data["user"] ?? [];
 	$conversation = $data["conversation"] ?? [];
 	$loginUser = $data["loginUser"] ?? [];
@@ -129,19 +130,32 @@ $notification = $data["notification"] ?? [];
 		<div class="col-sm-9">
 			<div class="mtc_usrd_content dt_profile_about">
 				<div class="row no_margin r_margin">
-					<div class="col s12 m6">
-						<div class="mtc_usrd_slider">
-				            <figure class="dt_cover_photos">
-								<div class="dt_cp_photos_list">
-									<div class="dt_cp_l_photos">
-										<div class="inline"></div>
-									</div>
+					<div class="col-sm-7 dend m6">
+						<div class="img_cont_ row" style="background-color: rgb(237, 237, 237)">
+							<div class="col-sm-6">
+								<img src="{{$loginUser->avatar}}" alt="">
+							</div>
+							@foreach ($avatars_ as $item)
+								<div class="col-sm-6">
+									<img src="{{$item->avatar}}" alt="">
 								</div>
-							</figure>
+							@endforeach
+							{{-- <div class="col-sm-5">
+								<img src="{{$loginUser->avatar}}" alt="">
+							</div>
+							<div class="col-sm-5">
+								<img src="{{$loginUser->avatar}}" alt="">
+							</div> --}}
+						</div>						
+						<div class="uploads_ px-3 py-2">
+							<span class="btn-upload-image" onclick="document.getElementById('avatar_selection').click(); return false">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21,17H7V3H21M21,1H7A2,2 0 0,0 5,3V17A2,2 0 0,0 7,19H21A2,2 0 0,0 23,17V3A2,2 0 0,0 21,1M3,5H1V21A2,2 0 0,0 3,23H19V21H3M15.96,10.29L13.21,13.83L11.25,11.47L8.5,15H19.5L15.96,10.29Z" /></svg> <?php echo __( 'Upload Photo' );?>
+							</span>
+							<input type="file" id="avatar_selection" data-username="" data-userid="" class="hide" accept="image/x-png, image/gif, image/jpeg" name="avatar">	
 						</div>
 					</div>
 
-					<div class="col s12 m6">
+					<div class="col-sm-5 m6">
 						<div class="mtc_usrd_sidebar dt_profile_about_side">
 							<div class="mtc_usrd_summary">
 								<h5 class="text-capitalize fs-5"><?php echo __( 'About' );?> {{$user->first_name}} {{$user->last_name}}</h5>
@@ -1090,6 +1104,50 @@ $notification = $data["notification"] ?? [];
 			});
 		})
 		.catch(error => console.log(error))
+	}
+
+	document.getElementById('avatar_selection').addEventListener('change', handleAvatarChange);
+
+	let selectedavatar;
+
+	function handleAvatarChange(event) {
+		selectedavatar = event.target.files[0];
+		upload_avatar()
+	}
+
+	function upload_avatar(){
+		Swal.fire({
+			title: "Uploading image!",
+			html: "Please wait...",
+			timer: 8000,
+			timerProgressBar: true,
+			didOpen: () => {
+				Swal.showLoading();
+				const timer = Swal.getPopup().querySelector("b");
+				timerInterval = setInterval(() => {
+				}, 100);
+			},
+			willClose: () => {
+				clearInterval(timerInterval);
+			}
+		})
+		let formData = new FormData();
+		formData.append('image', selectedavatar);
+		try {
+		axios.post('/avatars', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			}
+		})
+		.then(res => {
+			console.log(res)
+			location.reload()
+		})
+		.catch(err => console.log(err))
+
+		} catch (error) {
+			console.log('Error uploading image:', error);
+		}
 	}
 
 	

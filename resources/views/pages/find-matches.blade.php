@@ -355,17 +355,16 @@ Find Matches | Admyrer
 	var rand_index = 0
 	usr_thumb[index].classList.add("isActive")
 
-	function like(name, rand){
+	function like(name, rand, id){
 		if(rand){
 			random_user_item[rand_index].classList.add("d-none");
 			rand_index += 1
 
 			axios.post("/like", {
 				userId: curr_ID.innerHTML,
-				like_id: h_Id[rand_index - 1] ?  h_Id[rand_index - 1].innerHTML :  h_Id[rand_index].innerHTML,
+				like_id: id,
 			})
 			.then(res => {
-				console.log(res, h_Id[rand_index])
 				if(res.data != 1){
 					Swal.fire({
 					position: "top-end",
@@ -402,7 +401,7 @@ Find Matches | Admyrer
 			index += 1
 			axios.post("/like", {
 				userId: curr_ID.innerHTML,
-				like_id: h_Id[index - 1] ?  h_Id[index - 1].innerHTML :  h_Id[index].innerHTML,
+				like_id: id,
 			})
 			.then(res => {
 				console.log(res, h_Id[index])
@@ -428,13 +427,13 @@ Find Matches | Admyrer
 		}
 	}
 
-	function dislike(name, rand){
+	function dislike(name, rand, id){
 		if(rand){
 			random_user_item[rand_index].classList.add("d-none");
 			rand_index += 1
 			axios.post("/disliked", {
 				userId: curr_ID.innerHTML,
-				like_id: h_Id[rand_index - 1] ?  h_Id[rand_index - 1].innerHTML :  h_Id[rand_index].innerHTML,
+				like_id: id,
 			})
 			.then(res => {
 				if(res.data != 1){
@@ -473,7 +472,7 @@ Find Matches | Admyrer
 			s_link.href = "/@" + h_username[index].innerHTML
 			axios.post("/disliked", {
 				userId: curr_ID.innerHTML,
-				like_id: h_Id[index - 1] ?  h_Id[index - 1].innerHTML :  h_Id[index].innerHTML,
+				like_id: id,
 			})
 			.then(res => {
 				console.log(res)

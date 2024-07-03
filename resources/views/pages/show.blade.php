@@ -70,6 +70,13 @@ $notification = $data["notification"] ?? [];
 						</span> --}}
 					</h6>
 				</div>
+
+				
+				@if ($loginUser->id == $user->id)
+					<p class="text-center fw-bold text-uppercase">{{$loginUser->username}}</p>
+				@endif
+				
+				@if ($loginUser->id != $user->id)
 					<div class="dt_usr_opts_mnu">
 						<a onclick="Like()" href="javascript:void(0);" id="btn_add_friend" data-ajax-post="/user/add_friend" data-ajax-params="to=" data-ajax-callback="callback_add_friend" class="green_bg tooltipped" data-position="bottom" title="<?php echo __( 'Add Friend' );?>">
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M14 14.252v2.09A6 6 0 0 0 6 22l-2-.001a8 8 0 0 1 10-7.748zM12 13c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm6 6v-3h2v3h3v2h-3v3h-2v-3h-3v-2h3z"/></svg>
@@ -107,6 +114,7 @@ $notification = $data["notification"] ?? [];
 								</li>
 						</ul>
 					</div>
+				@endif
 				{{-- <div class="home_usr_stats">
 					<div>
 						<div>

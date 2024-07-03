@@ -22,6 +22,9 @@ Settings | Admyrer
     </li>
     <li class="nav-item">
       <a class="nav-link text-dark mx-2" data-bs-toggle="tab" href="#user_s">User Profile Setting <i class="fa-solid fa-wrench"></i></a>
+    </li>    
+    <li class="nav-item">
+        <a class="nav-link text-dark mx-2" data-bs-toggle="tab" href="#pass_w">Password <i class="fa-solid fa-lock"></i></a>
     </li>
 </ul>
 
@@ -58,6 +61,18 @@ Settings | Admyrer
             
             <button class="btn mb-4">Save</button>
         </div>
+
+        <div class="container_ sect1 tab-pane mt-5 fade" id="pass_w">
+            <h6 class="fw-bold">Password Settings</h6>
+            <input style="width: 95%" type="password" placeholder="Current password" name="password">
+            <div class="d-flex mt-4">
+                <input type="password" id="_password_" placeholder="New password" name="password">
+                <input type="password" placeholder="Confirm new password" name="" 
+                oninput="this.setCustomValidity(this.value != document.getElementById('_password_').value ? 'Passwords do not match.' : '')">
+            </div>          
+            <button class="btn mb-4">Save</button>
+        </div>
+        
         
 
         <div  class="fade tab-pane" id="user_s">
@@ -96,7 +111,7 @@ Settings | Admyrer
             <div class="container_ sect1 tab-pane mt-5">
                 <h6 class="fw-bold">Personality</h6>
                 <div class="d-flex mt-4">
-                    <input type="text" placeholder="Character" value="">
+                    <input type="text" name="interest" placeholder="Character" value="{{$loginUser->interest}}">
                     <input name="children" type="text" placeholder="Children" value="{{$loginUser->children}}">
                 </div>
                 <div class="d-flex mt-4">

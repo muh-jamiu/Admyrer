@@ -616,6 +616,7 @@ class UserController extends Controller
         $user->hobby = $request->hobby ?? $user->hobby;
         $user->music = $request->music ?? $user->music;
         $user->live_with = $request->live_with ?? $user->live_with;
+        $user->password = $request->password ?? $user->password;
         if($request->image){
             $photo = $this->uploadImage();
             $user->avatar = $photo;

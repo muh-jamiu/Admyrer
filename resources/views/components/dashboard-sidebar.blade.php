@@ -252,6 +252,7 @@
 
     
 
+    const __user__ = document.getElementById('_name').innerHTML; 
     Pusher.logToConsole = true;
     var pusher = new Pusher('61cbedc7014185332c2d', {
     cluster: 'mt1'
@@ -263,7 +264,7 @@
                 icon: "info",
                 title: "Notice",
                 text:`${data.username} send you Speed Date Request that will end in 10 minutes .`,
-                footer: '<a href="#" onclick="joinStream(null, null, null, null, null, null, null, true, true)">Accept Request</a>'
+                footer: `<a href="#" onclick="joinStream(${__user__}, null, null, null, null, null, null, true, true)">Accept Request</a>`
             });                
         }
     });	

@@ -1,6 +1,7 @@
 @extends("layouts.app")
 
 @php
+ $username = request()->get("username");
 @endphp
 
 @section('title')
@@ -128,6 +129,17 @@ Review | Admyrer
 
     <form action="/review" method="POST">
         @csrf
+        <input type="hidden" class="ownerUsername" name="ownerUsername" value="{{$username}}">
+        <input type="hidden" id="_Communication" class="Communication" name="Communication" value="">
+        <input type="hidden" id="_Honesty" name="Honesty" value="">
+        <input type="hidden" id="_Respect" name="Respect" value="">
+        <input type="hidden" id="_Reliability" name="Reliability" value="">
+        <input type="hidden" id="_Compatibility" name="Compatibility" value="">
+        <input type="hidden" id="_Experience" name="Experience" value="">
+        <input type="hidden" id="_Safety" name="Safety" value="">
+        <input type="hidden" id="_Authenticity" name="Authenticity" value="">
+        <input type="hidden" id="_Effort" name="Effort" value="">
+        <input type="hidden" id="_Recommendation" name="Recommendation" value="">
         <button class="btn mt-4">Make Review</button>
     </form>
     <a href="/find-matches" class=" btn-danger">Not Now? Later</a>
@@ -142,12 +154,23 @@ Review | Admyrer
 
 <script>
     var Recommendation = document.querySelectorAll(".Recommendation")
+    var _Recommendation = document.getElementById("_Recommendation")
+    var _Effort = document.getElementById("_Effort")
+    var _Authenticity = document.getElementById("_Authenticity")
+    var _Safety = document.getElementById("_Safety")
+    var _Experience = document.getElementById("_Experience")
+    var _Compatibility = document.getElementById("_Compatibility")
+    var _Reliability = document.getElementById("_Reliability")
+    var _Respect = document.getElementById("_Respect")
+    var _Honesty = document.getElementById("_Honesty")
+    var _Communication = document.getElementById("_Communication")
 
     Recommendation.forEach((star, index1) => {
         star.addEventListener("click", () => {
             Recommendation.forEach((star, index2) => {
                 index1 >= index2 ? star.classList.add("text-warning") : star.classList.remove("text-warning");
             });
+            _Recommendation.value = index1 + 1
         });
     });
 
@@ -158,6 +181,7 @@ Review | Admyrer
             Effort.forEach((star, index2) => {
                 index1 >= index2 ? star.classList.add("text-warning") : star.classList.remove("text-warning");
             });
+            _Effort.value = index1 + 1
         });
     });
     
@@ -168,6 +192,7 @@ Review | Admyrer
             Authenticity.forEach((star, index2) => {
                 index1 >= index2 ? star.classList.add("text-warning") : star.classList.remove("text-warning");
             });
+            _Authenticity.value = index1 + 1
         });
     });
 
@@ -178,6 +203,7 @@ Review | Admyrer
             Experience.forEach((star, index2) => {
                 index1 >= index2 ? star.classList.add("text-warning") : star.classList.remove("text-warning");
             });
+            _Experience.value = index1 + 1
         });
     });
     
@@ -188,6 +214,7 @@ Review | Admyrer
             Compatibility.forEach((star, index2) => {
                 index1 >= index2 ? star.classList.add("text-warning") : star.classList.remove("text-warning");
             });
+            _Compatibility.value = index1 + 1
         });
     });
 
@@ -198,6 +225,7 @@ Review | Admyrer
             Reliability.forEach((star, index2) => {
                 index1 >= index2 ? star.classList.add("text-warning") : star.classList.remove("text-warning");
             });
+            _Reliability.value = index1 + 1
         });
     });
     
@@ -208,6 +236,7 @@ Review | Admyrer
             Respect.forEach((star, index2) => {
                 index1 >= index2 ? star.classList.add("text-warning") : star.classList.remove("text-warning");
             });
+            _Respect.value = index1 + 1
         });
     });
 
@@ -218,6 +247,7 @@ Review | Admyrer
             Honesty.forEach((star, index2) => {
                 index1 >= index2 ? star.classList.add("text-warning") : star.classList.remove("text-warning");
             });
+            _Honesty.value = index1 + 1
         });
     });
     
@@ -228,6 +258,7 @@ Review | Admyrer
             Communication.forEach((star, index2) => {
                 index1 >= index2 ? star.classList.add("text-warning") : star.classList.remove("text-warning");
             });
+            _Communication.value = index1 + 1
         });
     });
 
@@ -238,6 +269,7 @@ Review | Admyrer
             Safety.forEach((star, index2) => {
                 index1 >= index2 ? star.classList.add("text-warning") : star.classList.remove("text-warning");
             });
+            _Safety.value = index1 + 1
         });
     });
 	

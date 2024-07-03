@@ -9,6 +9,7 @@ $notification = $data["notification"] ?? [];
 	$conversation = $data["conversation"] ?? [];
 	$loginUser = $data["loginUser"] ?? [];
 	$review = $data["review"] ?? [];
+	$ratings = $data["ratings"] ?? [];
 	$check = $user->id == $loginUser->id ? true : false;
 @endphp
 
@@ -791,10 +792,81 @@ $notification = $data["notification"] ?? [];
 	
 		<!-- Modal body -->
 		<div class="modal-body" style="height: 400px; overflow:scroll">
-			@foreach ($review as $item)
-			
+			@foreach ($ratings as $item)
+				<div class="card p-3">
+					<h6 class="text-capitalize fw-bold">{{$item->raterUsername}}</h6>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Communication</p>
+						<p class="">
+							@for ($i = 0; $i < $item->Communication; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor
+						</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Honesty</p>
+						<p class="">
+							@for ($i = 0; $i < $item->Honesty; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Respect</p>
+						<p class="">
+							 @for ($i = 0; $i < $item->Respect; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Reliability</p>
+						<p class="">
+							@for ($i = 0; $i < $item->Reliability; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Compatibility</p>
+						<p class="">
+							@for ($i = 0; $i < $item->Compatibility; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Overall Experience</p>
+						<p class="">
+							@for ($i = 0; $i < $item->Experience; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Safety</p>
+						<p class="">
+							@for ($i = 0; $i < $item->Safety; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Authenticity</p>
+						<p class="">
+							 @for ($i = 0; $i < $item->Authenticity; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Effort</p>
+						<p class="">@for ($i = 0; $i < $item->Effort; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Recommendation</p>
+						<p class="">@for ($i = 0; $i < $item->Recommendation; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+				</div>			
 			@endforeach
-			@if (true)
+			@if (count($ratings) == 0)
 				<div class="text-center mt-5">
 					<h5 class="fw-bold">Empty!</h5>
 					<p>There are no ratings available at the moment.</p>
@@ -886,6 +958,7 @@ $notification = $data["notification"] ?? [];
 		})
 	}
 
+	var _curr_user_ = document.getElementById("curr_user_").innerHTML
 	function start_call(){
 		Swal.fire({
             title: "Do you want to start video call?",
@@ -895,7 +968,7 @@ $notification = $data["notification"] ?? [];
             denyButtonText: `Don't Start`
             }).then((result) => {
             if (result.isConfirmed) {
-                joinStream(null, null, null, null, null, null, null, true)
+                joinStream(_curr_user_, null, null, null, null, null, null, true)
 				Swal.fire({
 				title: "Starting Video Call!",
 				html: "Please wait...",

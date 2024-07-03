@@ -20,6 +20,7 @@ use App\Models\Live;
 use App\Models\notification;
 use App\Models\Poll;
 use App\Models\Quiz;
+use App\Models\Ratings;
 use App\Models\Review;
 use App\Models\Schedule;
 use App\Models\Testimony;
@@ -161,6 +162,7 @@ class UserController extends Controller
         $data["user"] = $userProf;
         $data["loginUser"] = $this->getUser(session("admyrer_id"));
         $data["avatars"] = $this->getavatars($userProf->id);
+        $data["ratings"] = $this->getRating($username);
         return view("pages.show", compact("data"));
     }
 
@@ -319,10 +321,6 @@ class UserController extends Controller
 
     public function review(){
         return view("pages.review");
-    }
-    
-    public function makereview(){
-        return redirect("/find-matches");
     }
 
     public function ai_assistant(){
@@ -1070,5 +1068,29 @@ class UserController extends Controller
     public function getreview($id){
         $review = Review::where(["userId" => $id])->orderBy("created_at", "desc")->get();
         return $review;
+    }
+
+    public function makereview(){
+        $ratings = new Ratings();
+        $username = $this->getUserId();
+        $ratings->raterUsername = $username;
+        $ratings->ownerUsername = request()->ownerUsername ?? "Guest";
+        $ratings->Communication = request()->Communication ?? 0;
+        $ratings->Honesty = request()->Honesty ?? 0;
+        $ratings->Respect = request()->Respect ?? 0;
+        $ratings->Reliability = request()->Reliability ?? 0;
+        $ratings->Compatibility = request()->Compatibility ?? 0;
+        $ratings->Experience = request()->Experience ?? 0;
+        $ratings->Safety = request()->Safety ?? 0;
+        $ratings->Authenticity = request()->Authenticity ?? 0;
+        $ratings->Effort = request()->Effort ?? 0;
+        $ratings->Recommendation = request()->Recommendation ?? 0;
+        $ratings->save();
+        return redirect("/find-matches");
+    }
+
+    public function getRating($username){
+        $ratings = Ratings::where(["ownerUsername" => $username])->orderBy("created_at", "desc")->get();
+        return  $ratings;       
     }
 }

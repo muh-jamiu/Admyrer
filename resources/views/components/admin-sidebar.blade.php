@@ -51,6 +51,25 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                 </a>
             </li>
 
+            <li>
+                <a <?php echo ($page=='manage-users' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-users" data-ajax="?path=dashboard">
+                    <span class="nav-link-icon">
+                        <i class="material-icons"><i class="fa-solid fa-user"></i></i>
+                    </span>
+                    <span>Manage Users</span>
+                </a>
+            </li>
+
+            
+            <li>
+                <a <?php echo ($page=='manage-asset' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-asset" data-ajax="?path=dashboard">
+                    <span class="nav-link-icon">
+                        <i class="material-icons"><i class="fa-solid fa-gallery"></i></i>
+                    </span>
+                    <span>Manage Assets</span>
+                </a>
+            </li>
+
             
             <li>
                 <a <?php echo ($page=='testimonials' ) ? 'class="active"' : '' ; ?> href="/admin-cp/testimonials" data-ajax="?path=dashboard">
@@ -69,6 +88,16 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                     <span>Reviews</span>
                 </a>
             </li> --}}
+
+              
+            <li>
+                <a <?php echo ($page=='poll-result' ) ? 'class="active"' : '' ; ?> href="/admin-cp/poll-result" data-ajax="?path=dashboard">
+                    <span class="nav-link-icon">
+                        <i class="material-icons"><i class="fa-solid fa-square-poll-vertical"></i> </i>
+                    </span>
+                    <span>Poll Results</span>
+                </a>
+            </li>
 
 
             <li>
@@ -143,53 +172,6 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
                     </li>
                 </ul>
             </li>
-
-            {{-- <li>
-                <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_user">
-                    <span class="nav-link-icon">
-                        <i class="material-icons"><i class="fa-solid fa-user"></i></i>
-                    </span>
-                    <span>Users</span>
-                    <i style="position: absolute; right:0; font-size:10px" class="fa-solid fa-plus mx-4"></i>
-                </a>
-                <ul class="collapse" id="c_user">
-                    <li>
-                        <a <?php echo ($page=='manage-users' || $page=='edit-user-permissions' ) ? 'class="active"' : ''
-                            ; ?> href="/admin-cp/manage-users"
-                            data-ajax="?path=manage-users">Manage Users
-                        </a>
-                    </li>
-                    <li>
-                        <a <?php echo ($page=='manage-genders' || $page=='add-genders' || $page=='edit-genders' )
-                            ? 'class="active"' : '' ; ?> href="/admin-cp/manage-genders"
-                            data-ajax="?path=manage-genders">Manage Genders
-                        </a>
-                    </li>
-                    <li>
-                        <a <?php echo ($page=='manage-countries' || $page=='add-countries' || $page=='edit-countries' )
-                            ? 'class="active"' : '' ; ?> href="/admin-cp/manage-countries"
-                            data-ajax="?path=manage-countries">Manage Countries
-                        </a>
-                    </li>
-                    <li>
-                        <a <?php echo ($page=='manage-profile-fields' || $page=='add-new-profile-field' ||
-                            $page=='edit-profile-field' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-profile-fields"
-                            data-ajax="?path=manage-profile-fields">Manage Custom Profile Fields
-                        </a>
-                    </li>
-                    <li>
-                        <a <?php echo ($page=='manage-success-stories' || $page=='add-success-stories' ||
-                            $page=='edit-success-stories' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-success-stories"
-                            data-ajax="?path=manage-success-stories">Manage Success Stories
-                        </a>
-                    </li>
-                    <li>
-                        <a <?php echo ($page=='manage-verification-requests' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-verification-requests"
-                            data-ajax="?path=manage-verification-requests">Manage Verification Requests
-                        </a>
-                    </li>
-                </ul>
-            </li> --}}
 
             {{-- <li>
                 <a style="position: relative" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#c_polls">

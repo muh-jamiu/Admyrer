@@ -346,6 +346,10 @@ class UserController extends Controller
             return back()->with("msg", "Sorry!, This account cannot be found");
         }
 
+        if($existingUser->is_block){
+            return back()->with("msg", "Sorry!, This account has been blocked, contact the admin for more information.");
+        }
+
         if(Hash::check(request()->password, $existingUser->password)){ 
             session()->put("admyrer_id", $existingUser->id);
             return redirect("/find-matches")->with("first", "first");      
@@ -664,7 +668,7 @@ class UserController extends Controller
     }
 
     public function uploadImage(){    
-        $file = request()->file('image')->getRealPath();   
+        $file = request()->file('image')->getRealPath(); 
         $cloudinary = new Cloudinary();    
         $uploadedFileUrl = $cloudinary->uploadApi()->upload($file,);
         
@@ -1092,5 +1096,22 @@ class UserController extends Controller
     public function getRating($username){
         $ratings = Ratings::where(["ownerUsername" => $username])->orderBy("created_at", "desc")->get();
         return  $ratings;       
+    }
+
+    public function upload(Request $request)
+    {
+        $video = $request->file('video');
+        $cloudinary = new Cloudinary(config('cloudinary.cloud_url'));
+
+        try {
+            $upload = $cloudinary->uploadApi()->upload($video->getPathname(), [
+                'resource_type' => 'video',
+                'folder' => 'your_folder_name', // optional, specify the folder name if you have one
+            ]);
+
+            return response()->json(['url' => $upload['secure_url']], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }

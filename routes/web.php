@@ -133,6 +133,7 @@ Route::post('/delete-poll', [UserController::class, 'deletePoll']);
 
 Route::post('/search', [UserController::class, 'searchUser']);
 
+
 Route::get('/friend-requests', [UserController::class, 'friend_requests'])->middleware("notLogin");
 
 Route::get('/web-date', [UserController::class, 'webDate'])->middleware("notLogin");
@@ -143,6 +144,14 @@ Route::get('/group-date', [UserController::class, 'groupDate'])->middleware("not
 Route::get('/admin-cp', [AdminController::class, 'index'])->middleware("admin");
 
 Route::get('/admin-login', [AdminController::class, 'adminLogin']);
+
+Route::post('/delete_user', [AdminController::class, 'delete_user']);
+
+Route::post('/delete_avatar', [AdminController::class, 'delete_avatar']);
+
+Route::post('/delete_avatar_real', [AdminController::class, 'delete_avatar_real']);
+
+Route::post('/block_user', [AdminController::class, 'block_user']);
 
 Route::get('/admin-logout', [AdminController::class, 'logout']);
 
@@ -204,7 +213,11 @@ Route::get('/admin-cp/add-language', [AdminController::class, 'add_language']);
 Route::get('/admin-cp/manage-languages', [AdminController::class, 'manage_languages']);
 
 //Users
-Route::get('/admin-cp/manage-users', [AdminController::class, 'manage_users']);
+Route::get('/admin-cp/manage-users', [AdminController::class, 'manage_users'])->middleware("admin");
+
+Route::get('/admin-cp/manage-asset', [AdminController::class, 'manage_asset'])->middleware("admin");
+
+Route::get('/admin-cp/poll-result', [AdminController::class, 'poll_result'])->middleware("admin");
 
 Route::get('/admin-cp/manage-genders', [AdminController::class, 'manage_genders']);
 

@@ -153,9 +153,9 @@ $notification = $data["notification"] ?? [];
 						@if ($loginUser->id == $user->id)					
 						<div class="uploads_ px-3 py-2">
 							<span class="btn-upload-image" onclick="document.getElementById('avatar_selection').click(); return false">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21,17H7V3H21M21,1H7A2,2 0 0,0 5,3V17A2,2 0 0,0 7,19H21A2,2 0 0,0 23,17V3A2,2 0 0,0 21,1M3,5H1V21A2,2 0 0,0 3,23H19V21H3M15.96,10.29L13.21,13.83L11.25,11.47L8.5,15H19.5L15.96,10.29Z" /></svg> <?php echo __( 'Upload Photo' );?>
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21,17H7V3H21M21,1H7A2,2 0 0,0 5,3V17A2,2 0 0,0 7,19H21A2,2 0 0,0 23,17V3A2,2 0 0,0 21,1M3,5H1V21A2,2 0 0,0 3,23H19V21H3M15.96,10.29L13.21,13.83L11.25,11.47L8.5,15H19.5L15.96,10.29Z" /></svg> <?php echo __( 'Upload Photo/Video' );?>
 							</span>
-							<input type="file" id="avatar_selection" data-username="" data-userid="" class="hide" accept="image/x-png, image/gif, image/jpeg" name="avatar">	
+							<input type="file" id="avatar_selection" data-username="" data-userid="" class="hide" accept="image/x-png, image/gif, image/jpeg, video/*" name="avatar">	
 						</div>
 						@endif
 					</div>

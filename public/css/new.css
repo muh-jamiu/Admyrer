@@ -139,7 +139,7 @@ td{
     width: 250px;
 }
 
-.m_photos .img_1{
+table .img_1{
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -159,6 +159,16 @@ td{
 
 .m_photos .text-danger{
     background-color: rgba(255, 0, 0, 0.099);
+}
+
+.d_optiond{
+    height: 20px;
+    text-align: start !important;
+}
+
+.progress-bar{
+    text-align: start !important;
+    padding-left: 1em;
 }
 
 @media (max-width: 1200px){

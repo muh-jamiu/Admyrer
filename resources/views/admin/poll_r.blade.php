@@ -54,13 +54,21 @@
                                     <p>Here you can check overall poll result that is performed by the user.</p>
 
                                     <div class="">
-                                        <hr style="border: 1px solid black"> 
                                         @foreach ($polls as  $item)
-                                        @php
-                                            $_poll = App\Models\Poll::where("id", $item->pollId)->first();
-                                        @endphp
-                                            <h4 class="fw-bold">{{$_poll->title}}</h4>
-                                            <p class="">Answer: {{$item->answer}}</p>                                            
+                                        <hr style="border: 1px solid black"> 
+                                            @php
+                                                $_poll = App\Models\Userpolls::where("pollId", $item->id)->first();
+
+                                                $options = explode(",",  $item->options);
+                                            @endphp
+                                            <h4 class="fw-bold">{{$item->title}}</h4>
+                                            @foreach ($options as $option)
+                                            {{$option}}
+                                            <div class="progress d_optiond mb-4">
+                                                <div class="progress-bar p-0  text-dark" style="width:{{$item->count}}%">{{$item->count}} %</div>
+                                            </div>                                      
+                                            @endforeach   
+                                            <br>                                                 
                                         @endforeach
                                     </div>
                                 </div>

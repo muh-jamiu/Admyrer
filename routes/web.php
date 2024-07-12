@@ -133,6 +133,8 @@ Route::post('/delete-poll', [UserController::class, 'deletePoll']);
 
 Route::post('/search', [UserController::class, 'searchUser']);
 
+Route::post('/upload-video', [UserController::class, 'uploadVid']);
+
 
 Route::get('/friend-requests', [UserController::class, 'friend_requests'])->middleware("notLogin");
 

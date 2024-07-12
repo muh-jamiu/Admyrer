@@ -405,7 +405,9 @@ class AdminController extends Controller
 
     function poll_result()
     {
-        $data["polls"] = Userpolls::orderBy("created_at", "desc")->get();
+        $data["polls"] = Poll::orderBy("created_at", "desc")->get();
+        // $data["dd"] = Userpolls::orderBy("created_at", "desc")->get();
+        // dd($data);
         return view("admin.poll_r", compact("data"));
     }
 }

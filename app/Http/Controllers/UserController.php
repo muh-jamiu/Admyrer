@@ -634,12 +634,28 @@ class UserController extends Controller
         if(!$user){
             return "User Not Fuund" . session("admyrer_id");
         }
-        if(request()->image){
-            $photo = $this->uploadImage();
-            $avatar->avatar = $photo;
-            $avatar->userId = session("admyrer_id");
-            $avatar->save();
-            return true;
+
+        $file = request()->image;
+        $mimeType = $file->getMimeType();
+
+        if (str_starts_with($mimeType, 'image/')) {
+            if(request()->image){
+                $photo = $this->uploadImage();
+                $avatar->avatar = $photo;
+                $avatar->userId = session("admyrer_id");
+                $avatar->save();
+                return true;
+            }
+        } elseif (str_starts_with($mimeType, 'video/')) {
+            if(request()->image){
+                $photo = $this->uploadVid();
+                $avatar->avatar = $photo;
+                $avatar->userId = session("admyrer_id");
+                $avatar->save();
+                return true;
+            }
+        } else {
+            return response()->json(['type' => 'other']);
         }
 
         return false;
@@ -796,6 +812,11 @@ class UserController extends Controller
             $poll->update();
             return true;
         }
+
+        // $_poll_ = Poll::find(request()->pollId);
+        // $count =  $_poll_->count ?? 0;
+        // $_poll_->count = $count;
+        // $_poll_->update();
 
         $poll = new Userpolls();
         $poll->userId = session("admyrer_id");
@@ -1098,16 +1119,17 @@ class UserController extends Controller
         return  $ratings;       
     }
 
-    public function upload(Request $request)
+    public function uploadVid()
     {
-        $video = $request->file('video');
-        $cloudinary = new Cloudinary(config('cloudinary.cloud_url'));
+        $video = request()->file('image');
+        $cloudinary = new Cloudinary();
 
         try {
             $upload = $cloudinary->uploadApi()->upload($video->getPathname(), [
                 'resource_type' => 'video',
-                'folder' => 'your_folder_name', // optional, specify the folder name if you have one
             ]);
+
+            return  $upload['secure_url'];
 
             return response()->json(['url' => $upload['secure_url']], 200);
         } catch (\Exception $e) {

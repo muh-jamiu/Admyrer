@@ -145,9 +145,25 @@ $notification = $data["notification"] ?? [];
 								<img src="{{$user->avatar}}" alt="">
 							</div>
 							@foreach ($avatars_ as $item)
+							@php
+								$imageExtensions = ['image'];
+    							$videoExtensions = ['video'];
+								$imagePattern = implode('|', $imageExtensions);
+								$videoPattern = implode('|', $videoExtensions);
+							@endphp
+								@if (preg_match("/\b($imagePattern)\b/i", $item->avatar))									
 								<div class="col-sm-6">
 									<img src="{{$item->avatar}}" alt="">
 								</div>
+								@else								
+								<div class="col-sm-6">
+									<video width="240" height="300" controls>
+										<source src="{{$item->avatar}}" type="">
+										Your browser does not support the video tag.
+									</video>
+									{{-- <video src="{{$item->avatar}}"></video> --}}
+								</div>									
+								@endif
 							@endforeach
 						</div>	
 						@if ($loginUser->id == $user->id)					
@@ -1194,9 +1210,9 @@ $notification = $data["notification"] ?? [];
 
 	function upload_avatar(){
 		Swal.fire({
-			title: "Uploading image!",
+			title: "Uploading image/video!",
 			html: "Please wait...",
-			timer: 8000,
+			timer: 38000,
 			timerProgressBar: true,
 			didOpen: () => {
 				Swal.showLoading();

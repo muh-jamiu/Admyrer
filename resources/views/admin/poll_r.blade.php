@@ -2,6 +2,7 @@
 
 @php
     $polls = $data['polls'] ?? [];
+    $votedPolls = $data['votedPolls'] ?? [];
 @endphp
 
 @section('title')
@@ -30,7 +31,34 @@
                     </div>
                     <!-- Vertical Layout -->
                     <div class="row">
-                        <div class="col-lg-8 col-md-8">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">All Polls</h6>
+                                    <p>Here you can check overall poll that is active on the site.</p>
+
+                                    <div class="">
+                                        @foreach ($polls as  $item)
+                                        <hr style="border: 1px solid black"> 
+                                            @php
+                                                $_poll = App\Models\Userpolls::where("pollId", $item->id)->first();
+
+                                                $options = explode(",",  $item->options);
+                                            @endphp
+                                            <h4 class="fw-bold mb-2">{{$item->title ?? ""}}</h4>
+                                            @foreach ($options as $option)
+                                            <li class="mb-2 text-muted">
+                                                {{$option}} 
+                                            </li>                              
+                                            @endforeach   
+                                            <br>                                                 
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
                             <div class="card">
                                 <div class="card-body">
                                     <h6 class="card-title">Poll Results</h6>
@@ -54,20 +82,14 @@
                                     <p>Here you can check overall poll result that is performed by the user.</p>
 
                                     <div class="">
-                                        @foreach ($polls as  $item)
+                                        @foreach ($votedPolls as  $item)
                                         <hr style="border: 1px solid black"> 
-                                            @php
-                                                $_poll = App\Models\Userpolls::where("pollId", $item->id)->first();
-
-                                                $options = explode(",",  $item->options);
-                                            @endphp
-                                            <h4 class="fw-bold">{{$item->title}}</h4>
-                                            @foreach ($options as $option)
-                                            {{$option}}
+                                            <h4 class="fw-bold">{{$item["poll_question"] ?? ""}}</h4>
+                                            {{$item["vote_answer"]}}
+                                           <span class="text-danger"> {{$item["count"]}}%</span>
                                             <div class="progress d_optiond mb-4">
-                                                <div class="progress-bar p-0  text-dark" style="width:{{$item->count}}%">{{$item->count}} %</div>
-                                            </div>                                      
-                                            @endforeach   
+                                                <div class="progress-bar p-0  text-dark" style="width:{{$item["count"]}}%"></div>
+                                            </div>  
                                             <br>                                                 
                                         @endforeach
                                     </div>

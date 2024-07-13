@@ -405,8 +405,29 @@ class AdminController extends Controller
 
     function poll_result()
     {
+
+        $polls = Userpolls::orderBy("created_at", "desc")->get();
+        $poll_ = Poll::orderBy("created_at", "desc")->get();
+        $votedPolls = [];
+        $count = 0;
+        foreach ($polls as $vote) {
+            foreach ($poll_ as $key => $value) {
+                $options = explode(",", $value->options);
+                foreach ($options as $key => $option) {
+                    if($option == $vote->answer){
+                        $count += 1;
+                        $votedPolls[$key] = [
+                            'poll_question' => $value->title,
+                            'vote_answer' => $vote->answer,
+                            'count' => $count,
+                        ];
+                    }
+                }
+            }
+        }
+
+        $data["votedPolls"] = $votedPolls;
         $data["polls"] = Poll::orderBy("created_at", "desc")->get();
-        // $data["dd"] = Userpolls::orderBy("created_at", "desc")->get();
         // dd($data);
         return view("admin.poll_r", compact("data"));
     }

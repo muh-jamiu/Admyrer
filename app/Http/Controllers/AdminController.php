@@ -421,6 +421,8 @@ class AdminController extends Controller
                             'vote_answer' => $vote->answer,
                             'count' => $count,
                         ];
+                    }else{
+                        
                     }
                 }
             }

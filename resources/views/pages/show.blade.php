@@ -156,13 +156,22 @@ $notification = $data["notification"] ?? [];
 									<img src="{{$item->avatar}}" alt="">
 								</div>
 								@else								
-								<div class="col-sm-6">
+								{{-- <div class="col-sm-6 mb-3" style="border: 1px solid rgb(217, 217, 217)">
 									<video width="240" height="300" controls>
 										<source src="{{$item->avatar}}" type="">
 										Your browser does not support the video tag.
 									</video>
-									{{-- <video src="{{$item->avatar}}"></video> --}}
-								</div>									
+								</div>	 --}}
+								<div class="col-sm-6 mb-3">
+								<video id="my-video" class="video-js" controls preload="auto" width="240" height="300" data-setup="{}">
+									<source src="{{$item->avatar}}" type="video/mp4">
+									<!-- Add other sources if needed -->
+									<p class="vjs-no-js">
+									  To view this video please enable JavaScript, and consider upgrading to a web browser that
+									  <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+									</p>
+								</video>	
+								</div>							
 								@endif
 							@endforeach
 						</div>	

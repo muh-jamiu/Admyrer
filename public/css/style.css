@@ -512,14 +512,30 @@ nav .header_user .dropdown-content > li.night_day {
 @media (max-width: 600px)  {
     .msg-container .wrap2{
         margin-left: 1em;
-    }   
+    }  
+
+    .img_cont_.row{
+        flex-direction: row !important;
+    } 
+
+    .my-video-dimensions{
+        width: 100% !important;
+    }
+
+    .img_cont_ img, .img_cont_ video{
+        width: 100% !important;
+        object-fit: cover !important;
+    }
     
     .admin_login form{
         width: 90% !important;
     }
     
     .img_cont_{
-        height: fit-content !important;
+        height: 700px !important;
+        overflow-x: scroll !important;
+        overflow-y: scroll !important;
+        margin-bottom: 3em;
     }
 
     ._quize{
@@ -7021,9 +7037,9 @@ ul:not(.browser-default) {transition: none !important;transform: none !important
 
 .img_cont_ img{
     height: 300px;
-    width: fit-content !important;
+    width: fit-content;
     margin-bottom: 1em !important;
-    object-fit: contain !important;
+    object-fit: contain;
 }
 
 .dend{

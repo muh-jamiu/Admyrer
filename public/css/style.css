@@ -517,6 +517,10 @@ nav .header_user .dropdown-content > li.night_day {
     .admin_login form{
         width: 90% !important;
     }
+    
+    .img_cont_{
+        height: fit-content !important;
+    }
 
     ._quize{
         width: 100% !important;

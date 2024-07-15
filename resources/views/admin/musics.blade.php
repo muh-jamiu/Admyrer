@@ -2,6 +2,7 @@
 
 @php
     $audios = $data["audio"] ?? [];
+    $music_type = ["Pop", "Rock", "Hip-Hop/Rap", "Electronic", "Country", "Classical", "Jazz", "Folk", "R&B/Soul", "Metal", "Indie", "Alternative", "Dance", "House", "Techno", "Trance", "Reggae", "Gospel", "Blues", "Punk"];
 @endphp
 
 @section('title')
@@ -89,7 +90,9 @@ Musics | Admyrer
                 <label for="">Music Type</label>
                 <select required name="type" aria-placeholder="Select type" id="">
                     <option value="">Select type</option>
-                    <option value="genre">Genre</option>
+                    @foreach ($music_type as $item)
+                    <option value="{{$item}}">{{$item}}</option>                        
+                    @endforeach
                 </select>
                 
                 <label for="audio" class="btn d-block bg-info mb-3" style="width: fit-content">Select Music File</label>

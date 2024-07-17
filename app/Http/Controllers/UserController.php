@@ -552,7 +552,7 @@ class UserController extends Controller
         $user->gender = $request->gender ?? $user->gender ;
         $user->country = $request->country ?? $user->country;
         $user->verified = $request->verified ?? $user->verified;
-        $user->height = $request->height >> $user->height;
+        $user->height = $request->height ?? $user->height;
         $user->hair_color = $request->hair_color ?? $user->hair_color;
         $user->interest = $request->interest ?? $user->interest;
         $user->state = $request->state ?? $user->state;
@@ -592,7 +592,7 @@ class UserController extends Controller
         $user->gender = $request->gender ?? $user->gender ;
         $user->country = $request->country ?? $user->country;
         $user->verified = $request->verified ?? $user->verified;
-        $user->height = $request->height >> $user->height;
+        $user->height = $request->height ?? $user->height;
         $user->hair_color = $request->hair_color ?? $user->hair_color;
         $user->interest = $request->interest ?? $user->interest;
         $user->state = $request->state ?? $user->state;

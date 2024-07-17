@@ -392,6 +392,10 @@ class AdminController extends Controller
         $user = User::find(request()->id);
         $user->avatar = "";
         $user->update();
+        
+        if(request()->redirect){
+            return back()->with("msg", "Picture deleted successfully");
+        }
 
         return true;
     }
@@ -400,6 +404,10 @@ class AdminController extends Controller
     {
         $user = Avatar::find(request()->id);
         $user->delete();
+
+        if(request()->redirect){
+            return back()->with("msg", "Picture deleted successfully");
+        }
         return true;
     }
 

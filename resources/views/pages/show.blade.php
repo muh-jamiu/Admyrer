@@ -36,12 +36,26 @@ $notification = $data["notification"] ?? [];
             meta1.content = "noindex";
             document.getElementsByTagName('head')[0].appendChild(meta1);
     </script>
+	
+	@if (session("msg"))
+		<div class="alert alert-danger text-center">
+			<ul>
+				<li>{{session("msg")}}</li>
+			</ul>
+		</div>
+	@endif
 
 <div class="container mt-5 container-fluid container_new find_matches_cont dt_user_profile_parent">
 	<div class="row r_margin">
 		
 		<div class="col-sm-3 profile_menu">
 			<div class="dt_left_sidebar dt_profile_side">
+				<form action="/delete_avatar" method="post">
+					@csrf
+					<input type="text" class="d-none" name="id" value="{{$user->id}}">
+					<input type="text" class="d-none" name="redirect" value="true">
+					<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Remove Profile Picture</button>
+				</form>
 				<div class="avatar">
 					<a class="inline" href="" id="avater_profile_img">
 						<img src={{$user->avatar ?? "/img/icon.png"}} alt="" id="imagePreview" class="responsive-img" />
@@ -141,9 +155,18 @@ $notification = $data["notification"] ?? [];
 				<div class="row no_margin r_margin">
 					<div class="col-sm-7 dend m6">
 						<div class="img_cont_ row" style="background-color: rgb(237, 237, 237)">
+							@if ($user->avatar)								
 							<div class="col-sm-6">
 								<img src="{{$user->avatar}}" alt="">
+								<form action="/delete_avatar" method="post">
+									@csrf
+									<input type="text" class="d-none" name="id" value="{{$user->id}}">
+									<input type="text" class="d-none" name="redirect" value="true">
+									<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Delete</button>
+								</form>
 							</div>
+							@endif
+
 							@foreach ($avatars_ as $item)
 							@php
 								$imageExtensions = ['image'];
@@ -154,15 +177,15 @@ $notification = $data["notification"] ?? [];
 								@if (preg_match("/\b($imagePattern)\b/i", $item->avatar))									
 								<div class="col-sm-6">
 									<img src="{{$item->avatar}}" alt="">
+									<form action="/delete_avatar_real" method="post">
+										@csrf
+										<input type="text" class="d-none" name="id" value="{{$item->id}}">
+										<input type="text" class="d-none" name="redirect" value="true">
+										<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Delete</button>
+									</form>
 								</div>
-								@else								
-								{{-- <div class="col-sm-6 mb-3" style="border: 1px solid rgb(217, 217, 217)">
-									<video width="240" height="300" controls>
-										<source src="{{$item->avatar}}" type="">
-										Your browser does not support the video tag.
-									</video>
-								</div>	 --}}
-								<div class="col-sm-6 mb-3">
+								@else		
+								<div class="col-sm-6">
 								<video id="my-video" class="video-js" controls preload="auto" width="240" height="300" data-setup="{}">
 									<source src="{{$item->avatar}}" type="video/mp4">
 									<!-- Add other sources if needed -->
@@ -170,7 +193,13 @@ $notification = $data["notification"] ?? [];
 									  To view this video please enable JavaScript, and consider upgrading to a web browser that
 									  <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
 									</p>
-								</video>	
+								</video>
+								<form action="/delete_avatar_real" method="post">
+									@csrf
+									<input type="text" class="d-none" name="id" value="{{$item->id}}">
+									<input type="text" class="d-none" name="redirect" value="true">
+									<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Delete</button>
+								</form>	
 								</div>							
 								@endif
 							@endforeach
@@ -910,11 +939,11 @@ $notification = $data["notification"] ?? [];
   
 
 @if (session("msg"))
-	<script>
+	{{-- <script>
 		setTimeout(() => {
 			alert("Review Submitted Successfully")
 		}, 1500);
-	</script>
+	</script> --}}
 @endif
 
 

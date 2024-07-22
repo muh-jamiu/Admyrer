@@ -50,12 +50,6 @@ $notification = $data["notification"] ?? [];
 		
 		<div class="col-sm-3 profile_menu">
 			<div class="dt_left_sidebar dt_profile_side">
-				<form action="/delete_avatar" method="post">
-					@csrf
-					<input type="text" class="d-none" name="id" value="{{$user->id}}">
-					<input type="text" class="d-none" name="redirect" value="true">
-					<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Remove Profile Picture</button>
-				</form>
 				<div class="avatar">
 					<a class="inline" href="" id="avater_profile_img">
 						<img src={{$user->avatar ?? "/img/icon.png"}} alt="" id="imagePreview" class="responsive-img" />
@@ -77,6 +71,16 @@ $notification = $data["notification"] ?? [];
 								<div class="admin_avatar_imgdeterminate determinate" style="width: 0%"></div >
 							</div>
 				</div>
+				<form action="/delete_avatar" method="post" class="mt-4 text-center" style="margin: auto auto">
+					@csrf
+					<input type="text" class="d-none" name="id" value="{{$user->id}}">
+					<input type="text" class="d-none" name="redirect" value="true">
+					@if ($loginUser->id == $user->id)
+						@if ($user->avatar)
+						<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Delete Picture</button>						
+						@endif
+					@endif
+				</form>
 				<div class="dt_othr_ur_info">
 					<h6 class="text-capitalize"> 
 						{{$user->first_name}} {{$user->last_name}}
@@ -162,7 +166,9 @@ $notification = $data["notification"] ?? [];
 									@csrf
 									<input type="text" class="d-none" name="id" value="{{$user->id}}">
 									<input type="text" class="d-none" name="redirect" value="true">
+									@if ($loginUser->id == $user->id)
 									<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Delete</button>
+									@endif
 								</form>
 							</div>
 							@endif
@@ -181,7 +187,9 @@ $notification = $data["notification"] ?? [];
 										@csrf
 										<input type="text" class="d-none" name="id" value="{{$item->id}}">
 										<input type="text" class="d-none" name="redirect" value="true">
+										@if ($loginUser->id == $user->id)
 										<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Delete</button>
+										@endif
 									</form>
 								</div>
 								@else		
@@ -198,7 +206,9 @@ $notification = $data["notification"] ?? [];
 									@csrf
 									<input type="text" class="d-none" name="id" value="{{$item->id}}">
 									<input type="text" class="d-none" name="redirect" value="true">
+									@if ($loginUser->id == $user->id)
 									<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Delete</button>
+									@endif
 								</form>	
 								</div>							
 								@endif
@@ -237,9 +247,11 @@ $notification = $data["notification"] ?? [];
 										</div>
 								</div>
 							</div>
+							@if ($loginUser->id == $user->id)
 							<div class="settings_">
 								<h6><a class="btn" href="/user-settings"><i class="fa-solid fa-gear"></i> Settings</a></h6>
 							</div>
+							@endif
 						</div>
 					</div>
 				</div>

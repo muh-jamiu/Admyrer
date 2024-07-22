@@ -55,7 +55,7 @@
 
         <button onclick="deleteclub()" id="end_club" class="btn d-none" style="background-color: rgb(238, 2, 2)">End
             Club <i class="fa-solid fa-xmark"></i></button>
-        <button id="_skip" class="btn d-none" style="background-color: rgb(238, 2, 2)">Skips</button>
+        <button id="_skip" class="btn d-none" style="background-color: rgb(238, 2, 2)">Skip</button>
 
 
         <button data-bs-toggle="offcanvas" id="_mus" data-bs-target="#music_" class="btn d-none"
@@ -131,10 +131,11 @@
                                                 </div>
                                             </div>
                                         @else
+                                        {{-- @break
                                             <div class="text-center">
                                                 <h6 class="fw-bold">Empty</h6>
                                                 <p class="text-muted ft">There are no music for {{ $music }} category. </p>
-                                            </div>
+                                            </div> --}}
                                         @endif
                                     @endforeach
                                 </div>
@@ -144,7 +145,7 @@
                 </div>
 
                 @if (count($audio) > 0)
-                    @foreach ($audio as $item)
+                    {{-- @foreach ($audio as $item) --}}
                         <div class="d-flex mt-5">
                             <div>
                                 <p style="font-size: 14px" class="name mb-0 text-capitalize">Play all music
@@ -159,7 +160,7 @@
                                 </p>
                             </div>
                         </div>
-                    @endforeach
+                    {{-- @endforeach --}}
                 @endif
 
                 @if (count($audio) == 0)

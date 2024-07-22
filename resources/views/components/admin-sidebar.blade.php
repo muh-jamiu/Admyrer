@@ -36,7 +36,7 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
             <li>
                 <a <?php echo ($page=='marketing-strategy' ) ? 'class="active"' : '' ; ?> href="/admin-cp/marketing-strategy" data-ajax="?path=dashboard">
                     <span class="nav-link-icon">
-                        <i class="material-icons"><i class="fa-solid fa-music"></i></i>
+                        <i class="material-icons"><i class="fa-solid fa-magnifying-glass-chart"></i></i>
                     </span>
                     <span>Marketing Strategy</span>
                 </a>
@@ -64,7 +64,7 @@ $page = count($page) > 1 ? $page[1] : $page[0] ;
             <li>
                 <a <?php echo ($page=='manage-asset' ) ? 'class="active"' : '' ; ?> href="/admin-cp/manage-asset" data-ajax="?path=dashboard">
                     <span class="nav-link-icon">
-                        <i class="material-icons"><i class="fa-solid fa-gallery"></i></i>
+                        <i class="material-icons"><i class="fa-solid fa-photo-film"></i></i>
                     </span>
                     <span>Manage Assets</span>
                 </a>

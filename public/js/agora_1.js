@@ -1,5 +1,5 @@
 const APP_ID = "b76f67d420d2486699d05d28cf678251"
-const TOKEN = "007eJxTYPj3Krgo6PKR8ypLk3ZH/jA+xnNhTtGSJi+uvVcf6Cj4Py5UYEgyN0szM08xMTJIMTKxMDOztEwxME0xskgGiloYmRpqyrSkNQQyMjxzusbCyACBID4LQ25iZh4DAwDDxiA2"
+const TOKEN = "007eJxTYHC5n3Tr0v+fcpmCN64dMvY8PHGTfEx5/fLKy5djn7sbst1QYDA2t0g2MTY0Nk5JTDIxTTWwsDQ2skhLNjU0SE62NE5MtBeZl9YQyMiQFPiPkZEBAkF8FobcxMw8BgYA19ogqA=="
 const CHANNEL = "main"
 
 const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
@@ -60,9 +60,11 @@ let joinStream = async (username, avatar, gender, name, country, is_stream, is_c
         timer.classList.remove("d-none")
         speed_con.classList.remove("d-none")
         _skip.classList.remove("d-none")
-        setTimeout(()=>{
-            start()
-        }, 4000)
+        if(remoteUsers){
+            setTimeout(()=>{
+                start()
+            }, 2000)
+        }
     }
 
     await joinAndDisplayLocalStream()
@@ -105,8 +107,8 @@ let handleUserLeft = async (user) => {
     // window.location.href = "/review?username=" + username_
     document.getElementById(`user-container-${user.uid}`).remove()
     var live_vid = document.querySelector(".live_vid")
-    // live_vid.classList.add("d-none")
-    // document.getElementById('video-streams').innerHTML = ""
+    live_vid.classList.add("d-none")
+    document.getElementById('video-streams').innerHTML = ""
 }
 
 let leaveAndRemoveLocalStream = async () => {

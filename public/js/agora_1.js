@@ -60,7 +60,7 @@ let joinStream = async (username, avatar, gender, name, country, is_stream, is_c
         timer.classList.remove("d-none")
         speed_con.classList.remove("d-none")
         _skip.classList.remove("d-none")
-        if(remoteUsers){
+        if(Object.keys(remoteUsers).length != 0){
             setTimeout(()=>{
                 start()
             }, 2000)
@@ -299,6 +299,6 @@ _skip_.addEventListener("click", () => {
 
 
 // document.getElementById('join-btn').addEventListener('click', joinStream)
-document.getElementById('leave-btn').addEventListener('click', leaveAndRemoveLocalStream)
-document.getElementById('mic-btn').addEventListener('click', toggleMic)
-document.getElementById('camera-btn').addEventListener('click', toggleCamera)
+// document.getElementById('leave-btn').addEventListener('click', leaveAndRemoveLocalStream)
+// document.getElementById('mic-btn').addEventListener('click', toggleMic)
+// document.getElementById('camera-btn').addEventListener('click', toggleCamera)

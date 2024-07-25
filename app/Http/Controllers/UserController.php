@@ -582,6 +582,12 @@ class UserController extends Controller
             return "User Not Fuund" . session("admyrer_id");
         }
         
+        $user->sport = $request->sport ?? $user->sport;
+        $user->dish = $request->dish ?? $user->dish;
+        $user->tv = $request->tv ?? $user->tv;
+        $user->book = $request->book ?? $user->book;
+        $user->movie = $request->movie ?? $user->movie;
+        $user->genre = $request->genre ?? $user->genre;
         $user->first_name = $request->first_name ?? $user->first_name;
         $user->last_name = $request->last_name ?? $user->last_name;
         $user->email = $request->email ?? $user->email;

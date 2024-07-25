@@ -143,8 +143,8 @@ Settings | Admyrer
             <div class="container_ sect1 tab-pane mt-5">
                 <h6 class="fw-bold">Favourites</h6>
                 <div class="d-flex mt-4">
-                    <input name="music" type="text" placeholder="Music Genre" value="{{$loginUser->music}}">
-                    <input type="text" placeholder="Dish" value="">
+                    <input name="genre" type="text" placeholder="Music Genre" value="{{$loginUser->genre}}">
+                    <input type="text" placeholder="Dish" name="dish" value="{{$loginUser->dish}}">
                 </div>
                 <div class="d-flex mt-4">
                     <input name="music" type="text" placeholder="Song" value="{{$loginUser->music}}">
@@ -152,11 +152,11 @@ Settings | Admyrer
                 </div>
                 <div class="d-flex mt-4">
                     <input name="sport" type="text" placeholder="Sport" value="{{$loginUser->sport}}">
-                    <input type="text" placeholder="TV Show">
+                    <input type="text" name="tv" placeholder="TV Show" value="{{$loginUser->tv}}">
                 </div>
                 <div class="d-flex mt-4">
-                    <input type="text" placeholder="Book">
-                    <input type="text" placeholder="Movie">
+                    <input type="text" placeholder="Book" name="book" value="{{$loginUser->book}}">
+                    <input type="text" placeholder="Movie" name="movie" value="{{$loginUser->movie}}">
                 </div>
                 
                 <button class="btn mb-4">Save</button>

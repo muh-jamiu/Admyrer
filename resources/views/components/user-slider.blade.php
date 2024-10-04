@@ -72,8 +72,10 @@
                                             <span class="text-capitalize s_body">{{$randomuser[0]->body}}</span>
                                         </div>
                                         <div>
-                                            <p class="info_title"><?php echo __('Age');?></p>
-                                            <span class="text-capitalize s_age">{{$randomuser[0]->age ?? 0}}</span>
+                                            <p class="info_title"><?php echo __('Match');?></p>
+                                            <span class="text-capitalize s_age">
+                                                <div style="border: none !important; width:fit-content;background-color:rgba(255, 0, 0, 0.415)" class="text-capitalize px-3 text-white">0% Match <i class="fa-solid fa-xmark"></i></div>
+                                            </span>
                                         </div>
                                         <div>
                                             <p class="info_title"><?php echo __('Location');?></p>
@@ -82,8 +84,8 @@
                                 </div>
                             </div>
                             <div class="center mtc_usrd_actions">
-                                <button onclick="like()" href="javascript:void(0);" data-userid="" id="matches_like_btn" data-ajax-post="/useractions/like" data-ajax-params="userid=username=&source=find-matches" data-ajax-callback="callback_like" class="btn waves-effect like" title="<?php echo __('Like');?>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></button>
-                                <button onclick="dislike()" href="javascript:void(0);" data-userid="" id="matches_dislike_btn" data-ajax-post="/useractions/dislike" data-source="find-matches" data-ajax-params="userid=&username=>&source=find-matches" data-ajax-callback="callback_dislike" class="btn waves-effect dislike" title="<?php echo __('Dislike');?>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg></button>
+                                <button onclick="like('{{$randomuser[0]->first_name}}', 'rand', {{$randomuser[0]->id}})" href="javascript:void(0);" data-userid="" id="matches_like_btn" data-ajax-post="/useractions/like" data-ajax-params="userid=username=&source=find-matches" data-ajax-callback="callback_like" class="btn waves-effect like" title="<?php echo __('Like');?>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg></button>
+                                <button onclick="dislike('{{$randomuser[0]->first_name}}', 'rand', {{$randomuser[0]->id}})" href="javascript:void(0);" data-userid="" id="matches_dislike_btn" data-ajax-post="/useractions/dislike" data-source="find-matches" data-ajax-params="userid=&username=>&source=find-matches" data-ajax-callback="callback_dislike" class="btn waves-effect dislike" title="<?php echo __('Dislike');?>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg></button>
                             </div>
                         </div>
                     </div>

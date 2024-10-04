@@ -24,7 +24,7 @@
             </p>
             <div class="sentMsg mt-0">
                 <div class="myMsg">
-                    <p class="mb-0 p-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. In sapiente impedit eveniet harum ea, rerum amet eaque! Iure, alias! Laboriosam perspiciatis porro non suscipit iusto provident voluptatibus quidem excepturi optio.</p>
+                    <p class="mb-0 p-2">**Active and Outdoorsy Choices:**</p>
                 </div>
             </div>
          </div>
@@ -57,7 +57,7 @@
             <div class="">
                 <p class='mb-0 mx-3'><i class="fa-brands fa-bots"></i></p>
                 <div class="msgBodys mt-0">
-                    <div style="word-wrap:break-word !important; overflow-wrap: break-word !important; white-space:pre-wrap !important" class='mb-0 p-2'>${msg}</div>
+                    <div style="word-wrap:break-word !important; overflow-wrap: break-word !important; white-space:pre-wrap !important" class='mb-0 p-2 aiText'>${msg}</div>
                 </div>
             </div>
             </div>`)
@@ -110,7 +110,7 @@
 
       function SendAiMsg(msg){
         AIMsgloader()
-		axios.post("/send-ai-message", {
+		axios.post("/chat-gemini", {
 			message: msg,
 		})
 		.then(res => {
@@ -118,14 +118,30 @@
             for (let i = 0; i < loader.length; i++) {
                 loader[i].classList.add("d-none")                
             }
-            // console.log(res.data[0].text)
-            AImsg(res.data[0].text)
+            console.log(res)
+            if(res.data.message){
+                Swal.fire({
+                icon: "error",
+                title: "Error Occur",
+                text:`An error occur while getting response`,
+                footer: '<a href="#">Why do I have this issue?</a>'
+                });
+                return
+			}
+			
+            AImsg(res.data)
         })
 		.catch(error => {
             var loader = document.querySelectorAll(".loader")
             for (let i = 0; i < loader.length; i++) {
                 loader[i].classList.add("d-none")                
             }
+            Swal.fire({
+                icon: "error",
+                title: "Error Occur",
+                text:`An error occur while getting response`,
+                footer: '<a href="#">Why do I have this issue?</a>'
+                });
             console.log(error)
         })
 	}

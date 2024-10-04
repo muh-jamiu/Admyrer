@@ -2,11 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\callMessageEvent;
+use App\Events\ChatEvent;
+use App\Events\SignalingEvent;
+use App\Events\SpeedDateEvent;
+use App\Events\WebEvent;
 use App\Mail\VerifyMail;
 use App\Models\accountVerify;
+use App\Models\Audio;
+use App\Models\Avatar;
+use App\Models\Club;
+use App\Models\conversation;
+use App\Models\Date;
 use App\Models\Follows;
 use App\Models\Like;
+use App\Models\Live;
+use App\Models\notification;
 use App\Models\Poll;
+use App\Models\Quiz;
+use App\Models\Ratings;
+use App\Models\Review;
+use App\Models\Schedule;
+use App\Models\Testimony;
 use App\Models\User;
 use App\Models\UserPoll;
 use App\Models\Userpolls;
@@ -17,31 +34,75 @@ use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Services\OpenAIService;
+use App\Services\GoogleGeminiService;
 
 class UserController extends Controller
 {
+    protected $openAIService;
+    protected $googleGeminiService;
+
+    public function __construct(OpenAIService $openAIService, GoogleGeminiService $googleGeminiService)
+    {
+        $this->openAIService = $openAIService;
+        $this->googleGeminiService = $googleGeminiService;
+    }
+
     public function index(Request $request){
+        $data["club"] = $this->getClub();
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["quiz"] = $this->getUserQuiz();
+        $data["notification"] = $this->getNotification();
         $data["user"] = $this->getUser(session("admyrer_id"));
         $data["randomUser"] = $this->getAllUserRandomly();
+        $data["isSearch"] = false;
         return view("pages.find-matches", compact("data"));
     }
 
     public function matches(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
         $data["matchedUsers"] = $this->matchedUsers();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.matches", compact("data"));
     }
 
     public function visits(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
         $data["visits"] = $this->get_visits();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.visits", compact("data"));
     }
 
     public function friends(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
         $data["follows"] = $this->get_follows();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.friends", compact("data"));
+    }
+
+    public function webDate(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
+        $data["follows"] = $this->get_follows();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.webDate", compact("data"));
+    }
+
+    public function groupDate(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
+        $data["follows"] = $this->get_follows();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.group", compact("data"));
     }
 
     public function gifts(){
@@ -50,12 +111,18 @@ class UserController extends Controller
     }
 
     public function likes(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
         $data["personalLikes"] = $this->getPersonalLikes();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.likes", compact("data"));
     }
     
     public function liked(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
         $data["liked"] = $this->getAllLikes();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.liked", compact("data"));
@@ -63,6 +130,9 @@ class UserController extends Controller
 
     
     public function disliked(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
         $data["dislikes"] = $this->getAllDisLikes();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.disliked", compact("data"));
@@ -70,38 +140,193 @@ class UserController extends Controller
 
     
     public function stories(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.stories", compact("data"));
     }
 
     public function show(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
         $username = str_replace("@", "", request()->path());
         $userProf = $this->getUserByUsername($username);
+        $data["review"] = $this->getreview($userProf->id);
         if(!$userProf){
             abort(404);
         }
+        $data['conversation'] = $this->getMessage($userProf->id);
         $this->post_visits(session("admyrer_id"), $userProf->id);
         $data["user"] = $userProf;
         $data["loginUser"] = $this->getUser(session("admyrer_id"));
+        $data["avatars"] = $this->getavatars($userProf->id);
+        $data["ratings"] = $this->getRating($username);
         return view("pages.show", compact("data"));
+    }
+
+    public function settings(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["notification"] = $this->getNotification();
+        $data["loginUser"] = $this->getUser(session("admyrer_id"));
+        return view("pages.settings", compact("data"));
+    }
+
+    //audio
+    public function storeAudio(Request $request)
+    {
+        if ($request->file('audio')) {
+            $file = $request->file('audio');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            // $file->storeAs('public/audio', $fileName);
+            $file->move(public_path('audio'), $fileName);
+
+            $audioFile = new Audio();
+            $audioFile->filename = $fileName;
+            $audioFile->name = $request->name;
+            $audioFile->artist = $request->artist;
+            $audioFile->type = $request->type;
+            $audioFile->save();
+            return back()->with("msg", "Music Uploaded Successfully");
+        }
+
+        return back()->with("errorMsg", "Please select a valid audio file");
+    }
+
+    public function getAudio(){
+        $audio = Audio::all();
+        return $audio;
+    }
+
+    
+    public function deleteAudio(){
+        $audio = Audio::find(request()->id);
+        $audio->delete();
+        return back()->with("msg", "Music is deleted successfully");
     }
 
     
     public function hot(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.hot", compact("data"));
     }
 
     public function live_users(){
-        return view("pages.live_users");
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["lives"] = $this->getLive();
+        $data["notification"] = $this->getNotification();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.live_users", compact("data"));
+    }
+
+    public function storeLive(Live $live){
+        $live->userId = session("admyrer_id");
+        $live->liveId = request()->liveId;
+        $live->avatar = request()->avatar;
+        $live->name = request()->name;
+        $live->gender = request()->gender;
+        $live->country = request()->country;
+        $live->username = request()->username;
+        $live->save();        
+        return $live->id;
+    }
+
+    public function dateLive(Date $date){
+        $date->username = request()->username;
+        $date->endUsername = request()->endUsername;
+        $date->save();        
+        return true;
+    }
+    
+    public function getdateLive(){
+        $lives = Date::all();    
+        return $lives;
+    }
+
+    public function night(){
+        $data["clubs"] = $this->getClub();
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.night", compact("data"));
+    }
+
+    function createNightClub(Club $club){
+        $club->name = request()->name;
+        $club->username = request()->username;
+        $club->password = request()->password ?? 0;
+        $club->duration = 1;
+        $club->save();
+        return $club->id;
+    }
+    
+    public function deleteNight(){
+        $club = Club::find(request()->id);
+        $club->delete();
+        return true;
+    }
+    
+    public function scheduledateLive(Schedule $schedule){
+        $schedule->username = request()->username;
+        $schedule->endUsername = request()->endUsername;
+        $schedule->date = request()->date;
+        $schedule->save();        
+        return true;
+    }
+
+    public function getScheduledateLive(){
+        $schedule = Schedule::all();    
+        return $schedule;
+    }
+
+    public function storeclub(Club $club){
+        $club->name = request()->name;
+        $club->duration = request()->duration;
+        $club->save();        
+        return true;
+    }
+
+    public function getClub(){
+        $clubs = Club::orderBy("created_at", "desc")->get();   
+        if(count($clubs) > 0){
+            return $clubs;
+        } 
+        return [];
+    }
+
+    public function getLive(){
+        $lives = Live::all();    
+        return $lives;
+    }
+
+    public function deleteLive(){
+        $lives = Live::find(request()->id);  
+        $lives->delete();  
+        return true;
     }
 
     public function friend_requests(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.friend_requests", compact("data"));
     }
 
+    public function review(){
+        return view("pages.review");
+    }
+
     public function ai_assistant(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
         $data["user"] = $this->getUser(session("admyrer_id"));
         return view("pages.ai_assistant", compact("data"));
     }
@@ -121,9 +346,13 @@ class UserController extends Controller
             return back()->with("msg", "Sorry!, This account cannot be found");
         }
 
+        if($existingUser->is_block){
+            return back()->with("msg", "Sorry!, This account has been blocked, contact the admin for more information.");
+        }
+
         if(Hash::check(request()->password, $existingUser->password)){ 
             session()->put("admyrer_id", $existingUser->id);
-            return redirect("/find-matches");      
+            return redirect("/find-matches")->with("first", "first");      
         }
 
         return back()->with("msg", "Password or Email is not correct!");     
@@ -161,6 +390,28 @@ class UserController extends Controller
        $user = User::find($id);
         return $user;
     }
+
+    public function searchUser(){  
+        $query = request()->search;   
+        $user = User::where("username", "like", "%$query%")
+        ->orWhere("first_name", "like", "%$query%")
+        ->orWhere("last_name", "like", "%$query%")
+        ->orWhere("country", "like", "%$query%")
+        ->orWhere("gender", "like", "%$query%")
+        ->get()
+        ;
+        $data["club"] = $this->getClub();
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["quiz"] = $this->getUserQuiz();
+        $data["notification"] = $this->getNotification();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        $data["randomUser"] = $this->getAllUserRandomly();
+        $data["searchUser"] = $user;
+        $data["isSearch"] = true;
+        return view("pages.find-matches", compact("data"));
+     }
+ 
 
     public function logOut(){
         session()->pull("admyrer_id");
@@ -253,6 +504,11 @@ class UserController extends Controller
 
     //visits
     public function post_visits($visitorsID, $visitsID){
+        $visit = Visitors::where(["visitorsID" => session("admyrer_id"), "visitsID" => $visitsID])->get();
+        if(count($visit) > 0){
+            return false;
+        }
+
         $visitors = new Visitors();
         $visitors->visitorsID = $visitorsID;
         $visitors->visitsID = $visitsID;
@@ -296,7 +552,7 @@ class UserController extends Controller
         $user->gender = $request->gender ?? $user->gender ;
         $user->country = $request->country ?? $user->country;
         $user->verified = $request->verified ?? $user->verified;
-        $user->height = $request->height >> $user->height;
+        $user->height = $request->height ?? $user->height;
         $user->hair_color = $request->hair_color ?? $user->hair_color;
         $user->interest = $request->interest ?? $user->interest;
         $user->state = $request->state ?? $user->state;
@@ -319,6 +575,105 @@ class UserController extends Controller
         return true;
     }
 
+    public function updateUserSpec(Request $request){
+        $user = User::find(session("admyrer_id"));
+        
+        if(!$user){
+            return "User Not Fuund" . session("admyrer_id");
+        }
+        
+        $user->sport = $request->sport ?? $user->sport;
+        $user->dish = $request->dish ?? $user->dish;
+        $user->tv = $request->tv ?? $user->tv;
+        $user->book = $request->book ?? $user->book;
+        $user->movie = $request->movie ?? $user->movie;
+        $user->genre = $request->genre ?? $user->genre;
+        $user->first_name = $request->first_name ?? $user->first_name;
+        $user->last_name = $request->last_name ?? $user->last_name;
+        $user->email = $request->email ?? $user->email;
+        $user->username = $request->username ??  $user->username ;
+        $user->avatar = $request->avatar ?? $user->avatar;
+        $user->address = $request->address ?? $user->address;
+        $user->birthday = $request->birthday ??  $user->birthday;
+        $user->gender = $request->gender ?? $user->gender ;
+        $user->country = $request->country ?? $user->country;
+        $user->verified = $request->verified ?? $user->verified;
+        $user->height = $request->height ?? $user->height;
+        $user->hair_color = $request->hair_color ?? $user->hair_color;
+        $user->interest = $request->interest ?? $user->interest;
+        $user->state = $request->state ?? $user->state;
+        $user->location = $request->location ?? $user->location;
+        $user->phone_number = $request->phone ?? $user->phone_number;
+        $user->relationship = $request->relationship ?? $user->relationship;
+        $user->work_status = $request->work_status ?? $user->work_status;
+        $user->education = $request->education ?? $user->education;
+        $user->body = $request->body ?? $user->body;
+        $user->car = $request->car ?? $user->car;
+        $user->religion = $request->religion ?? $user->religion ;
+        $user->city = $request->city ?? $user->city ;
+        $user->color = $request->color ?? $user->color;
+        $user->character = $request->character ?? $user->character;
+        $user->ethnicity = $request->ethnicity ?? $user->ethnicity;
+        $user->children = $request->children ?? $user->children;
+        $user->friends = $request->friends ?? $user->friends;
+        $user->pets = $request->pets ?? $user->pets;
+        $user->car = $request->car ?? $user->car;
+        $user->drink = $request->drink ?? $user->drink;
+        $user->smoke = $request->smoke ?? $user->smoke;
+        $user->travel = $request->travel ?? $user->travel;
+        $user->hobby = $request->hobby ?? $user->hobby;
+        $user->music = $request->music ?? $user->music;
+        $user->live_with = $request->live_with ?? $user->live_with;
+        $user->password = $request->password ?? $user->password;
+        if($request->image){
+            $photo = $this->uploadImage();
+            $user->avatar = $photo;
+        }
+        $user->update();
+        
+        return back()->with("msg", "Profile updated successfully");
+    }
+
+    public function uploads_(Avatar $avatar){
+        $user = User::find(session("admyrer_id"));  
+
+        if(!$user){
+            return "User Not Fuund" . session("admyrer_id");
+        }
+
+        $file = request()->image;
+        $mimeType = $file->getMimeType();
+
+        if (str_starts_with($mimeType, 'image/')) {
+            if(request()->image){
+                $photo = $this->uploadImage();
+                $avatar->avatar = $photo;
+                $avatar->userId = session("admyrer_id");
+                $avatar->save();
+                return true;
+            }
+        } elseif (str_starts_with($mimeType, 'video/')) {
+            if(request()->image){
+                $photo = $this->uploadVid();
+                $avatar->avatar = $photo;
+                $avatar->userId = session("admyrer_id");
+                $avatar->save();
+                return true;
+            }
+        } else {
+            return response()->json(['type' => 'other']);
+        }
+
+        return false;
+        
+    }
+
+    public function getavatars($id){  
+        $user = Avatar::where('userId', $id)->orderBy("created_at", "desc")->get();
+        return $user;
+    }
+
+
     public function getAllUserRandomly(){        
        $user = User::inRandomOrder()->get();
         return $user;
@@ -335,7 +690,7 @@ class UserController extends Controller
     }
 
     public function uploadImage(){    
-        $file = request()->file('image')->getRealPath();   
+        $file = request()->file('image')->getRealPath(); 
         $cloudinary = new Cloudinary();    
         $uploadedFileUrl = $cloudinary->uploadApi()->upload($file,);
         
@@ -374,7 +729,13 @@ class UserController extends Controller
     }
 
     //likes
-    public function post_disliked(Like $like){
+    public function post_disliked(Like $like){ 
+        $like = Like::where(["user_id" => session("admyrer_id"), "like_id" => request()->like_id, "is_disliked" => true])->get();
+        if(count($like) > 0){
+            return false;
+        }
+
+        $like = new Like();
         $like->user_id = request()->userId ;
         $like->like_id = request()->like_id ;
         $like->is_disliked = true;
@@ -384,6 +745,12 @@ class UserController extends Controller
     }
 
     public function post_like(Like $like){
+        $like = Like::where(["user_id" => session("admyrer_id"), "like_id" => request()->like_id, "is_liked" => true])->get();
+        if(count($like) > 0){
+            return false;
+        }
+        
+        $like = new Like();
         $like->user_id = request()->userId ;
         $like->like_id = request()->like_id ;
         $like->is_liked = true;
@@ -440,11 +807,24 @@ class UserController extends Controller
         $poll->options = request()->options;
         
         $poll->save();
-        return true;
+        return back()->with("msg", "Poll created successfully");
     }
 
     public function createUserPoll(){
-        $poll = new Poll();
+        $poll = Userpolls::where(["userId" => session("admyrer_id"), "pollId" =>  request()->pollId])->get();
+        if(count($poll) > 0){
+            $poll = Userpolls::find($poll[0]->id);
+            $poll->answer = request()->answer;
+            $poll->update();
+            return true;
+        }
+
+        // $_poll_ = Poll::find(request()->pollId);
+        // $count =  $_poll_->count ?? 0;
+        // $_poll_->count = $count;
+        // $_poll_->update();
+
+        $poll = new Userpolls();
         $poll->userId = session("admyrer_id");
         $poll->answer = request()->answer;
         $poll->pollId = request()->pollId;
@@ -457,6 +837,9 @@ class UserController extends Controller
         $Userpoll = Userpolls::where("userId", session("admyrer_id"))->get();
         $Allpoll = $this->getPolls();
 
+        $data["notification"] = $this->getNotification();
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
         $data["Userpoll"] = $Userpoll;
         $data["Allpoll"] = $Allpoll;
         $data["user"] = $this->getUser(session("admyrer_id"));
@@ -464,18 +847,101 @@ class UserController extends Controller
         return view("pages.user_polls", compact("data"));
     }
 
+    public function deletePoll(){
+        $poll = Poll::find(request()->id);
+        $poll->delete();
+        return back()->with("msg", "Poll deleted successfully");
+    }
 
     public function getPolls(){
         $poll = Poll::all();
         return $poll;        
     }
 
-    public function deletePoll(){
-        $poll = Poll::find(request()->id);
-        $poll->delete();
+    //Quiz
+    public function createUserQuiz(){
+        $quiz = Quiz::where(["userId" => session("admyrer_id"), "title" =>  request()->title])->get();
+        if(count($quiz) > 0){
+            $quiz = Quiz::find($quiz[0]->id);
+            $quiz->userId = session("admyrer_id");
+            $quiz->answer = request()->answer;
+            $quiz->title = request()->title;
+            $quiz->update();
+            return true;
+        }
 
-        return true;        
+        $quiz = new Quiz();
+        $quiz->userId = session("admyrer_id");
+        $quiz->answer = request()->answer;
+        $quiz->title = request()->title;
+        $quiz->save();
+
+        return true;
     }
+
+    public function getUserQuiz(){
+        $quiz = Quiz::where("userId", session("admyrer_id"))->get();
+        $all = Quiz::all();
+        return $all;
+        $answers2 = Quiz::where("userId", 1)->get();
+
+        $totalQuestions = $quiz->count();
+        $matchingAnswers = 0;
+    
+        foreach ($quiz as $answer1) {
+            $answer2 = $answers2->firstWhere('title', $answer1->title);
+            if ($answer2 && $answer1->answer == $answer2->answer) {
+                $matchingAnswers++;
+            }
+        }
+        return ($matchingAnswers / $totalQuestions) * 100;
+    }
+
+    public function quiz(){
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.quiz", compact("data"));
+    }
+
+    // testimonial
+    public function testimonial(){
+        $data["testy"] = $this->getUserTesty();
+        $data["schedule"] = $this->getScheduledateLive();
+        $data["dates"] = $this->getdateLive();
+        $data["notification"] = $this->getNotification();
+        $data["user"] = $this->getUser(session("admyrer_id"));
+        return view("pages.testimonial", compact("data"));
+    }
+
+    public function createTestimonial(){
+        $testy = Testimony::where(["userId" => session("admyrer_id")])->get();
+        if(count($testy) > 0){
+            $testy = Testimony::find($testy[0]->id);
+            $testy->userId = session("admyrer_id");
+            $testy->name = request()->name;
+            $testy->comment = request()->comment;
+            $testy->avatar = request()->avatar;
+            $testy->update();
+            return back()->with("msg", "Updated");
+        }
+
+        $testy = new Testimony();
+        $testy->userId = session("admyrer_id");
+        $testy->name = request()->name;
+        $testy->comment = request()->comment;
+        $testy->avatar = request()->avatar;
+        $testy->save();
+
+        return back()->with("msg", "Updated");
+    }
+
+    public function getUserTesty(){
+        $testy = Testimony::where("userId", session("admyrer_id"))->get();
+        return $testy;
+    }
+
 
     //Agora
     public function generateToken()
@@ -519,4 +985,161 @@ class UserController extends Controller
         return true;
     }
 
+    public function chat(Request $request)
+    {
+        $userMessage = $request->input('message');
+        $messages = [
+            ['role' => 'system', 'content' => 'You are a helpful assistant.'],
+            ['role' => 'user', 'content' => $userMessage],
+        ];
+
+        $result = $this->openAIService->generateChatResponse($messages);
+
+        return $result;
+    }
+
+    public function chatGemini(Request $request)
+    {
+        $userMessage = request()->message;
+        $messages = [
+            ["parts" => [
+                ["text" => "You are a admyrer free dating website assistant."]
+            ], "role" => "model"],
+            ["parts" => [
+                ["text" => $userMessage]
+            ], "role" => "user"],
+        ];
+
+        $result = $this->googleGeminiService->generateChatResponse($messages);
+
+        $text = $result["candidates"][0]["content"]["parts"][0]["text"];
+        return str_replace("*", "", $text);
+    }
+
+    public function Conversation(){
+        $msg = request()->message;
+        $sender = request()->sender;
+        $t = broadcast(new ChatEvent($msg))->toOthers();
+        return $sender;
+    }
+
+    public function SpeedDate(){
+        $username = request()->username;
+        $t = broadcast(new SpeedDateEvent($username))->toOthers();
+        return $username;
+    }
+
+    public function WebDateNoties(){
+        $username = request()->username;
+        $t = broadcast(new WebEvent($username))->toOthers();
+        return $username;
+    }
+
+    public function InCallMsg(){
+        $msg = request()->msg;
+        $user = $this->getUserId() ?? "No Name";
+        $t = broadcast(new callMessageEvent($msg, $user))->toOthers();
+        return $user;
+    }
+
+    public function getUserId(){        
+        $user = User::find(session("admyrer_id"));
+         return $user->username;
+     }
+
+    public function saveMessage(){
+        $msg = new conversation();
+        $msg->sender = session("admyrer_id");
+        $msg->reciever = request()->reciever;
+        $msg->message = request()->message;
+
+        $msg->save();
+        $notification = new notification();
+        $notification->from =  request()->from_username;
+        $notification->to = request()->username;
+        $notification->save();
+
+        return true;
+    }
+
+    public function getMessage($reciever){
+        $senderId = session("admyrer_id");
+        $receiverId = $reciever;
+
+        $msg = Conversation::where(function($query) use ($senderId, $receiverId) {
+                $query->where('sender', $senderId)
+                    ->where('reciever', $receiverId);
+            })
+            ->orWhere(function($query) use ($senderId, $receiverId) {
+                $query->where('sender', $receiverId)
+                    ->where('reciever', $senderId);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+        return $msg;
+    }
+
+    public function getNotification(){     
+        $existingUser = User::where('id', session("admyrer_id"))->first() ?? null;
+        $notification = notification::where(["to" => $existingUser->username])->get();
+        return $notification;
+    }
+
+    public function postreview(){
+        $review = new Review();
+        $review->userId = request()->id;
+        $review->username = request()->username;
+        $review->title = request()->title;
+        $review->comment = request()->comment;
+        $review->rating = request()->rating ?? 0;
+        $review->save();
+        return back()->with("msg", "Review is submitted successfully");
+    }
+
+    public function getreview($id){
+        $review = Review::where(["userId" => $id])->orderBy("created_at", "desc")->get();
+        return $review;
+    }
+
+    public function makereview(){
+        $ratings = new Ratings();
+        $username = $this->getUserId();
+        $ratings->raterUsername = $username;
+        $ratings->ownerUsername = request()->ownerUsername ?? "Guest";
+        $ratings->Communication = request()->Communication ?? 0;
+        $ratings->Honesty = request()->Honesty ?? 0;
+        $ratings->Respect = request()->Respect ?? 0;
+        $ratings->Reliability = request()->Reliability ?? 0;
+        $ratings->Compatibility = request()->Compatibility ?? 0;
+        $ratings->Experience = request()->Experience ?? 0;
+        $ratings->Safety = request()->Safety ?? 0;
+        $ratings->Authenticity = request()->Authenticity ?? 0;
+        $ratings->Effort = request()->Effort ?? 0;
+        $ratings->Recommendation = request()->Recommendation ?? 0;
+        $ratings->save();
+        return redirect("/find-matches");
+    }
+
+    public function getRating($username){
+        $ratings = Ratings::where(["ownerUsername" => $username])->orderBy("created_at", "desc")->get();
+        return  $ratings;       
+    }
+
+    public function uploadVid()
+    {
+        $video = request()->file('image');
+        $cloudinary = new Cloudinary();
+
+        try {
+            $upload = $cloudinary->uploadApi()->upload($video->getPathname(), [
+                'resource_type' => 'video',
+            ]);
+
+            return  $upload['secure_url'];
+
+            return response()->json(['url' => $upload['secure_url']], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }

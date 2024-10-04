@@ -1,7 +1,10 @@
 @extends("layouts.app")
 
 @php
+$notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
+	$dates = $data["dates"] ?? [];
+	$schedule = $data["schedule"] ?? [];
 	$follows = $data["follows"] ?? [];
 @endphp
 
@@ -10,7 +13,7 @@ Friends | Admyrer
 @endsection
 
 @section("content")
-<x-main-nav :user="$user"></x-main-nav>
+<x-main-nav :schedule="$schedule" :dates="$dates" :notification="$notification" :user="$user"></x-main-nav>
 <p class="d-none " id="curr_ID">{{$user->id}}</p>
 
 
@@ -248,7 +251,8 @@ Friends | Admyrer
 					
 					@if (count($follows) > 0)
 						<div class="row" id="liked_users_container">
-							@foreach ($follows as $key => $likeUser)					
+							@foreach ($follows as $key => $likeUser)	
+							@if ($likeUser->id != $user->id)				
 								<div class="col-sm-3 m6 s12 matches visit likeUserrs" >
 									<div class="card valign-wrapper" style="border: none !important">
 										<div class="card-image">
@@ -269,6 +273,7 @@ Friends | Admyrer
 										</div>
 									</div>
 								</div>
+							@endif
 							@endforeach
 						</div>
 					@endif
@@ -300,7 +305,16 @@ Friends | Admyrer
 		axios.post("/delete-follows", {
 			id: like,
 		})
-		.then(res => console.log(res))
+		.then(res => {
+			Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title:`You unfollow this user`,
+				showConfirmButton: false,
+				timer: 1500
+			});
+			console.log(res)
+		})
 		.catch(error => console.log(error))
 	}
 

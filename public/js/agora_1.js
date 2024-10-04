@@ -1,5 +1,5 @@
 const APP_ID = "b76f67d420d2486699d05d28cf678251"
-const TOKEN = "007eJxTYDhy47pt1OrJocpp0haqAitbfiq5nFj8aK3s5sfeE9+dEQlSYDA2t0g2MTY0Nk5JTDIxTTWwsDQ2skhLNjU0SE62NE5MPNERktYQyMjQI7KDkZEBAkF8FobcxMw8BgYATTMfYQ=="
+const TOKEN = "007eJxTYHC5n3Tr0v+fcpmCN64dMvY8PHGTfEx5/fLKy5djn7sbst1QYDA2t0g2MTY0Nk5JTDIxTTWwsDQ2skhLNjU0SE62NE5MtBeZl9YQyMiQFPiPkZEBAkF8FobcxMw8BgYA19ogqA=="
 const CHANNEL = "main"
 
 const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
@@ -7,79 +7,104 @@ const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
 let localTracks = []
 let remoteUsers = {}
 
-let joinAndDisplayLocalStream = async () => {
+joinAndDisplayLocalStream =async () => {
+    await client.on('user-published', handleUserJoined)
+    await client.on('user-left', handleUserLeft)
     var live_vid = document.querySelector(".live_vid")
+    var _liveBtn = document.querySelector("._liveBtn")
     live_vid.classList.remove("d-none")
-
-    // Initialize the AgoraRTC client
-    client.init(APP_ID, () => {
-        client.join(
-            TOKEN, 
-            CHANNEL,
-            null,
-            TOKEN,
-            async (uid) =>  {
-                var UID = uid
-                await client.on('user-published', handleUserJoined)
-                
-                await client.on('user-left', handleUserLeft)
-                
-                localTracks = await  AgoraRTC.createMicrophoneAndCameraTracks() 
-
-                let player = `<div class="video-containers col-sm-4" id="user-container-${UID}">
-                                    <div class="video-player" id="user-${UID}"></div>
-                            </div>`
-                document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
-
-                localTracks[1].play(`user-${UID}`)
-
-                console.log(localTracks)
-                
-                await client.publish([localTracks[0], localTracks[1]])
-            },
-            (err) => {
-                console.error('Failed to join channel', err);
-            }
-        );
-    }, (err) => {
-        console.error('AgoraRTC client initialization failed', err);
-    });
-
+    setTimeout(()=> {
+        _liveBtn.classList.remove("d-none")
+    },1500)
+    let UID = await client.join(APP_ID, CHANNEL, TOKEN, null)
+    if(!is_stream_){
+        localTracks = await  AgoraRTC.createMicrophoneAndCameraTracks() 
+        let player = `<div class="video-containers col-sm-4" id="user-container-${UID}">
+                            <div class="video-player" id="user-${UID}"></div>
+                    </div>`
+        document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
+    }
+    localTracks[1].play(`user-${UID}`)
+    
+    await client.publish([localTracks[0], localTracks[1]])
 }
 
-let joinStream = async () => {
+
+var show_ = document.querySelector(".show_")
+let username_;
+let is_stream_;
+let is_rev_;
+let is_speed_;
+
+let _mus = document.getElementById("_mus")
+const timer = document.getElementById('timer');
+const speed_con = document.getElementById('speed_con');
+const end_club = document.getElementById('end_club');
+const _skip = document.getElementById('_skip');
+let joinStream = async (username, avatar, gender, name, country, is_stream, is_club, is_rev, is_speed, is_club_own) => {
+    username_ = username
+    is_stream_ = is_stream
+    is_rev_ = is_rev
+    is_speed_ = is_speed
+    if(is_club == true){
+        _mus.classList.remove("d-none")
+    }else{
+        _mus.classList.add("d-none")
+    }
+
+    if(is_club_own){
+        end_club.classList.remove("d-none")
+    }
+
+    if(is_speed){
+        timer.classList.remove("d-none")
+        speed_con.classList.remove("d-none")
+        _skip.classList.remove("d-none")
+        if(Object.keys(remoteUsers).length != 0){
+            setTimeout(()=>{
+                start()
+            }, 2000)
+        }
+    }
+
     await joinAndDisplayLocalStream()
-    document.getElementById('join-btn').style.display = 'none'
-    document.getElementById('stream-controls').style.display = 'flex'
+    if(show_){
+        show_.classList.add("d-none")
+    }
+    if(avatar){
+        storeLive(username, username, avatar, gender, name, country)
+    }
 }
 
 let handleUserJoined = async (user, mediaType) => {
-    alert(user.id)
     remoteUsers[user.uid] = user 
     await client.subscribe(user, mediaType)
-
     if (mediaType === 'video'){
         let player = document.getElementById(`user-container-${user.uid}`)
         if (player != null){
             player.remove()
         }
 
-        player = `<div class="video-container" id="user-container-${user.uid}">
-                        <div class="video-player" id="user-${user.uid}"></div> 
-                 </div>`
+        player = `<div class="video-containers col-sm-4" id="user-container-${user.uid}">
+        <div class="video-player" id="user-${user.uid}"></div>
+        </div>`
         document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
 
         user.videoTrack.play(`user-${user.uid}`)
     }
-
+    
     if (mediaType === 'audio'){
         user.audioTrack.play()
     }
 }
 
 let handleUserLeft = async (user) => {
-    alert(user.id)
     delete remoteUsers[user.uid]
+    pauseAudio()
+    if(show_){
+        show_.classList.remove("d-none")
+    }
+    // window.location.href = "/review?username=" + username_
     document.getElementById(`user-container-${user.uid}`).remove()
     var live_vid = document.querySelector(".live_vid")
     live_vid.classList.add("d-none")
@@ -89,7 +114,14 @@ let handleUserLeft = async (user) => {
 let leaveAndRemoveLocalStream = async () => {
     var live_vid = document.querySelector(".live_vid")
     live_vid.classList.add("d-none")
-    document.getElementById('video-streams').innerHTML = ""
+    pauseAudio()
+    if(show_){
+        show_.classList.remove("d-none")
+    }
+    deleteLive(_liveID)
+    if(is_rev_){
+        window.location.href = "/review?username=" + username_
+    }
 
     for(let i = 0; localTracks.length > i; i++){
         localTracks[i].stop()
@@ -97,36 +129,176 @@ let leaveAndRemoveLocalStream = async () => {
     }
 
     await client.leave()
-    document.getElementById('join-btn').style.display = 'block'
-    // document.getElementById('stream-controls').style.display = 'none'
-    // document.getElementById('video-streams').innerHTML = ''
 }
 
 let toggleMic = async (e) => {
+    var mic = document.getElementById('mic-btn')
     if (localTracks[0].muted){
         await localTracks[0].setMuted(false)
-        e.target.innerText = 'Mic on'
-        e.target.style.backgroundColor = 'cadetblue'
+        mic.innerHTML = 'Mic On <i class="fa-solid fa-microphone"></i>'
+        mic.style.backgroundColor = 'cadetblue'
     }else{
         await localTracks[0].setMuted(true)
-        e.target.innerText = 'Mic off'
-        e.target.style.backgroundColor = '#EE4B2B'
+        mic.innerHTML = 'Mic Off <i class="fa-solid fa-microphone"></i>'
+        mic.style.backgroundColor = '#EE4B2B'
     }
 }
 
 let toggleCamera = async (e) => {
+    var camera = document.getElementById('camera-btn')
     if(localTracks[1].muted){
         await localTracks[1].setMuted(false)
-        e.target.innerText = 'Camera on'
-        e.target.style.backgroundColor = 'cadetblue'
+        camera.innerHTML = 'Camera On <i class="fa-solid fa-camera-retro"></i>'
+        camera.classList.backgroundColor = 'cadetblue'
     }else{
         await localTracks[1].setMuted(true)
-        e.target.innerText = 'Camera off'
-        e.target.style.backgroundColor = '#EE4B2B'
+        camera.innerHTML = 'Camera Off <i class="fa-solid fa-camera-retro"></i>'
+        camera.style.backgroundColor = '#EE4B2B'
     }
 }
 
-document.getElementById('join-btn').addEventListener('click', joinStream)
-document.getElementById('leave-btn').addEventListener('click', leaveAndRemoveLocalStream)
-document.getElementById('mic-btn').addEventListener('click', toggleMic)
-document.getElementById('camera-btn').addEventListener('click', toggleCamera)
+let _liveID;
+function storeLive(liveId, username, avatar, gender, name, country) {
+    axios.post("/store-live", {
+        username: username,
+        liveId: liveId,
+        avatar: avatar,
+        gender: gender,
+        name: name,
+        country: country,
+    })
+    .then(res => {
+        console.log(res)
+        _liveID = res.data
+    })
+    .catch(error => {
+        console.log(error)
+    })
+}
+
+function deleteLive(id) {
+    axios.post("/delete-live", {
+        id: id,
+    })
+    .then(res => {
+        console.log(res)
+    })
+    .catch(error => {
+        console.log(error)
+    })
+}
+
+let clubId;
+function createClub(params) {
+    Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title:`You Created a night club`,
+        showConfirmButton: false,
+        timer: 1500
+    });
+    joinStream(null, null, null, null, null, null, true, null, null, true)
+    axios.post("/store-club", {
+        password: _pass.value,
+        name: _name.value,
+        username: _user.innerHTML,
+    })
+    .then(res => {
+        console.log(res)
+        clubId = res.data
+    })
+    .catch(res => console.log(res))
+}
+
+function deleteclub() {
+    leaveAndRemoveLocalStream()
+    
+    axios.post("/delete-club", {
+        id: clubId,
+    })
+    .then(res => {
+        console.log(res, remoteUsers)
+    })
+    .catch(error => {
+        console.log(error, remoteUsers)
+    })
+}
+
+let currentAudio = null;
+var playbtn = document.querySelectorAll(".playbtn")
+
+function playAudio(src) {
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+    }
+
+    currentAudio = new Audio(src);
+    currentAudio.play();
+}
+
+function pauseAudio(src) {
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio = null
+        return
+    }
+}
+
+function startTimer(duration, display) {
+    let timer = duration, minutes, seconds;
+    const interval = setInterval(() => {
+        minutes = Math.floor(timer / 60);
+        seconds = timer % 60;
+
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        display.textContent = minutes + ':' + seconds;
+        
+
+        if (--timer < 0) {
+            clearInterval(interval);
+            handleUserLeft()
+            leaveAndRemoveLocalStream()
+        }
+
+        if (timer == 540) {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title:`No Speed user is Connected at the moment`,
+                showConfirmButton: false,
+                timer: 1500
+            });
+            clearInterval(interval);
+            handleUserLeft()
+            leaveAndRemoveLocalStream()
+        }
+    }, 1000);
+}
+
+function start(params) {
+    const twoMinutes = 60 * 10;
+    const display = document.getElementById('timer');
+    startTimer(twoMinutes, display);
+}
+
+var _skip_ = document.getElementById('_skip');
+_skip_.addEventListener("click", () => {
+    Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title:`Skipping to another active user`,
+        showConfirmButton: false,
+        timer: 1500
+    });    
+    start();
+})
+
+
+// document.getElementById('join-btn').addEventListener('click', joinStream)
+// document.getElementById('leave-btn').addEventListener('click', leaveAndRemoveLocalStream)
+// document.getElementById('mic-btn').addEventListener('click', toggleMic)
+// document.getElementById('camera-btn').addEventListener('click', toggleCamera)

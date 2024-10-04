@@ -9556,7 +9556,7 @@ small {
   }
 
   .navigation .navigation-menu-body ul li a + ul {
-    display: none;
+    /* display: none; */
     padding: 5px 0;
   }
 

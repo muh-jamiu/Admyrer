@@ -480,6 +480,27 @@ nav .header_user .dropdown-content > li.night_day {
     padding-top: .5em;
 }
 
+.admin_login{
+    margin-top: 4em;
+}
+
+.admin_login form{
+    margin: auto auto;
+    width: 40%;
+    background-color: azure;
+    padding: 2em 1em;
+    border-radius: 6px !important;
+}
+
+.admin_login input{
+    padding: .3em .8em !important;
+    border-radius: 6px !important;
+    border: 1px solid #CC42BD !important;
+    width: 90% !important;
+    display: block !important;
+    margin-bottom: 1em !important;
+}
+
 #chatConversations .modal-foote  button{
     background-color: #CC42BD;
     border: none;
@@ -491,7 +512,35 @@ nav .header_user .dropdown-content > li.night_day {
 @media (max-width: 600px)  {
     .msg-container .wrap2{
         margin-left: 1em;
-    }    
+    }  
+
+    .img_cont_.row{
+        flex-direction: row !important;
+    } 
+
+    .my-video-dimensions{
+        width: 100% !important;
+    }
+
+    .img_cont_ img, .img_cont_ video{
+        width: 100% !important;
+        object-fit: cover !important;
+    }
+    
+    .admin_login form{
+        width: 90% !important;
+    }
+    
+    .img_cont_{
+        height: 700px !important;
+        overflow-x: scroll !important;
+        overflow-y: scroll !important;
+        margin-bottom: 3em;
+    }
+
+    ._quize{
+        width: 100% !important;
+    }
 
     .msg-container .wrap1{
         margin-right: 1em;
@@ -581,6 +630,11 @@ nav .header_user .dropdown-content > li.night_day {
 
 .polls .card .ans.selected{
     background-color: #CC42BD;
+    color: white;
+}
+
+.polls .card .ans.selectedDB{
+    background-color: rgb(7, 184, 75);
     color: white;
 }
 
@@ -6078,13 +6132,52 @@ textarea.materialize-textarea.report_user_report {
 	color: #fff !important;background: #CC42BD;
 }
 
+#_sendReq:hover{
+    cursor: pointer;
+    background-color: red !important;
+}
 
+.testy{
+    width: 400px;
+    padding: 1em;
+    /* background-color: black !important; */
+    /* margin: auto auto; */
+    border-radius: 6px;
+    margin-right: 4em;
+    margin-left: 1em;
+}
+
+._testies{
+    width: 400px;
+    padding: 1em;
+    border-radius: 6px;
+    background-color: white;
+    height: fit-content;
+}
+
+
+.testy input{
+    border: 1px solid lightgray;
+    padding: 0 .5em !important;
+    border-radius: 6px !important;
+    width: 94% !important;
+    color: white;
+}
+
+.testy textarea{
+    resize: none;
+    color: white;
+    padding: .6em;
+    height: 300px;
+    border-radius: 6px;
+}
 
 
 .live_vid{
     position: fixed;
     width: 100%;
-    background-color: black;
+    background-color: white;
+    background: url("/img/testimonial_bg.jpg");
     height: 100%;
     z-index: 1000;
     overflow: hidden;
@@ -6099,14 +6192,144 @@ textarea.materialize-textarea.report_user_report {
     justify-content: center;
 }
 
+.live_vid i{
+    font-size: 12px !important;
+    list-style-type: none;
+}
+
+.live_vid .dropdown-menu{
+    overflow: scroll;
+}
+
+.live_vid textarea{
+    resize: none;
+    padding: .8em;
+    border: none;
+    width: 70%;
+    background-color: black;
+    border-radius: 6px;
+    color: white;
+}
+
+iframe{
+    position: fixed !important;
+    right: 0;
+    bottom: 0;
+    z-index: 900;
+    box-shadow: .1em .1em 1em lightgray;
+    /* width: 0 !important; */
+    height: 100vh !important;
+    transition: .2s;
+    transform: translateX(500px);
+}
+
+._frame.active{
+    /* width: 350px !important;
+    height: 100vh !important; */
+    transform: translateX(0px);
+    transition: .2s;
+}
+
+.b-agent-demo .server-response{
+    background: black !important;
+}
+
+.response{
+    font-size: 14px !important;
+}
+
+.bring{
+    transform: translateY(-300px);
+    position: fixed !important;
+    right: 0;
+    bottom: 0;
+    z-index: 900;
+    box-shadow: .1em .1em 1em lightgray;
+    width: 80 !important;
+    height: 80 !important;
+    transition: 1s;
+    border-radius: 50%;
+    transition: .2s;
+    background-color: red !important;
+}
+
+.bring.active{
+    margin-right: 350px;
+    transition: .2s;
+}
+
+.review_ .justify-content-between{
+    border-bottom: 1px solid lightgray;
+}
+
+.review_ i{
+    color: grey;
+}
+
+.review_ i:hover{
+    color: yellow;
+    cursor: pointer;
+}
+
+.review_ .fa-star.active{
+    color: yellow;
+}
+
+.review_{
+    /* position: fixed; */
+    width: 50%;
+    box-shadow: .1em .1em 1em lightgrey;
+    height: 100vh;
+    background-color: white;
+    border-radius: 3px;
+    margin: auto auto;
+    z-index: 1000;
+    overflow: scroll;
+}
+
+@media (max-width: 1200px){
+
+.review_{
+    width: 100%;
+}
+}
+
+.live_vid .offcanvas-footer button{
+    /* padding: .5em; */
+    border:none;
+    width: 20%;
+    background-color: white;
+    border-radius: 6px;
+    margin: 0 !important;
+    transform: translateY(-20px);
+}
+
+
+.live_vid .offcanvas-body li{
+    background-color: lightgray;
+    padding: .9em;
+    border-radius: 6px;
+    border-top-left-radius: 0px !important;
+    font-size: 14px;
+    margin-bottom: .6em;
+    width: fit-content;
+    list-style-type: none;
+}
+
+.live_vid .dropdown-menu{
+    transform: translateY(-50px) !important;
+    height: 300px !important;
+    width: 300px !important;
+}
+
 .live_vid .btns button{
     margin-right: 1em;
     margin-left: 1em;
     border-radius: 3px !important;
     box-shadow: none !important;
-    border-radius: 50% !important;
+    /* border-radius: 50% !important;
     height: 50px;
-    width: 50px;
+    width: 50px; */
     text-align: center;
     font-size: 14px !important;
 }
@@ -6118,18 +6341,36 @@ textarea.materialize-textarea.report_user_report {
 }
 
 .live_vid .video-containers{
-    width: 400px;
+    width: 540px;
     height: 400px;
+    margin-right: 1em;
+    margin-left: 1em;
+    /* background-color: lightgray; */
+    margin-bottom: 4em;
+    border-radius: 3px;
 }
 
+.topcont{
+    padding: 1em 2em;
+    overflow: scroll;
+}
+
+.topcont .cont{
+    background-color: white;
+    height: 100px;
+    width: 200px;
+    margin-right: 2em;
+    min-width: 200px;
+}
 
 .live_vid .video-player{
     width: 100%;
     height: 100%;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     margin-bottom: 2em;
-    border-radius: 6px;
+    /* border-radius: 6px; */
     overflow: hidden !important;
+    background-color: lightgray;
 }
 
 ::-webkit-scrollbar{
@@ -6728,3 +6969,87 @@ ul:not(.browser-default) {transition: none !important;transform: none !important
 
 
 .boost-me {margin: 10px 7px;color: #fff;background: linear-gradient(180deg, #FF51EC, #D438DB);height: 32px;width: 32px;display: flex;align-items: center;justify-content: center;border-radius: 50%;padding: 0;box-shadow: 0px 2px 2px rgb(0 0 0 / 6%);}
+
+
+@media (max-width: 756px){
+    .live_vid ._liveBtn{
+        overflow: scroll !important;
+    }
+
+    .live_vid .btn{
+        white-space: nowrap !important;
+    }
+
+    .live_vid .btns{
+        justify-content: start !important;
+    }
+}
+
+.settings .container_{
+    background-color: white;
+    width: 80%;
+    border-radius: 20px;
+    padding: 2em;
+    margin : auto auto;
+    margin-bottom: 3em;
+}
+
+.settings .sect1 input{
+    padding: 0 1em !important;
+    margin: .5em !important;
+}
+
+.settings .container_ button{
+    padding: 0 3em !important;
+    margin: 1em !important;
+}
+
+.settings .container_ textarea{
+    padding: 1em;
+    height: 200px !important;
+    resize: none;
+}
+
+.settings .nav-tabs{
+    background-color: white !important;
+    margin: auto auto;
+    width : fit-content !important;
+    margin-top: 3em !important;
+    padding: 1em !important;
+    border-radius: 10px;
+}
+
+.settings .nav-tabs .active{
+    background-color: palevioletred !important;
+    border: none !important;
+    color: white !important;
+}
+
+.img_cont_{
+    height: 370px;
+    overflow-y: scroll;
+    overflow-x: hidden !important;
+}
+
+.img_cont_ div{
+    overflow: hidden;
+}
+
+.img_cont_ img{
+    height: 300px;
+    width: fit-content;
+    margin-bottom: 1em !important;
+    object-fit: contain;
+}
+
+.dend{
+    position: relative;
+}
+
+.uploads_{
+    position: absolute;
+    background-color: white;
+    padding: 0 1em;
+    top: 0;
+    height: fit-content;
+}

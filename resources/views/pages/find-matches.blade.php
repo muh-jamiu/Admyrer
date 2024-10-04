@@ -1,8 +1,16 @@
 @extends("layouts.app")
 
 @php
+	$notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
+	$club = $data["club"] ?? [];
+	$quiz = $data["quiz"] ?? [];
+	$dates = $data["dates"] ?? [];
+	$schedule = $data["schedule"] ?? [];
 	$random_user = $data["randomUser"] ?? [];
+	$searchUser = $data["searchUser"] ?? [];
+	$isSearch = $data["isSearch"] ?? false;
+	// dd($club);
 @endphp
 
 @section('title')
@@ -11,7 +19,7 @@ Find Matches | Admyrer
 
 @section("content")
 
-<x-main-nav :user="$user"></x-main-nav>
+<x-main-nav :dates="$dates" :schedule="$schedule"  :notification="$notification" :user="$user"></x-main-nav>
 
 <ul class="collapsible dt_new_home_filter" id="home_filters">
 	<div class="container">
@@ -253,20 +261,31 @@ Find Matches | Admyrer
 				<div class="dt_home_filters">
 					<h5><?php echo __('Just for you');?></h5>
 					<div class="dt_home_filters_head">
-						<p><span><?php echo __('Apply Filter');?></span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14,12V19.88C14.04,20.18 13.94,20.5 13.71,20.71C13.32,21.1 12.69,21.1 12.3,20.71L10.29,18.7C10.06,18.47 9.96,18.16 10,17.87V12H9.97L4.21,4.62C3.87,4.19 3.95,3.56 4.38,3.22C4.57,3.08 4.78,3 5,3V3H19V3C19.22,3 19.43,3.08 19.62,3.22C20.05,3.56 20.13,4.19 19.79,4.62L14.03,12H14Z" /></svg></p>
+						<form action="/search" method="post">
+							@csrf
+							<input name="search" style="width: 400px" type="text" placeholder="find user by username, gender, country, fullname, state, height (eg)" class="px-2">
+							<p><span><input style="background-color: transparent;border:none" type="submit" value="<?php echo __('Apply Filter');?>"></span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14,12V19.88C14.04,20.18 13.94,20.5 13.71,20.71C13.32,21.1 12.69,21.1 12.3,20.71L10.29,18.7C10.06,18.47 9.96,18.16 10,17.87V12H9.97L4.21,4.62C3.87,4.19 3.95,3.56 4.38,3.22C4.57,3.08 4.78,3 5,3V3H19V3C19.22,3 19.43,3.08 19.62,3.22C20.05,3.56 20.13,4.19 19.79,4.62L14.03,12H14Z" /></svg></p>
+						</form>
 					</div>
 				</div>
 			</div>
 			
 			@if (count($random_user) > 0)
-				<x-user-slider :user="$user" :randomuser="$random_user"></x-user-slider>
+				@if (!$isSearch)
+				<x-user-slider :quiz="$quiz" :user="$user" :randomuser="$random_user"></x-user-slider>					
+				@endif
 				<!-- End Filters  -->
 
 				<hr class="dt_home_rand_user_hr">
 				<div class="dt_ltst_users" id="dt_ltst_users">
 					<div class="dt_home_rand_user">
+						@if (!$isSearch)
 						<h6 class="mb-3"><?php echo __( 'Other users & profiles' );?></h6>
-						<x-random-user :randomuser="$random_user"></x-random-user>
+						@endif
+						@if ($isSearch)
+						<h6 class="mb-3"><?php echo __( 'Search results for users & profiles' );?> ({{count($searchUser)}})</h6>
+						@endif
+						<x-random-user :searchuser="$searchUser" :issearch="$isSearch"  :luser="$user" :quiz="$quiz" :randomuser="$random_user"></x-random-user>
 					</div>
 				</div>			
 			@endif      
@@ -292,6 +311,17 @@ Find Matches | Admyrer
 	</div>
 </div>
 
+
+@if (session("first"))
+<script>
+	Swal.fire({
+	icon: "info",
+	title: "Notice",
+	text:`Please complete the matching quiz for better date matching on the site, ignore the notice if you've already completed the matching quiz.`,
+	footer: '<a href="/quiz">Matching Quiz</a>'
+	});
+</script>
+@endif
 
 <x-footer></x-footer>
 
@@ -320,51 +350,154 @@ Find Matches | Admyrer
 	var s_img = document.querySelector(".s_img");
 	var s_link = document.querySelector(".s_link");
 	var curr_ID = document.querySelector(".curr_ID");
+	var random_user_item = document.querySelectorAll(".random_user_item");
 	var index = 0
+	var rand_index = 0
 	usr_thumb[index].classList.add("isActive")
 
-	function like(){
-		usr_thumb[index].classList.add("d-none");
-		usr_thumb[index + 1].classList.add("isActive")
-		index += 1
-		s_name.innerHTML = h_name[index].innerHTML
-		s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
-		s_body.innerHTML = h_body[index].innerHTML
-		s_loc.innerHTML = h_loc[index].innerHTML
-		s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
-		s_height.innerHTML = h_height[index].innerHTML
-		s_img.src = h_img[index].src
-		s_link.href = "/@" + h_username[index].innerHTML
-		s_relationship.innerHTML = h_relationship[index].innerHTML
+	function like(name, rand, id){
+		if(rand){
+			random_user_item[rand_index].classList.add("d-none");
+			rand_index += 1
 
-		axios.post("/like", {
-			userId: curr_ID.innerHTML,
-			like_id: h_Id[index - 1].innerHTML,
-		})
-		.then(res => console.log(res))
-		.catch(error => console.log(error))
+			axios.post("/like", {
+				userId: curr_ID.innerHTML,
+				like_id: id,
+			})
+			.then(res => {
+				if(res.data != 1){
+					Swal.fire({
+					position: "top-end",
+					icon: "error",
+					title:`You've already liked this user`,
+					showConfirmButton: false,
+					timer: 1500
+					});
+					return
+				}
+				Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title:`You like this user`,
+				showConfirmButton: false,
+				timer: 1500
+				});
+			})
+			.catch(error => console.log(error))
+		}
+
+		if(!rand){
+			usr_thumb[index].classList.add("d-none");
+			usr_thumb[index + 1].classList.add("isActive")
+			s_name.innerHTML = h_name[index].innerHTML
+			s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
+			s_body.innerHTML = h_body[index].innerHTML
+			s_loc.innerHTML = h_loc[index].innerHTML
+			s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
+			s_height.innerHTML = h_height[index].innerHTML
+			s_img.src = h_img[index].src
+			s_link.href = "/@" + h_username[index].innerHTML
+			s_relationship.innerHTML = h_relationship[index].innerHTML
+			index += 1
+			axios.post("/like", {
+				userId: curr_ID.innerHTML,
+				like_id: id,
+			})
+			.then(res => {
+				console.log(res, h_Id[index])
+				if(res.data != 1){
+					Swal.fire({
+					position: "top-end",
+					icon: "error",
+					title:`You've already liked this user`,
+					showConfirmButton: false,
+					timer: 1500
+					});
+					return
+				}
+				Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title:`You like this user`,
+				showConfirmButton: false,
+				timer: 1500
+				});
+			})
+			.catch(error => console.log(error))
+		}
 	}
 
-	function dislike(){
-		usr_thumb[index].classList.add("d-none");
-		usr_thumb[index + 1].classList.add("isActive")
-		index += 1
-		s_name.innerHTML = h_name[index].innerHTML
-		s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
-		s_body.innerHTML = h_body[index].innerHTML
-		s_loc.innerHTML = h_loc[index].innerHTML
-		s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
-		s_height.innerHTML = h_height[index].innerHTML
-		s_img.src = h_img[index].src
-		s_relationship.innerHTML = h_relationship[index].innerHTML
-		s_link.href = "/@" + h_username[index].innerHTML
+	function dislike(name, rand, id){
+		if(rand){
+			random_user_item[rand_index].classList.add("d-none");
+			rand_index += 1
+			axios.post("/disliked", {
+				userId: curr_ID.innerHTML,
+				like_id: id,
+			})
+			.then(res => {
+				if(res.data != 1){
+					Swal.fire({
+					position: "top-end",
+					icon: "error",
+					title:`You've already disliked this user`,
+					showConfirmButton: false,
+					timer: 1500
+					});
+					return
+				}
+				Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title: `You dislike this user`,
+				showConfirmButton: false,
+				timer: 1500
+				});
+			})
+			.catch(error => console.log(error))	
+		}
 
-		axios.post("/disliked", {
-			userId: curr_ID.innerHTML,
-			like_id: h_Id[index - 1].innerHTML,
-		})
-		.then(res => console.log(res))
-		.catch(error => console.log(error))
+		if(!rand){
+			usr_thumb[index].classList.add("d-none");
+			usr_thumb[index + 1].classList.add("isActive")
+			index += 1
+			s_name.innerHTML = h_name[index].innerHTML
+			s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
+			s_body.innerHTML = h_body[index].innerHTML
+			s_loc.innerHTML = h_loc[index].innerHTML
+			s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
+			s_height.innerHTML = h_height[index].innerHTML
+			s_img.src = h_img[index].src
+			s_relationship.innerHTML = h_relationship[index].innerHTML
+			s_link.href = "/@" + h_username[index].innerHTML
+			axios.post("/disliked", {
+				userId: curr_ID.innerHTML,
+				like_id: id,
+			})
+			.then(res => {
+				console.log(res)
+				if(res.data != 1){
+					Swal.fire({
+					position: "top-end",
+					icon: "error",
+					title:`You've already disliked this user`,
+					showConfirmButton: false,
+					timer: 1500
+					});
+					return
+				}
+				Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title: `You dislike this user`,
+				showConfirmButton: false,
+				timer: 1500
+				});
+			})
+			.catch(error => console.log(error))
+		}
+
+		
 	}
 
     $(document).ready(function(){

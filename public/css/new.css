@@ -1,0 +1,186 @@
+
+._music_ .list{
+    border: 1px solid lightgray;
+    margin-right: 2em;
+    border-radius: 3px;
+    padding: 0em !important ;
+    height: 420px;
+    overflow: scroll;
+}
+
+._music_ .list i:hover{
+    cursor: pointer;
+}
+
+._music_ .list .name{
+    font-size: 1.2em;
+}
+
+._music_ .list .d-flex{
+    padding: 1em ;
+    border-bottom: 1px solid lightgray;
+}
+
+._music_ .form{
+    box-shadow: .1em .1em 1em rgba(211, 211, 211, 0.46);
+    padding: 2em;
+    border-radius: 3px;
+    height: fit-content;
+}
+
+._music_ .form input,._music_ select{
+    padding: .7em;
+    display: block;
+    margin-bottom: 1.1em;
+    border: none;
+    width: 100%;
+    border-radius: 3px;
+    border-bottom: 1px solid grey;
+}
+
+._music_ .form label{
+    color: grey;
+    font-size: 14px;
+}
+
+._music_ .form button{
+    border: none;
+    background-color: red;
+    color: white;
+    padding: .5em 1em;
+    width: 10em;
+    border-radius: 3px;
+}
+
+._polls textarea, ._polls input{
+    padding: .7em;
+    display: block;
+    margin-bottom: 1.1em;
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid rgb(199, 199, 199) !important;
+    resize: none;
+}
+
+._polls .poll{
+    padding: 2em 1em;
+    height: fit-content;
+    margin-right: 2em;
+    margin-left: 2em;
+    margin-top: 2em;
+}
+
+._polls .poll .option{
+    border: 1px solid rgb(185, 184, 184);
+    padding: .8em;
+    border-radius: 3px;
+}
+
+._polls .form{
+    margin: auto auto;
+    /* margin-right: 2em; */
+    border-radius: 3px;
+}
+
+._music_ ._img_{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    /* margin: auto auto; */
+    margin-bottom: 1em;
+}
+
+._music_ ._img_ img{
+    height: 100%;
+    width: 100%;
+}
+
+._music_ .target{
+    background-color: white;
+    width: 700px;
+    padding: 1em;
+    border-radius: 6px;
+    margin: auto auto;
+}
+
+._music_ .target p{
+    line-height: 30px;
+    color: rgb(83, 83, 83);
+}
+
+.navigation{
+    transition: 1s !important;
+}
+
+.navigation.hide{
+    opacity: 1.0 !important;
+    background-color: black;
+    left: 0 !important;
+    transition: .5s !important ;
+}
+
+.navigation .navigation-header, .navigation .navigation-header a{
+    background-color: black !important;
+}
+
+td{
+    font-size: 12px !important;
+    color: rgb(79, 79, 79) !important;
+    padding: 1em !important;
+    text-transform: capitalize !important;
+}
+
+.m_photos{
+    background-color: white;
+    padding: 1em;
+    border-radius: 6px;
+    margin-right: 1em;
+    width: 250px;
+}
+
+table .img_1{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#myChart{
+    /* height: 500px !important; */
+    width: 100% !important;
+}
+
+.m_photos .img_2{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.m_photos .text-danger{
+    background-color: rgba(255, 0, 0, 0.099);
+}
+
+.d_optiond{
+    height: 20px;
+    text-align: start !important;
+}
+
+.progress-bar{
+    text-align: start !important;
+    padding-left: 1em;
+}
+
+@media (max-width: 1200px){
+    .open_close{
+        display: inline !important; 
+    }
+
+    ._polls .poll{
+        margin-left: 0 !important;
+    }
+
+    ._music_ .target{
+        width: fit-content !important;
+    }
+}

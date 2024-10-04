@@ -1,7 +1,10 @@
 @extends("layouts.app")
 
 @php
+$notification = $data["notification"] ?? [];
 	$user = $data["user"] ?? [];
+	$dates = $data["dates"] ?? [];
+	$schedule = $data["schedule"] ?? [];
 @endphp
 
 @section('title')
@@ -9,7 +12,7 @@ AI Assistant | Admyrer
 @endsection
 
 @section("content")
-<x-main-nav :user="$user"></x-main-nav>
+<x-main-nav :schedule="$schedule" :dates="$dates" :notification="$notification" :user="$user"></x-main-nav>
 
 {{-- main bar --}}
 <div class="container container-fluid container_new page-margin find_matches_cont">

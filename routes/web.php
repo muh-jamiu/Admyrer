@@ -17,13 +17,27 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [UserController::class, 'loginUser']);
 
+Route::post('/avatars', [UserController::class, 'uploads_']);
+
 Route::post('/update-user', [UserController::class, 'updateUser']);
+
+Route::post('/update-userspec', [UserController::class, 'updateUserSpec']);
 
 Route::post('/register', [UserController::class, 'registerUser']);
 
 Route::post('/upload-image', [UserController::class, 'uploadImage']);
 
 Route::post('/like', [UserController::class, 'post_like']);
+
+Route::post('/submit-quiz', [UserController::class, 'createUserQuiz']);
+
+Route::post('/conversation', [UserController::class, 'Conversation']);
+
+Route::get('/get-notification', [UserController::class, 'getNotification']);
+
+Route::post('/get-message', [UserController::class, 'getMessage']);
+
+Route::post('/save-message', [UserController::class, 'saveMessage']);
 
 Route::post('/send-ai-message', [UserController::class, 'handleAIMessage']);
 
@@ -39,6 +53,14 @@ Route::post('/delete-follows', [UserController::class, 'deleteFollows']);
 
 Route::post('/disliked', [UserController::class, 'post_disliked']);
 
+Route::get('/chat', [UserController::class, 'chat']);
+
+Route::get('/quiz', [UserController::class, 'quiz']);
+
+Route::post('/chat-gemini', [UserController::class, 'chatGemini']);
+
+Route::post('/post-review', [UserController::class, 'postreview']);
+
 Route::any('/logOut', [UserController::class, 'logOut']);
 
 Route::get('/@{username}', [UserController::class, 'show'])->middleware("notLogin");
@@ -49,11 +71,15 @@ Route::get('/matches', [UserController::class, 'matches'])->middleware("notLogin
 
 Route::get('/user-polls', [UserController::class, 'getUserPoll'])->middleware("notLogin");
 
+Route::post('/create-userpoll', [UserController::class, 'createUserPoll']);
+
 Route::get('/visits', [UserController::class, 'visits'])->middleware("notLogin");
 
 Route::get('/ai-assistant', [UserController::class, 'ai_assistant'])->middleware("notLogin");
 
 Route::get('/friends', [UserController::class, 'friends'])->middleware("notLogin");
+
+Route::get('/night-clubs', [UserController::class, 'night'])->middleware("notLogin");
 
 Route::get('/gifts', [UserController::class, 'gifts'])->middleware("notLogin");
 
@@ -67,12 +93,85 @@ Route::get('/hots', [UserController::class, 'hot'])->middleware("notLogin");
 
 Route::get('/stories', [UserController::class, 'stories'])->middleware("notLogin");
 
+Route::get('/testimonial', [UserController::class, 'testimonial'])->middleware("notLogin");
+
 Route::get('/live-users', [UserController::class, 'live_users'])->middleware("notLogin");
+
+Route::get('/review', [UserController::class, 'review'])->middleware("notLogin");
+
+Route::get('/user-settings', [UserController::class, 'settings'])->middleware("notLogin");
+
+Route::post('/review', [UserController::class, 'makereview']);
+
+Route::post('/createTestimonial', [UserController::class, 'createTestimonial']);
+
+Route::post('/store-club', [UserController::class, 'createNightClub']);
+
+Route::post('/call-message', [UserController::class, 'InCallMsg']);
+
+Route::post('/store-music', [UserController::class, 'storeAudio']);
+
+Route::post('/speed-date', [UserController::class, 'SpeedDate']);
+
+Route::post('/delete-music', [UserController::class, 'deleteAudio']);
+
+Route::post('/store-live', [UserController::class, 'storeLive']);
+
+Route::post('/delete-live', [UserController::class, 'deleteLive']);
+
+Route::post('/date-live', [UserController::class, 'dateLive']);
+
+Route::post('/schedule-date', [UserController::class, 'scheduledateLive']);
+
+Route::post('/create-poll', [UserController::class, 'createPoll']);
+
+Route::post('/delete-club', [UserController::class, 'deleteNight']);
+
+Route::post('/web-date', [UserController::class, 'WebDateNoties']);
+
+Route::post('/delete-poll', [UserController::class, 'deletePoll']);
+
+Route::post('/search', [UserController::class, 'searchUser']);
+
+Route::post('/upload-video', [UserController::class, 'uploadVid']);
+
 
 Route::get('/friend-requests', [UserController::class, 'friend_requests'])->middleware("notLogin");
 
+Route::get('/web-date', [UserController::class, 'webDate'])->middleware("notLogin");
+
+Route::get('/group-date', [UserController::class, 'groupDate'])->middleware("notLogin");
+
 //Admin route
-Route::get('/admin-cp', [AdminController::class, 'index']);
+Route::get('/admin-cp', [AdminController::class, 'index'])->middleware("admin");
+
+Route::get('/admin-login', [AdminController::class, 'adminLogin']);
+
+Route::post('/delete_user', [AdminController::class, 'delete_user']);
+
+Route::post('/delete_avatar', [AdminController::class, 'delete_avatar']);
+
+Route::post('/delete_avatar_real', [AdminController::class, 'delete_avatar_real']);
+
+Route::post('/block_user', [AdminController::class, 'block_user']);
+
+Route::get('/admin-logout', [AdminController::class, 'logout']);
+
+Route::get('/marketing', [AdminController::class, 'Marketing'])->middleware("admin");
+
+Route::get('/admin-cp/marketing-strategy', [AdminController::class, 'Strategy'])->middleware("admin");
+
+Route::get('/admin-cp/musics', [AdminController::class, 'music'])->middleware("admin");
+
+Route::get('/admin-cp/polls', [AdminController::class, 'polls'])->middleware("admin");
+
+Route::get('/admin-cp/testimonials', [AdminController::class, 'testy'])->middleware("admin");
+
+Route::post('/admin-login', [AdminController::class, 'adminLoginUser']);
+
+Route::post('/delete-testy', [AdminController::class, 'deletetesty']);
+
+Route::post('/admin-create', [AdminController::class, 'createAdmin']);
 
 Route::get('/admin-cp/system_status', [AdminController::class, 'system_status']);
 
@@ -116,7 +215,11 @@ Route::get('/admin-cp/add-language', [AdminController::class, 'add_language']);
 Route::get('/admin-cp/manage-languages', [AdminController::class, 'manage_languages']);
 
 //Users
-Route::get('/admin-cp/manage-users', [AdminController::class, 'manage_users']);
+Route::get('/admin-cp/manage-users', [AdminController::class, 'manage_users'])->middleware("admin");
+
+Route::get('/admin-cp/manage-asset', [AdminController::class, 'manage_asset'])->middleware("admin");
+
+Route::get('/admin-cp/poll-result', [AdminController::class, 'poll_result'])->middleware("admin");
 
 Route::get('/admin-cp/manage-genders', [AdminController::class, 'manage_genders']);
 

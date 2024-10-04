@@ -13,6 +13,11 @@
     $aiactive = $aiactive ?? false;
     $pollactive = $pollactive ?? false;
     $quizactive = $quizactive ?? false;
+    $liveactive = $liveactive ?? false;
+    $nightactive = $nightactive ?? false;
+    $webactive = $webactive ?? false;
+    $testyactive = $testyactive ?? false;
+    $groupactive = $groupactive ?? false;
 @endphp
 
 <div class="col-sm-3">
@@ -110,22 +115,60 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14 14.252v2.09A6 6 0 0 0 6 22l-2-.001a8 8 0 0 1 10-7.748zM12 13c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm7 6.586l2.121-2.122 1.415 1.415L20.414 19l2.122 2.121-1.415 1.415L19 20.414l-2.121 2.122-1.415-1.415L17.586 19l-2.122-2.121 1.415-1.415L19 17.586z" /></svg> <?php echo __( 'People i disliked' );?>
                 </a>
             </li>
+            <li class="divider" tabindex="-1"></li>
             {{-- <li>
                 <a href="/friend-requests" data-ajax="/friend-requests" class={{$friendreqactive ? "active" : ""}}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M14 14.252v2.09A6 6 0 0 0 6 22l-2-.001a8 8 0 0 1 10-7.748zM12 13c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm6 6v-3h2v3h3v2h-3v3h-2v-3h-3v-2h3z" /></svg> <?php echo __( 'Friend requests' );?>
                 </a>
             </li> --}}
             <li>
+                <a href="/web-date" data-ajax="/live-users" class={{$webactive ? "active" : ""}}>
+                    <i class="fa-solid fa-earth-europe" style="margin-right: 1.2em"></i> <?php echo __( 'Web Date' );?>
+                </a>
+            </li>
+
+            <li>
+                <a href="/group-date" data-ajax="/live-users" class={{$groupactive ? "active" : ""}}>
+                    <i class="fa-solid fa-people-group" style="margin-right: 1.2em"></i> <?php echo __( 'Group Date' );?>
+                </a>
+            </li>
+                
+                <li>
+                    <a href="/live-users" data-ajax="/live-users" class={{$liveactive ? "active" : ""}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M17 9.2l5.213-3.65a.5.5 0 0 1 .787.41v12.08a.5.5 0 0 1-.787.41L17 14.8V19a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v4.2zm0 3.159l4 2.8V8.84l-4 2.8v.718zM3 6v12h12V6H3zm2 2h2v2H5V8z"></path></svg> <?php echo __( 'Live Streaming Users' );?>
+                    </a>
+                </li>
+                <li>
+                    <a href="/night-clubs" data-ajax="/live-users" class={{$nightactive ? "active" : ""}}>
+                        <i class="fa-regular fa-moon" style="margin-right: 1.2em"></i> <?php echo __( 'Active Night Clubs' );?>
+                    </a>
+                </li>
+                <li  data-bs-toggle="modal" data-bs-target="#_club_" >
+                    <a href="#" data-ajax="/live-users" class="">
+                        <i class="fa-regular fa-star" style="margin-right: 1.2em"></i><?php echo __( 'Create Night Club' );?>
+                    </a>
+                </li>
+            <li>
                 <a href="/hots" data-ajax="/hot" class={{$hotactive ? "active" : ""}}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 23a7.5 7.5 0 0 0 7.5-7.5c0-.866-.23-1.697-.5-2.47-1.667 1.647-2.933 2.47-3.8 2.47 3.995-7 1.8-10-4.2-14 .5 5-2.796 7.274-4.138 8.537A7.5 7.5 0 0 0 12 23zm.71-17.765c3.241 2.75 3.257 4.887.753 9.274-.761 1.333.202 2.991 1.737 2.991.688 0 1.384-.2 2.119-.595a5.5 5.5 0 1 1-9.087-5.412c.126-.118.765-.685.793-.71.424-.38.773-.717 1.118-1.086 1.23-1.318 2.114-2.78 2.566-4.462z" /></svg> <?php echo __( 'HOT OR NOT' );?>
                 </a>
             </li>
-                <li onclick="joinStream()">
+            <li  data-bs-toggle="modal" data-bs-target="#_speed_" >
+                <a href="#" data-ajax="/live-users" class="">
+                    <i class="fa-regular fa-circle-up" style="margin-right: 1.2em"></i><?php echo __( 'Speed Date' );?>
+                </a>
+            </li>
+                <li onclick="joinStream(`{{$user->username}}`, `{{$user->avatar}}`, `{{$user->gender}}`, `{{$user->first_name . ' '. $user->last_name}}`, `{{$user->country}}`)">
                     <a href="#live-users" data-ajax="/live-users" class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M17 9.2l5.213-3.65a.5.5 0 0 1 .787.41v12.08a.5.5 0 0 1-.787.41L17 14.8V19a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v4.2zm0 3.159l4 2.8V8.84l-4 2.8v.718zM3 6v12h12V6H3zm2 2h2v2H5V8z"></path></svg> <?php echo __( 'Live Videos' );?>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M17 9.2l5.213-3.65a.5.5 0 0 1 .787.41v12.08a.5.5 0 0 1-.787.41L17 14.8V19a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v4.2zm0 3.159l4 2.8V8.84l-4 2.8v.718zM3 6v12h12V6H3zm2 2h2v2H5V8z"></path></svg> <?php echo __( 'Start Live Video' );?>
                     </a>
                 </li>
             <li class="divider" tabindex="-1"></li>
+            <li>
+                <a href="/testimonial" data-ajax="/live-users" class={{$testyactive ? "active" : ""}}>
+                    <i class="fa-regular fa-circle-up" style="margin-right: 1.2em"></i><?php echo __( 'Testimonial' );?>
+                </a>
+            </li>
             <li>
                 <a href="/blog" data-ajax="/blog" class="">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 22H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1zm-1-2V4H5v16h14zM8 9h8v2H8V9zm0 4h8v2H8v-2z"></path></svg> <?php echo __( 'Blog' );?>
@@ -147,12 +190,113 @@
     </div>
 </div>
 
-{{-- 
-<video autoplay onclick="startCall()" id="localVideo" style="width: 400px; height:400px; border:1px solid red"></video>
-<video autoplay onclick="stopCall()" id="remoteVideo" style="width: 400px; height:400px; border:1px solid blue"></video> --}}
+<div class="modal fade" id="_club_">
+<div class="modal-dialog modal-dialog-centered modal-l">
+    <div class="modal-content p-0">
+
+    <!-- Modal Header -->
+    <div class="modal-header">
+        <h6 class="modal-title text-capitalize">Create Night Club</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+
+    <!-- Modal body -->
+    <div class="modal-body">
+        <label for="">Name</label>
+        <input id="_name" type="text" placeholder="Name your club" class="px-2 mb-2" style="width: 94% !important">
+
+        <label for="">Password</label>
+        <input id="_pass" type="password" placeholder="Enter Password" class="px-2" style="width: 94% !important">
+        <p style="font-size: 10px" class="text-danger">Leave (password) blank if you want your club to be public to users.</p>
+
+        <button onclick="createClub()" data-bs-dismiss="modal" class="btn btn-danger mt-2 mb-3">Create Club</button>
+        <p style="font-size: 10px">Users on the platform will be able to view and join your club.</p>
+    </div>
+
+    <!-- Modal footer -->
+    <div class="modal-foote">
+    </div>
+
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="_speed_">
+    <div class="modal-dialog modal-dialog-centered modal-l">
+        <div class="modal-content p-0">
+    
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h6 class="modal-title text-capitalize">Speed Date</h6>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+    
+        <!-- Modal body -->
+        <div class="modal-body">    
+            <button onclick="speedDate()" data-bs-dismiss="modal" class="btn btn-danger mt-2 mb-3">Start Speed Date</button>
+            <p style="font-size: 10px" class="text-danger">You will be connected to random user that are currently seeking for speed date, if no user is connected, you will be disconnected after 1 minute.</p>
+        </div>
+    
+        <!-- Modal footer -->
+        <div class="modal-foote">
+        </div>
+    
+        </div>
+    </div>
+    </div>
+
+<p class="d-none " id="_user">{{$user->username}}</p>
 
 @push("javascript")
 <script>
+
+    
+
+    const __user__ = document.getElementById('_name').innerHTML; 
+    Pusher.logToConsole = true;
+    var pusher = new Pusher('61cbedc7014185332c2d', {
+    cluster: 'mt1'
+    });
+    var channel = pusher.subscribe('speed');
+    channel.bind('speed-date', function(data) {
+        if(true){
+            Swal.fire({
+                icon: "info",
+                title: "Notice",
+                text:`${data.username} send you Speed Date Request that will end in 10 minutes .`,
+                footer: `<a href="#" onclick="joinStream(${__user__}, null, null, null, null, null, null, true, true)">Accept Request</a>`
+            });                
+        }
+    });	
+
+    var channel = pusher.subscribe('web');
+    channel.bind('webevent', function(data) {
+        console.log(data.message)
+        Swal.fire({
+            icon: "info",
+            title: "Web Date Alert",
+            html:`${data.message} Send you a Web Date Request.`,
+            footer: '<a href="#" onclick="joinStream(null, null, null, null, null, null, null, null, null)">Join Web Date</a>'
+        });     
+    });	
+
+    const _name = document.getElementById('_name');
+    const _pass = document.getElementById('_pass');
+    const _user = document.getElementById('_user');
+
+    const _username = document.getElementById('_user');
+    const _username_ = document.getElementById('_username');
+    function speedDate() {
+        joinStream(null, null, null, null, null, null, null, null, true, null)
+        // axios.post("/speed-date", {
+        //     username: _username.innerHTML,
+        // })
+        // .then((res) => {
+        //     console.log(res)
+        // })
+        // .catch((error) => console.log(error))
+    }
+
     const localVideo = document.getElementById('localVideo');
     const remoteVideo = document.getElementById('remoteVideo');
 

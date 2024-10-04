@@ -1,19 +1,29 @@
 @extends("layouts.app")
 
 @php
+$notification = $data["notification"] ?? [];
+	$dates = $data["dates"] ?? [];
+	$schedule = $data["schedule"] ?? [];
+	$avatars_ = $data["avatars"] ?? [];
 	$user = $data["user"] ?? [];
+	$conversation = $data["conversation"] ?? [];
 	$loginUser = $data["loginUser"] ?? [];
+	$review = $data["review"] ?? [];
+	$ratings = $data["ratings"] ?? [];
 	$check = $user->id == $loginUser->id ? true : false;
 @endphp
 
 @section('title')
-Find Matches | Admyrer 
+{{$user->username}} Profile | Admyrer 
 @endsection
 
 @section("content")
 
-<x-main-nav :user="$loginUser"></x-main-nav>
+<div class="show_">
+<x-main-nav :schedule="$schedule" :dates="$dates" :notification="$notification" :user="$loginUser"></x-main-nav>
 <p class="d-none " id="curr_ID">{{$user->id}}</p>
+<p class="d-none " id="curr_user_">{{$user->username}}</p>
+<p class="d-none " id="curr_from_user_">{{$loginUser->username}}</p>
 
     <script>
         var meta = document.createElement('meta');
@@ -26,6 +36,14 @@ Find Matches | Admyrer
             meta1.content = "noindex";
             document.getElementsByTagName('head')[0].appendChild(meta1);
     </script>
+	
+	@if (session("msg"))
+		<div class="alert alert-danger text-center">
+			<ul>
+				<li>{{session("msg")}}</li>
+			</ul>
+		</div>
+	@endif
 
 <div class="container mt-5 container-fluid container_new find_matches_cont dt_user_profile_parent">
 	<div class="row r_margin">
@@ -34,13 +52,15 @@ Find Matches | Admyrer
 			<div class="dt_left_sidebar dt_profile_side">
 				<div class="avatar">
 					<a class="inline" href="" id="avater_profile_img">
-						<img src={{$user->avatar ?? "/img/icon.png"}} alt="" class="responsive-img" />
+						<img src={{$user->avatar ?? "/img/icon.png"}} alt="" id="imagePreview" class="responsive-img" />
 					</a>
 							<div class="dt_chng_avtr">
+								@if ($loginUser->id == $user->id)
 								<span class="btn-upload-image" onclick="document.getElementById('admin_profileavatar_img').click(); return false">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21,17H7V3H21M21,1H7A2,2 0 0,0 5,3V17A2,2 0 0,0 7,19H21A2,2 0 0,0 23,17V3A2,2 0 0,0 21,1M3,5H1V21A2,2 0 0,0 3,23H19V21H3M15.96,10.29L13.21,13.83L11.25,11.47L8.5,15H19.5L15.96,10.29Z" /></svg> <?php echo __( 'Change Photo' );?>
 								</span>
 								<input type="file" id="admin_profileavatar_img" data-username="" data-userid="" class="hide" accept="image/x-png, image/gif, image/jpeg" name="avatar">
+								@endif
 							</div>
 							<div class="dt_avatar_progress hide">
 								<div class="admin_avatar_imgprogress progress">
@@ -51,6 +71,16 @@ Find Matches | Admyrer
 								<div class="admin_avatar_imgdeterminate determinate" style="width: 0%"></div >
 							</div>
 				</div>
+				<form action="/delete_avatar" method="post" class="mt-4 text-center" style="margin: auto auto">
+					@csrf
+					<input type="text" class="d-none" name="id" value="{{$user->id}}">
+					<input type="text" class="d-none" name="redirect" value="true">
+					@if ($loginUser->id == $user->id)
+						@if ($user->avatar)
+						<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Delete Picture</button>						
+						@endif
+					@endif
+				</form>
 				<div class="dt_othr_ur_info">
 					<h6 class="text-capitalize"> 
 						{{$user->first_name}} {{$user->last_name}}
@@ -59,6 +89,13 @@ Find Matches | Admyrer
 						</span> --}}
 					</h6>
 				</div>
+
+				
+				@if ($loginUser->id == $user->id)
+					<p class="text-center fw-bold text-uppercase">{{$loginUser->username}}</p>
+				@endif
+				
+				@if ($loginUser->id != $user->id)
 					<div class="dt_usr_opts_mnu">
 						<a onclick="Like()" href="javascript:void(0);" id="btn_add_friend" data-ajax-post="/user/add_friend" data-ajax-params="to=" data-ajax-callback="callback_add_friend" class="green_bg tooltipped" data-position="bottom" title="<?php echo __( 'Add Friend' );?>">
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M14 14.252v2.09A6 6 0 0 0 6 22l-2-.001a8 8 0 0 1 10-7.748zM12 13c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm6 6v-3h2v3h3v2h-3v3h-2v-3h-3v-2h3z"/></svg>
@@ -74,9 +111,10 @@ Find Matches | Admyrer
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M14 22.5L11.2 19H6a1 1 0 0 1-1-1V7.103a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1V18a1 1 0 0 1-1 1h-5.2L14 22.5zm1.839-5.5H21V8.103H7V17H12.161L14 19.298 15.839 17zM2 2h17v2H3v11H1V3a1 1 0 0 1 1-1z"/></svg>
 						</a>
 							
-						<a href="javascript:void(0);" data-target="user_prof_dropdown" class="dropdown-trigger">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12 3c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 14c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-7c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-						</a>
+						<a onclick="start_call()" href="javascript:void(0);" data-target="user_prof_dropdown" class="dropdown-trigger bg-primary">
+							<i class="fa-solid fa-video"></i></a>
+						<a data-bs-toggle="modal" data-bs-target="#myModal" href="javascript:void(0);" data-target="user_prof_dropdown" class="dropdown-trigger bg-danger">
+							<i class="fa-solid fa-clock"></i></a>
 						<ul id="user_prof_dropdown" class="dropdown-content" tabindex="0">
 								<li>
 									<a href="javascript:void(0);" data-ajax-post="/useractions/" data-ajax-params="userid=" class="block_text">
@@ -95,6 +133,7 @@ Find Matches | Admyrer
 								</li>
 						</ul>
 					</div>
+				@endif
 				{{-- <div class="home_usr_stats">
 					<div>
 						<div>
@@ -118,19 +157,74 @@ Find Matches | Admyrer
 		<div class="col-sm-9">
 			<div class="mtc_usrd_content dt_profile_about">
 				<div class="row no_margin r_margin">
-					<div class="col s12 m6">
-						<div class="mtc_usrd_slider">
-				            <figure class="dt_cover_photos">
-								<div class="dt_cp_photos_list">
-									<div class="dt_cp_l_photos">
-										<div class="inline"></div>
-									</div>
+					<div class="col-sm-7 dend m6">
+						<div class="img_cont_ row" style="background-color: rgb(237, 237, 237)">
+							@if ($user->avatar)								
+							<div class="col-sm-6">
+								<img src="{{$user->avatar}}" alt="">
+								<form action="/delete_avatar" method="post">
+									@csrf
+									<input type="text" class="d-none" name="id" value="{{$user->id}}">
+									<input type="text" class="d-none" name="redirect" value="true">
+									@if ($loginUser->id == $user->id)
+									<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Delete</button>
+									@endif
+								</form>
+							</div>
+							@endif
+
+							@foreach ($avatars_ as $item)
+							@php
+								$imageExtensions = ['image'];
+    							$videoExtensions = ['video'];
+								$imagePattern = implode('|', $imageExtensions);
+								$videoPattern = implode('|', $videoExtensions);
+							@endphp
+								@if (preg_match("/\b($imagePattern)\b/i", $item->avatar))									
+								<div class="col-sm-6">
+									<img src="{{$item->avatar}}" alt="">
+									<form action="/delete_avatar_real" method="post">
+										@csrf
+										<input type="text" class="d-none" name="id" value="{{$item->id}}">
+										<input type="text" class="d-none" name="redirect" value="true">
+										@if ($loginUser->id == $user->id)
+										<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Delete</button>
+										@endif
+									</form>
 								</div>
-							</figure>
+								@else		
+								<div class="col-sm-6">
+								<video id="my-video" class="video-js" controls preload="auto" width="240" height="300" data-setup="{}">
+									<source src="{{$item->avatar}}" type="video/mp4">
+									<!-- Add other sources if needed -->
+									<p class="vjs-no-js">
+									  To view this video please enable JavaScript, and consider upgrading to a web browser that
+									  <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+									</p>
+								</video>
+								<form action="/delete_avatar_real" method="post">
+									@csrf
+									<input type="text" class="d-none" name="id" value="{{$item->id}}">
+									<input type="text" class="d-none" name="redirect" value="true">
+									@if ($loginUser->id == $user->id)
+									<button style="border: none; border-radius:3px" class="delete__ p-2 text-white btn-danger ft bg-danger">Delete</button>
+									@endif
+								</form>	
+								</div>							
+								@endif
+							@endforeach
+						</div>	
+						@if ($loginUser->id == $user->id)					
+						<div class="uploads_ px-3 py-2">
+							<span class="btn-upload-image" onclick="document.getElementById('avatar_selection').click(); return false">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21,17H7V3H21M21,1H7A2,2 0 0,0 5,3V17A2,2 0 0,0 7,19H21A2,2 0 0,0 23,17V3A2,2 0 0,0 21,1M3,5H1V21A2,2 0 0,0 3,23H19V21H3M15.96,10.29L13.21,13.83L11.25,11.47L8.5,15H19.5L15.96,10.29Z" /></svg> <?php echo __( 'Upload Photo/Video' );?>
+							</span>
+							<input type="file" id="avatar_selection" data-username="" data-userid="" class="hide" accept="image/x-png, image/gif, image/jpeg, video/*" name="avatar">	
 						</div>
+						@endif
 					</div>
 
-					<div class="col s12 m6">
+					<div class="col-sm-5 m6">
 						<div class="mtc_usrd_sidebar dt_profile_about_side">
 							<div class="mtc_usrd_summary">
 								<h5 class="text-capitalize fs-5"><?php echo __( 'About' );?> {{$user->first_name}} {{$user->last_name}}</h5>
@@ -153,22 +247,11 @@ Find Matches | Admyrer
 										</div>
 								</div>
 							</div>
-								@if(false)
-								<div class="center mtc_usrd_actions dt_profile_about_action">
-									<div class="like">
-										<a href="javascript:void(0);" id="like_btn" data-replace-text="<?php echo __('Liked');?>" data-replace-dom=".like_text" data-ajax-post="/useractions/" data-ajax-params="email_on_profile_like=<?php echo $user->email_on_profile_like;?>&username=<?php echo $user->username;?>" data-ajax-callback="callback_">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg>
-											<span class="bold like_text" ><?php  echo __( 'Liked' )?></span>
-										</a>
-									</div>
-									<div class="dislike">
-										<a href="javascript:void(0);" id="dislike_btn" data-replace-text="<?php echo __('Disliked');?>" data-replace-dom=".dislike_text" data-ajax-post="/useractions/" data-ajax-params="username=<?php echo $user->username;?>" data-ajax-callback="callback_">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg>
-											<span class="bold dislike_text"><?php echo __( 'Disliked' )?></span>
-										</a>
-									</div>
-								</div>
-								@endif
+							@if ($loginUser->id == $user->id)
+							<div class="settings_">
+								<h6><a class="btn" href="/user-settings"><i class="fa-solid fa-gear"></i> Settings</a></h6>
+							</div>
+							@endif
 						</div>
 					</div>
 				</div>
@@ -180,6 +263,22 @@ Find Matches | Admyrer
                     <div class="about_block"> <!-- Profile Info -->
                         <h4><?php echo __( 'Profile Info ' );?></h4>
 						<div class="row">
+
+							<div class="col-sm-6 mb-3">
+								<div class="dt_profile_info">
+									<h5><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0H24V24H0z"/><path fill="currentColor" d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228z"/></svg>&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M14.6 8H21a2 2 0 0 1 2 2v2.104a2 2 0 0 1-.15.762l-3.095 7.515a1 1 0 0 1-.925.619H2a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1h3.482a1 1 0 0 0 .817-.423L11.752.85a.5.5 0 0 1 .632-.159l1.814.907a2.5 2.5 0 0 1 1.305 2.853L14.6 8zM7 10.588V19h11.16L21 12.104V10h-6.4a2 2 0 0 1-1.938-2.493l.903-3.548a.5.5 0 0 0-.261-.571l-.661-.33-4.71 6.672c-.25.354-.57.644-.933.858zM5 11H3v8h2v-8z"/></svg>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __( 'Reviews' );?></h5>
+									@if ($loginUser->id != $user->id)
+										<p data-bs-toggle="modal" data-bs-target="#makeReview" style="width: fit-content" class="info_title mb-3 text-white bg-primary d-block btn text-capitalize"><?php echo __( 'Make Review' );?></p>
+									@endif
+									@if ($loginUser->id != $user->id)
+										<p data-bs-toggle="modal" data-bs-target="#myReview" style="width: fit-content" class="info_title bg-info  btn d-block text-capitalize"><?php echo __( 'Check user Review' );?></p>
+									@else
+										<p data-bs-toggle="modal" data-bs-target="#myReview" style="width: fit-content" class="info_title bg-info  btn d-block text-capitalize"><?php echo __( 'Check my Review' );?></p>
+									@endif
+
+									</div>
+							</div>
+
 							<?php if( true ) {?>
 								<div class="col-sm-6 mb-3">
 									<div class="dt_profile_info">
@@ -294,6 +393,7 @@ Find Matches | Admyrer
 								<div class="col-sm-6 mb-3">
 									<div class="dt_profile_info">
 										<h5><svg xmlns="http://www.w3.org/2000/svg" width="21.405" height="23.299" viewBox="0 0 21.405 23.299"> <path id="Path_5417" data-name="Path 5417" d="M3710.164,10486.625v1.147a19.122,19.122,0,0,1-2.192,8.952l-.264.574-2.008-1.147a17.086,17.086,0,0,0,2.157-7.8l.012-.574v-1.147Zm-6.886-3.443h2.3v5.051a14.6,14.6,0,0,1-3.1,8.608l-.264.344-1.779-1.378a12.646,12.646,0,0,0,2.835-7.574l.012-.46Zm1.147-4.591a5.5,5.5,0,0,1,4.063,1.722,5.654,5.654,0,0,1,1.676,4.018h-2.3a3.443,3.443,0,0,0-6.887,0v3.442a10.6,10.6,0,0,1-2.6,6.887l-.241.229-1.664-1.606a7.844,7.844,0,0,0,2.2-5.165l.011-.345v-3.442a5.654,5.654,0,0,1,1.676-4.018A5.5,5.5,0,0,1,3704.426,10478.591Zm0-4.591a10.2,10.2,0,0,1,7.3,2.983,10.421,10.421,0,0,1,3.03,7.347v3.442a23.806,23.806,0,0,1-.688,5.739l-.161.573-2.215-.573a20.538,20.538,0,0,0,.758-5.051l.011-.688v-3.442a8.125,8.125,0,0,0-1.194-4.247,8.334,8.334,0,0,0-3.236-2.983,9.28,9.28,0,0,0-4.315-.8,7.686,7.686,0,0,0-4.1,1.606l-1.641-1.606A10.216,10.216,0,0,1,3704.426,10474Zm-8.068,3.9,1.629,1.606a8.222,8.222,0,0,0-1.6,4.591v2.525a8.235,8.235,0,0,1-.872,3.673l-.172.345-2-1.148a5.921,5.921,0,0,0,.746-2.524v-2.64A10.347,10.347,0,0,1,3696.357,10477.9Z" transform="translate(-3693.35 -10474)" fill="currentColor"></path> </svg>&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="21.149" height="21.001" viewBox="0 0 21.149 21.001"> <path id="Path_4935" data-name="Path 4935" d="M3416.05,1822.683h5.824a19.048,19.048,0,0,0,3.1,9.438,10.65,10.65,0,0,1-8.927-9.438Zm0-2.125a10.65,10.65,0,0,1,8.927-9.438,19.048,19.048,0,0,0-3.1,9.438Zm21.149,0h-5.824a19.043,19.043,0,0,0-3.1-9.438,10.65,10.65,0,0,1,8.927,9.438Zm0,2.125a10.65,10.65,0,0,1-8.927,9.438,19.043,19.043,0,0,0,3.1-9.438Zm-13.2,0h5.25a4.46,4.46,0,1,1-5.25,0Zm0-2.125a4.46,4.46,0,1,1,5.25,0Z" transform="translate(-3416.05 -1811.12)" fill="currentColor"></path> </svg>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __( 'Personality' );?></h5>
+										
 
 										<?php if( !empty( $user->character ) ) {?>
 										<div class="row">
@@ -335,6 +435,7 @@ Find Matches | Admyrer
 											</div>
 										</div>
 										<?php } ?>
+										<p data-bs-toggle="modal" data-bs-target="#rating" class="btn text-black bg-warning">Check User Ratings</p>
 									</div>
 								</div>
 							<?php } ?>
@@ -533,69 +634,540 @@ Find Matches | Admyrer
 
 {{-- modal --}}
   
-  <!-- The Modal -->
-  <div class="modal fade" id="chatConversations">
+<!-- The Modal -->
+<div class="modal fade" id="chatConversations">
+<div class="modal-dialog modal-dialog-centered modal-l">
+	<div class="modal-content p-0">
+
+	<!-- Modal Header -->
+	<div class="modal-header">
+		<h6 class="modal-title text-capitalize">Chat with {{$user->first_name}}</h6>
+		<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+	</div>
+
+	<!-- Modal body -->
+	<div class="modal-body">
+		<div class="chat_container msg-container">
+			
+			<img src='{{$loginUser->avatar ?? "/img/icon.png"}}' alt="" class='sender_img d-none' />
+			@foreach ($conversation as $msg)
+				@if($msg->sender == $loginUser->id)
+					<div class="wrap2 unique mt -2">
+						<p class='mb-0 msgIcon mx-3 text-end mb-0'>
+						<img src='{{$loginUser->avatar ?? "/img/icon.png"}}' alt="" class='' />
+						</p>
+						<div class="sentMsg mt-0">
+							<div class="myMsg">
+								<p class="mb-0 p-2">{{$msg->message}}</p>
+							</div>
+						</div>
+					</div>	
+				@else
+					<div class="wrap1 unique">
+						<div class="">
+							<p class='mb-0 msgIcon mx-3'><img width="30px" height="30px" src='{{$user->avatar ?? "/img/icon.png"}}' alt=""/></p>
+							<div class="msgBodys mt-0">
+								<p class='mb-0 p-2'>{{$msg->message}}</p>
+							</div>
+						</div>
+					</div>
+				@endif		
+			
+			@endforeach
+		</div>
+	</div>
+
+	<!-- Modal footer -->
+	<div class="modal-foote">
+		<div class="send d-flex">
+			<textarea class="message" name="" placeholder="Type message......" id=""></textarea>
+			<button onclick="sendMsg('{{$loginUser->username}}')" class="px-2">Send Message</button>
+		</div>
+	</div>
+
+	</div>
+</div>
+</div>
+
+<div class="modal fade" id="makeReview">
 	<div class="modal-dialog modal-dialog-centered modal-l">
-	  <div class="modal-content p-0">
-  
+		<div class="modal-content p-0">
+	
 		<!-- Modal Header -->
 		<div class="modal-header">
-		  <h6 class="modal-title text-capitalize">Chat with {{$user->first_name}}</h6>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			<h6 class="modal-title text-capitalize">Review {{$user->first_name}}</h6>
+			<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 		</div>
-  
+	
+		<form action="/post-review" method="POST">
+			@csrf
 		<!-- Modal body -->
 		<div class="modal-body">
-			<div class="chat_container msg-container">
-				<div class="wrap1 unique d-none">
-					<div class="">
-						<p class='mb-0 msgIcon mx-3'><img width="30px" height="30px" src='{{$user->avatar ?? "/img/icon.png"}}' alt=""/></p>
-						<div class="msgBodys mt-0">
-							<p class='mb-0 p-2'>Hi {{$user->first_name}}, What question do you have today ?</p>
-						</div>
-					</div>
-				</div>
-		
-				<div class="wrap2 unique mt -2 d-none">
-					<p class='mb-0 msgIcon mx-3 text-end mb-0'>
-					<img src='{{$loginUser->avatar ?? "/img/icon.png"}}' alt="" class='sender_img' />
-					</p>
-					<div class="sentMsg mt-0">
-						<div class="myMsg">
-							<p class="mb-0 p-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. In sapiente impedit eveniet harum ea, rerum amet eaque! Iure, alias! Laboriosam perspiciatis porro non suscipit iusto provident voluptatibus quidem excepturi optio.</p>
-						</div>
-					</div>
-				</div>		
+			<input type="hidden" name="id" value="{{$user->id}}">
+			<input type="hidden" name="rating" class="_rate_">
+			<label for="">Username</label>
+			<input name="username" required class="px-3 mb-3" style="width: 90%" type="text" placeholder="Enter your username">
+
+			<label for="">Title</label>
+			<input name="title" required class="px-3 mb-3" style="width: 90%" type="text" placeholder="Enter review title">
+
+			<label for="">Comment</label>
+			<Textarea name="comment" required class="p-3 mb-3" style="border:1px solid rgb(222, 222, 222); resize:none; height:150px; width: 97%" placeholder="write comment...."></Textarea>
+			
+			<div class="d-flex mt-1 mb-3">
+				<i class="fa-solid rev_ fa-star mx-3"></i>
+				<i class="fa-solid rev_ fa-star mx-3"></i>
+				<i class="fa-solid rev_ fa-star mx-3"></i>
+				<i class="fa-solid rev_ fa-star mx-3"></i>
+				<i class="fa-solid rev_ fa-star mx-3"></i>
 			</div>
 		</div>
-  
+	
 		<!-- Modal footer -->
-		<div class="modal-foote">
-			<div class="send d-flex">
-				<textarea class="message" name="" placeholder="Type message......" id=""></textarea>
-				<button onclick="sendMsg()" class="px-2">Send Message</button>
-			</div>
+		<div class="modal-foote px-3 mb-5">
+			<button class="btn-primary btn bg-primary">Save</button>
+			<button data-bs-dismiss="modal" class="btn-danger mx-2 btn bg-danger">Close</button>
 		</div>
-  
-	  </div>
+		</form>
+	
+		</div>
 	</div>
-  </div>
+</div>
 
+<div class="modal fade" id="myReview">
+	<div class="modal-dialog modal-dialog-centered modal-l">
+		<div class="modal-content p-0">
+	
+		<!-- Modal Header -->
+		<div class="modal-header">
+			<h6 class="modal-title text-capitalize">My Reviews</h6>
+			<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		</div>
+	
+		<!-- Modal body -->
+		<div class="modal-body" style="height: 400px; overflow:scroll">
+			@foreach ($review as $item)
+			<div style="border: 1px solid rgb(218, 218, 218)" class="p-2 mb-3">
+				<p class="mb-0 text-capitalize fw-semibold">{{$item->username}}</p>
+				<p class="mb-1 text-capitalize">{{$item->title}}</p>
+				<p style="color: rgb(88, 88, 88); font-size:14px" class="mb-0 ">{{$item->comment}}</p>
+				@if ($item->rating == 0)		
+				<div class="d-flex mt-1 mb-2 mt-2">			
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+				</div>
+				@elseif($item->rating == 1)	
+				<div class="d-flex mt-1 mb-2 mt-2">
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+				</div>	
+				@elseif($item->rating == 2)	
+				<div class="d-flex mt-1 mb-2 mt-2">
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+				</div>	
+				@elseif($item->rating == 3)	
+				<div class="d-flex mt-1 mb-2 mt-2">
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid  text-warning fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>	
+				</div>
+				@elseif($item->rating == 4)	
+				<div class="d-flex mt-1 mb-2 mt-2">
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid  text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid fa-star mx-1"></i>	
+				</div>	
+				@elseif($item->rating == 5)	
+				<div class="d-flex mt-1 mb-2 mt-2">
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid  text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>
+					<i class="fa-solid text-warning fa-star mx-1"></i>	
+				</div>				
+				@endif
+			</div>
+			@endforeach
+			@if (count($review) == 0)
+				<div class="text-center mt-5">
+					<h5 class="fw-bold">Empty!</h5>
+					<p>There are no reviews available at the moment.</p>
+				</div>
+			@endif
+		</div>
+	
+		<!-- Modal footer -->
+		<div class="modal-foote px-3 mb-3 mt-2">
+			<button data-bs-dismiss="modal" class="btn-danger btn bg-danger">Close</button>
+		</div>
+	
+		</div>
+	</div>
+</div>
+	
 
+<div class="modal fade" id="myModal">
+<div class="modal-dialog modal-dialog-centered modal-l">
+	<div class="modal-content p-0">
+
+	<!-- Modal Header -->
+	<div class="modal-header">
+		<h6 class="modal-title text-capitalize">Schedule date with {{$user->first_name}}</h6>
+		<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+	</div>
+
+	<!-- Modal body -->
+	<div class="modal-body">
+		<input type="text" id="dates" placeholder="Pick date" class="px-2 mb-4" style="width: 94% !important">
+		<input value="09:00" id="time_" type="time" placeholder="Pick time" class="px-2" style="width: 94% !important">
+		<button onclick="schedule_call()" class="btn btn-danger mt-2 mb-3">Schedule</button>
+		<p style="font-size: 10px">{{$user->first_name}} will recieve a notification about the date and time.</p>
+	</div>
+
+	<!-- Modal footer -->
+	<div class="modal-foote">
+	</div>
+
+	</div>
+</div>
+</div>
+
+<div class="modal fade" id="rating">
+	<div class="modal-dialog modal-dialog-centered modal-l">
+		<div class="modal-content p-0">
+	
+		<!-- Modal Header -->
+		<div class="modal-header">
+			<h6 class="modal-title text-capitalize">Ratings</h6>
+			<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		</div>
+	
+		<!-- Modal body -->
+		<div class="modal-body" style="height: 400px; overflow:scroll">
+			@foreach ($ratings as $item)
+				<div class="card p-3">
+					<h6 class="text-capitalize fw-bold">{{$item->raterUsername}}</h6>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Communication</p>
+						<p class="">
+							@for ($i = 0; $i < $item->Communication; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor
+						</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Honesty</p>
+						<p class="">
+							@for ($i = 0; $i < $item->Honesty; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Respect</p>
+						<p class="">
+							 @for ($i = 0; $i < $item->Respect; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Reliability</p>
+						<p class="">
+							@for ($i = 0; $i < $item->Reliability; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Compatibility</p>
+						<p class="">
+							@for ($i = 0; $i < $item->Compatibility; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Overall Experience</p>
+						<p class="">
+							@for ($i = 0; $i < $item->Experience; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Safety</p>
+						<p class="">
+							@for ($i = 0; $i < $item->Safety; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Authenticity</p>
+						<p class="">
+							 @for ($i = 0; $i < $item->Authenticity; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Effort</p>
+						<p class="">@for ($i = 0; $i < $item->Effort; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+					<div class="d-flex justify-content-between pt-2" style="border-bottom: 1px solid rgb(223, 223, 223)">
+						<p class="">Recommendation</p>
+						<p class="">@for ($i = 0; $i < $item->Recommendation; $i++)
+							<i class="fa-solid text-warning fa-star"></i>
+							@endfor</p>
+					</div>
+				</div>			
+			@endforeach
+			@if (count($ratings) == 0)
+				<div class="text-center mt-5">
+					<h5 class="fw-bold">Empty!</h5>
+					<p>There are no ratings available at the moment.</p>
+				</div>
+			@endif
+		</div>
+	
+		<!-- Modal footer -->
+		<div class="modal-foote px-3 mb-3 mt-2">
+			<button data-bs-dismiss="modal" class="btn-danger btn bg-danger">Close</button>
+		</div>
+	
+		</div>
+	</div>
+</div>
+  
+
+@if (session("msg"))
+	{{-- <script>
+		setTimeout(() => {
+			alert("Review Submitted Successfully")
+		}, 1500);
+	</script> --}}
+@endif
 
 
 <x-footer></x-footer>
+<style>
+    .bring{
+        display: none !important;
+    }
+</style>
+</div>
 
 @push("javascript")
 
 <script>
+	var rev_ = document.querySelectorAll(".rev_")
+	var _rate_ = document.querySelector("._rate_")
+	let totalRate;
 
+	rev_.forEach((star, index1) => {
+		star.addEventListener("click", () => {
+			rev_.forEach((star, index2) => {
+				index1 >= index2 ? star.classList.add("text-warning") : star.classList.remove("text-warning");
+				totalRate = index1 + 1
+				_rate_.value = totalRate
+			});
+		});
+	});
+
+
+	function schedule_call(){
+		Swal.fire({
+            title: "Do you want to schedule video call?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "schedule",
+            denyButtonText: `Don't schedule`
+            }).then((result) => {
+            if (result.isConfirmed) {
+				storeSchedule()
+				Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title:`Date Scheduled Successfully`,
+				showConfirmButton: false,
+				timer: 1500
+				});
+				var date = document.getElementById("dates")
+				date.value = ''
+			}
+        });
+	}
+
+	function storeSchedule() {
+		var date = document.getElementById("dates")
+		var time_ = document.getElementById("time_")
+		axios.post("/schedule-date", {
+			endUsername: curr_user_.innerHTML,
+			username: curr_from_user_.innerHTML,
+			date: date.value + " / " + time_.value
+		})
+		.then(res => {
+			console.log(res)
+		})
+		.catch(error => {
+			console.log(error)
+		})
+	}
+
+	var _curr_user_ = document.getElementById("curr_user_").innerHTML
+	function start_call(){
+		Swal.fire({
+            title: "Do you want to start video call?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Start",
+            denyButtonText: `Don't Start`
+            }).then((result) => {
+            if (result.isConfirmed) {
+                joinStream(_curr_user_, null, null, null, null, null, null, true)
+				Swal.fire({
+				title: "Starting Video Call!",
+				html: "Please wait...",
+				timer: 10000,
+				timerProgressBar: true,
+				didOpen: () => {
+					Swal.showLoading();
+					const timer = Swal.getPopup().querySelector("b");
+					timerInterval = setInterval(() => {
+					}, 1000);
+				},
+				willClose: () => {
+					clearInterval(timerInterval);
+				}
+				}).then((result) => {
+					dateLive()
+				/* Read more about handling dismissals below */
+				if (result.dismiss === Swal.DismissReason.timer) {
+				}
+			});
+            }
+        });
+	}
+
+	function dateLive(endUsername, username) {
+		var curr_user_ = document.getElementById("curr_user_");
+		var curr_from_user_ = document.getElementById("curr_from_user_");
+		axios.post("/date-live", {
+			endUsername: curr_user_.innerHTML,
+			username: curr_from_user_.innerHTML,
+		})
+		.then(res => {
+			console.log(res)
+		})
+		.catch(error => {
+			console.log(error)
+		})
+	}
+
+	flatpickr("#dates", {
+        dateFormat: "d D M, Y",
+    });
+
+
+	// Enable pusher logging - don't include this in production
+	Pusher.logToConsole = true;
+	var pusher = new Pusher('61cbedc7014185332c2d', {
+	cluster: 'mt1'
+	});
+
+	var _sender;
+	var channel = pusher.subscribe('chat');
+	var curr_user_ = document.getElementById("curr_user_");
+	var curr_from_user_ = document.getElementById("curr_from_user_");
+	channel.bind('chatevent', function(data) {
+		setTimeout(() => {
+		if(curr_from_user_.innerHTML != _sender){
+			const Toast = Swal.mixin({
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.onmouseenter = Swal.stopTimer;
+				toast.onmouseleave = Swal.resumeTimer;
+			}
+			});
+			Toast.fire({
+			icon: "info",
+			title: "You have a new message"
+			});
+
+			$(".msg-container").append(`
+			<div class="wrap1 unique">
+			<div class="">
+				<p class='mb-0 mx-3'><i class="fa-brands fa-bots"></i></p>
+				<div class="msgBodys mt-0">
+					<div style="word-wrap:break-word !important; overflow-wrap: break-word !important; white-space:pre-wrap !important" class='mb-0 p-2 aiText'>${data.message}</div>
+				</div>
+			</div>
+			</div>`)
+			}
+			
+		}, 1000);
+		_sender = ""
+	});	
+
+	function pusherM(message, sender){
+		axios.post("/conversation", {
+			message: message,
+			sender: sender,
+		}).then(res => {
+			console.log(res)			
+			_sender = res.data
+		})
+	}
+
+
+	var curr_ID = document.getElementById("curr_ID");
+	var curr_user_ = document.getElementById("curr_user_");
+	function saveMsg(message){
+		axios.post("/save-message", {
+			message: message,
+			reciever: curr_ID.innerHTML,
+			username: curr_user_.innerHTML,
+			from_username: curr_from_user_.innerHTML
+		})
+		.then(res => {
+			console.log(res)
+		}).catch(err => {
+			console.log(err)
+		})
+	}
+
+	function getMsg(){
+		axios.post("/get-message", {
+			message: message,
+		})
+		.then(res => {
+			console.log(res)
+		}).catch(err => {
+			console.log(err)
+		})
+	}
+
+	
 	var message = document.querySelector(".message")
     var sender_img = document.querySelector(".sender_img")
 	const Disrepectwords = ["money", "fuck", "shit", "bitch", "asshole", "kill", "stab"];
 
 
-	const sendMsg = () => {
+	const sendMsg = (sender) => {
         if(message.value != ""){
 			const word = message.value
 			const _words = word.toLowerCase()
@@ -622,6 +1194,8 @@ Find Matches | Admyrer
             </div>
           </div>`)
           $(".modal-body").scrollTop($(".modal-body").height()*100);
+		  pusherM(message.value, sender)
+		  saveMsg(message.value)
           message.value = ""
         }else{
             alert("Please type a message")
@@ -652,9 +1226,139 @@ Find Matches | Admyrer
 		axios.post("/post-follows", {
 			followsID: curr_ID.innerHTML,
 		})
-		.then(res => console.log(res))
+		.then(res => {
+			console.log(res)
+			if(res.data == 1){
+				Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title:`You follow this user`,
+				showConfirmButton: false,
+				timer: 1500
+				});
+				return
+			}
+			Swal.fire({
+			position: "top-end",
+			icon: "error",
+			title:`You've already follow this user`,
+			showConfirmButton: false,
+			timer: 1500
+			});
+		})
 		.catch(error => console.log(error))
 	}
+
+	document.getElementById('avatar_selection').addEventListener('change', handleAvatarChange);
+
+	let selectedavatar;
+
+	function handleAvatarChange(event) {
+		selectedavatar = event.target.files[0];
+		upload_avatar()
+	}
+
+	function upload_avatar(){
+		Swal.fire({
+			title: "Uploading image/video!",
+			html: "Please wait...",
+			timer: 38000,
+			timerProgressBar: true,
+			didOpen: () => {
+				Swal.showLoading();
+				const timer = Swal.getPopup().querySelector("b");
+				timerInterval = setInterval(() => {
+				}, 100);
+			},
+			willClose: () => {
+				clearInterval(timerInterval);
+			}
+		})
+		let formData = new FormData();
+		formData.append('image', selectedavatar);
+		try {
+		axios.post('/avatars', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			}
+		})
+		.then(res => {
+			console.log(res)
+			location.reload()
+		})
+		.catch(err => console.log(err))
+
+		} catch (error) {
+			console.log('Error uploading image:', error);
+		}
+	}
+
+	
+	document.getElementById('admin_profileavatar_img').addEventListener('change', handleImageChange);
+
+	let selectedImage;
+
+	function handleImageChange(event) {
+		selectedImage = event.target.files[0];
+	}
+
+	async function uploadImage() {
+	let formData = new FormData();
+	formData.append('image', selectedImage);
+	let timerInterval;
+	Swal.fire({
+	title: "Uploading profile image!",
+	html: "Please wait...",
+	timer: 2000,
+	timerProgressBar: true,
+	didOpen: () => {
+		Swal.showLoading();
+		const timer = Swal.getPopup().querySelector("b");
+		timerInterval = setInterval(() => {
+		timer.textContent = `${Swal.getTimerLeft()}`;
+		}, 100);
+	},
+	willClose: () => {
+		clearInterval(timerInterval);
+	}
+	}).then((result) => {
+	/* Read more about handling dismissals below */
+	if (result.dismiss === Swal.DismissReason.timer) {
+		Swal.fire({
+		icon: "success",
+		title: "Uploaded",
+		text:`Profile image was uploaded successfully`,
+		footer: '<a href="/find-matches">Find matching date</a>'
+	});
+	}
+	});
+
+	try {
+		axios.post('/update-user', formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			}
+		})
+		.then(res => {
+			console.log(res)
+		})
+		.catch(err => console.log(err))
+
+	} catch (error) {
+		console.log('Error uploading image:', error);
+	}
+	}
+
+	function previewImage(event) {
+      var reader = new FileReader();
+      reader.onload = function() {
+		var image = document.getElementById('imagePreview')
+         image.src = reader.result; 
+      }
+      reader.readAsDataURL(event.target.files[0]);
+	  uploadImage()
+   	}
+  document.getElementById('admin_profileavatar_img').addEventListener('change', previewImage);
 </script>
 	
 @endpush

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserApiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +20,68 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/',function(){
+    return response()->json("Welcome to admyrer api setup");
+});
+
+Route::post('/login', [UserApiController::class, 'loginUser']);
+
+Route::post('/register', [UserApiController::class, 'registerUser']);
+
+Route::post('/county-user', [UserApiController::class, 'countryUser']);
+
+Route::post('/buildPage', [UserApiController::class, 'buildPage']);
+
+Route::get('/all-user', [UserApiController::class, 'getAllUser']);
+
+Route::get('/random-user', [UserApiController::class, 'getAllUser']);
+
+Route::post('/single-user', [UserApiController::class, 'getUser']);
+
+Route::post('/get-visit', [UserApiController::class, 'get_visits']);
+
+Route::post('/get-follows', [UserApiController::class, 'get_follows']);
+
+Route::post('/get-likes', [UserApiController::class, 'getAllLikes']);
+
+Route::post('/my-likes', [UserApiController::class, 'getPersonalLikes']);
+
+Route::post('/get-dislikes', [UserApiController::class, 'getAllDisLikes']);
+
+Route::post('/chat-ai', [UserApiController::class, 'chatGemini']);
+
+Route::post('/get-message', [UserApiController::class, 'getMessage']);
+
+Route::post('/save-message', [UserApiController::class, 'saveMessage']);
+
+Route::post('/search', [UserApiController::class, 'searchUser']);
+
+Route::post('/token', [UserApiController::class, 'getToken']);
+
+Route::post('/get-recent', [UserApiController::class, 'getRecentMessage']);
+
+Route::post('/get-polls', [UserApiController::class, 'getPolls']);
+
+Route::post('/generate', [UserApiController::class, 'generateToken']);
+
+Route::post('/live', [UserApiController::class, 'createLive']);
+
+Route::get('/live', [UserApiController::class, 'getLives']);
+
+Route::post('/club', [UserApiController::class, 'createClub']);
+
+Route::get('/club', [UserApiController::class, 'getClub']);
+
+Route::post('/delete-club', [UserApiController::class, 'deleteClub']);
+
+Route::post('/delete-live', [UserApiController::class, 'deleteLive']);
+
+Route::post('/verify', [UserApiController::class, 'verifyCode']);
+
+Route::post('/notify', [UserApiController::class, 'Noties']);
+
+Route::post('/create-review', [UserApiController::class, 'postreview']);
+
+Route::post('/get-reviews', [UserApiController::class, 'getreview']);

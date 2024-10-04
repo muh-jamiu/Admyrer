@@ -102,7 +102,7 @@ Email Settings | Admyrer
                         </div>
 
                         <p class="help-block" style="color:red;">Please save the form before testing the server.</p>
-                        <input type="hidden" name="hash_id" value="143df602a55fa43b4454d778d1fe8555f9d162d0">
+                        <input type="hidden" name="hash_id" value="">
                         <button type="button" class="btn btn-warning m-t-15 waves-effect" onclick="Wo_TestMessage();">Test E-mail Server</button>
                     </form>
                 </div>
@@ -141,7 +141,7 @@ Email Settings | Admyrer
                         </div>
 						<div class="alert alert-info">After clicking "Test SMS Server", a test message will be sent to your phone</div>
                         <p class="help-block" style="color:red;">Please save the form before testing the server.</p>
-                        <input type="hidden" name="hash_id" value="143df602a55fa43b4454d778d1fe8555f9d162d0">
+                        <input type="hidden" name="hash_id" value="">
                         <button type="button" class="btn btn-warning m-t-15 waves-effect" onclick="Wo_TestMessageBirdMessage();">Test SMS Server</button>
                     </form>
                 </div>
@@ -188,7 +188,7 @@ Email Settings | Admyrer
                       
                         <div class="alert alert-info">After clicking "Test SMS Server", a test message will be sent to your phone</div>
                         <p class="help-block" style="color:red;">Please save the form before testing the server.</p>
-                        <input type="hidden" name="hash_id" value="143df602a55fa43b4454d778d1fe8555f9d162d0">
+                        <input type="hidden" name="hash_id" value="">
                         <button type="button" class="btn btn-warning m-t-15 waves-effect" onclick="Wo_TestInfobipMessage();">Test SMS Server</button>
                     </form>
                 </div>
@@ -219,13 +219,13 @@ Email Settings | Admyrer
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">Twilio account_sid</label>
-                                <input type="text" id="sms_twilio_username" name="sms_twilio_username" class="form-control" value="ACf67f6a6b76e22ace72699dbdc36e1783">
+                                <input type="text" id="sms_twilio_username" name="sms_twilio_username" class="form-control" value="">
                             </div>
                         </div>
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">Twilio auth_token</label>
-                                <input type="text" id="sms_twilio_password" name="sms_twilio_password" class="form-control" value="0734c0c6ab41aa3b7a630e264d55b0bb">
+                                <input type="text" id="sms_twilio_password" name="sms_twilio_password" class="form-control" value="">
                             </div>
                         </div>
                         <div class="form-group form-float">
@@ -243,7 +243,7 @@ Email Settings | Admyrer
                       
                         <div class="alert alert-info">After clicking "Test SMS Server", a test message will be sent to your phone</div>
                         <p class="help-block" style="color:red;">Please save the form before testing the server.</p>
-                        <input type="hidden" name="hash_id" value="143df602a55fa43b4454d778d1fe8555f9d162d0">
+                        <input type="hidden" name="hash_id" value="">
                         <button type="button" class="btn btn-warning m-t-15 waves-effect" onclick="Wo_TestSMSMessage();">Test SMS Server</button>
                     </form>
                 </div>
@@ -289,7 +289,7 @@ Email Settings | Admyrer
                         </div>
 						<div class="alert alert-info">After clicking "Test SMS Server", a test message will be sent to your phone</div>
                         <p class="help-block" style="color:red;">Please save the form before testing the server.</p>
-                        <input type="hidden" name="hash_id" value="143df602a55fa43b4454d778d1fe8555f9d162d0">
+                        <input type="hidden" name="hash_id" value="">
                         <button type="button" class="btn btn-warning m-t-15 waves-effect" onclick="Wo_TestBulkSMSMessage();">Test SMS Server</button>
                     </form>
                 </div>
@@ -335,7 +335,7 @@ Email Settings | Admyrer
 						
 						<div class="alert alert-info">After clicking "Test SMS Server", a test message will be sent to your phone</div>
                         <p class="help-block" style="color:red;">Please save the form before testing the server.</p>
-                        <input type="hidden" name="hash_id" value="143df602a55fa43b4454d778d1fe8555f9d162d0">
+                        <input type="hidden" name="hash_id" value="">
                         <button type="button" class="btn btn-warning m-t-15 waves-effect" onclick="Wo_TestMsg91Message();">Test SMS Server</button>
                     </form>
                 </div>

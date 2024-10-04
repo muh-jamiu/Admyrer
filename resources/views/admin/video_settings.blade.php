@@ -135,22 +135,22 @@ Video Settings | Admyrer
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">Live accountSid</label>
-                                <input type="text" id="video_accountSid" name="video_accountSid" class="form-control" value="AC99599ad25a8391cc467a8666455b6bad">
+                                <input type="text" id="video_accountSid" name="video_accountSid" class="form-control" value="">
                             </div>
                         </div>
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">apiKeySid</label>
-                                <input type="text" id="video_apiKeySid" name="video_apiKeySid" class="form-control" value="SK52fad99d704fb820322edb2c8227b503">
+                                <input type="text" id="video_apiKeySid" name="video_apiKeySid" class="form-control" value="">
                             </div>
                         </div>
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">apiKeySecret</label>
-                                <input type="password" id="video_apiKeySecret" name="video_apiKeySecret" class="form-control" value="fZZrGLRGM2eNArMjeyqx9h8fVwkrwDaZ">
+                                <input type="password" id="video_apiKeySecret" name="video_apiKeySecret" class="form-control" value="">
                             </div>
                         </div>
-                        <input type="hidden" name="hash_id" value="143df602a55fa43b4454d778d1fe8555f9d162d0">
+                        <input type="hidden" name="hash_id" value="">
                     </form>
                 </div>
             </div>
@@ -197,7 +197,7 @@ Video Settings | Admyrer
                             </select>
                             <small class="admin-info">Who can make video and audio calls?</small>
                         </div>
-                        <input type="hidden" name="hash_id" value="143df602a55fa43b4454d778d1fe8555f9d162d0">
+                        <input type="hidden" name="hash_id" value="">
                     </form>
                 </div>
             </div>
@@ -226,28 +226,28 @@ Video Settings | Admyrer
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">App ID</label>
-                                <input type="text" id="agora_chat_app_id" name="agora_chat_app_id" class="form-control" value="e0a8d952a4d54ebc8b646a66d8c0466c">
+                                <input type="text" id="agora_chat_app_id" name="agora_chat_app_id" class="form-control" value="">
                             </div>
                         </div>
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">App Certificate</label>
-                                <input type="text" id="agora_chat_app_certificate" name="agora_chat_app_certificate" class="form-control" value="d2696e78fa60409c933be5ae2331087f">
+                                <input type="text" id="agora_chat_app_certificate" name="agora_chat_app_certificate" class="form-control" value="">
                             </div>
                         </div>
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">Customer ID</label>
-                                <input type="text" id="agora_chat_customer_id" name="agora_chat_customer_id" class="form-control" value="b2eab052ab14485896d4a5692ceefdfb">
+                                <input type="text" id="agora_chat_customer_id" name="agora_chat_customer_id" class="form-control" value="">
                             </div>
                         </div>
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">Customer Secret</label>
-                                <input type="text" id="agora_chat_customer_secret" name="agora_chat_customer_secret" class="form-control" value="8278eb5745c040ce9ec8874b4b4bfe83">
+                                <input type="text" id="agora_chat_customer_secret" name="agora_chat_customer_secret" class="form-control" value="">
                             </div>
                         </div>
-                        <input type="hidden" name="hash_id" value="143df602a55fa43b4454d778d1fe8555f9d162d0">
+                        <input type="hidden" name="hash_id" value="">
                     </form>
                 </div>
             </div>

@@ -12,7 +12,7 @@ class OpenAIService
     public function __construct()
     {
         $this->client = new Client();
-        $this->apiKey = env('OPENAI_API_KEY') ?? "sk-proj-EDVHe3lQEmZjROcHRACVT3BlbkFJewfFvBccAYZP4LihY7xs";
+        $this->apiKey = env('OPENAI_API_KEY');
     }
 
     public function generateChatResponse($messages)

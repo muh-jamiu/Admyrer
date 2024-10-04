@@ -1,12 +1,17 @@
 @extends("layouts.app")
 
+@php
+	$user = $data["user"] ?? [];
+	$random_user = $data["randomUser"] ?? [];
+@endphp
+
 @section('title')
 Find Matches | Admyrer 
 @endsection
 
 @section("content")
 
-<x-main-nav></x-main-nav>
+<x-main-nav :user="$user"></x-main-nav>
 
 <ul class="collapsible dt_new_home_filter" id="home_filters">
 	<div class="container">
@@ -239,7 +244,8 @@ Find Matches | Admyrer
 	<div class="row r_margin">
 
         {{-- sidiebar --}}
-        <x-dashboard-sidebar :findActive="true"></x-dashboard-sidebar>		
+        <x-dashboard-sidebar :findActive="true" :user="$user"></x-dashboard-sidebar>	
+		<p class="d-none curr_ID">{{$user->id}}</p>	
 
 		<div class="col-sm-9">
 			<!-- Filters  -->
@@ -251,9 +257,23 @@ Find Matches | Admyrer
 					</div>
 				</div>
 			</div>
-			<!-- End Filters  -->
+			
+			@if (count($random_user) > 0)
+				<x-user-slider :user="$user" :randomuser="$random_user"></x-user-slider>
+				<!-- End Filters  -->
 
-            <x-dashboard-empty></x-dashboard-empty>        
+				<hr class="dt_home_rand_user_hr">
+				<div class="dt_ltst_users" id="dt_ltst_users">
+					<div class="dt_home_rand_user">
+						<h6 class="mb-3"><?php echo __( 'Other users & profiles' );?></h6>
+						<x-random-user :randomuser="$random_user"></x-random-user>
+					</div>
+				</div>			
+			@endif      
+
+			@if (count($random_user) == 0)
+            	<x-dashboard-empty></x-dashboard-empty> 				
+			@endif       
           
         
             <!-- Match Users  -->
@@ -277,6 +297,76 @@ Find Matches | Admyrer
 
 @push("javascript")
 <script>
+	var usr_thumb = document.querySelectorAll(".usr_thumb");
+	var h_relationship = document.querySelectorAll(".h_relationship");
+	var h_name = document.querySelectorAll(".h_name");
+	var h_age = document.querySelectorAll(".h_age");
+	var h_body = document.querySelectorAll(".h_body");
+	var h_loc = document.querySelectorAll(".h_loc");
+	var h_lang = document.querySelectorAll(".h_lang");
+	var h_height = document.querySelectorAll(".h_height");
+	var h_username = document.querySelectorAll(".h_username");
+	var h_img = document.querySelectorAll(".h_img");
+	var h_Id = document.querySelectorAll(".h_Id");
+
+	var s_relationship = document.querySelector(".s_relationship");
+	var s_name = document.querySelector(".s_name");
+	var s_age = document.querySelector(".s_age");
+	var s_body = document.querySelector(".s_body");
+	var s_loc = document.querySelector(".s_loc");
+	var s_lang = document.querySelector(".s_lang");
+	var s_height = document.querySelector(".s_height");
+	var s_username = document.querySelector(".s_username");
+	var s_img = document.querySelector(".s_img");
+	var s_link = document.querySelector(".s_link");
+	var curr_ID = document.querySelector(".curr_ID");
+	var index = 0
+	usr_thumb[index].classList.add("isActive")
+
+	function like(){
+		usr_thumb[index].classList.add("d-none");
+		usr_thumb[index + 1].classList.add("isActive")
+		index += 1
+		s_name.innerHTML = h_name[index].innerHTML
+		s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
+		s_body.innerHTML = h_body[index].innerHTML
+		s_loc.innerHTML = h_loc[index].innerHTML
+		s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
+		s_height.innerHTML = h_height[index].innerHTML
+		s_img.src = h_img[index].src
+		s_link.href = "/@" + h_username[index].innerHTML
+		s_relationship.innerHTML = h_relationship[index].innerHTML
+
+		axios.post("/like", {
+			userId: curr_ID.innerHTML,
+			like_id: h_Id[index - 1].innerHTML,
+		})
+		.then(res => console.log(res))
+		.catch(error => console.log(error))
+	}
+
+	function dislike(){
+		usr_thumb[index].classList.add("d-none");
+		usr_thumb[index + 1].classList.add("isActive")
+		index += 1
+		s_name.innerHTML = h_name[index].innerHTML
+		s_age.innerHTML = h_age[index].innerHTML == "" ? 0 : h_age[index].innerHTML
+		s_body.innerHTML = h_body[index].innerHTML
+		s_loc.innerHTML = h_loc[index].innerHTML
+		s_lang.innerHTML = h_lang[index].innerHTML == "" ? "English" : h_lang[index].innerHTML
+		s_height.innerHTML = h_height[index].innerHTML
+		s_img.src = h_img[index].src
+		s_relationship.innerHTML = h_relationship[index].innerHTML
+		s_link.href = "/@" + h_username[index].innerHTML
+
+		axios.post("/disliked", {
+			userId: curr_ID.innerHTML,
+			like_id: h_Id[index - 1].innerHTML,
+		})
+		.then(res => console.log(res))
+		.catch(error => console.log(error))
+	}
+
     $(document).ready(function(){
         $('#my_country').on('change',() => {
             $('.located_at').html(`&nbsp;&nbsp;<?php echo __('located_at');?> <span id="located">${$("#my_country option:selected" ).text()}</span>`);
@@ -318,6 +408,7 @@ Find Matches | Admyrer
             e.preventDefault();
         });
     });
+	
     function resetSearchData() {
         $.get(window.ajax + 'profile/resetSearch', function (data) {
             if (data.status == 200) {

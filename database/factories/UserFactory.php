@@ -2,37 +2,59 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * The name of the factory's corresponding model.
      *
-     * @return array<string, mixed>
+     * @var string
      */
-    public function definition(): array
-    {
-        return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
-        ];
-    }
+    protected $model = User::class;
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Define the model's default state.
+     *
+     * @return array
      */
-    public function unverified(): static
+    public function definition()
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        $gender = $this->faker->randomElement(['male', 'female']);
+        $relationship = $this->faker->randomElement(['single', 'married', 'divorced', 'complicated']);
+        $education = $this->faker->randomElement(['high school', 'college', 'university']);
+        $body = $this->faker->randomElement(['slim', 'athletic', 'average', 'curvy']);
+        $ethnicity = $this->faker->randomElement(['caucasian', 'african', 'asian', 'hispanic']);
+        $car = $this->faker->randomElement(['mercedez_benz', 'toyota', 'ferrari']);
+        $work_status = $this->faker->randomElement(['employed', 'unemploy','self_unemployed']);
+
+        return [
+            'username' => $this->faker->unique()->userName,
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => bcrypt('password'),
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'avatar' => $this->faker->imageUrl(),
+            'address' => $this->faker->address,
+            'location' => $this->faker->address,
+            'location' => $this->faker->address,
+            'gender' => $gender,
+            'work_status' => $work_status,
+            'car' => $car,
+            'ip_address' => $this->faker->ipv4,
+            'phone_number' => $this->faker->phoneNumber,
+            'birthday' => $this->faker->date(),
+            'height' => $this->faker->numberBetween(110, 280),
+            'hair_color' => $this->faker->safeColorName,
+            'country' => $this->faker->country,
+            'state' => $this->faker->state,
+            'city' => $this->faker->city,
+            'relationship' => $relationship,
+            'education' => $education,
+            'body' => $body,
+            'ethnicity' => $ethnicity,
+        ];
     }
 }

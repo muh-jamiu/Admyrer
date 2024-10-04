@@ -11,6 +11,8 @@
     <meta itemprop="name" content="{{config('siteConfig.sitewide')['SITENAME']}}" />
     <meta itemprop="url" content="https://{{config('siteConfig.sitewide')['SITE_DOMAIN']}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4d349a1f95.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
